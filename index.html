@@ -160,7 +160,7 @@ var win6 = new MW('chat','chatbox',2,42,35,50,'#00CC00','#002200',{'type':'custo
 
 var mousewheelevt=(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel" 
 				
-var socket  = new WebSocket('ws://192.168.43.128:8081');
+var socket  = new WebSocket('ws://localhost:8081');
 var chatTab = document.getElementById("chatTab");
 chatTab.innerHTML = "";
 
