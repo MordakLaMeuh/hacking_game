@@ -9,9 +9,9 @@ var math = require('math');
 /*
  * Création et ouverture du socket server
  */
-var ws = new WebSocketServer({port: port});                
+var ws = new WebSocketServer({port: port});
 /*
- * Librairie indiquant l'IP sur lequel tourne le serveur 
+ * Librairie indiquant l'IP sur lequel tourne le serveur
  */
 var ip = require('ip');
 
@@ -50,7 +50,7 @@ var send = function(socket, msg, status)
 }
 
 /*
- * Event lorsqu'un client se connecte. mode TCP. SYN ---> SYN ACK -----> ACK 
+ * Event lorsqu'un client se connecte. mode TCP. SYN ---> SYN ACK -----> ACK
 */
 ws.on('connection', function (client, req)
 {
@@ -62,21 +62,21 @@ ws.on('connection', function (client, req)
     */
     client.on("message", function (str) {
         console.log(str);
-        
+
         if (newClient == true)
         {
             console.log('new client msg received -> ' + str);
             var msg = "► " + str + " vient de se connecter\n";
             pushHistory(msg);
-            
+
             for (var j = 0; j < clientSocket.length; j++)
                 send(clientSocket[j], msg, "send connected status to " + clientUserList[j]);
-            
+
             send(client, history.join("") + "\
-► Bienvenu " + str + "\n\
+► Bienvenue " + str + "\n\
 " + ((clientSocket.length == 0) ? "► Vous êtes le seul en ligne":"► " + ((clientSocket.length == 1) ? "Est" : "Sont" ) + " actuellement en ligne: " + clientUserList.join()) + "\n\
-► Tapez /status pour voir les personnages connectés ou /cat, /rabbit, /roll ou encore /elephant !\n", "welcome msg for " + str + " at " + req.connection.remoteAddress);
-            
+► Tapez help pour obtenir de l'aide.\n", "welcome msg for " + str + " at " + req.connection.remoteAddress);
+
             clientSocket.push(client);
             clientUserList.push(str);
             newClient = false;
@@ -85,15 +85,15 @@ ws.on('connection', function (client, req)
         {
             switch (str)
             {
-                case "/rabbit":
-                    str = "\n           /\\ /|\n          |||| |\n           \\ | \\\n       _ _ /  @ @\n     /    \\   =>X<=\n   /|      |   /\n   \\|     /__| |\n     \\_____\\ \\__\\\n";
-                    break;
-                case "/cat":
-                    str = "\n   .-,        <,`-.__.-'>        \n  / |          )       (         \n  | ;         /_   ^4^  \\_       \n  \\  \\.-~~-.__\\=_  -'- _/=)    \n   \\             `---;`          \n   /     |           |__         \n  /   /    ,    |   /  `~.__      \n  |    .'~..__|    /.' `'~,_)    \n  T  (`  | (  ;   |              \n   \\  \\   '._)  \\  \\_         \n    '._)         ',__)             \n";                
-                    break;
-                case "/elephant":
-                    str = "\n          __     __\n         /  \\~~~/  \\\n   ,----(     ..    )\n  /      \\__     __/\n /|         (\\ |(\n^ \\   /___\\  /\\|\n   |__|   |__|-\"\n";
-                    break;
+              case "ls":
+                  str = "ls\nmission.txt - 1ko";
+                  break;
+              case "help":
+                  str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
+                  break;
+              case "cat mission.txt":
+                  str = "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.";
+                  break;
                 case "/status":
                     send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
                     return;
@@ -112,18 +112,18 @@ ws.on('connection', function (client, req)
                 case "":
                     return;
             }
-            
+
             for (var i = 0; i < clientSocket.length; i++)
             {
                 if (client == clientSocket[i])
                 {
                     console.log("message received from " + clientUserList[i] + ": " + str);
                     var msg = clientUserList[i] + ": " + str + "\n";
-                    pushHistory(msg); 
+                    pushHistory(msg);
                     for (var j = 0; j < clientSocket.length; j++)
                         send(clientSocket[j], msg, "send msg to " + clientUserList[j]);
-                    break;    
-                } 
+                    break;
+                }
             }
         }
     })
@@ -133,17 +133,17 @@ ws.on('connection', function (client, req)
         console.log('__DECONNEXION DETECTED__');
         for (var i = 0; i < clientSocket.length; i++)
         {
-            if (client == clientSocket[i])      
+            if (client == clientSocket[i])
             {
                 var oldUser = clientUserList[i];
                 clientSocket.splice(i, 1);
                 clientUserList.splice(i, 1);
-                
+
                 var msg = "► " + oldUser + " vient de se déconnecter !\n";
                 pushHistory(msg);
-                
+
                 console.log(msg);
-                
+
                 for (var j = 0; j < clientSocket.length; j++)
                     send(clientSocket[j], msg ,"close " + clientUserList[j]);
                 break;
