@@ -7,6 +7,19 @@ var port = 8081;
 var math = require('math');
 
 /*
+* Function rot13 *
+*/
+
+function rot13(str) {
+  var input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  var index     = x => input.indexOf(x);
+  var translate = x => index(x) > -1 ? output[index(x)] : x;
+  return str.split('').map(translate).join('');
+}
+
+
+/*
  * Création et ouverture du socket server
  */
 var ws = new WebSocketServer({port: port});
@@ -85,6 +98,9 @@ ws.on('connection', function (client, req)
         {
             switch (str)
             {
+                case "banane":
+                    str = rot13(str);
+                    break;
               case "ls":
                   str = "ls\nmission.txt - 1ko";
                   break;
