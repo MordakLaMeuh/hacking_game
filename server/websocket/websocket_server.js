@@ -18,6 +18,111 @@ function rot13(str) {
   return str.split('').map(translate).join('');
 }
 
+/*
+** Function parseArgs
+*/
+function parseArgs(args)
+{
+  var i = 0;
+  while (i < args.length)
+  {
+    console.log("arg number " + i + " is : " + args[i]);
+    i++;
+  }
+}
+
+/*
+** Function parseLsArgs
+*/
+function parseLsArgs(args)
+{
+  switch (args.length)
+  {
+    case 0:
+      console.log("ls without args : \'ls .\'");
+      break;
+    case 1:
+      if (args[0].charAt(0) == '-')
+        console.log("ls with one option, but without file : \'ls " + args[0] + "\' .");
+      else
+        console.log("ls with one file : \'ls " + args[0] + "\'");
+      break;
+    case 2:
+      if (args[0].charAt(0) == '-')
+        console.log("ls " + args[0] + " " + args[1]);
+      else
+        console.log("Usage : ls option file");
+      break;
+    default :
+    console.log("ls with more than 2 args");
+  }
+}
+
+/*
+** Function parseUserInput
+*/
+function parseUserInput(userInput)
+{
+  userInput = userInput.replace(/^\s+|\s+$/gm,'');
+  userInput = userInput.replace(/  +/g, ' ');
+  userInput = userInput.split(' ');
+  switch (userInput[0])
+  {
+    case "ls":
+      console.log("ls case");
+      userInput = userInput.slice(1, userInput.length);
+      parseArgs(userInput);
+      parseLsArgs(userInput);
+      break;
+    case "cat":
+      console.log("cat case");
+      userInput = userInput.slice(1, userInput.length);
+      parseArgs(userInput);
+      break;
+    default :
+      console.log("default case");
+  }
+}
+
+/*
+** Function rotchar
+*/
+function rotchar(c, rotNb, caseNb)
+{
+  c = (c.charCodeAt(0) + rotNb) % (90 + caseNb);
+  if (c < (65 + caseNb))
+  {
+    if (c == 0)
+      c = 90 + caseNb;
+    else
+      c += 64 + caseNb;
+  }
+  return (String.fromCharCode(c));
+}
+
+/*
+** Function rotstr
+*/
+function rotstr(str, rotNb)
+{
+  if (rotNb < 0 || (rotNb %= 26) == 0)
+    return (str);
+  var i = str.length;
+  str = str.split('');
+  while (i--)
+  {
+    var c = str[i];
+    if (c.match(/[a-z]/i))
+    {
+      if (c == c.toUpperCase())
+        c = rotchar(c, rotNb, 0);
+      else if (c == c.toLowerCase())
+        c = rotchar(c, rotNb, 32);
+    }
+    str[i] = c;
+  }
+  return (str.join(''));
+}
 
 /*
  * Création et ouverture du socket server
