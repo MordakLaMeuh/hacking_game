@@ -15,7 +15,7 @@ function rot13(str) {
   var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
   var index     = x => input.indexOf(x);
   var translate = x => index(x) > -1 ? output[index(x)] : x;
-  return str.split('').map(translate).join('');
+  return (str.split('').map(translate).join(''));
 }
 
 /*
@@ -218,7 +218,7 @@ ws.on('connection', function (client, req)
             switch (str[0])
             {
                 case "banane":
-                    str = rot13(str);
+                    str = rot13(str[0]);
                     break;
               case "ls":
                     str = ls(str.slice(1, str.length));
