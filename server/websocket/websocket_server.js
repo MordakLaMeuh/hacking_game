@@ -11,11 +11,13 @@ var math = require('math');
 */
 
 function rot13(str) {
+    if (str.length != 1)
+        return ("Usage : rot13 WORD");
   var input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
   var index     = x => input.indexOf(x);
   var translate = x => index(x) > -1 ? output[index(x)] : x;
-  return (str.split('').map(translate).join(''));
+  return (str[0].split('').map(translate).join(''));
 }
 
 /*
@@ -214,8 +216,8 @@ ws.on('connection', function (client, req)
             str = str.split(' ');
             switch (str[0])
             {
-                case "banane":
-                    str = rot13(str[0]);
+                case "rot13":
+                    str = rot13(str.slice(1, str.length));
                     break;
               case "ls":
                     str = ls(str.slice(1, str.length));
