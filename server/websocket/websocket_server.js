@@ -19,7 +19,7 @@ function rot13(str) {
 }
 
 /*
-** Function parseArgs
+** Function displayArgs
 */
 function displayArgs(args)
 {
@@ -29,6 +29,29 @@ function displayArgs(args)
     console.log("arg number " + i + " is : " + args[i]);
     i++;
   }
+}
+
+/*
+** Function cat
+*/
+function cat(args)
+{
+    displayArgs(args);
+    switch (args.length)
+    {
+        case 0:
+            return ("Usage : cat FILE");
+            break;
+        case 1:
+            if (args[0] == "mission.txt")
+                return ("cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.")
+            else
+                return ("cat: " + args[0] + ": No such file or directory");
+            break;
+        default :
+            console.log("cat with more than 2 args");
+            return ("cat " + args.join(' '));
+    }
 }
 
 /*
@@ -67,32 +90,6 @@ function ls(args)
             console.log("ls with more than 2 args");
             return ("ls " + args.join(' '));
     }
-}
-
-/*
-** Function parseUserInput
-*/
-function parseUserInput(userInput)
-{
-  userInput = userInput.replace(/^\s+|\s+$/gm,'');
-  userInput = userInput.replace(/  +/g, ' ');
-  userInput = userInput.split(' ');
-  switch (userInput[0])
-  {
-    case "ls":
-      console.log("ls case");
-      userInput = userInput.slice(1, userInput.length);
-      parseArgs(userInput);
-      parseLsArgs(userInput);
-      break;
-    case "cat":
-      console.log("cat case");
-      userInput = userInput.slice(1, userInput.length);
-      parseArgs(userInput);
-      break;
-    default :
-      console.log("default case");
-  }
 }
 
 /*
@@ -227,9 +224,7 @@ ws.on('connection', function (client, req)
                   str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
                   break;
               case "cat":
-                  str = str.slice(1, str.length);
-                  parseArgs(str);
-                  str = "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.";
+                  str = cat(str.slice(1, str.length));
                   break;
                 case "/status":
                     send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
