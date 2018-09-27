@@ -204,7 +204,7 @@ ws.on('connection', function (client, req)
           str = str.replace(/^\s+|\s+$/gm,'');
           str = str.replace(/  +/g, ' ');
           str = str.split(' ');
-            switch (str)
+            switch (str[0])
             {
                 case "banane":
                     str = rot13(str);
