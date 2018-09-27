@@ -21,43 +21,52 @@ function rot13(str) {
 /*
 ** Function parseArgs
 */
-function parseArgs(args)
+function displayArgs(args)
 {
-    console.log("ici");
   var i = 0;
   while (i < args.length)
   {
-      // alert("arg number " + i + " is : " + args[i]);
     console.log("arg number " + i + " is : " + args[i]);
     i++;
   }
 }
 
 /*
-** Function parseLsArgs
+** Function ls
 */
-function parseLsArgs(args)
+function ls(args)
 {
-  switch (args.length)
-  {
-    case 0:
-      console.log("ls without args : \'ls .\'");
-      break;
-    case 1:
-      if (args[0].charAt(0) == '-')
-        console.log("ls with one option, but without file : \'ls " + args[0] + "\' .");
-      else
-        console.log("ls with one file : \'ls " + args[0] + "\'");
-      break;
-    case 2:
-      if (args[0].charAt(0) == '-')
-        console.log("ls " + args[0] + " " + args[1]);
-      else
-        console.log("Usage : ls option file");
-      break;
-    default :
-    console.log("ls with more than 2 args");
-  }
+    displayArgs(args);
+    switch (args.length)
+    {
+        case 0:
+            console.log("ls without args : ls");
+            return ("ls\nmission.txt - 1ko");
+            break;
+        case 1:
+            if (args[0].charAt(0) == '-')
+            {
+              console.log("ls with one option, but without file : ls " + args[0]);
+              if (args[0] == "-a")
+                return ("ls " + args[0] + "\nmission.txt - 1ko\n.hidden_file.txt - 2ko");
+              else
+                  return ("ls: invalid option -- " + "\'" + args[0] + "\'");
+            }
+            else if (args[0] == "mission.txt")
+            {
+              console.log("ls with one file : ls " + args[0]);
+              return ("ls " + args[0] + "\nmission.txt");
+            }
+            else
+            {
+                console.log("ls with one file : ls " + args[0]);
+                return ("ls " + args[0] + "\nls : cannot access \'" + args[0] + "\': No such file or directory");
+            }
+            break;
+        default :
+            console.log("ls with more than 2 args");
+            return ("ls " + args.join(' '));
+    }
 }
 
 /*
@@ -203,22 +212,22 @@ ws.on('connection', function (client, req)
         }
         else
         {
-          str = str.replace(/^\s+|\s+$/gm,'');
-          str = str.replace(/  +/g, ' ');
-          str = str.split(' ');
+            str = str.replace(/^\s+|\s+$/gm,'');
+            str = str.replace(/  +/g, ' ');
+            str = str.split(' ');
             switch (str[0])
             {
                 case "banane":
                     str = rot13(str);
                     break;
               case "ls":
-                  var args = str.slice(1, str.length);
-                  str = "ls " + args + "\nmission.txt - 1ko";
+                    str = ls(str.slice(1, str.length));
+                  // str = "ls " + args + "\nmission.txt - 1ko";
                   break;
               case "help":
                   str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
                   break;
-              case "cat mission.txt":
+              case "cat":
                   str = str.slice(1, str.length);
                   parseArgs(str);
                   str = "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.";
