@@ -23,9 +23,11 @@ function rot13(str) {
 */
 function parseArgs(args)
 {
+    console.log("ici");
   var i = 0;
   while (i < args.length)
   {
+      // alert("arg number " + i + " is : " + args[i]);
     console.log("arg number " + i + " is : " + args[i]);
     i++;
   }
@@ -210,9 +212,8 @@ ws.on('connection', function (client, req)
                     str = rot13(str);
                     break;
               case "ls":
-                  str = str.slice(1, str.length);
-                  parseArgs(str);
-                  str = "ls\nmission.txt - 1ko";
+                  var args = str.slice(1, str.length);
+                  str = "ls " + args + "\nmission.txt - 1ko";
                   break;
               case "help":
                   str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
