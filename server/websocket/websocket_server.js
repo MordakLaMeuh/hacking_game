@@ -55,7 +55,7 @@ function ls(args)
             else if (args[0] == "mission.txt")
             {
               console.log("ls with one file : ls " + args[0]);
-              return ("ls " + args[0] + "\nmission.txt");
+              return ("ls " + args[0] + "\nmission.txt - 1ko");
             }
             else
             {
@@ -222,7 +222,6 @@ ws.on('connection', function (client, req)
                     break;
               case "ls":
                     str = ls(str.slice(1, str.length));
-                  // str = "ls " + args + "\nmission.txt - 1ko";
                   break;
               case "help":
                   str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
