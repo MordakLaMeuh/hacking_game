@@ -201,18 +201,25 @@ ws.on('connection', function (client, req)
         }
         else
         {
+          str = str.replace(/^\s+|\s+$/gm,'');
+          str = str.replace(/  +/g, ' ');
+          str = str.split(' ');
             switch (str)
             {
                 case "banane":
                     str = rot13(str);
                     break;
               case "ls":
+                  str = str.slice(1, str.length);
+                  parseArgs(str);
                   str = "ls\nmission.txt - 1ko";
                   break;
               case "help":
                   str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
                   break;
               case "cat mission.txt":
+                  str = str.slice(1, str.length);
+                  parseArgs(str);
                   str = "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.";
                   break;
                 case "/status":
