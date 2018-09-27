@@ -11,8 +11,10 @@ var math = require('math');
 */
 
 function rot13(str) {
+    if (str.length == 0)
+        return ("rot13\nUsage : rot13 WORD");
     if (str.length != 1)
-        return ("Usage : rot13 WORD");
+        return ("rot13 " + str.join(' ') + "\nUsage : rot13 WORD");
   var input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
   var index     = x => input.indexOf(x);
@@ -42,7 +44,7 @@ function cat(args)
     switch (args.length)
     {
         case 0:
-            return ("Usage : cat FILE");
+            return ("cat\nUsage : cat FILE");
             break;
         case 1:
             if (args[0] == "mission.txt")
@@ -245,6 +247,8 @@ ws.on('connection', function (client, req)
                     return;
                 case "":
                     return;
+                default :
+                    str = str.join(' ');
             }
 
             for (var i = 0; i < clientSocket.length; i++)
