@@ -126,6 +126,7 @@
 //window.ondragstart = function()  	 { return false; } 		// IMPORTANT - FIX BUG
 //document.onmousedown = function()  { return false; } 		// IMPORTANT - FIX BUG / DISABLE AUTOMATIC SELECT OF ELEMENT
 	
+/*
 var win0 = new MW('guignol','th. du complot',70,30,30,70,'#e74c3c','black',{'type':'video','url':'medias/complot.mp4','ratio':true,'opacity':true});
 											
 var win1 = new MW('macaron','Macaron',37,28,40,45,'#f1c40f','#ecf0f1',{'type':'image','url':'medias/macaron.jpg','ratio':true});
@@ -151,12 +152,23 @@ Iam virtutem ex consuetudine vitae sermonisque nostri interpretemur nec eam, ut 
 Et prima post Osdroenam quam, ut dictum est, ab hac descriptione discrevimus, Commagena, nunc Euphratensis, clementer adsurgit, Hierapoli, vetere Nino et Samosata civitatibus amplis inlustris.
 Excitavit hic ardor milites per municipia plurima, quae isdem conterminant, dispositos et castella, sed quisque serpentes latius pro viribus repellere moliens, nunc globis confertos, aliquotiens et dispersos multitudine superabatur ingenti, quae nata et educata inter editos recurvosque ambitus montium eos ut loca plana persultat et mollia, missilibus obvios eminus lacessens et ululatu truci perterrens.
 `;
+*/
 
 //var win4 = new MW('IframeTest','IframeTest (experimental)',50,56,30,40,'#c0392b','#2E1043',{'type':'iframe','url':'http://www.duckduckgo.com','noheader':true});						
 
 //var win5 = new MW('iframe2','IframeTest2 (experimental)',5,35,40,40,'#c0392b','#002200',{'type':'iframe','url':'http://localhost/foxybookmark/entrelacement5.html'});
 
-var win6 = new MW('chat','chatbox',2,42,35,50,'#00CC00','#002200',{'type':'customContent','fullscreen':true});
+//var win6 = new MW('chat','chatbox',2,42,35,50,'#00CC00','#002200',{'type':'customContent','fullscreen':true});
+
+var DOM = new MW();
+
+var win0 = DOM.create_New_Window('th. du complot',{'x':70,'y':30,'w':30,'h':70},{'border':'#e74c3c','body':'black'},{'type':'video','url':'./stuff/complot.mp4','ratio':true,'opacity':true});																								
+var win1 = DOM.create_New_Window('Macaron',{'x':37,'y':28,'w':40,'h':45},{'border':'#f1c40f','body':'#ecf0f1'},{'type':'image','url':'./stuff/macaron.jpg','ratio':true});
+var win2 = DOM.create_New_Window('Farador',{'x':0,'y':0,'w':90,'h':60},{'border':'#2980b9','body':'black'},{'type':'video','url':'./stuff/farador.mp4','ratio':true});
+var win3 = DOM.create_New_Window('Raw Text',{'x':58,'y':4,'w':40,'h':25},{'border':'#9b59b6','body':'#220022'},{'type':'rawTxt'});
+var win4 = DOM.create_New_Window('Duck Duck Go !',{'x':50,'y':56,'w':30,'h':40},{'border':'#c0392b','body':'#2E1043'},{'type':'iframe','url':'http://www.duckduckgo.com','noheader':true});					
+var win5 = DOM.create_New_Window('Reality Revisited',{'x':5,'y':35,'w':40,'h':60},{'border':'#c0392b','body':'#002200'},{'type':'iframe','url':'http://192.168.0.100/Realityrevisited.V2.0/'});
+var fox_Box = DOM.create_New_Window('chatbox du futur',{'x':2,'y':42,'w':35,'h':50},{'border':'#00CC00','body':'#002200'},{'type':'customContent','id':'chat','fullscreen':true,'opacity':false});
 
 var mousewheelevt=(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel" 
 				
