@@ -1,0 +1,6 @@
+trap "kill 0" EXIT
+
+(cd ./server/websocket/; ../../node-v8.11.3-linux-x64/bin/node websocket_server.js ) &
+(cd ./server/html/ ; ../../node-v8.11.3-linux-x64/bin/node http_server.js) & 
+
+wait

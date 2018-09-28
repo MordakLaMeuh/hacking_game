@@ -7,6 +7,136 @@ var port = 8081;
 var math = require('math');
 
 /*
+* Function rot13 *
+*/
+
+function rot13(str) {
+    if (str.length == 0)
+        return ("rot13\nUsage : rot13 WORD");
+    if (str.length != 1)
+        return ("rot13 " + str.join(' ') + "\nUsage : rot13 WORD");
+  var input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  var index     = x => input.indexOf(x);
+  var translate = x => index(x) > -1 ? output[index(x)] : x;
+  return (str[0].split('').map(translate).join(''));
+}
+
+/*
+** Function displayArgs
+*/
+function displayArgs(args)
+{
+  var i = 0;
+  while (i < args.length)
+  {
+    console.log("arg number " + i + " is : " + args[i]);
+    i++;
+  }
+}
+
+/*
+** Function cat
+*/
+function cat(args)
+{
+    displayArgs(args);
+    switch (args.length)
+    {
+        case 0:
+            return ("cat\nUsage : cat FILE");
+            break;
+        case 1:
+            if (args[0] == "mission.txt")
+                return ("cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.")
+            else
+                return ("cat: " + args[0] + ": No such file or directory");
+            break;
+        default :
+            console.log("cat with more than 2 args");
+            return ("cat " + args.join(' '));
+    }
+}
+
+/*
+** Function ls
+*/
+function ls(args)
+{
+    displayArgs(args);
+    switch (args.length)
+    {
+        case 0:
+            console.log("ls without args : ls");
+            return ("ls\nmission.txt - 1ko");
+            break;
+        case 1:
+            if (args[0].charAt(0) == '-')
+            {
+              console.log("ls with one option, but without file : ls " + args[0]);
+              if (args[0] == "-a")
+                return ("ls " + args[0] + "\nmission.txt - 1ko\n.hidden_file.txt - 2ko");
+              else
+                  return ("ls: invalid option -- " + "\'" + args[0] + "\'");
+            }
+            else if (args[0] == "mission.txt")
+            {
+              console.log("ls with one file : ls " + args[0]);
+              return ("ls " + args[0] + "\nmission.txt - 1ko");
+            }
+            else
+            {
+                console.log("ls with one file : ls " + args[0]);
+                return ("ls " + args[0] + "\nls : cannot access \'" + args[0] + "\': No such file or directory");
+            }
+            break;
+        default :
+            console.log("ls with more than 2 args");
+            return ("ls " + args.join(' '));
+    }
+}
+
+/*
+** Function rotchar
+*/
+function rotchar(c, rotNb, caseNb)
+{
+  c = (c.charCodeAt(0) + rotNb) % (90 + caseNb);
+  if (c < (65 + caseNb))
+  {
+    if (c == 0)
+      c = 90 + caseNb;
+    else
+      c += 64 + caseNb;
+  }
+  return (String.fromCharCode(c));
+}
+
+/*
+** Function rotstr
+*/
+function rotstr(str, rotNb)
+{
+  if (rotNb < 0 || (rotNb %= 26) == 0)
+    return (str);
+  var i = str.length;
+  str = str.split('');
+  while (i--)
+  {
+    var c = str[i];
+    if (c.match(/[a-z]/i))
+    {
+      if (c == c.toUpperCase())
+        c = rotchar(c, rotNb, 0);
+      else if (c == c.toLowerCase())
+        c = rotchar(c, rotNb, 32);
+    }
+    str[i] = c;
+  }
+  return (str.join(''));
+}
+
+/*
  * Création et ouverture du socket server
  */
 var ws = new WebSocketServer({port: port});
@@ -83,16 +213,22 @@ ws.on('connection', function (client, req)
         }
         else
         {
-            switch (str)
+            str = str.replace(/^\s+|\s+$/gm,'');
+            str = str.replace(/  +/g, ' ');
+            str = str.split(' ');
+            switch (str[0])
             {
+                case "rot13":
+                    str = rot13(str.slice(1, str.length));
+                    break;
               case "ls":
-                  str = "ls\nmission.txt - 1ko";
+                    str = ls(str.slice(1, str.length));
                   break;
               case "help":
                   str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
                   break;
-              case "cat mission.txt":
-                  str = "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck.";
+              case "cat":
+                  str = cat(str.slice(1, str.length));
                   break;
                 case "/status":
                     send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
@@ -111,6 +247,8 @@ ws.on('connection', function (client, req)
                     return;
                 case "":
                     return;
+                default :
+                    str = str.join(' ');
             }
 
             for (var i = 0; i < clientSocket.length; i++)
