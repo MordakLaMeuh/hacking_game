@@ -12,10 +12,8 @@ var math = require('math');
 
 function rot13(str)
 {
-	if (str.length == 0)
-		return "rot13\nUsage : rot13 WORD";
 	if (str.length != 1)
-		return "rot13 " + str.join(' ') + "\nUsage : rot13 WORD";
+		return "Usage : rot13 WORD";
 
 	var input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 	var output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
@@ -49,17 +47,17 @@ function cat(args)
 
 	switch (args.length) {
 	case 0:
-		str += "cat\nUsage : cat FILE";
+		str += "Usage : cat FILE";
 		break;
 	case 1:
 		if (args[0] == "mission.txt")
-			str += "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck."
+			str += "Your mission is to find the identity of Mr. X. Good luck."
 		else
-			str += "cat: " + args[0] + ": No such file or directory";
+			str += "cat '" + args[0] + "': No such file or directory";
 		break;
 	default:
 		console.log("cat with more than 2 args");
-		str += "cat " + args.join(' ');
+		str += "too much arguments";
 		break;
 	}
 	return str;
@@ -77,26 +75,26 @@ function ls(args)
 	switch (args.length) {
 	case 0:
 		console.log("ls without args : ls");
-		str += "ls\nmission.txt - 1ko";
+		str += "mission.txt - 1ko";
 		break;
 	case 1:
 		if (args[0].charAt(0) == '-') {
 			console.log("ls with one option, but without file : ls " + args[0]);
 			if (args[0] == "-a")
-				str += "ls " + args[0] + "\nmission.txt - 1ko\n.hidden_file.txt - 2ko";
+				str += "mission.txt - 1ko\n.hidden_file.txt - 2ko";
 			else
-				str += "ls: invalid option -- " + "\'" + args[0] + "\'";
+				str += "ls : invalid option -- " + "\'" + args[0] + "\'";
 		} else if (args[0] == "mission.txt") {
 			console.log("ls with one file : ls " + args[0]);
-			str += "ls " + args[0] + "\nmission.txt - 1ko";
+			str += "mission.txt - 1ko";
 		} else {
 			console.log("ls with one file : ls " + args[0]);
-			str += "ls " + args[0] + "\nls : cannot access \'" + args[0] + "\': No such file or directory";
+			str += "ls : cannot access \'" + args[0] + "\': No such file or directory";
 		}
 		break;
 	default :
 		console.log("ls with more than 2 args");
-		str += "ls " + args.join(' ');
+		str += "too much arguments";
 		break;
 	}
 	return str;
@@ -227,7 +225,7 @@ ws.on('connection', function (client, req)
 				str = ls(str.slice(1, str.length));
 				break;
 			case "help":
-				str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
+				str = " ls : list all files on the current folder\n cat filename : display content of file\n";
 				break;
 			case "cat":
 				str = cat(str.slice(1, str.length));
@@ -249,17 +247,15 @@ ws.on('connection', function (client, req)
 				for (var j = 0; j < clientSocket.length; j++)
 					send(clientSocket[j], msg, "send dice throw to " + clientUserList[j]);
 				return;
-			case "":
-				return;
 			default :
-				str = str.join(' ');
+				str = "unknown command !";
 				break;
 			}
 
 			for (var i = 0; i < clientSocket.length; i++) {
 				if (client == clientSocket[i]) {
 					console.log("message received from " + clientUserList[i] + ": " + str);
-					var msg = clientUserList[i] + ": " + str + "\n";
+					var msg = str + "\n";
 					pushHistory(msg);
 					for (var j = 0; j < clientSocket.length; j++)
 						send(clientSocket[j], msg, "send msg to " + clientUserList[j]);
