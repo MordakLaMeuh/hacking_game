@@ -198,6 +198,13 @@ ws.on('connection', function (client, req)
 		console.log(str);
 
 		if (newClient == true) {
+			clientSocket.push(client);
+			clientUserList.push(str);
+			newClient = false;
+		}
+
+/*
+		if (newClient == true) {
 			console.log('new client msg received -> ' + str);
 			var msg = "► " + str + " vient de se connecter\n";
 			pushHistory(msg);
@@ -214,6 +221,7 @@ ws.on('connection', function (client, req)
 			clientUserList.push(str);
 			newClient = false;
 		} else {
+*/
 			str = str.replace(/^\s+|\s+$/gm,'');
 			str = str.replace(/  +/g, ' ');
 			str = str.split(' ');
@@ -262,7 +270,7 @@ ws.on('connection', function (client, req)
 					break;
 				}
 			}
-		}
+//		}
 	})
 
 	client.on("close", function()

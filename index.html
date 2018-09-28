@@ -154,22 +154,11 @@ chatTab.addEventListener(mousewheelevt, function(e) {
 
 var formInput = document.getElementsByTagName("input")[0];
 
-socket.onerror = function()
-{
-	chatTab.innerHTML += "Aucune réponse du serveur...";
-}
-
-socket.onmessage = function(str)
-{
-	chatTab.innerHTML += str.data;
-	chatTab.scrollTop += 10000;
-};
-
 var identified = false;
 
 var postMsg = function()
 {
-	socket.send(formInput.value);
+//	socket.send(formInput.value);
 
 	if (identified == false) {
 		var identify = document.getElementsByTagName("form")[0];
@@ -182,6 +171,97 @@ var postMsg = function()
 }
 
 console.log('value:' + document.styleSheets[0].cssRules[0]);
+
+
+
+var inputString;
+var cursorPosition;
+var systemInputMsg = "banane@hacking_game: ";
+
+var createNewInputString = function()
+{
+	inputString = systemInputMsg;
+	cursorPosition = systemInputMsg.length;
+	inputDiv = document.createElement('div');
+	inputDiv.innerHTML = inputString;
+	chatTab.appendChild(inputDiv);
+
+	chatTab.scrollTop += 10000;
+}
+
+var createDiv = function(content)
+{
+	outputDiv = document.createElement('div');
+	outputDiv.innerHTML = content;
+	chatTab.appendChild(outputDiv);
+
+	chatTab.scrollTop += 10000;
+}
+
+var refreshInput = function(inputDiv)
+{
+	chatTab.removeChild(inputDiv);
+	inputDiv.innerHTML = inputString;
+	chatTab.appendChild(inputDiv);
+
+	chatTab.scrollTop += 10000;
+}
+
+function remove_character(str, char_pos)
+{
+	part1 = str.substring(0, char_pos);
+	part2 = str.substring(char_pos + 1, str.length);
+	return part1 + part2;
+}
+
+socket.onerror = function()
+{
+	createDiv("Aucune réponse du serveur..");
+}
+
+socket.onmessage = function(res)
+{
+	createDiv(res.data);
+
+	createNewInputString();
+};
+
+createNewInputString();
+
+document.addEventListener('keypress', (event) => {
+	const key = event.key;
+
+	if (key.length == 1) {
+		inputString += key;
+		cursorPosition += 1;
+		refreshInput(inputDiv);
+	}
+
+	switch(key) {
+	case "Backspace":
+		if (cursorPosition != systemInputMsg.length) {
+			inputString = remove_character(inputString, cursorPosition - 1);
+			cursorPosition -= 1;
+		}
+		refreshInput(inputDiv);
+		break;
+	case "Enter":
+		socket.send(inputString.slice(systemInputMsg.length));
+		break;
+	case "ArrowRight":
+		if (cursorPosition < inputString.length)
+			cursorPosition += 1;
+		break;
+	case "ArrowLeft":
+		if (cursorPosition != systemInputMsg.length)
+			cursorPosition -= 1;
+		break;
+	default:
+		break;
+	}
+
+	console.log("key: " + key + " position: " + cursorPosition);
+});
 
 </script>
 </body>
