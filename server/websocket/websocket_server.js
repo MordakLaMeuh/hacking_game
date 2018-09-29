@@ -13,7 +13,7 @@ var math = require('math');
 function str_rot(num, str) {
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
     var newStr = "";
-
+    num = num % 26;
     for (var i = 0; i < str.length; i++) {
         var char = str[i],
             isUpper = char === char.toUpperCase() ? true : false;
