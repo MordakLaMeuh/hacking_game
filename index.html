@@ -222,6 +222,9 @@ function remove_character(str, char_pos)
 socket.onerror = function()
 {
 	createDiv("Aucune réponse du serveur..");
+
+	historyIdx = inputHistory.length;
+	createNewInputString();
 }
 
 socket.onmessage = function(res)
