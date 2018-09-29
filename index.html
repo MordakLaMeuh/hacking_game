@@ -259,9 +259,14 @@ document.addEventListener('keypress', (event) => {
 	case "Enter":
 		var outStr = inputString.slice(systemInputMsg.length);
 
-		if (outStr.length != 0 &&
-				(inputHistory.length == 0 ||
-				inputHistory[inputHistory.length - 1] != outStr))
+		if (outStr.trim().length == 0) {
+			historyIdx = inputHistory.length;
+			createNewInputString();
+			break;
+		}
+
+		if (inputHistory.length == 0 ||
+				inputHistory[inputHistory.length - 1] != outStr)
 			inputHistory.push(outStr);
 
 		socket.send(outStr);
