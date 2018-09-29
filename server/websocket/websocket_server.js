@@ -6,24 +6,36 @@ var port = 8081;
 
 var math = require('math');
 
+
 /*
- * Function rot13
- */
+** Rot any nmmber : string rot(nb, str)
+*/
+function str_rot(num, str) {
+    var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var newStr = "";
 
-function rot13(str)
-{
-	if (str.length == 0)
-		return "rot13\nUsage : rot13 WORD";
-	if (str.length != 1)
-		return "rot13 " + str.join(' ') + "\nUsage : rot13 WORD";
+    for (var i = 0; i < str.length; i++) {
+        var char = str[i],
+            isUpper = char === char.toUpperCase() ? true : false;
 
-	var input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-	var output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-	var index = x => input.indexOf(x);
-	var translate = x => index(x) > -1 ? output[index(x)] : x;
+        char = char.toLowerCase();
 
-	return str[0].split('').map(translate).join('');
+        if (alphabet.indexOf(char) > -1) {
+            var newIndex = alphabet.indexOf(char) + num;
+            if(newIndex < alphabet.length) {
+                isUpper ? newStr += alphabet[newIndex].toUpperCase() : newStr += alphabet[newIndex];
+            } else {
+                var shiftedIndex = -(alphabet.length - newIndex);
+                isUpper ? newStr += alphabet[shiftedIndex].toUpperCase() : newStr += alphabet[shiftedIndex];
+            }
+        } else {
+            newStr += char;
+        }
+    }
+    return newStr;
 }
+
+
 
 /*
  * Function displayArgs
@@ -103,47 +115,6 @@ function ls(args)
 }
 
 /*
- * Function rotchar
- */
-function rotchar(c, rotNb, caseNb)
-{
-	c = (c.charCodeAt(0) + rotNb) % (90 + caseNb);
-
-	if (c < (65 + caseNb)) {
-		if (c == 0)
-			c = 90 + caseNb;
-		else
-			c += 64 + caseNb;
-	}
-	return String.fromCharCode(c);
-}
-
-/*
- * Function rotstr
- */
-function rotstr(str, rotNb)
-{
-	if (rotNb < 0 || (rotNb %= 26) == 0)
-		return str;
-
-	var i = str.length;
-
-	str = str.split('');
-
-	while (i--) {
-		var c = str[i];
-		if (c.match(/[a-z]/i)) {
-			if (c == c.toUpperCase())
-				c = rotchar(c, rotNb, 0);
-			else if (c == c.toLowerCase())
-				c = rotchar(c, rotNb, 32);
-		}
-		str[i] = c;
-	}
-	return str.join('');
-}
-
-/*
  * Opening socket websocket server
  */
 var ws = new WebSocketServer({port: port});
@@ -220,8 +191,11 @@ ws.on('connection', function (client, req)
 			str = str.replace(/  +/g, ' ');
 			str = str.split(' ');
 			switch (str[0]) {
-			case "rot13":
-				str = rot13(str.slice(1, str.length));
+			case "rot":
+			    if (!str[1] || ! str[2] || isNaN(parseInt(str[1])) === true)
+			        str = "Usage : rot number word"
+                else
+    				str = str_rot(parseInt(str[1]), str[2]);
 				break;
 			case "ls":
 				str = ls(str.slice(1, str.length));
