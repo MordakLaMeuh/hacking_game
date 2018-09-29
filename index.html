@@ -301,14 +301,28 @@ document.addEventListener('keypress', (event) => {
 			historyIdx -= 1;
 			createNewInputString(inputHistory[historyIdx]);
 
+			formInput.value = inputHistory[historyIdx];
 			console.log("new history index: ", historyIdx);
 		}
+
+		setTimeout(function(){
+			formInput.setSelectionRange(formInput.value.length, formInput.value.length);
+		}, 10);
 		break;
 	case "ArrowDown":
 		if (historyIdx != inputHistory.length) {
 			chatTab.removeChild(inputDiv);
 			historyIdx += 1;
 			createNewInputString(inputHistory[historyIdx]);
+
+			if (historyIdx != inputHistory.length) {
+				formInput.value = inputHistory[historyIdx];
+				setTimeout(function(){
+					formInput.setSelectionRange(formInput.value.length, formInput.value.length);
+				}, 10);
+			}
+			else
+				formInput.value = "";
 
 			console.log("new history index: ", historyIdx);
 		}
