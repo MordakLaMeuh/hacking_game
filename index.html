@@ -239,7 +239,14 @@ document.addEventListener('keypress', (event) => {
 	const key = event.key;
 
 	if (key.length == 1) {
-		inputString += key;
+		part1 = inputString.substring(0, cursorPosition);
+		console.log("part_1: '" + part1 + "'");
+
+		part2 = inputString.substring(cursorPosition, inputString.length);
+		console.log("part_2: '" + part2 + "'");
+
+		inputString = part1 + key + part2;
+
 		cursorPosition += 1;
 		refreshInput(inputDiv);
 
