@@ -35,6 +35,14 @@ function str_rot(num, str) {
     return newStr;
 }
 
+/* Filter int number before parseInt to avoid 42toto to be considered like 42 */
+
+filterInt = function (value) {
+    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+        return Number(value);
+    return NaN;
+}
+
 
 
 /*
@@ -192,8 +200,10 @@ ws.on('connection', function (client, req)
 			str = str.split(' ');
 			switch (str[0]) {
 			case "rot":
-			    if (!str[1] || ! str[2] || isNaN(parseInt(str[1])) === true)
-			        str = "Usage : rot number word"
+			    if (!str[1] || ! str[2] || isNaN(filterInt(str[1])) === true)
+			        str = "Usage : rot number word";
+			    else if (parseInt(str[1]) < 0)
+                    str = "Number must be positive value"
                 else
     				str = str_rot(parseInt(str[1]), str[2]);
 				break;
