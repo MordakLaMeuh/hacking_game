@@ -119,6 +119,44 @@ function getIndex(children, name)
     return (-1);
 }
 
+function cd2(root, curDir, args)
+{
+    if (args.length != 1)
+        return ([curDir, "cd\nUsage cd PATH\n"]);
+    if (args[0].charAt(0) == '/')
+        var tmpDir = root;
+    else
+        var tmpDir = curDir;
+    console.log("ARG = "+args);
+    var path = args[0].split('/');
+    console.log("path = " + path + " path len = " + path.length);
+    if (path.length == 2)
+    {
+        console.log ("1 = |"+path[0]+"| 2 = |"+path[1]+"|");
+    }
+    var i = 0;
+    while (i < path.length)
+    {
+        console.log("path i = "+path[i]+"|");
+        if (path[i] == "..")
+        {
+            if (tmpDir.parent)
+                tmpDir = tmpDir.parent;
+        }
+        else if (path[i] != ".")
+        {
+            var index = getIndex(tmpDir.children, path[i]);
+            if (index == -1)
+                return ([curDir, "cd: " + args[0] + ": No such file or directory\n"]);
+            else if (tmpDir.children[index].isDir == false)
+                return ([curDir, "cd: " + args[0] + ": Not a directory\n"]);
+            else
+                tmpDir = tmpDir.children[index];
+        }
+        i++;
+    }
+    return ([tmpDir, "cd " + args[0] + "\n"]);
+}
 /*
  * Function cd
  */
@@ -127,27 +165,23 @@ function cd(curDir, args)
     var retArray = [curDir];
 
     if (args.length != 1)
-        retArray.push("cd\nUsage cd PATH\n");
+        return ([curDir, "cd\nUsage cd PATH\n"]);
     if (args[0] == "..")
     {
         if (curDir.parent)
-            retArray[0] = curDir.parent;
-        retArray.push("cd " + args[0] + "\n");
+            return ([curDir.parent, "cd " + args[0] + "\n"]);
+        return ([curDir, "cd " + args[0] + "\n"]);
     }
     else
     {
         var index = getIndex(curDir.children, args[0]);
         if (index == -1)
-            retArray.push("cd: " + args[0] + ": No such file or directory\n");
+            return ([curDir, "cd: " + args[0] + ": No such file or directory\n"]);
         else if (curDir.children[index].isDir == false)
-            retArray.push("cd: " + args[0] + ": Not a directory\n");
+            return ([curDir, "cd: " + args[0] + ": Not a directory\n"]);
         else
-        {
-            retArray.push("cd " + args[0] + "\n");
-            retArray[0] = curDir.children[index];
-        }
+            return ([curDir.children[index], "cd " + args[0] + "\n"]);
     }
-    return (retArray);
 }
 
 /*
@@ -262,7 +296,8 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var newClient = true;
-    var curDir = createFileSystem();
+    var root = createFileSystem();
+    var curDir = root;
 
 	/*
 	 * Event on input client message
@@ -326,7 +361,8 @@ ws.on('connection', function (client, req)
 					send(clientSocket[j], msg, "send dice throw to " + clientUserList[j]);
 				return;
             case "cd":
-                var retArray = cd(curDir, str.slice(1, str.length));
+                // var retArray = cd(curDir, str.slice(1, str.length));
+                var retArray = cd2(root, curDir, str.slice(1, str.length));
                 curDir = retArray[0];
                 str = retArray[1];
                 break;
