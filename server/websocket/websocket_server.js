@@ -104,6 +104,53 @@ function displayArgs(args)
 }
 
 /*
+ * Function getIndex
+ * Similar to array.indexOf
+ */
+function getIndex(children, name)
+{
+    var i = 0;
+    while (i < children.length)
+    {
+        if (children[i].name == name)
+            return (i);
+        i++;
+    }
+    return (-1);
+}
+
+/*
+ * Function cd
+ */
+function cd(curDir, args)
+{
+    var retArray = [curDir];
+
+    if (args.length != 1)
+        retArray.push("cd\nUsage cd PATH\n");
+    if (args[0] == "..")
+    {
+        if (curDir.parent)
+            retArray[0] = curDir.parent;
+        retArray.push("cd " + args[0] + "\n");
+    }
+    else
+    {
+        var index = getIndex(curDir.children, args[0]);
+        if (index == -1)
+            retArray.push("cd: " + args[0] + ": No such file or directory\n");
+        else if (curDir.children[index].isDir == false)
+            retArray.push("cd: " + args[0] + ": Not a directory\n");
+        else
+        {
+            retArray.push("cd " + args[0] + "\n");
+            retArray[0] = curDir.children[index];
+        }
+    }
+    return (retArray);
+}
+
+/*
  * Function cat
  */
 function cat(args)
@@ -215,6 +262,7 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var newClient = true;
+    var curDir = createFileSystem();
 
 	/*
 	 * Event on input client message
@@ -222,7 +270,6 @@ ws.on('connection', function (client, req)
 	client.on("message", function (str)
 	{
 		console.log(str);
-        var root = createFileSystem();
 		if (newClient == true) {
 			console.log('new client msg received -> ' + str);
 			var msg = "► " + str + " vient de se connecter\n";
@@ -278,8 +325,14 @@ ws.on('connection', function (client, req)
 				for (var j = 0; j < clientSocket.length; j++)
 					send(clientSocket[j], msg, "send dice throw to " + clientUserList[j]);
 				return;
+            case "cd":
+                var retArray = cd(curDir, str.slice(1, str.length));
+                curDir = retArray[0];
+                str = retArray[1];
+                break;
             case "ls2":
-                str = ls2(root.children, str.slice(1, str.length));
+            console.log("cur = " + curDir.name);
+                str = ls2(curDir.children, str.slice(1, str.length));
                 break;
 			case "":
 				return;
