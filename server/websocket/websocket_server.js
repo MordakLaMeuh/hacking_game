@@ -119,7 +119,10 @@ function getIndex(children, name)
     return (-1);
 }
 
-function cd2(root, curDir, args)
+/*
+* Function cd
+*/
+function cd(root, curDir, args)
 {
     if (args.length != 1)
         return ([curDir, "cd\nUsage cd PATH\n"]);
@@ -132,14 +135,10 @@ function cd2(root, curDir, args)
     }
     else
         var tmpDir = curDir;
-    console.log("ARG = |"+args[0]+"|");
     path = path.replace(/^\/+|\/+$/gm,'');
-    console.log("ARG = |"+path+"|");
     path = path.split('/')
-    console.log("path = " + path + " path len = " + path.length + "i = " + i);
     while (i < path.length)
     {
-        console.log("path i = "+path[i]+"|");
         if (path[i] == "..")
         {
             if (tmpDir.parent)
@@ -158,32 +157,6 @@ function cd2(root, curDir, args)
         ++i;
     }
     return ([tmpDir, "cd " + args[0] + "\n"]);
-}
-/*
- * Function cd
- */
-function cd(curDir, args)
-{
-    var retArray = [curDir];
-
-    if (args.length != 1)
-        return ([curDir, "cd\nUsage cd PATH\n"]);
-    if (args[0] == "..")
-    {
-        if (curDir.parent)
-            return ([curDir.parent, "cd " + args[0] + "\n"]);
-        return ([curDir, "cd " + args[0] + "\n"]);
-    }
-    else
-    {
-        var index = getIndex(curDir.children, args[0]);
-        if (index == -1)
-            return ([curDir, "cd: " + args[0] + ": No such file or directory\n"]);
-        else if (curDir.children[index].isDir == false)
-            return ([curDir, "cd: " + args[0] + ": Not a directory\n"]);
-        else
-            return ([curDir.children[index], "cd " + args[0] + "\n"]);
-    }
 }
 
 /*
@@ -363,13 +336,11 @@ ws.on('connection', function (client, req)
 					send(clientSocket[j], msg, "send dice throw to " + clientUserList[j]);
 				return;
             case "cd":
-                // var retArray = cd(curDir, str.slice(1, str.length));
-                var retArray = cd2(root, curDir, str.slice(1, str.length));
+                var retArray = cd(root, curDir, str.slice(1, str.length));
                 curDir = retArray[0];
                 str = retArray[1];
                 break;
             case "ls2":
-            console.log("cur = " + curDir.name);
                 str = ls2(curDir.children, str.slice(1, str.length));
                 break;
 			case "":
