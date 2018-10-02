@@ -44,6 +44,51 @@ filterInt = function (value) {
 }
 
 
+/*
+** Constructor File
+*/
+function File(parent, name, children, isDir)
+{
+    this.parent = parent;
+    this.name = name;
+    this.children = children;
+    this.isDir = isDir;
+    if (this.parent)
+        this.parent.children.push(this);
+}
+
+/*
+ * Function displayArgs
+ */
+function ls2(children, args)
+{
+    var i = 0;
+    var str = "ls " + args.join(' ') + "\n";
+
+    while (i < children.length)
+    {
+        str += children[i].name;
+        i++;
+        if (i < children.length)
+            str += "\n";
+    }
+    return (str);
+}
+
+/*
+ * Function createFileSystem
+ */
+function createFileSystem()
+{
+    var root = new File(null, "/", [], true);
+    new File(root, "Missions", [], true);
+    new File(root, "Other", [], true);
+    new File(root, "readme.txt", [], false);
+    new File(root.children[0], "mission.txt", [], false);
+    new File(root.children[0], "mission2.txt", [], false);
+    new File(root.children[1], "other.txt", [], false);
+    return (root);
+}
 
 /*
  * Function displayArgs
@@ -177,7 +222,7 @@ ws.on('connection', function (client, req)
 	client.on("message", function (str)
 	{
 		console.log(str);
-
+        var root = createFileSystem();
 		if (newClient == true) {
 			console.log('new client msg received -> ' + str);
 			var msg = "► " + str + " vient de se connecter\n";
@@ -233,6 +278,9 @@ ws.on('connection', function (client, req)
 				for (var j = 0; j < clientSocket.length; j++)
 					send(clientSocket[j], msg, "send dice throw to " + clientUserList[j]);
 				return;
+            case "ls2":
+                str = ls2(root.children, str.slice(1, str.length));
+                break;
 			case "":
 				return;
 			default :
