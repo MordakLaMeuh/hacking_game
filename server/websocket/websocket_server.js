@@ -127,8 +127,12 @@ function cd2(root, curDir, args)
         var tmpDir = root;
     else
         var tmpDir = curDir;
-    console.log("ARG = "+args);
-    var path = args[0].split('/');
+    console.log("ARG = "+args[0]);
+    var path = args[0].replace(/^\/+|\/+$/gm,'');
+    path = path.replace(/\/+/g, '/');
+    console.log("ARG = "+path);
+    path = path.split('/')
+if (path.length == 2)
     console.log("path = " + path + " path len = " + path.length);
     if (path.length == 2)
     {
