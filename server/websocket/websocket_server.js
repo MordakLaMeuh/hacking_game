@@ -123,22 +123,20 @@ function cd2(root, curDir, args)
 {
     if (args.length != 1)
         return ([curDir, "cd\nUsage cd PATH\n"]);
-    if (args[0].charAt(0) == '/')
+    var path = args[0].replace(/\/+/g, '/'), i = 0;
+    if (path.charAt(0) == '/')
+    {
         var tmpDir = root;
+        if (path.length == 1)
+            ++i;
+    }
     else
         var tmpDir = curDir;
-    console.log("ARG = "+args[0]);
-    var path = args[0].replace(/^\/+|\/+$/gm,'');
-    path = path.replace(/\/+/g, '/');
-    console.log("ARG = "+path);
+    console.log("ARG = |"+args[0]+"|");
+    path = path.replace(/^\/+|\/+$/gm,'');
+    console.log("ARG = |"+path+"|");
     path = path.split('/')
-if (path.length == 2)
-    console.log("path = " + path + " path len = " + path.length);
-    if (path.length == 2)
-    {
-        console.log ("1 = |"+path[0]+"| 2 = |"+path[1]+"|");
-    }
-    var i = 0;
+    console.log("path = " + path + " path len = " + path.length + "i = " + i);
     while (i < path.length)
     {
         console.log("path i = "+path[i]+"|");
@@ -157,7 +155,7 @@ if (path.length == 2)
             else
                 tmpDir = tmpDir.children[index];
         }
-        i++;
+        ++i;
     }
     return ([tmpDir, "cd " + args[0] + "\n"]);
 }
