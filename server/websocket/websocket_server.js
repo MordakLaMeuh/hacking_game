@@ -121,33 +121,13 @@ var ws = new WebSocketServer({port: port});
  */
 var ip = require('ip');
 
-console.log(new Date() + '\nwebRTC server running on ' + ip.address() + ':' + port);
-
-clientSocket = new Array();
-clientUserList = new Array();
-
-var history = new Array();
-
-var pushHistory = function(msg)
-{
-	history.push(msg);
-	if (history.length > 20)
-		history.shift();
-}
+console.log(new Date() + '\nhacking_game server running on ' + ip.address() + ':' + port);
 
 var send = function(socket, msg, status)
 {
 	socket.send(msg, function ack(error) {
-		console.log(status);
 		if (error) {
 			console.log(". ERR status -> " + error);
-			for (var k = 0; k < clientSocket.length; k++) {
-				if (clientSocket[k] == socket) {
-					clientSocket.splice(k, 1);
-					clientUserList.splice(k, 1);
-					break;
-				}
-			}
 		}
 	});
 }
@@ -158,14 +138,26 @@ var send = function(socket, msg, status)
 ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
-	var newClient = true;
+	var newClient = false;
 
 	/*
 	 * Event on input client message
 	 */
 	client.on("message", function (str)
 	{
-		console.log(str);
+		console.log("incoming message: " + str);
+
+		var json_msg;
+		var input;
+		var output;
+
+		try {
+			json_msg = JSON.parse(str);
+		} catch (e) {
+		    console.log("not a JSON");
+		    send(client, JSON.stringify({"error":"Internal server error"}));
+		    return ;
+		}
 
 		if (newClient == true) {
 			clientSocket.push(client);
@@ -173,97 +165,41 @@ ws.on('connection', function (client, req)
 			newClient = false;
 		}
 
-/*
-		if (newClient == true) {
-			console.log('new client msg received -> ' + str);
-			var msg = "► " + str + " vient de se connecter\n";
-			pushHistory(msg);
+		console.log("input command: " + json_msg.command);
+		input = json_msg.command;
 
-			for (var j = 0; j < clientSocket.length; j++)
-				send(clientSocket[j], msg, "send connected status to " + clientUserList[j]);
-
-			send(client, history.join("") + "\
-► Bienvenue " + str + "\n\
-" + ((clientSocket.length == 0) ? "► Vous êtes le seul en ligne":"► " + ((clientSocket.length == 1) ? "Est" : "Sont" ) + " actuellement en ligne: " + clientUserList.join()) + "\n\
-► Tapez help pour obtenir de l'aide.\n", "welcome msg for " + str + " at " + req.connection.remoteAddress);
-
-			clientSocket.push(client);
-			clientUserList.push(str);
-			newClient = false;
-		} else {
-*/
-			str = str.replace(/^\s+|\s+$/gm,'');
-			str = str.replace(/  +/g, ' ');
-			str = str.split(' ');
-			switch (str[0]) {
-			case "rot":
-			    if (!str[1] || ! str[2] || isNaN(parseInt(str[1])) === true)
-			        str = "Usage : rot number word"
-                else
-    				str = str_rot(parseInt(str[1]), str[2]);
-				break;
-			case "ls":
-				str = ls(str.slice(1, str.length));
-				break;
-			case "help":
-				str = " ls : list all files on the current folder\n cat filename : display content of file\n";
-				break;
-			case "cat":
-				str = cat(str.slice(1, str.length));
-				break;
-			case "/status":
-				send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
-				return;
-			case "/roll":
-				var i;
-				for (i = 0; i < clientSocket.length; i++) {
-					if (client == clientSocket[i])
-						break;
-				}
-
-				var nbr = Math.floor(math.random() * (6 - 0));
-				var msg = clientUserList[i] + " lance un dé de 6 faces et obtient " + nbr + ((nbr) ? " !\n" : " Mouhaha XD\n");
-				pushHistory(msg);
-
-				for (var j = 0; j < clientSocket.length; j++)
-					send(clientSocket[j], msg, "send dice throw to " + clientUserList[j]);
-				return;
-			default :
-				str = "unknown command !";
-				break;
-			}
-
-			for (var i = 0; i < clientSocket.length; i++) {
-				if (client == clientSocket[i]) {
-					console.log("message received from " + clientUserList[i] + ": " + str);
-					var msg = str + "\n";
-					pushHistory(msg);
-					for (var j = 0; j < clientSocket.length; j++)
-						send(clientSocket[j], msg, "send msg to " + clientUserList[j]);
-					break;
-				}
-			}
-//		}
+		input = input.replace(/^\s+|\s+$/gm,'');
+		input = input.replace(/  +/g, ' ');
+		input = input.split(' ');
+		switch (input[0]) {
+		case "rot":
+		    if (!input[1] || !input[2] || isNaN(parseInt(input[1])) === true)
+		        output = "Usage : rot number word"
+            else
+				output = str_rot(parseInt(input[1]), input[2]);
+			break;
+		case "ls":
+			output = ls(input.slice(1, input.length));
+			break;
+		case "help":
+			output = " ls : list all files on the current folder\n cat filename : display content of file\n";
+			break;
+		case "cat":
+			output = cat(input.slice(1, input.length));
+			break;
+		case "roll":
+			var nbr = Math.floor(math.random() * (6 - 0));
+			output = "You throw a six faces dice and you ger a " + nbr;
+			break;
+		default :
+			output = "unknown command !";
+			break;
+		}
+		send(client, JSON.stringify({"result":output}));
 	})
 
 	client.on("close", function()
 	{
 		console.log('__DECONNEXION DETECTED__');
-		for (var i = 0; i < clientSocket.length; i++) {
-			if (client == clientSocket[i]) {
-				var oldUser = clientUserList[i];
-				clientSocket.splice(i, 1);
-				clientUserList.splice(i, 1);
-
-				var msg = "► " + oldUser + " vient de se déconnecter !\n";
-				pushHistory(msg);
-
-				console.log(msg);
-
-				for (var j = 0; j < clientSocket.length; j++)
-					send(clientSocket[j], msg , "close " + clientUserList[j]);
-				break;
-			}
-		}
 	})
 });

@@ -117,7 +117,9 @@ socket.onerror = function()
 
 socket.onmessage = function(res)
 {
-	createDiv(res.data);
+	data = JSON.parse(res.data);
+
+	createDiv(data.result);
 
 	historyIdx = inputHistory.length;
 	createNewInputString();
@@ -179,7 +181,7 @@ document.addEventListener('keypress', (event) => {
 				inputHistory[inputHistory.length - 1] != outStr)
 			inputHistory.push(outStr);
 
-		socket.send(outStrPostProcessed);
+		socket.send(JSON.stringify({"command":outStrPostProcessed}));
 		break;
 	case "ArrowRight":
 		if (cursorPosition < inputString.length) {
