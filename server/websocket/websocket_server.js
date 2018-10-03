@@ -303,9 +303,6 @@ ws.on('connection', function (client, req)
                 curDir = retArray[0];
                 str = retArray[1];
                 break;
-            case "ls2":
-                str = ls2(curDir.children, str.slice(1, str.length));
-                break;
 			case "":
 				return;
 			default :
