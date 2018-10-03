@@ -159,6 +159,39 @@ function cd(root, curDir, args)
     return ([tmpDir, "cd " + args[0] + "\n"]);
 }
 
+function getFiles(children, args, hidden)
+{
+    var i = 0;
+    var str = "ls " + args.join(' ') + "\n";
+
+    while (i < children.length)
+    {
+        if (children[i].name[0] != "." || hidden == true)
+        {
+            str += children[i].name;
+            i++;
+            if (i < children.length)
+                str += "\n";
+        }
+
+    }
+    return (str);
+}
+
+function ls3(curDir, args)
+{
+    if (args.length == 0)
+        return (getFiles(curDir.children, args, false));
+    if (args.length == 1)
+    {
+        if (args[0] == "-a")
+            return (getFiles(curDir.children, args, true))
+        return ("ls: invalid option -- " + "\'" + args[0] + "\'");
+    }
+    return ("ls " + args.join(' ') + "\nUsage : ls OPTION\n");
+}
+
+
 /*
  * Function cat
  */
