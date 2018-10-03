@@ -138,7 +138,7 @@ var send = function(socket, msg, status)
 ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
-	var newClient = false;
+	var logged = false;
 
 	/*
 	 * Event on input client message
@@ -148,9 +148,6 @@ ws.on('connection', function (client, req)
 		console.log("incoming message: " + str);
 
 		var json_msg;
-		var input;
-		var output;
-
 		try {
 			json_msg = JSON.parse(str);
 		} catch (e) {
@@ -159,14 +156,26 @@ ws.on('connection', function (client, req)
 		    return ;
 		}
 
-		if (newClient == true) {
-			clientSocket.push(client);
-			clientUserList.push(str);
-			newClient = false;
+		if (logged == false) {
+			if (json_msg.login == "root" && json_msg.password == "root") {
+				send(client, JSON.stringify({"auth":1}));
+				logged = true;
+			} else {
+				send(client, JSON.stringify({"auth":0}));
+			}
+			return ;
 		}
 
 		console.log("input command: " + json_msg.command);
+
+		var input;
+		var output;
 		input = json_msg.command;
+		if (!input) {
+		    console.log("JSON: no input field");
+		    send(client, JSON.stringify({"error":"Internal server error"}));
+		    return ;
+		}
 
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
@@ -195,7 +204,7 @@ ws.on('connection', function (client, req)
 			output = "unknown command !";
 			break;
 		}
-		send(client, JSON.stringify({"result":output}));
+		send(client, JSON.stringify({"string":output}));
 	})
 
 	client.on("close", function()
