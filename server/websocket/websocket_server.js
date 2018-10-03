@@ -174,7 +174,7 @@ function ls(curDir, args)
 /*
  * Function cat
  */
-function cat2(curDir, args)
+function cat(curDir, args)
 {
     if (args.length != 1)
         return ("cat " + args.join(' ') + "\nUsage : cat FILE");
@@ -279,7 +279,7 @@ ws.on('connection', function (client, req)
 				str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
 				break;
 			case "cat":
-                str = cat2(curDir, str.slice(1, str.length));
+                str = cat(curDir, str.slice(1, str.length));
 				break;
 			case "/status":
 				send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
