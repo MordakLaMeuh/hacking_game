@@ -58,24 +58,6 @@ function File(parent, name, children, isDir)
 }
 
 /*
- * Function displayArgs
- */
-function ls2(children, args)
-{
-    var i = 0;
-    var str = "ls " + args.join(' ') + "\n";
-
-    while (i < children.length)
-    {
-        str += children[i].name;
-        i++;
-        if (i < children.length)
-            str += "\n";
-    }
-    return (str);
-}
-
-/*
  * Function createFileSystem
  */
 function createFileSystem()
@@ -84,6 +66,7 @@ function createFileSystem()
     new File(root, "Missions", [], true);
     new File(root, "Other", [], true);
     new File(root, "readme.txt", [], false);
+    new File(root, ".hidden.txt", [], false);
     new File(root.children[0], "mission.txt", [], false);
     new File(root.children[0], "mission2.txt", [], false);
     new File(root.children[1], "other.txt", [], false);
@@ -159,6 +142,9 @@ function cd(root, curDir, args)
     return ([tmpDir, "cd " + args[0] + "\n"]);
 }
 
+/*
+ * Function getFiles
+ */
 function getFiles(children, args, hidden)
 {
     var i = 0;
@@ -173,12 +159,16 @@ function getFiles(children, args, hidden)
             if (i < children.length)
                 str += "\n";
         }
-
+        else
+            ++i;
     }
     return (str);
 }
 
-function ls3(curDir, args)
+/*
+ * Function ls
+ */
+function ls(curDir, args)
 {
     if (args.length == 0)
         return (getFiles(curDir.children, args, false));
@@ -190,7 +180,6 @@ function ls3(curDir, args)
     }
     return ("ls " + args.join(' ') + "\nUsage : ls OPTION\n");
 }
-
 
 /*
  * Function cat
@@ -222,39 +211,7 @@ function cat(args)
 /*
  * Function ls
  */
-function ls(args)
-{
-	var str = "";
 
-	displayArgs(args);
-
-	switch (args.length) {
-	case 0:
-		console.log("ls without args : ls");
-		str += "ls\nmission.txt - 1ko";
-		break;
-	case 1:
-		if (args[0].charAt(0) == '-') {
-			console.log("ls with one option, but without file : ls " + args[0]);
-			if (args[0] == "-a")
-				str += "ls " + args[0] + "\nmission.txt - 1ko\n.hidden_file.txt - 2ko";
-			else
-				str += "ls: invalid option -- " + "\'" + args[0] + "\'";
-		} else if (args[0] == "mission.txt") {
-			console.log("ls with one file : ls " + args[0]);
-			str += "ls " + args[0] + "\nmission.txt - 1ko";
-		} else {
-			console.log("ls with one file : ls " + args[0]);
-			str += "ls " + args[0] + "\nls : cannot access \'" + args[0] + "\': No such file or directory";
-		}
-		break;
-	default :
-		console.log("ls with more than 2 args");
-		str += "ls " + args.join(' ');
-		break;
-	}
-	return str;
-}
 
 /*
  * Opening socket websocket server
@@ -343,7 +300,7 @@ ws.on('connection', function (client, req)
     				str = str_rot(parseInt(str[1]), str[2]);
 				break;
 			case "ls":
-				str = ls(str.slice(1, str.length));
+				str = ls(curDir, str.slice(1, str.length));
 				break;
 			case "help":
 				str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
