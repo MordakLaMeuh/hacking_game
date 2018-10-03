@@ -47,12 +47,13 @@ filterInt = function (value) {
 /*
 ** Constructor File
 */
-function File(parent, name, children, isDir)
+function File(parent, name, children, isDir, content)
 {
     this.parent = parent;
     this.name = name;
     this.children = children;
     this.isDir = isDir;
+    this.content = content;
     if (this.parent)
         this.parent.children.push(this);
 }
@@ -62,28 +63,17 @@ function File(parent, name, children, isDir)
  */
 function createFileSystem()
 {
-    var root = new File(null, "/", [], true);
-    new File(root, "Missions", [], true);
-    new File(root, "Other", [], true);
-    new File(root, "readme.txt", [], false);
-    new File(root, ".hidden.txt", [], false);
-    new File(root.children[0], "mission.txt", [], false);
-    new File(root.children[0], "mission2.txt", [], false);
-    new File(root.children[1], "other.txt", [], false);
+    var root = new File(null, "/", [], true, null);
+    new File(root, "Missions", [], true, null);
+    new File(root, "Other", [], true, null);
+    new File(root, "readme.txt", [], false, "Ceci est le readme");
+    new File(root, ".hidden.txt", [], false, "Ceci est un fichier cache");
+    new File(root.children[0], "mission.txt", [], false, "Your mission is to " +
+    "find the identity of Mr. X. Good luck.");
+    new File(root.children[0], "mission2.txt", [], false, "Your mission is " +
+    "to find the hidden file");
+    new File(root.children[1], "other.txt", [], false, "blabla");
     return (root);
-}
-
-/*
- * Function displayArgs
- */
-function displayArgs(args)
-{
-	var i = 0;
-
-	while (i < args.length) {
-		console.log("arg number " + i + " is : " + args[i]);
-		i++;
-	}
 }
 
 /*
@@ -184,34 +174,17 @@ function ls(curDir, args)
 /*
  * Function cat
  */
-function cat(args)
+function cat2(curDir, args)
 {
-	var str = "";
-
-	displayArgs(args);
-
-	switch (args.length) {
-	case 0:
-		str += "cat\nUsage : cat FILE";
-		break;
-	case 1:
-		if (args[0] == "mission.txt")
-			str += "cat mission.txt\nYour mission is to find the identity of Mr. X. Good luck."
-		else
-			str += "cat: " + args[0] + ": No such file or directory";
-		break;
-	default:
-		console.log("cat with more than 2 args");
-		str += "cat " + args.join(' ');
-		break;
-	}
-	return str;
+    if (args.length != 1)
+        return ("cat " + args.join(' ') + "\nUsage : cat FILE");
+    var index = getIndex(curDir.children, args[0]);
+    if (index == -1)
+        return ("cat: " + args[0] + ": No such file or directory");
+    if (curDir.children[index].isDir == true)
+        return ("cat: " + args[0] + ": Is a directory");
+    return ("cat " + args.join(' ') + "\n" + curDir.children[index].content);
 }
-
-/*
- * Function ls
- */
-
 
 /*
  * Opening socket websocket server
@@ -306,7 +279,7 @@ ws.on('connection', function (client, req)
 				str = "help\n ls : list all files on the current folder\n cat filename : display content of file\n";
 				break;
 			case "cat":
-				str = cat(str.slice(1, str.length));
+                str = cat2(curDir, str.slice(1, str.length));
 				break;
 			case "/status":
 				send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
