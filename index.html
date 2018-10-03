@@ -282,8 +282,9 @@ document.addEventListener('keypress', (event) => {
 		break;
 	case "Enter":
 		var outStr = inputString.slice(systemInputMsg.length);
+		var outStrPostProcessed = outStr.replace(space_regex, " ");
 
-		if (outStr.trim().length == 0) {
+		if (outStrPostProcessed.trim().length == 0) {
 			historyIdx = inputHistory.length;
 			createNewInputString();
 			break;
@@ -293,7 +294,7 @@ document.addEventListener('keypress', (event) => {
 				inputHistory[inputHistory.length - 1] != outStr)
 			inputHistory.push(outStr);
 
-		socket.send(outStr.replace(space_regex, " "));
+		socket.send(outStrPostProcessed);
 		break;
 	case "ArrowRight":
 		if (cursorPosition < inputString.length) {
