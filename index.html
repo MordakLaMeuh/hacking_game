@@ -174,12 +174,15 @@ console.log('value:' + document.styleSheets[0].cssRules[0]);
 
 
 
+const space_expr = "&nbsp;";
+const space_regex = /&nbsp;/g;
+
 var inputHistory = new Array();
 var historyIdx;
 
 var inputString;
 var cursorPosition;
-var systemInputMsg = "banane@hacking_game: ";
+var systemInputMsg = "banane@hacking_game:" + space_expr;
 
 var createNewInputString = function(optionalStr)
 {
@@ -212,10 +215,10 @@ var refreshInput = function(inputDiv)
 	chatTab.scrollTop += 10000;
 }
 
-function remove_character(str, char_pos)
+function removeCharacters(str, char_pos, len)
 {
 	part1 = str.substring(0, char_pos);
-	part2 = str.substring(char_pos + 1, str.length);
+	part2 = str.substring(char_pos + len, str.length);
 	return part1 + part2;
 }
 
@@ -239,7 +242,7 @@ historyIdx = inputHistory.length;
 createNewInputString();
 
 document.addEventListener('keypress', (event) => {
-	const key = event.key;
+	key = event.key;
 
 	if (key.length == 1) {
 		part1 = inputString.substring(0, cursorPosition);
@@ -248,9 +251,14 @@ document.addEventListener('keypress', (event) => {
 		part2 = inputString.substring(cursorPosition, inputString.length);
 		console.log("part_2: '" + part2 + "'");
 
+		if (key == " ") {
+			key = space_expr;
+			cursorPosition += space_expr.length;
+		} else {
+			cursorPosition += 1;
+		}
 		inputString = part1 + key + part2;
 
-		cursorPosition += 1;
 		refreshInput(inputDiv);
 
 		historyIdx = inputHistory.length;
@@ -259,8 +267,14 @@ document.addEventListener('keypress', (event) => {
 	switch(key) {
 	case "Backspace":
 		if (cursorPosition != systemInputMsg.length) {
-			inputString = remove_character(inputString, cursorPosition - 1);
-			cursorPosition -= 1;
+			var idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
+			var len;
+			if (cursorPosition - idx == space_expr.length)
+				len = space_expr.length;
+			else
+				len = 1;
+			cursorPosition -= len;
+			inputString = removeCharacters(inputString, cursorPosition, len);
 
 			historyIdx = inputHistory.length;
 		}
@@ -279,18 +293,26 @@ document.addEventListener('keypress', (event) => {
 				inputHistory[inputHistory.length - 1] != outStr)
 			inputHistory.push(outStr);
 
-		socket.send(outStr);
+		socket.send(outStr.replace(space_regex, " "));
 		break;
 	case "ArrowRight":
 		if (cursorPosition < inputString.length) {
-			cursorPosition += 1;
+			var idx = inputString.substring(cursorPosition, inputString.length).indexOf(space_expr);
+			if (idx == 0)
+				cursorPosition += space_expr.length;
+			else
+				cursorPosition += 1;
 
 			historyIdx = inputHistory.length;
 		}
 		break;
 	case "ArrowLeft":
 		if (cursorPosition != systemInputMsg.length) {
-			cursorPosition -= 1;
+			var idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
+			if (cursorPosition - idx == space_expr.length)
+				cursorPosition -= space_expr.length;
+			else
+				cursorPosition -= 1;
 
 			historyIdx = inputHistory.length;
 		}
