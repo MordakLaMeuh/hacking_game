@@ -7,3 +7,5 @@ readme.txt,/,false,Ceci est le readme
 mission.txt,Missions,false,Your mission is to find the identity of Mr. X. Good luck.
 mission2.txt,Missions,false,Your mission is to find the hidden file
 other.txt,Other,false,blabla
+bigFoot,Other,true,null
+bigFoot.txt,bigFoot,false,Ceci est un gros fichier
