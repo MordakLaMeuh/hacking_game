@@ -1,6 +1,7 @@
 #name,parentName,isDirectory,content
 /,null,true,null
 Missions,/,true,null
+Programs,/,true,null
 Other,/,true,null
 readme.txt,/,false,Ceci est le readme
 .hidden.txt,/,false,Ceci est un fichier cache
@@ -9,3 +10,4 @@ mission2.txt,Missions,false,Your mission is to find the hidden file
 other.txt,Other,false,blabla
 bigFoot,Other,true,null
 bigFoot.txt,bigFoot,false,Ceci est un gros fichier
+rot,Programs,false,Cannot open rot. Try using rot.
