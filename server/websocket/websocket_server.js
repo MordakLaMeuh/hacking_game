@@ -196,13 +196,13 @@ function cat(curDir, args)
  */
 function pwd(curDir)
 {
-    var pwd = curDir.name;
-    while (curDir.parent)
-    {
-        pwd = curDir.parent.name + pwd;
-        curDir = curDir.parent;
-    }
-    return (pwd);
+	var pwd = curDir.name;
+	while (curDir.parent)
+	{
+		pwd = curDir.parent.name + pwd;
+		curDir = curDir.parent;
+	}
+	return (pwd);
 }
 
 /*
