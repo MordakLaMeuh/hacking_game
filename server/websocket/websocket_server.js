@@ -10,105 +10,197 @@ var math = require('math');
 ** Rot any nmmber : string rot(nb, str)
 */
 function str_rot(num, str) {
-    var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    var newStr = "";
-    num = num % 26;
-    for (var i = 0; i < str.length; i++) {
-        var char = str[i],
-            isUpper = char === char.toUpperCase() ? true : false;
+	var alphabet = "abcdefghijklmnopqrstuvwxyz";
+	var newStr = "";
+	num = num % 26;
+	for (var i = 0; i < str.length; i++) {
+		var char = str[i],
+		isUpper = char === char.toUpperCase() ? true : false;
 
-        char = char.toLowerCase();
+		char = char.toLowerCase();
 
-        if (alphabet.indexOf(char) > -1) {
-            var newIndex = alphabet.indexOf(char) + num;
-            if(newIndex < alphabet.length) {
-                isUpper ? newStr += alphabet[newIndex].toUpperCase() : newStr += alphabet[newIndex];
-            } else {
-                var shiftedIndex = -(alphabet.length - newIndex);
-                isUpper ? newStr += alphabet[shiftedIndex].toUpperCase() : newStr += alphabet[shiftedIndex];
-            }
-        } else {
-            newStr += char;
-        }
-    }
-    return newStr;
+		if (alphabet.indexOf(char) > -1) {
+			var newIndex = alphabet.indexOf(char) + num;
+			if(newIndex < alphabet.length) {
+				isUpper ? newStr += alphabet[newIndex].toUpperCase() : newStr += alphabet[newIndex];
+			} else {
+				var shiftedIndex = -(alphabet.length - newIndex);
+				isUpper ? newStr += alphabet[shiftedIndex].toUpperCase() : newStr += alphabet[shiftedIndex];
+			}
+		} else {
+			newStr += char;
+		}
+	}
+	return newStr;
+}
+
+/* Filter int number before parseInt to avoid 42toto to be considered like 42 */
+
+filterInt = function (value) {
+	if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+		return Number(value);
+	return NaN;
 }
 
 /*
- * Function displayArgs
+** Function getFile
+*/
+function getFile(files, name)
+{
+	for (var i = 0; i < files.length; ++i)
+	{
+		if (files[i].name == name)
+			return (files[i]);
+	}
+	return (null);
+}
+
+/*
+ * Constructor File
  */
-function displayArgs(args)
+function File(name, parent, isDir, content, files)
+{
+	this.name = name;
+	this.parent = getFile(files, parent);
+	isDir == "true" ? this.isDir = true : this.isDir = false;
+	content == "null" ? this.content = null : this.content = content;
+	this.children = [];
+	if (this.parent)
+		this.parent.children.push(this);
+}
+
+/*
+ * Function createFileSystem
+ */
+function createFileSystem(file)
+{
+	const fs = require('fs');
+	try
+	{
+		var data = fs.readFileSync(file, 'utf8');
+	}
+	catch(error)
+	{
+		console.log('Error:', error.stack);
+	}
+	var lines = data.split('\n'), files = [];
+	for (var i = 1; i < lines.length; ++i)
+	{
+		var words = lines[i].split(',');
+		if (words.length == 4)
+			files.push(new File(words[0], words[1], words[2], words[3], files));
+	}
+	var root = getFile(files, "/");
+	if (root)
+		return (root);
+	else
+		throw ("Error: root is not found");
+}
+
+/*
+ * Function cd
+ */
+function cd(root, curDir, args)
+{
+	if (args.length != 1)
+		return ([curDir, "cd\nUsage cd PATH\n"]);
+	var path = args[0].replace(/\/+/g, '/'), i = 0;
+	if (path.charAt(0) == '/')
+	{
+		var tmpDir = root;
+		if (path.length == 1)
+			++i;
+	}
+	else
+		var tmpDir = curDir;
+	path = path.replace(/^\/+|\/+$/gm,'');
+	path = path.split('/')
+	while (i < path.length)
+	{
+		if (path[i] == "..")
+		{
+			if (tmpDir.parent)
+				tmpDir = tmpDir.parent;
+		}
+		else if (path[i] != ".")
+		{
+			tmpDir = getFile(tmpDir.children, path[i]);
+			if (tmpDir == null)
+				return ([curDir, "cd: " + args[0] + ": No such file or directory\n"]);
+			else if (tmpDir.isDir == false)
+				return ([curDir, "cd: " + args[0] + ": Not a directory\n"]);
+		}
+		++i;
+	}
+	return ([tmpDir, "cd " + args[0] + "\n"]);
+}
+
+/*
+ * Function getLsContent
+ */
+function getLsContent(children, args, hidden)
 {
 	var i = 0;
+	var str = "ls " + args.join(' ') + "\n";
 
-	while (i < args.length) {
-		console.log("arg number " + i + " is : " + args[i]);
-		i++;
-	}
-}
-
-/*
- * Function cat
- */
-function cat(args)
-{
-	var str = "";
-
-	displayArgs(args);
-
-	switch (args.length) {
-	case 0:
-		str += "Usage : cat FILE";
-		break;
-	case 1:
-		if (args[0] == "mission.txt")
-			str += "Your mission is to find the identity of Mr. X. Good luck."
+	while (i < children.length)
+	{
+		if (children[i].name[0] != "." || hidden == true)
+		{
+			str += children[i].name;
+			i++;
+			if (i < children.length)
+				str += "\n";
+		}
 		else
-			str += "cat '" + args[0] + "': No such file or directory";
-		break;
-	default:
-		console.log("cat with more than 2 args");
-		str += "too much arguments";
-		break;
+			++i;
 	}
-	return str;
+	return (str);
 }
 
 /*
  * Function ls
  */
-function ls(args)
+function ls(curDir, args)
 {
-	var str = "";
-
-	displayArgs(args);
-
-	switch (args.length) {
-	case 0:
-		console.log("ls without args : ls");
-		str += "mission.txt - 1ko";
-		break;
-	case 1:
-		if (args[0].charAt(0) == '-') {
-			console.log("ls with one option, but without file : ls " + args[0]);
-			if (args[0] == "-a")
-				str += "mission.txt - 1ko\n.hidden_file.txt - 2ko";
-			else
-				str += "ls : invalid option -- " + "\'" + args[0] + "\'";
-		} else if (args[0] == "mission.txt") {
-			console.log("ls with one file : ls " + args[0]);
-			str += "mission.txt - 1ko";
-		} else {
-			console.log("ls with one file : ls " + args[0]);
-			str += "ls : cannot access \'" + args[0] + "\': No such file or directory";
-		}
-		break;
-	default :
-		console.log("ls with more than 2 args");
-		str += "too much arguments";
-		break;
+	if (args.length == 0)
+		return (getLsContent(curDir.children, args, false));
+	if (args.length == 1)
+	{
+		if (args[0] == "-a")
+			return (getLsContent(curDir.children, args, true))
+		return ("ls: invalid option -- " + "\'" + args[0] + "\'");
 	}
-	return str;
+	return ("ls " + args.join(' ') + "\nUsage : ls OPTION\n");
+}
+
+/*
+ * Function cat
+ */
+function cat(curDir, args)
+{
+	if (args.length != 1)
+		return ("cat " + args.join(' ') + "\nUsage : cat FILE");
+	curDir = getFile(curDir.children, args[0]);
+	if (curDir == null)
+		return ("cat: " + args[0] + ": No such file or directory");
+	if (curDir.isDir == true)
+		return ("cat: " + args[0] + ": Is a directory");
+	return ("cat " + args.join(' ') + "\n" + curDir.content);
+}
+
+/*
+ * Function pwd
+ */
+function pwd(curDir)
+{
+	var pwd = curDir.name;
+	while (curDir.parent)
+	{
+		pwd = curDir.parent.name + pwd;
+		curDir = curDir.parent;
+	}
+	return (pwd);
 }
 
 /*
@@ -139,6 +231,8 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var logged = false;
+	var root = createFileSystem("generateVFS.csv");
+	var curDir = root;
 
 	/*
 	 * Event on input client message
@@ -151,9 +245,9 @@ ws.on('connection', function (client, req)
 		try {
 			json_msg = JSON.parse(str);
 		} catch (e) {
-		    console.log("not a JSON");
-		    send(client, JSON.stringify({"error":"Internal server error"}));
-		    return ;
+			console.log("not a JSON");
+			send(client, JSON.stringify({"error":"Internal server error"}));
+			return ;
 		}
 
 		if (logged == false) {
@@ -172,9 +266,9 @@ ws.on('connection', function (client, req)
 		var output;
 		input = json_msg.command;
 		if (!input) {
-		    console.log("JSON: no input field");
-		    send(client, JSON.stringify({"error":"Internal server error"}));
-		    return ;
+			console.log("JSON: no input field");
+			send(client, JSON.stringify({"error":"Internal server error"}));
+			return ;
 		}
 
 		input = input.replace(/^\s+|\s+$/gm,'');
@@ -182,23 +276,31 @@ ws.on('connection', function (client, req)
 		input = input.split(' ');
 		switch (input[0]) {
 		case "rot":
-		    if (!input[1] || !input[2] || isNaN(parseInt(input[1])) === true)
-		        output = "Usage : rot number word"
-            else
+			if (!input[1] || !input[2] || isNaN(parseInt(input[1])) === true)
+				output = "Usage : rot number word"
+			else
 				output = str_rot(parseInt(input[1]), input[2]);
 			break;
 		case "ls":
-			output = ls(input.slice(1, input.length));
+			output = ls(curDir, input.slice(1, input.length));
 			break;
 		case "help":
 			output = " ls : list all files on the current folder\n cat filename : display content of file\n";
 			break;
 		case "cat":
-			output = cat(input.slice(1, input.length));
+			output = cat(curDir, input.slice(1, input.length));
 			break;
 		case "roll":
 			var nbr = Math.floor(math.random() * (6 - 0));
 			output = "You throw a six faces dice and you ger a " + nbr;
+			break;
+		case "cd":
+			var retArray = cd(root, curDir, input.slice(1, input.length));
+			curDir = retArray[0];
+			output = retArray[1];
+			break;
+		case "pwd":
+			output = pwd(curDir);
 			break;
 		default :
 			output = "unknown command !";
