@@ -45,15 +45,28 @@ filterInt = function (value) {
 
 
 /*
+** Function getFile
+*/
+function getFile(files, name)
+{
+    for (var i = 0; i < files.length; ++i)
+    {
+        if (files[i].name == name)
+            return (files[i]);
+    }
+    return (null);
+}
+
+/*
 ** Constructor File
 */
-function File(parent, name, children, isDir, content)
+function File(name, parent, isDir, content, files)
 {
-    this.parent = parent;
     this.name = name;
-    this.children = children;
-    this.isDir = isDir;
-    this.content = content;
+    this.parent = getFile(files, parent);
+    isDir == "true" ? this.isDir = true : this.isDir = false;
+    content == "null" ? this.content = null : this.content = content;
+    this.children = [];
     if (this.parent)
         this.parent.children.push(this);
 }
@@ -61,35 +74,29 @@ function File(parent, name, children, isDir, content)
 /*
  * Function createFileSystem
  */
-function createFileSystem()
+function createFileSystem(file)
 {
-    var root = new File(null, "/", [], true, null);
-    new File(root, "Missions", [], true, null);
-    new File(root, "Other", [], true, null);
-    new File(root, "readme.txt", [], false, "Ceci est le readme");
-    new File(root, ".hidden.txt", [], false, "Ceci est un fichier cache");
-    new File(root.children[0], "mission.txt", [], false, "Your mission is to " +
-    "find the identity of Mr. X. Good luck.");
-    new File(root.children[0], "mission2.txt", [], false, "Your mission is " +
-    "to find the hidden file");
-    new File(root.children[1], "other.txt", [], false, "blabla");
-    return (root);
-}
-
-/*
- * Function getIndex
- * Similar to array.indexOf
- */
-function getIndex(children, name)
-{
-    var i = 0;
-    while (i < children.length)
+    const fs = require('fs');
+    try
     {
-        if (children[i].name == name)
-            return (i);
-        i++;
+        var data = fs.readFileSync(file, 'utf8');
     }
-    return (-1);
+    catch(error)
+    {
+        console.log('Error:', error.stack);
+    }
+    var lines = data.split('\n'), files = [];
+    for (var i = 1; i < lines.length; ++i)
+    {
+        var words = lines[i].split(',');
+        if (words.length == 4)
+            files.push(new File(words[0], words[1], words[2], words[3], files));
+    }
+    var root = getFile(files, "/");
+    if (root)
+        return (root);
+    else
+        throw ("Error: root is not found");
 }
 
 /*
@@ -119,13 +126,11 @@ function cd(root, curDir, args)
         }
         else if (path[i] != ".")
         {
-            var index = getIndex(tmpDir.children, path[i]);
-            if (index == -1)
+            tmpDir = getFile(tmpDir.children, path[i]);
+            if (tmpDir == null)
                 return ([curDir, "cd: " + args[0] + ": No such file or directory\n"]);
-            else if (tmpDir.children[index].isDir == false)
+            else if (tmpDir.isDir == false)
                 return ([curDir, "cd: " + args[0] + ": Not a directory\n"]);
-            else
-                tmpDir = tmpDir.children[index];
         }
         ++i;
     }
@@ -133,9 +138,9 @@ function cd(root, curDir, args)
 }
 
 /*
- * Function getFiles
+ * Function getLsContent
  */
-function getFiles(children, args, hidden)
+function getLsContent(children, args, hidden)
 {
     var i = 0;
     var str = "ls " + args.join(' ') + "\n";
@@ -161,11 +166,11 @@ function getFiles(children, args, hidden)
 function ls(curDir, args)
 {
     if (args.length == 0)
-        return (getFiles(curDir.children, args, false));
+        return (getLsContent(curDir.children, args, false));
     if (args.length == 1)
     {
         if (args[0] == "-a")
-            return (getFiles(curDir.children, args, true))
+            return (getLsContent(curDir.children, args, true))
         return ("ls: invalid option -- " + "\'" + args[0] + "\'");
     }
     return ("ls " + args.join(' ') + "\nUsage : ls OPTION\n");
@@ -178,12 +183,12 @@ function cat(curDir, args)
 {
     if (args.length != 1)
         return ("cat " + args.join(' ') + "\nUsage : cat FILE");
-    var index = getIndex(curDir.children, args[0]);
-    if (index == -1)
+    curDir = getFile(curDir.children, args[0]);
+    if (curDir == null)
         return ("cat: " + args[0] + ": No such file or directory");
-    if (curDir.children[index].isDir == true)
+    if (curDir.isDir == true)
         return ("cat: " + args[0] + ": Is a directory");
-    return ("cat " + args.join(' ') + "\n" + curDir.children[index].content);
+    return ("cat " + args.join(' ') + "\n" + curDir.content);
 }
 
 /*
@@ -234,7 +239,7 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var newClient = true;
-    var root = createFileSystem();
+    var root = createFileSystem("generateVFS.csv");
     var curDir = root;
 
 	/*
