@@ -2,7 +2,7 @@
 	"http" :  {
 		"index": "index.html",
 		"port": 8080,
-		"www": "../../",
+		"www": "../../client",
 		"mime": {
 			"css" : "text/css",
 			"gif" : "image/gif",
