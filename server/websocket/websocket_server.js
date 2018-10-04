@@ -58,8 +58,8 @@ function getFile(files, name)
 }
 
 /*
-** Constructor File
-*/
+ * Constructor File
+ */
 function File(name, parent, isDir, content, files)
 {
 	this.name = name;
@@ -100,8 +100,8 @@ function createFileSystem(file)
 }
 
 /*
-* Function cd
-*/
+ * Function cd
+ */
 function cd(root, curDir, args)
 {
 	if (args.length != 1)
@@ -189,6 +189,20 @@ function cat(curDir, args)
 	if (curDir.isDir == true)
 		return ("cat: " + args[0] + ": Is a directory");
 	return ("cat " + args.join(' ') + "\n" + curDir.content);
+}
+
+/*
+ * Function pwd
+ */
+function pwd(curDir)
+{
+    var pwd = curDir.name;
+    while (curDir.parent)
+    {
+        pwd = curDir.parent.name + pwd;
+        curDir = curDir.parent;
+    }
+    return (pwd);
 }
 
 /*
@@ -286,6 +300,9 @@ ws.on('connection', function (client, req)
 			case "cat":
 				str = cat(curDir, str.slice(1, str.length));
 				break;
+            case "pwd":
+                str = str.join(' ') + "\n" + pwd(curDir);
+                break;
 			case "/status":
 				send(client, "► " + ((clientSocket.length == 1) ? "Est":"Sont" ) + " actuellement en ligne: " + clientUserList.join() + "\n", "/status request");
 				return;
