@@ -146,6 +146,14 @@ function removeCharacters(str, char_pos, len)
 document.addEventListener('keypress', (event) => {
 	key = event.key;
 
+	/*
+	 * Prevent the quick search feature on Firefox triggered by /
+	 */
+	if (key == "/") {
+		event.stopPropagation();
+		event.preventDefault();
+	}
+
 	if (key.length == 1) {
 		part1 = inputString.substring(0, cursorPosition);
 		console.log("part_1: '" + part1 + "'");
