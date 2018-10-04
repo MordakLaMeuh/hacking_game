@@ -7,8 +7,8 @@ var port = 8081;
 var math = require('math');
 
 /*
-** Rot any nmmber : string rot(nb, str)
-*/
+ * Rot any nmmber : string rot(nb, str)
+ */
 function str_rot(num, str) {
 	var alphabet = "abcdefghijklmnopqrstuvwxyz";
 	var newStr = "";
@@ -34,7 +34,9 @@ function str_rot(num, str) {
 	return newStr;
 }
 
-/* Filter int number before parseInt to avoid 42toto to be considered like 42 */
+/*
+ * Filter int number before parseInt to avoid 42toto to be considered like 42
+ */
 
 filterInt = function (value) {
 	if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
@@ -43,8 +45,8 @@ filterInt = function (value) {
 }
 
 /*
-** Function getFile
-*/
+ * Function getFile
+ */
 function getFile(files, name)
 {
 	for (var i = 0; i < files.length; ++i)
@@ -103,7 +105,7 @@ function createFileSystem(file)
 function cd(root, curDir, args)
 {
 	if (args.length != 1)
-		return ([curDir, "cd\nUsage cd PATH\n"]);
+		return ([curDir, "Usage : cd PATH"]);
 	var path = args[0].replace(/\/+/g, '/'), i = 0;
 	if (path.charAt(0) == '/')
 	{
@@ -126,13 +128,13 @@ function cd(root, curDir, args)
 		{
 			tmpDir = getFile(tmpDir.children, path[i]);
 			if (tmpDir == null)
-				return ([curDir, "cd: " + args[0] + ": No such file or directory\n"]);
+				return ([curDir, "cd: " + args[0] + ": No such file or directory"]);
 			else if (tmpDir.isDir == false)
-				return ([curDir, "cd: " + args[0] + ": Not a directory\n"]);
+				return ([curDir, "cd: " + args[0] + ": Not a directory"]);
 		}
 		++i;
 	}
-	return ([tmpDir, "cd " + args[0] + "\n"]);
+	return ([tmpDir, "switching to " + args[0] + " directory"]);
 }
 
 /*
@@ -141,7 +143,7 @@ function cd(root, curDir, args)
 function getLsContent(children, args, hidden)
 {
 	var i = 0;
-	var str = "ls " + args.join(' ') + "\n";
+	var str = "";
 
 	while (i < children.length)
 	{
@@ -150,7 +152,7 @@ function getLsContent(children, args, hidden)
 			str += children[i].name;
 			i++;
 			if (i < children.length)
-				str += "\n";
+				str += "<br>";
 		}
 		else
 			++i;
@@ -171,7 +173,7 @@ function ls(curDir, args)
 			return (getLsContent(curDir.children, args, true))
 		return ("ls: invalid option -- " + "\'" + args[0] + "\'");
 	}
-	return ("ls " + args.join(' ') + "\nUsage : ls OPTION\n");
+	return ("Usage : ls OPTION");
 }
 
 /*
@@ -180,13 +182,13 @@ function ls(curDir, args)
 function cat(curDir, args)
 {
 	if (args.length != 1)
-		return ("cat " + args.join(' ') + "\nUsage : cat FILE");
+		return ("Usage : cat FILE");
 	curDir = getFile(curDir.children, args[0]);
 	if (curDir == null)
 		return ("cat: " + args[0] + ": No such file or directory");
 	if (curDir.isDir == true)
 		return ("cat: " + args[0] + ": Is a directory");
-	return ("cat " + args.join(' ') + "\n" + curDir.content);
+	return (curDir.content);
 }
 
 /*
@@ -285,7 +287,7 @@ ws.on('connection', function (client, req)
 			output = ls(curDir, input.slice(1, input.length));
 			break;
 		case "help":
-			output = " ls : list all files on the current folder\n cat filename : display content of file\n";
+			output = " ls : list all files on the current folder<br> cat filename : display content of file";
 			break;
 		case "cat":
 			output = cat(curDir, input.slice(1, input.length));
