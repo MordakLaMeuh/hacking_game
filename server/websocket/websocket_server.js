@@ -280,6 +280,8 @@ ws.on('connection', function (client, req)
 		case "rot":
 			if (!input[1] || !input[2] || isNaN(parseInt(input[1])) === true)
 				output = "Usage : rot number word"
+			else if (parseInt(input[1]) <= 0)
+				output = "Number must be positive"
 			else
 				output = str_rot(parseInt(input[1]), input[2]);
 			break;
