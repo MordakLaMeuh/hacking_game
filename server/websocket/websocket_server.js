@@ -194,19 +194,19 @@ function cat(curDir, args)
 /*
  * Function pwd
  */
- function pwd(curDir)
- {
- 	var pwd = curDir.name;
- 	while (curDir.parent)
- 	{
- 		if (curDir.parent.name == "/")
- 			pwd = curDir.parent.name + pwd;
- 		else
- 			pwd = curDir.parent.name + "/" + pwd;
- 		curDir = curDir.parent;
- 	}
- 	return (pwd);
- }
+function pwd(curDir)
+{
+	var pwd = curDir.name;
+	while (curDir.parent)
+	{
+		if (curDir.parent.name == "/")
+			pwd = curDir.parent.name + pwd;
+		else
+			pwd = curDir.parent.name + "/" + pwd;
+		curDir = curDir.parent;
+	}
+	return (pwd);
+}
 
 /*
  * Opening socket websocket server
