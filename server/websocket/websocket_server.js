@@ -199,7 +199,10 @@ function pwd(curDir)
 	var pwd = curDir.name;
 	while (curDir.parent)
 	{
-		pwd = curDir.parent.name + pwd;
+		if (curDir.parent.name == "/")
+			pwd = curDir.parent.name + pwd;
+		else
+			pwd = curDir.parent.name + "/" + pwd;
 		curDir = curDir.parent;
 	}
 	return (pwd);
