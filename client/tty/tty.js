@@ -23,6 +23,7 @@ var systemInputMsg;
  * visible len and cursor position, avoid exeption of &nbsp;
  */
 var visibleCursorPosition;
+var visibleStringLen;
 
 var putCursor = function(position)
 {
@@ -47,10 +48,16 @@ var createNewInputString = function(prompt, optionalStr)
 		inputString += optionalStr;
 	cursorPosition = inputString.length;
 	inputDiv = document.createElement('div');
-	inputDiv.innerHTML = inputString;
-	tty.appendChild(inputDiv);
 
 	visibleCursorPosition = inputString.replace(space_regex, " ").length;
+	visibleStringLen = visibleCursorPosition;
+
+	if ((visibleStringLen % 100 == 0) && (visibleCursorPosition % 100 == 0))
+		inputDiv.innerHTML = inputString + space_expr;
+	else
+		inputDiv.innerHTML = inputString;
+
+	tty.appendChild(inputDiv);
 
 	tty.scrollTop += 10000;
 	putCursor(visibleCursorPosition);
@@ -65,10 +72,13 @@ var createDiv = function(content)
 	tty.scrollTop += 10000;
 }
 
-var refreshInput = function(inputDiv)
+var refreshInput = function(inputDiv, optionalStr)
 {
 	tty.removeChild(inputDiv);
-	inputDiv.innerHTML = inputString;
+	if (optionalStr)
+		inputDiv.innerHTML = inputString + optionalStr;
+	else
+		inputDiv.innerHTML = inputString;
 	tty.appendChild(inputDiv);
 
 	tty.scrollTop += 10000;
@@ -106,10 +116,14 @@ document.addEventListener('keydown', (event) => {
 			cursorPosition += 1;
 		}
 		visibleCursorPosition += 1;
+		visibleStringLen += 1;
 
 		inputString = part1 + key + part2;
 
-		refreshInput(inputDiv);
+		if ((visibleStringLen % 100 == 0) && (visibleCursorPosition % 100 == 0))
+			refreshInput(inputDiv, space_expr);
+		else
+			refreshInput(inputDiv);
 		putCursor(visibleCursorPosition);
 
 		historyIdx = inputHistory.length;
@@ -127,13 +141,20 @@ document.addEventListener('keydown', (event) => {
 			cursorPosition -= len;
 
 			visibleCursorPosition -= 1;
+			visibleStringLen -= 1;
 
 			inputString = removeCharacters(inputString, cursorPosition, len);
+
+			if ((visibleStringLen % 100 == 0) && (visibleCursorPosition % 100 == 0))
+				refreshInput(inputDiv, space_expr);
+			else
+				refreshInput(inputDiv);
 			putCursor(visibleCursorPosition);
 
 			historyIdx = inputHistory.length;
+		} else {
+			refreshInput(inputDiv);
 		}
-		refreshInput(inputDiv);
 		break;
 	case "Enter":
 		process(inputString.slice(systemInputMsg.length));
@@ -189,7 +210,7 @@ document.addEventListener('keydown', (event) => {
 		break;
 	}
 
-	console.log("key: " + key + " position: " + cursorPosition);
+	console.log("key: " + key + " position: " + cursorPosition + " realLen: " + visibleStringLen);
 });
 
 socket.onerror = function()
