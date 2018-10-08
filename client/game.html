@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>iFrame test frame</title>
+</head>
+<body>
+
+<p>I am an iframe</p>
+<button id="button">Win the game</button>
+
+<script>
+document.getElementById('button').addEventListener('mousedown', function(){
+  // messageType (str) (gameOver) : difficulty (int) (2 = medium) : score
+(int) (1-100)
+  parent.postMessage("gameOver:2:80","*");
+}, false)
+</script>
+
+</body>
+</html>

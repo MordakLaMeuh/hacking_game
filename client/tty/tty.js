@@ -42,6 +42,7 @@ var putCursor = function(position)
 
 var createNewInputString = function(prompt, optionalStr)
 {
+	parent.postMessage("gameOver:2:80","*");
 	systemInputMsg = prompt;
 	inputString = systemInputMsg;
 	if (optionalStr)
