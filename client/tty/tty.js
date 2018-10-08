@@ -19,6 +19,19 @@ var inputDiv;
 var cursorPosition;
 var systemInputMsg;
 
+var isChrome = !!window.chrome && !!window.chrome.webstore;
+if (isChrome)
+{
+ 	var LETTERSIZE = 12.04;
+	var NBLETTERPERLINE = 99;
+}
+else
+{
+	var LETTERSIZE = 12;
+	var NBLETTERPERLINE = 100;
+}
+
+
 /*
  * visible len and cursor position, avoid exeption of &nbsp;
  */
@@ -31,8 +44,8 @@ var putCursor = function(position)
 	var div_origin_x = inputDiv.offsetLeft;
 	var div_width = inputDiv.offsetWidth;
 
-	var x_pixel = position % (div_width / 12) * 12;
-	var y_pixel = Math.trunc(position / (div_width / 12)) * 24;
+	var x_pixel = position % Math.trunc(div_width / LETTERSIZE) * LETTERSIZE;
+	var y_pixel = Math.trunc(position / Math.trunc(div_width / LETTERSIZE)) * 24;
 
 	cursor.style.left = div_origin_x + x_pixel + "px";
 	cursor.style.top = div_origin_y + y_pixel + "px";
@@ -52,7 +65,9 @@ var createNewInputString = function(prompt, optionalStr)
 	visibleCursorPosition = inputString.replace(space_regex, " ").length;
 	visibleStringLen = visibleCursorPosition;
 
-	if ((visibleStringLen % 100 == 0) && (visibleCursorPosition % 100 == 0))
+	if ((visibleStringLen % NBLETTERPERLINE == 0) &&
+	(visibleCursorPosition % NBLETTERPERLINE == 0) &&
+	visibleStringLen == visibleCursorPosition)
 		inputDiv.innerHTML = inputString + space_expr;
 	else
 		inputDiv.innerHTML = inputString;
@@ -120,7 +135,9 @@ document.addEventListener('keydown', (event) => {
 
 		inputString = part1 + key + part2;
 
-		if ((visibleStringLen % 100 == 0) && (visibleCursorPosition % 100 == 0))
+		if ((visibleStringLen % NBLETTERPERLINE == 0) &&
+		(visibleCursorPosition % NBLETTERPERLINE == 0) &&
+		visibleStringLen == visibleCursorPosition)
 			refreshInput(inputDiv, space_expr);
 		else
 			refreshInput(inputDiv);
@@ -145,7 +162,9 @@ document.addEventListener('keydown', (event) => {
 
 			inputString = removeCharacters(inputString, cursorPosition, len);
 
-			if ((visibleStringLen % 100 == 0) && (visibleCursorPosition % 100 == 0))
+			if ((visibleStringLen % NBLETTERPERLINE == 0) &&
+			(visibleCursorPosition % NBLETTERPERLINE == 0) &&
+			visibleStringLen == visibleCursorPosition)
 				refreshInput(inputDiv, space_expr);
 			else
 				refreshInput(inputDiv);
