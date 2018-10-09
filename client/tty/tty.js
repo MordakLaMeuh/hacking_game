@@ -227,7 +227,7 @@ var TTY = function() {
 	});
 
 	socket.onerror = function () {
-		createDiv("Aucune réponse du serveur..");
+		createDiv("Aucune réponse du serveur...");
 
 		historyIdx = inputHistory.length;
 		createNewInputString("error");
@@ -237,38 +237,46 @@ var TTY = function() {
 		"auth_login": 0,
 		"auth_password": 1,
 		"running": 2,
+		"auth_login_ssh": 3,
+		"auth_password_ssh": 4
 	}
 	var sequence = sequence_enum.auth_login;
 
 	this.onmessage = function(data) {
-        switch (sequence) {
-            case sequence_enum.auth_password:
-                if (data.auth == 1) {
-                    sequence = sequence_enum.running;
-                    createDiv("<br>");
-                    createDiv("Welcome to " + server_name + " Mr " + login);
-                    createDiv("<br>");
-                    createNewInputString(login + "@" + server_name + ":" + space_expr);
-                } else {
-                    sequence = sequence_enum.auth_login;
-                    createDiv("<br>");
-                    createNewInputString(server_name + space_expr + "login:" + space_expr);
-                }
-                break;
-            case sequence_enum.running:
-                createDiv(data.string);
+		switch (sequence) {
+			case sequence_enum.auth_password:
+				if (data.auth == 1) {
+					sequence = sequence_enum.running;
+					createDiv("<br>");
+					createDiv("Welcome to " + server_name + " Mr " + login);
+					createDiv("<br>");
+					createNewInputString(login + "@" + server_name + ":" + space_expr);
+				} else {
+					sequence = sequence_enum.auth_login;
+					createDiv("<br>");
+					createNewInputString(server_name + space_expr + "Login:" + space_expr);
+				}
+				break;
+			case sequence_enum.running:
+				if (data.auth_ssh == 1) {
+					sequence = sequence_enum.auth_login_ssh;
+					createNewInputString("SSH login:" + space_expr);
+					break;
+				}
+				createDiv(data.string);
 
-                historyIdx = inputHistory.length;
-                createNewInputString(login + "@" + server_name + ":" + space_expr);
-                break;
-            default:
-                console.warn("Unknown sequence");
-                break;
-        }
-        }
+				historyIdx = inputHistory.length;
+				createNewInputString(login + "@" + server_name + ":" + space_expr);
+				break;
+			default:
+				console.warn("Unknown sequence");
+				break;
+		}
+		}
 
 	var login;
 	var server_name = "hacking_game";
+	var ssh_login;
 
 	var process = function (outStr) {
 		var outStrPostProcessed = outStr.replace(space_regex, " ");
@@ -295,6 +303,15 @@ var TTY = function() {
 
 				socket.send(JSON.stringify({"command": outStrPostProcessed}));
 				break;
+			case sequence_enum.auth_login_ssh:
+				ssh_login = outStrPostProcessed;
+				sequence = sequence_enum.auth_password_ssh;
+				createNewInputString("Password:" + space_expr);
+				break;
+			case sequence_enum.auth_password_ssh:
+				socket.send(JSON.stringify({"login":ssh_login, "password":outStrPostProcessed}));
+				sequence = sequence_enum.running;
+				break;
 			default:
 				console.warn("Unknown sequence");
 				break;
@@ -312,7 +329,6 @@ var TTY = function() {
 
 	historyIdx = 0;
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
-
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
 }

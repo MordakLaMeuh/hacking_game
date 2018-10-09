@@ -12,6 +12,7 @@
 		["pwd", "pwd : print name of current directory"],
 		["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 		["roll"],
-		["help"]
+		["help"],
+		["ssh"]
 	]
 }

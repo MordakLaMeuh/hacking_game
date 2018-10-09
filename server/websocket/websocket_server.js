@@ -37,13 +37,17 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var logged = false;
+	var ssh_request = false;
+	var ssh_active = false;
 
-	var root = termfunc.createFileSystem("generateVFS.csv");
+	var root = termfunc.createFileSystem("molang_2.csv");
+	console.log(root);
 	var curDir = root;
 
 	var lvlData = lvlValidation.getLvlData("./level_00.json");
 	var cmdList = lvlData.cmdList;
 	var winningCondition = lvlData.winningCondition;
+
 
 	/*
 	 * Event on input client message
@@ -69,6 +73,20 @@ ws.on('connection', function (client, req)
 				send(client, JSON.stringify({"auth":0}));
 			}
 			return ;
+		}
+
+		if (ssh_request) {
+			ssh_request = false;
+			if (json_msg.login == "molang" && json_msg.password == "molang") {
+				var root = termfunc.createFileSystem("molang.csv");
+				var curDir = root;
+				ssh_active = true;
+				send(client, JSON.stringify({"string": "SSH Connexion successful."}));
+
+			} else {
+				send(client, JSON.stringify({"string": "SSH Connexion failed."}));
+			}
+			return;
 		}
 
 		console.log("input command: " + json_msg.command);
@@ -120,6 +138,15 @@ ws.on('connection', function (client, req)
 		case "pwd":
 			output = termfunc.pwd(curDir);
 			break;
+		case "ssh":
+			ssh_request = true;
+			send(client, JSON.stringify({"auth_ssh":1}));
+			return;
+			break;
+			case "exit":
+				ssh_active = false;
+				send(client, JSON.stringify({"string":"SSH sucessfully exited."}));
+				break;
 		default :
 			output = "unknown command !";
 			break;
@@ -128,6 +155,8 @@ ws.on('connection', function (client, req)
 				(lvlValidation.checkVictory(winningCondition, input.join(" "), termfunc.pwd(curDir)) == true ?
 					"Congratulations, you win !" : undefined)}));
 	})
+
+
 
 	client.on("close", function()
 	{
