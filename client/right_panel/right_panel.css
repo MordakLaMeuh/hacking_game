@@ -1,6 +1,6 @@
 #right_panel {
 	height:100vh;
-	width:40vw;
+	width:30vw;
 	background:#000000;
 	float:right;
 }
@@ -10,12 +10,10 @@
 	height:100%;
 }
 
-#right_panel_content {
+#right_panel_button_tab {
 	text-align:center;
-
 	height:100%;
 	width:100%;
-	background-image: radial-gradient(circle at center, lightgreen, green);
 }
 
 .tab {
@@ -25,32 +23,36 @@
 
 .tab:hover {
 	opacity: 1;
+
+
 }
 
 
 #mail {
 	color:white;
-	background-color: #00FF00;
+	background-image: radial-gradient(circle at center, lightgreen, green);
 }
 
 #social {
 	color:white;
-	background-color: #00FF00;
+	background-image: radial-gradient(circle at center, lightgreen, green);
 
 }
 
 #browser {
 	color:white;
-	background-color: #00FF00;
+	background-image: radial-gradient(circle at center, lightgreen, green);
 
 }
 
 #summary {
 	color:white;
-	background-color: #00FF00;
+	background-image: radial-gradient(circle at center, lightgreen, green);
 
 }
-#right_panel_content td {
+#right_panel_button_tab td {
 	vertical-align: middle;
 	text-align: center;
+
+
 }
