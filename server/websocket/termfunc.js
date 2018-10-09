@@ -121,14 +121,6 @@ ls: function(curDir, args)
 },
 
 /*
- * Function help
- */
-help: function(availableCmd, args)
-{
-	
-},
-
-/*
  * Function cat
  */
 cat: function(curDir, args)
