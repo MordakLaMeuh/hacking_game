@@ -23,15 +23,13 @@ var TTY = function() {
 	var systemInputMsg;
 
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+	var LETTERSIZE = 12;
+	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
 	if (isChrome) {
 		var LETTERSIZE = 12.04;
-		var NBLETTERPERLINE = 99;
+		var NBLETTERPERLINE = NBLETTERPERLINE - 1;
 	}
-	else {
-		var LETTERSIZE = 12;
-		var NBLETTERPERLINE = 100;
-	}
-
 
 	/*
 	 * visible len and cursor position, avoid exeption of &nbsp;
