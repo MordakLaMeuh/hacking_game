@@ -19,6 +19,10 @@
 	opacity: 0.6;
 }
 
+img:hover{
+	-webkit-filter: drop-shadow(5px 5px 5px yellow);
+	filter: drop-shadow(3px 3px 3px yellow);
+}
 
 .tab:hover {
 	opacity: 1;
@@ -31,18 +35,24 @@
 
 #social {
 	color:white;
-	background-image: radial-gradient(circle at center, lightgreen, green);
+/*	background-color: yellow; */
+	background-image: radial-gradient(circle at center, yellow, orange);
+
 }
 
 #browser {
 	color:white;
-	background-image: radial-gradient(circle at center, lightgreen, green);
-
+	/* background-color: indianred; */
+	background-image: radial-gradient(circle at center, orangered, darkred);
 }
 
 #summary {
 	color:white;
-	background-image: radial-gradient(circle at center, lightgreen, green);
+	/* background-image: radial-gradient(circle at center, lightgreen, green); *?
+		background-color: cornflowerblue;
+	 */
+
+	background-image: radial-gradient(circle at center, cornflowerblue, blue);
 }
 
 #right_panel_button_tab td {
