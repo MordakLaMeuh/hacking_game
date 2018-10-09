@@ -21,7 +21,18 @@ var RIGHT_PANEL = function() {
 	var sequence = screen_enum.button_tab;
 
 	var mail_content = "Your mails:<br>";
-	var browser_content = "Your browser:<br>";
+
+    var img = document.createElement("img");
+
+    img.src = "/medias/close.svg";
+	img.style.height = '50px';
+	img.style.width = '50px';
+    img.style.bottom = "5px";
+    img.style.position = "absolute";
+    img.style.right = "50%";
+    img.style.left = "50%";
+
+    var browser_content = "Your browser:<br>";
 	var social_content = "Your phone numbers:<br>";
 	var diary_content = "Are you victorious ?<br>";
 
@@ -44,21 +55,35 @@ var RIGHT_PANEL = function() {
 		switch (sequence) {
 		case screen_enum.mail:
 			content.innerHTML = mail_content;
+			content.appendChild(img);
 			break;
 		case screen_enum.browser:
 			content.innerHTML = browser_content;
-			break;
+            content.appendChild(img);
+            break;
 		case screen_enum.social:
 			content.innerHTML = social_content;
-			break;
+            content.appendChild(img);
+            break;
 		case screen_enum.diary:
 			content.innerHTML = diary_content;
-			break;
+            content.appendChild(img);
+            break;
 		default:
 			console.log("unexpected default case");
 			break;
 		}
 	}
+
+    img.onload = function() {
+
+        content.innerHTML += '<img src="'+img.src+'" />';
+
+    };
+
+
+    img.content = 'medias/close.svg';
+
 
 	mail.addEventListener("mousedown", function (){
 		sequence = screen_enum.mail;
@@ -80,7 +105,7 @@ var RIGHT_PANEL = function() {
 		switchToContent();
 	});
 
-	content.addEventListener("mousedown", function (){
+	img.addEventListener("mousedown", function (){
 		sequence = screen_enum.button_tab;
 		switchToButtonTab();
 	});
