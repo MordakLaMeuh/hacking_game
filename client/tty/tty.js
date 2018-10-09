@@ -28,7 +28,7 @@ var TTY = function() {
 	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
 	if (isChrome) {
 		var LETTERSIZE = 12.04;
-		var NBLETTERPERLINE = NBLETTERPERLINE - 1;
+		NBLETTERPERLINE -= 1;
 	}
 
 	/*
