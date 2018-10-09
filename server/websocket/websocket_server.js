@@ -40,7 +40,7 @@ ws.on('connection', function (client, req)
 	var ssh_request = false;
 	var ssh_active = false;
 
-	var root = termfunc.createFileSystem("molang_2.csv");
+	var root = termfunc.createFileSystem("generateVFS.csv");
 	console.log(root);
 	var curDir = root;
 
@@ -75,11 +75,11 @@ ws.on('connection', function (client, req)
 			return ;
 		}
 
-		if (ssh_request) {
+		if (ssh_request == true) {
 			ssh_request = false;
 			if (json_msg.login == "molang" && json_msg.password == "molang") {
-				var root = termfunc.createFileSystem("molang.csv");
-				var curDir = root;
+				root = termfunc.createFileSystem("molang.csv");
+				curDir = root;
 				ssh_active = true;
 				send(client, JSON.stringify({"string": "SSH Connexion successful."}));
 
