@@ -13,6 +13,7 @@
 		["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 		["roll"],
 		["help"],
-		["ssh"]
+		["ssh"],
+		["exit"]
 	]
 }

@@ -143,10 +143,18 @@ ws.on('connection', function (client, req)
 			send(client, JSON.stringify({"auth_ssh":1}));
 			return;
 			break;
-			case "exit":
-				ssh_active = false;
-				send(client, JSON.stringify({"string":"SSH sucessfully exited."}));
-				break;
+		case "exit":
+			if(ssh_active == true) {
+					ssh_active = false;
+					root = termfunc.createFileSystem("generateVFS.csv");
+					curDir = root;
+					send(client, JSON.stringify({"string":"SSH sucessfully exited."}));
+					return;
+			}
+			else {
+					output = "No SSH connexion active.";
+			}
+			break;
 		default :
 			output = "unknown command !";
 			break;
