@@ -16,6 +16,7 @@ getLvlData: function(levelFile)
  */
 checkCommand: function(cmdList, usrCmd)
 {
+	return true; // TODO
 	for (var i = 0; i < cmdList.length; ++i)
 	{
 		if (cmdList[i][0] == usrCmd)

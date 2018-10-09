@@ -201,6 +201,8 @@ var TTY = function() {
 				}
 				break;
 			case "ArrowUp":
+				if (sequence != sequence_enum.running)
+					break;
 				if (historyIdx != 0) {
 					tty.removeChild(inputDiv);
 					historyIdx -= 1;
@@ -211,6 +213,8 @@ var TTY = function() {
 
 				break;
 			case "ArrowDown":
+				if (sequence != sequence_enum.running)
+					break;
 				if (historyIdx != inputHistory.length) {
 					tty.removeChild(inputDiv);
 					historyIdx += 1;
