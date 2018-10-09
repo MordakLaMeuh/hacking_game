@@ -7,7 +7,7 @@ var RIGHT_PANEL = function() {
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
 	var social = document.getElementById("social");
-	var summary = document.getElementById("summary");
+	var diary = document.getElementById("summary");
 
 	var content = document.getElementById("right_panel_content");
 
@@ -37,7 +37,7 @@ var RIGHT_PANEL = function() {
 	var diary_content = "Are you victorious ?<br>";
 
 	var switchToContent = function() {
-		fillContent();
+		fill_content();
 		button_tab.style.opacity = 0;
 		content.style.opacity = 1;
 		button_tab.style.zIndex = -1;
@@ -51,21 +51,30 @@ var RIGHT_PANEL = function() {
 		content.style.zIndex = -1;
 	}
 
-	var fillContent = function() {
+	var fill_content = function() {
+		var copy_color = function(source) {
+			var color = window.getComputedStyle(source, null).getPropertyValue('background-image');
+			content.style.backgroundImage = color;
+			console.log(color);
+		}
 		switch (sequence) {
 		case screen_enum.mail:
+			copy_color(mail);
 			content.innerHTML = mail_content;
 			content.appendChild(img);
 			break;
 		case screen_enum.browser:
+			copy_color(browser);
 			content.innerHTML = browser_content;
             content.appendChild(img);
             break;
 		case screen_enum.social:
+			copy_color(social);
 			content.innerHTML = social_content;
             content.appendChild(img);
             break;
 		case screen_enum.diary:
+			copy_color(diary);
 			content.innerHTML = diary_content;
             content.appendChild(img);
             break;
@@ -100,7 +109,7 @@ var RIGHT_PANEL = function() {
 		switchToContent();
 	});
 
-	summary.addEventListener("mousedown", function (){
+	diary.addEventListener("mousedown", function (){
 		sequence = screen_enum.diary;
 		switchToContent();
 	});
@@ -123,6 +132,6 @@ var RIGHT_PANEL = function() {
 		if (data.browser) {
 			browser_content += data.browser + "<br>";
 		}
-		fillContent();
+		fill_content();
 	}
 }
