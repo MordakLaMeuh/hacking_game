@@ -105,6 +105,9 @@
 			</td>
 		</tr>
 	</table>
+
+	<div id="right_panel_content">
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -126,7 +129,6 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
     var socket  = new WebSocket('ws://localhost:8081');
     var right_panel = new RIGHT_PANEL();
     var tty = new TTY();
-	right_panel.post("banane\n");
 
     socket.onmessage = function (res){
         data = JSON.parse(res.data);
