@@ -78,6 +78,8 @@ ws.on('connection', function (client, req)
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
+
+		var victory = 0;
 		switch (input[0]) {
 		case "rot":
 			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
@@ -107,12 +109,13 @@ ws.on('connection', function (client, req)
 			break;
 		case "pwd":
 			output = termfunc.pwd(curDir);
+			victory = 1;
 			break;
 		default :
 			output = "unknown command !";
 			break;
 		}
-		send(client, JSON.stringify({"string":output}));
+		send(client, JSON.stringify({"string":output, "victory": (victory == 1 ? "Congratulations, you win !" : undefined)}));
 	})
 
 	client.on("close", function()

@@ -7,8 +7,8 @@ var RIGHT_PANEL = function() {
 	this.post = function(str) {
 		right_panel.innerHTML += str;
 	}
-	this.onmessage  = function(event) {
-        if (event.string)
-			this.post(event.string);
-    }
+	this.onmessage  = function(data) {
+		if (data.victory)
+			this.post(data.victory);
+	}
 }
