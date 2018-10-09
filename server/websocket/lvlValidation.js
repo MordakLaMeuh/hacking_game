@@ -14,6 +14,24 @@ getLvlData: function(levelFile)
 },
 
 /*
+ * check command
+ */
+checkCommand: function(cmdList, usrCmd)
+{
+	for (var i = 0; i < cmdList.length; ++i)
+	{
+		if (cmdList[i].constructor === Array)
+		{
+			if (cmdList[i][0] == usrCmd)
+				return (true);
+		}
+		else if (cmdList[i] == usrCmd)
+			return (true);
+	}
+	return (false);
+},
+
+/*
  * Check victory
  */
 checkVictory: function(winningCondition, usrCmd, path)

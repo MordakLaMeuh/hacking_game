@@ -1,4 +1,16 @@
 {
-	"winningCondition":["cat mission.txt", "/Missions"],
-	"availableCmd":["cat", "cd", "ls", "pwd"]
+	"winningCondition":
+	[
+		"cat mission.txt",
+		"/Missions"
+	],
+	"cmdList":
+	[
+		["cat","cat filename : display content of file"],
+		["cd", "cd directory : change directory"],
+		["ls", "ls : list all files on the current folder"],
+		["pwd", "pwd : print name of current directory"],
+		"roll",
+		"help"
+	]
 }

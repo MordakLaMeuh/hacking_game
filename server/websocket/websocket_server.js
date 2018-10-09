@@ -42,7 +42,7 @@ ws.on('connection', function (client, req)
 	var curDir = root;
 
 	var lvlData = lvlValidation.getLvlData("./level_00.json");
-	var availableCmd = lvlData.availableCmd;
+	var cmdList = lvlData.cmdList;
 	var winningCondition = lvlData.winningCondition;
 
 	/*
@@ -85,8 +85,7 @@ ws.on('connection', function (client, req)
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
-		var MODEDEV = true;//TODO Remove variable
-		if (lvlData.availableCmd.indexOf(input[0]) == -1 && !MODEDEV)//TODO Remove condition
+		if (lvlValidation.checkCommand(cmdList, input[0]) == false)
 		{
 			send(client, JSON.stringify({"string":"unknown command !"}));
 			return ;
@@ -104,7 +103,8 @@ ws.on('connection', function (client, req)
 			output = termfunc.ls(curDir, input.slice(1, input.length));
 			break;
 		case "help":
-			output = " ls : list all files on the current folder<br> cat filename : display content of file";
+			output = termfunc.help(cmdList);
+			// output = " ls : list all files on the current folder<br> cat filename : display content of file";
 			break;
 		case "cat":
 			output = termfunc.cat(curDir, input.slice(1, input.length));
