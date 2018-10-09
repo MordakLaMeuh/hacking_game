@@ -121,6 +121,24 @@ ls: function(curDir, args)
 },
 
 /*
+ * Function help
+ */
+help: function(cmdList)
+{
+	var str = "";
+	for (var i = 0; i < cmdList.length; ++i)
+	{
+		if (cmdList[i].constructor === Array)
+		{
+			str += cmdList[i][1];
+			if (i + 1 < cmdList.length)
+				str += "<br>";
+		}
+	}
+	return (str);
+},
+
+/*
  * Function cat
  */
 cat: function(curDir, args)
