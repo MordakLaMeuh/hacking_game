@@ -7,9 +7,7 @@ getLvlData: function(levelFile)
 {
 	const fs = require('fs');
 	var lvlData = fs.readFileSync(levelFile);
-	console.log("levelData = " + lvlData);
 	lvlData = JSON.parse(lvlData);
-	console.log("levelData = " + lvlData.availableCmd);
 	return (lvlData);
 },
 
@@ -20,12 +18,7 @@ checkCommand: function(cmdList, usrCmd)
 {
 	for (var i = 0; i < cmdList.length; ++i)
 	{
-		if (cmdList[i].constructor === Array)
-		{
-			if (cmdList[i][0] == usrCmd)
-				return (true);
-		}
-		else if (cmdList[i] == usrCmd)
+		if (cmdList[i][0] == usrCmd)
 			return (true);
 	}
 	return (false);

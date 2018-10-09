@@ -101,7 +101,7 @@ cd: function(root, curDir, args)
 		}
 		++i;
 	}
-	return ([tmpDir, "switching to " + args[0] + " directory"]);
+	return ([tmpDir, "switching to " + tmpDir.name + " directory"]);
 },
 
 /*
@@ -128,7 +128,7 @@ help: function(cmdList)
 	var str = "";
 	for (var i = 0; i < cmdList.length; ++i)
 	{
-		if (cmdList[i].constructor === Array)
+		if (cmdList[i].length == 2)
 		{
 			str += cmdList[i][1];
 			if (i + 1 < cmdList.length)
