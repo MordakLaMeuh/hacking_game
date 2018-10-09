@@ -104,7 +104,6 @@ ws.on('connection', function (client, req)
 			break;
 		case "help":
 			output = termfunc.help(cmdList);
-			// output = " ls : list all files on the current folder<br> cat filename : display content of file";
 			break;
 		case "cat":
 			output = termfunc.cat(curDir, input.slice(1, input.length));
