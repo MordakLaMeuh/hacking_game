@@ -1,0 +1,7 @@
+#right_panel {
+	height:100vh;
+	width:40vw;
+	background:#00FFFF;
+	float:right;
+	white-space: pre;
+}

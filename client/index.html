@@ -21,6 +21,7 @@
 		}
 	</style>
 	<link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='right_panel/right_panel.css' type='text/css' media='all'>
 
 </head>
 
@@ -29,6 +30,10 @@
 <div id="js_tty">
 
 <!-- <span id="test">a</span> -->
+
+</div>
+
+<div id="right_panel">
 
 </div>
 
@@ -45,6 +50,12 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 </script>
 
 <script src="tty/tty.js"></script>
+<script src="right_panel/right_panel.js"></script>
+
+<script>
+var right_panel = new RIGHT_PANEL();
+right_panel.post("banane\n");
+</script>
 
 </body>
 </html>
