@@ -139,6 +139,10 @@ ws.on('connection', function (client, req)
 			output = termfunc.pwd(curDir);
 			break;
 		case "ssh":
+			if (ssh_active == true) {
+				output = "Already in ssh.";
+				break;
+			}
 			ssh_request = true;
 			send(client, JSON.stringify({"auth_ssh":1}));
 			return;
