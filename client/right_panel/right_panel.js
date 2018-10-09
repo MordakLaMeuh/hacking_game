@@ -2,6 +2,7 @@
 
 var RIGHT_PANEL = function() {
 	var right_panel = document.getElementById("right_panel");
+/*
 	var tab_field = document.getElementById("tabField");
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
@@ -25,6 +26,7 @@ var RIGHT_PANEL = function() {
 	summary.addEventListener("mousedown", function (){
 		content.style.backgroundColor = "#0000FF";
 	});
+*/
 
 	this.post = function(str) {
 	}
