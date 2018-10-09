@@ -85,7 +85,6 @@ ws.on('connection', function (client, req)
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
-		var victory = 0;
 		var MODEDEV = true;//TODO Remove variable
 		if (lvlData.availableCmd.indexOf(input[0]) == -1 && !MODEDEV)//TODO Remove condition
 		{
@@ -121,13 +120,14 @@ ws.on('connection', function (client, req)
 			break;
 		case "pwd":
 			output = termfunc.pwd(curDir);
-			victory = 1;
 			break;
 		default :
 			output = "unknown command !";
 			break;
 		}
-		send(client, JSON.stringify({"string":output, "victory": (victory == 1 ? "Congratulations, you win !" : undefined)}));
+		send(client, JSON.stringify({"string":output, "victory":
+				(lvlValidation.checkVictory(winningCondition, input.join(" "), termfunc.pwd(curDir)) == true ?
+					"Congratulations, you win !" : undefined)}));
 	})
 
 	client.on("close", function()
