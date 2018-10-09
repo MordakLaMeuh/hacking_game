@@ -20,7 +20,13 @@ var RIGHT_PANEL = function() {
 	}
 	var sequence = screen_enum.button_tab;
 
+	var mail_content = "Your mails:<br>";
+	var browser_content = "Your browser:<br>";
+	var social_content = "Your phone numbers:<br>";
+	var diary_content = "Are you victorious ?<br>";
+
 	var switchToContent = function() {
+		fillContent();
 		button_tab.style.opacity = 0;
 		content.style.opacity = 1;
 		button_tab.style.zIndex = -1;
@@ -32,6 +38,26 @@ var RIGHT_PANEL = function() {
 		content.style.opacity = 0;
 		button_tab.style.zIndex = 0;
 		content.style.zIndex = -1;
+	}
+
+	var fillContent = function() {
+		switch (sequence) {
+		case screen_enum.mail:
+			content.innerHTML = mail_content;
+			break;
+		case screen_enum.browser:
+			content.innerHTML = browser_content;
+			break;
+		case screen_enum.social:
+			content.innerHTML = social_content;
+			break;
+		case screen_enum.diary:
+			content.innerHTML = diary_content;
+			break;
+		default:
+			console.log("unexpected default case");
+			break;
+		}
 	}
 
 	mail.addEventListener("mousedown", function (){
@@ -49,10 +75,8 @@ var RIGHT_PANEL = function() {
 		switchToContent();
 	});
 
-	var diary_content = "";
 	summary.addEventListener("mousedown", function (){
 		sequence = screen_enum.diary;
-		content.innerHTML = diary_content;
 		switchToContent();
 	});
 
@@ -61,16 +85,19 @@ var RIGHT_PANEL = function() {
 		switchToButtonTab();
 	});
 
-	this.post = function(str) {
-		console.log("Upgrading of diary_content");
-
-		diary_content += str + "<br>";
-		if (sequence == screen_enum.diary)
-			content.innerHTML = diary_content;
-	}
-
 	this.onmessage  = function(data) {
-		if (data.victory)
-			this.post(data.victory);
+		if (data.victory) {
+			diary_content += data.victory + "<br>";
+		}
+		if (data.mail) {
+			mail_content += data.mail + "<br>";
+		}
+		if (data.social) {
+			social_content += data.social + "<br>";
+		}
+		if (data.browser) {
+			browser_content += data.browser + "<br>";
+		}
+		fillContent();
 	}
 }
