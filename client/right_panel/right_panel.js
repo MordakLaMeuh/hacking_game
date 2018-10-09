@@ -7,8 +7,8 @@ var RIGHT_PANEL = function() {
 	this.post = function(str) {
 		right_panel.innerHTML += str;
 	}
-	socket.onmessage  = function(event) {
-        console.debug("WebSocket message received:", event);
-    };
-
+	this.onmessage  = function(event) {
+        if (event.string)
+			this.post(event.string);
+    }
 }

@@ -1,4 +1,4 @@
-var socket  = new WebSocket('ws://localhost:8081');
+//var socket  = new WebSocket('ws://localhost:8081');
 
 var TTY = function() {
 
@@ -245,12 +245,11 @@ var TTY = function() {
 
 	/*
 	receive all messages
-
-
+	from server
 	 */
-	socket.onmessage = function (res) {
-		data = JSON.parse(res.data);
 
+	/*socket.onmessage = function (res) {
+		data = JSON.parse(res.data);
 		switch (sequence) {
 			case sequence_enum.auth_password:
 				if (data.auth == 1) {
@@ -276,6 +275,33 @@ var TTY = function() {
 				break;
 		}
 	};
+*/
+	this.onmessage = function(data) {
+        switch (sequence) {
+            case sequence_enum.auth_password:
+                if (data.auth == 1) {
+                    sequence = sequence_enum.running;
+                    createDiv("<br>");
+                    createDiv("Welcome to " + server_name + " Mr " + login);
+                    createDiv("<br>");
+                    createNewInputString(login + "@" + server_name + ":" + space_expr);
+                } else {
+                    sequence = sequence_enum.auth_login;
+                    createDiv("<br>");
+                    createNewInputString(server_name + space_expr + "login:" + space_expr);
+                }
+                break;
+            case sequence_enum.running:
+                createDiv(data.string);
+
+                historyIdx = inputHistory.length;
+                createNewInputString(login + "@" + server_name + ":" + space_expr);
+                break;
+            default:
+                console.warn("Unknown sequence");
+                break;
+        }
+    }
 
 	var login;
 	var server_name = "hacking_game";
