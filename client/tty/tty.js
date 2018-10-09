@@ -251,6 +251,8 @@ var TTY = function() {
 	socket.onmessage = function (res) {
 		data = JSON.parse(res.data);
 
+		console.log(data);
+
 		switch (sequence) {
 			case sequence_enum.auth_password:
 				if (data.auth == 1) {
