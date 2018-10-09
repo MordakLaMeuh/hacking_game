@@ -6,6 +6,8 @@ var port = 8081;
 
 var math = require('math');
 var termfunc = require('./termfunc.js');
+var lvlValidation = require('./lvlValidation.js');
+
 
 /*
  * Opening socket websocket server
@@ -35,8 +37,13 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var logged = false;
+
 	var root = termfunc.createFileSystem("generateVFS.csv");
 	var curDir = root;
+
+	var lvlData = lvlValidation.getLvlData("./level_00.json");
+	var availableCmd = lvlData.availableCmd;
+	var winningCondition = lvlData.winningCondition;
 
 	/*
 	 * Event on input client message
@@ -78,8 +85,13 @@ ws.on('connection', function (client, req)
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
-
 		var victory = 0;
+		var MODEDEV = true;//TODO Remove variable
+		if (lvlData.availableCmd.indexOf(input[0]) == -1 && !MODEDEV)//TODO Remove condition
+		{
+			send(client, JSON.stringify({"string":"unknown command !"}));
+			return ;
+		}
 		switch (input[0]) {
 		case "rot":
 			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
