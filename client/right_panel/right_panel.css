@@ -7,18 +7,20 @@
 
 #tabField {
 	width:100%;
-	height:5%;
+	height:100%;
 }
 
 #right_panel_content {
-	height:95%;
-	width:100%;
-	background:#FFFFFF;
+	text-align:center;
+
+	height:0px;
+	width:0px;
+	background-image: radial-gradient(circle at center, lightgreen, green);
 }
 
 .tab {
-	width:25%;
-	height:100%;
+	width:100%;
+	height:25%;
 	float:left;
 	border-color: black;
 	border-style: solid;
@@ -30,27 +32,35 @@
 	opacity: 0.6;
 }
 
+
 .tab:hover {
 	opacity: 1;
 }
 
-span {
-	display: table-cell;
-	vertical-align: middle;
-}
 
 #mail {
-	background:#FF0000;
+	color:white;
+	background-color: #00FF00;
 }
 
 #social {
-	background:#FFFF00;
+	color:white;
+	background-color: #00FF00;
+
 }
 
 #browser {
-	background:#00FF00;
+	color:white;
+	background-color: #00FF00;
+
 }
 
 #summary {
-	background:#0000FF;
+	color:white;
+	background-color: #00FF00;
+
+}
+#wrapper td {
+	vertical-align: middle;
+	text-align: center;
 }
