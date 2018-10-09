@@ -6,6 +6,8 @@ var port = 8081;
 
 var math = require('math');
 var termfunc = require('./termfunc.js');
+var lvlValidation = require('./lvlValidation.js');
+
 
 /*
  * Opening socket websocket server
@@ -35,8 +37,13 @@ ws.on('connection', function (client, req)
 {
 	console.log('__NEW CONNEXION__ from ' + req.connection.remoteAddress);
 	var logged = false;
+
 	var root = termfunc.createFileSystem("generateVFS.csv");
 	var curDir = root;
+
+	var lvlData = lvlValidation.getLvlData("./level_00.json");
+	var availableCmd = lvlData.availableCmd;
+	var winningCondition = lvlData.winningCondition;
 
 	/*
 	 * Event on input client message
@@ -78,41 +85,48 @@ ws.on('connection', function (client, req)
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
-		switch (input[0]) {
-		case "rot":
-			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
-				output = "Usage : rot number word"
-			else if (parseInt(input[1]) <= 0)
-				output = "Number must be positive"
-			else
-				output = termfunc.str_rot(parseInt(input[1]), input[2]);
-			break;
-		case "ls":
-			output = termfunc.ls(curDir, input.slice(1, input.length));
-			break;
-		case "help":
-			output = " ls : list all files on the current folder<br> cat filename : display content of file";
-			break;
-		case "cat":
-			output = termfunc.cat(curDir, input.slice(1, input.length));
-			break;
-		case "roll":
-			var nbr = Math.floor(math.random() * (6 - 0));
-			output = "You throw a six faces dice and you ger a " + nbr;
-			break;
-		case "cd":
-			var retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
-			curDir = retArray[0];
-			output = retArray[1];
-			break;
-		case "pwd":
-			output = termfunc.pwd(curDir);
-			break;
-		default :
-			output = "unknown command !";
-			break;
+		if (lvlData.availableCmd.indexOf(input[0]) != -1)
+		{
+			switch (input[0]) {
+			case "rot":
+				if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
+					output = "Usage : rot number word"
+				else if (parseInt(input[1]) <= 0)
+					output = "Number must be positive"
+				else
+					output = termfunc.str_rot(parseInt(input[1]), input[2]);
+				break;
+			case "ls":
+				output = termfunc.ls(curDir, input.slice(1, input.length));
+				break;
+			case "help":
+				output = " ls : list all files on the current folder<br> cat filename : display content of file";
+				break;
+			case "cat":
+				output = termfunc.cat(curDir, input.slice(1, input.length));
+				break;
+			case "roll":
+				var nbr = Math.floor(math.random() * (6 - 0));
+				output = "You throw a six faces dice and you ger a " + nbr;
+				break;
+			case "cd":
+				var retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
+				curDir = retArray[0];
+				output = retArray[1];
+				break;
+			case "pwd":
+				output = termfunc.pwd(curDir);
+				break;
+			default :
+				output = "unknown command !";
+				break;
+			}
 		}
+		else
+			output = "unknown command !";
 		send(client, JSON.stringify({"string":output}));
+		if (lvlValidation.checkVictory(winningCondition, input.join(' '), termfunc.pwd(curDir)))
+			send(client, JSON.stringify({"string":"YOU WON !"}));
 	})
 
 	client.on("close", function()

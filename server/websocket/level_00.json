@@ -1,0 +1,4 @@
+{
+	"winningCondition":["cat mission.txt", "/Missions"],
+	"availableCmd":["cat", "cd", "ls", "pwd"]
+}
