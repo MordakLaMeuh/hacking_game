@@ -138,8 +138,8 @@ ws.on('connection', function (client, req)
 			output = termfunc.cat(curDir, input.slice(1, input.length));
 			break;
 		case "roll":
-			var nbr = Math.floor(math.random() * (6 - 0));
-			output = "You throw a six faces dice and you ger a " + nbr;
+			var nbr = Math.floor((math.random() * 6 )) + 1;
+			output = "You throw a six faces dice and you get a " + nbr;
 			break;
 		case "cd":
 			var retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
