@@ -211,7 +211,7 @@ var TTY = function() {
 				if (historyIdx != 0) {
 					tty.removeChild(inputDiv);
 					historyIdx -= 1;
-					createNewInputString(login + "@" + server_name + ":" + space_expr, inputHistory[historyIdx]);
+					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr, inputHistory[historyIdx]);
 
 					console.log("new history index: ", historyIdx);
 				}
@@ -223,7 +223,7 @@ var TTY = function() {
 				if (historyIdx != inputHistory.length) {
 					tty.removeChild(inputDiv);
 					historyIdx += 1;
-					createNewInputString(login + "@" + server_name + ":" + space_expr, inputHistory[historyIdx]);
+					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr, inputHistory[historyIdx]);
 
 					console.log("new history index: ", historyIdx);
 				}
