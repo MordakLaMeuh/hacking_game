@@ -254,6 +254,10 @@ var TTY = function() {
 	this.onmessage = function(data) {
 		if (data.directory)
 			directory = data.directory;
+		if (data.login)
+			login = data.login;
+		if (data.server)
+			server_name = data.server;
 		switch (sequence) {
 			case sequence_enum.auth_password:
 				if (data.auth == 1) {

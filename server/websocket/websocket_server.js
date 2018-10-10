@@ -69,7 +69,11 @@ ws.on('connection', function (client, req)
 
 		if (logged == false) {
 			if (json_msg.login == "root" && json_msg.password == "root") {
-				send(client, JSON.stringify({"auth":1, "directory":"/"}));
+				send(client, JSON.stringify({
+					"auth":1,
+					"directory":"/",
+					"login":"root",
+					"server":"hacking_game"}));
 				logged = true;
 			} else {
 				send(client, JSON.stringify({"auth":0}));
@@ -84,7 +88,11 @@ ws.on('connection', function (client, req)
 				originCurDir = curDir;
 				curDir = root;
 				ssh_active = true;
-				send(client, JSON.stringify({"string": "SSH Connexion successful.", "directory":"/"}));
+				send(client, JSON.stringify({
+					"string":"SSH Connexion successful.",
+					"directory":"/",
+					"login":"molang",
+					"server":"molang"}));
 
 			} else {
 				send(client, JSON.stringify({"string": "SSH Connexion failed."}));
@@ -156,8 +164,14 @@ ws.on('connection', function (client, req)
 					ssh_active = false;
 					root = termfunc.createFileSystem("generateVFS.csv");
 					curDir = originCurDir;
-					output = "SSH sucessfully exited.";
 					newDirectory = termfunc.pwd(curDir);
+					send(client, JSON.stringify({
+						"string":"SSH sucessfully exited.",
+						"directory":termfunc.pwd(curDir),
+						"login":"root",
+						"server":"hacking_game"
+					}));
+					return;
 			} else {
 					output = "No SSH connexion active.";
 			}
