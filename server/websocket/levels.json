@@ -1,0 +1,64 @@
+[
+	{
+		"winningCondition":
+		[
+			"pwd"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		]
+	},
+	{
+		"winningCondition":
+		[
+			"ls"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"updateFiles":
+		[
+			["A", "Fruits", "/", "true", "null"],
+			["A", "framboise.txt", "Fruits", "false", "Miam Miam !"],
+			["D", "mission.txt"],
+			["M", "mission2.txt", "/"]
+		]
+	},
+	{
+		"winningCondition":
+		[
+			"cat mission.txt",
+			"/Missions"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		]
+	}
+]

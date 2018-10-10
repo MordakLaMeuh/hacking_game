@@ -40,14 +40,15 @@ ws.on('connection', function (client, req)
 	var ssh_request = false;
 	var ssh_active = false;
 
-	var root = termfunc.createFileSystem("generateVFS.csv");
-	console.log(root);
+	var files = termfunc.createFileSystem("generateVFS.csv");
+	var filesSSH = termfunc.createFileSystem("molang.csv");
+	var root = termfunc.getFile(files, "/");
 	var curDir = root;
 
-	var lvlData = lvlValidation.getLvlData("./level_00.json");
-	var cmdList = lvlData.cmdList;
-	var winningCondition = lvlData.winningCondition;
-
+	var lvlData = lvlValidation.getLvlData("./levels.json");
+	var curLvl = 0;
+	var cmdList = lvlData[curLvl].cmdList;
+	var winningCondition = lvlData[curLvl].winningCondition;
 
 	/*
 	 * Event on input client message
@@ -55,7 +56,6 @@ ws.on('connection', function (client, req)
 	client.on("message", function (str)
 	{
 		console.log("incoming message: " + str);
-
 		var json_msg;
 		try {
 			json_msg = JSON.parse(str);
@@ -78,7 +78,7 @@ ws.on('connection', function (client, req)
 		if (ssh_request == true) {
 			ssh_request = false;
 			if (json_msg.login == "molang" && json_msg.password == "molang") {
-				root = termfunc.createFileSystem("molang.csv");
+				root = termfunc.getFile(filesSSH, "/");
 				curDir = root;
 				ssh_active = true;
 				send(client, JSON.stringify({"string": "SSH Connexion successful."}));
@@ -150,7 +150,7 @@ ws.on('connection', function (client, req)
 		case "exit":
 			if(ssh_active == true) {
 					ssh_active = false;
-					root = termfunc.createFileSystem("generateVFS.csv");
+					root = termfunc.getFile(files, "/");
 					curDir = root;
 					send(client, JSON.stringify({"string":"SSH sucessfully exited."}));
 					return;
@@ -164,8 +164,22 @@ ws.on('connection', function (client, req)
 			break;
 		}
 		send(client, JSON.stringify({"string":output, "victory":
-				(lvlValidation.checkVictory(winningCondition, input.join(" "), termfunc.pwd(curDir)) == true ?
+				(lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]) == true ?
 					"Congratulations, you win !" : undefined)}));
+		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
+		{
+			if (++curLvl < lvlData.length)
+			{
+				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
+				cmdList = lvlData[curLvl].cmdList;
+				winningCondition = lvlData[curLvl].winningCondition;
+				console.log("NEW LEVEL LOADED");
+			}
+			else
+			{
+					console.log("GAME FINISHED !");
+			}
+		}
 	})
 
 

@@ -1,4 +1,4 @@
-module.exports =
+var termfunc = module.exports =
 {
 /*
  * Rot any nmmber : string rot(nb, str)
@@ -59,11 +59,7 @@ createFileSystem: function(file)
 		if (words.length == 4)
 			files.push(new File(words[0], words[1], words[2], words[3], files));
 	}
-	var root = getFile(files, "/");
-	if (root)
-		return (root);
-	else
-		throw ("Error: root is not found");
+	return (files);
 },
 
 /*
@@ -93,7 +89,7 @@ cd: function(root, curDir, args)
 		}
 		else if (path[i] != ".")
 		{
-			tmpDir = getFile(tmpDir.children, path[i]);
+			tmpDir = this.getFile(tmpDir.children, path[i]);
 			if (tmpDir == null)
 				return ([curDir, "cd: " + args[0] + ": No such file or directory"]);
 			else if (tmpDir.isDir == false)
@@ -145,7 +141,7 @@ cat: function(curDir, args)
 {
 	if (args.length != 1)
 		return ("Usage : cat FILE");
-	curDir = getFile(curDir.children, args[0]);
+	curDir = this.getFile(curDir.children, args[0]);
 	if (curDir == null)
 		return ("cat: " + args[0] + ": No such file or directory");
 	if (curDir.isDir == true)
@@ -168,13 +164,12 @@ pwd: function(curDir)
 		curDir = curDir.parent;
 	}
 	return (pwd);
-}
-}
+},
 
 /*
  * Function getFile
  */
-function getFile(files, name)
+getFile: function(files, name)
 {
 	for (var i = 0; i < files.length; ++i)
 	{
@@ -182,6 +177,26 @@ function getFile(files, name)
 			return (files[i]);
 	}
 	return (null);
+},
+
+updateFileSystem: function(files, updateFiles)
+{
+	if (!updateFiles)
+	{
+		console.log("RETURN");
+		return (files);
+	}
+	for (var i = 0; i < updateFiles.length; i++)
+	{
+		if (updateFiles[i][0] == "A")
+			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files);
+		else if (updateFiles[i][0] == "D")
+			files = delFile(updateFiles[i][1], files);
+		else if (updateFiles[i][0] == "M")
+			moveFile([updateFiles[i][1], updateFiles[i][2]], files);
+	}
+	return (files);
+},
 }
 
 /*
@@ -190,7 +205,7 @@ function getFile(files, name)
 function File(name, parent, isDir, content, files)
 {
 	this.name = name;
-	this.parent = getFile(files, parent);
+	this.parent = termfunc.getFile(files, parent);
 	isDir == "true" ? this.isDir = true : this.isDir = false;
 	content == "null" ? this.content = null : this.content = content;
 	this.children = [];
@@ -220,4 +235,47 @@ function getLsContent(children, args, hidden)
 			++i;
 	}
 	return (str);
+}
+
+function delFile(name, files)
+{
+	var file = termfunc.getFile(files, name);
+	if (file)
+	{
+		if (file.parent)
+		{
+			var index = file.parent.children.indexOf(file);
+			if (index != -1)
+				file.parent.children.splice(index, 1);
+		}
+		file.parent = null;
+		index = files.indexOf(file);
+		if (index != -1)
+			files.splice(index, 1);
+	}
+	return(files);
+}
+
+function addFile(fileInfo, files)
+{
+	files.push(new File(fileInfo[0], fileInfo[1], fileInfo[2], fileInfo[3], files));
+	return (files);
+}
+
+function moveFile(fileInfo, files)
+{
+	var file = termfunc.getFile(files, fileInfo[0]);
+	var parent = termfunc.getFile(files, fileInfo[1]);
+	if (file)
+	{
+		if (file.parent)
+		{
+			var index = file.parent.children.indexOf(file);
+			if (index != -1)
+				file.parent.children.splice(index, 1);
+		}
+		file.parent = parent;
+		if (file.parent)
+			file.parent.children.push(file);
+	}
 }

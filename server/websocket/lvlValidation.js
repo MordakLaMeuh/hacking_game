@@ -17,7 +17,7 @@ getLvlData: function(levelFile)
 checkCommand: function(cmdList, usrCmd)
 {
 	return true; // TODO
-	for (var i = 0; i < cmdList.length; ++i)
+	for (var i = 0; i < cmdList.length; i++)
 	{
 		if (cmdList[i][0] == usrCmd)
 			return (true);
@@ -28,10 +28,13 @@ checkCommand: function(cmdList, usrCmd)
 /*
  * Check victory
  */
-checkVictory: function(winningCondition, usrCmd, path)
+checkVictory: function(winningCondition, usrCondition)
 {
-	if (usrCmd == winningCondition[0] && path == winningCondition[1])
-		return (true);
-	return (false);
+	for (var i = 0; i < winningCondition.length; i++)
+	{
+		if (winningCondition[i] != usrCondition[i])
+			return (false);
+	}
+	return (true);
 }
 }
