@@ -45,30 +45,18 @@
 	border: none;
 }
 
-#mail_btn {
-	background-color: violet;
-}
-#mail {
+#mail_btn, #mail{
 	background-color: violet;
 }
 
-#browser_btn{
-	background-color: cornflowerblue;
-}
-#browser{
+#browser_btn, #browser{
 	background-color: cornflowerblue;
 }
 
-#sms_btn{
-	background-color: indianred;
-}
-#phone{
+#social_btn, #social{
 	background-color: indianred;
 }
 
-#diary_btn{
-	background-color: palegoldenrod;
-}
-#notebook{
+#notebook_btn, #notebook{
 	background-color: palegoldenrod;
 }

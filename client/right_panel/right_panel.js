@@ -6,8 +6,8 @@ var RIGHT_PANEL = function() {
 
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
-	var social = document.getElementById("phone");
-	var diary = document.getElementById("notebook");
+	var social = document.getElementById("social");
+	var notebook = document.getElementById("notebook");
 
 
 
@@ -40,17 +40,17 @@ var RIGHT_PANEL = function() {
 		changeScreen(this, "browser");
 	});
 
-	sms_btn.addEventListener("mousedown", function (){
-		changeScreen(this, "phone");
+	social_btn.addEventListener("mousedown", function (){
+		changeScreen(this, "social");
 	});
 
-	diary_btn.addEventListener("mousedown", function () {
+	notebook_btn.addEventListener("mousedown", function () {
 		changeScreen(this, "notebook");
 	});
 
 	this.onmessage  = function(data) {
 		if (data.victory) {
-		    diary.innerHTML += "You win !";
+			notebook.innerHTML += "You win !";
 		}
 		if (data.mail) {
 			mail.innerhtml +=  "<br>";
@@ -61,9 +61,8 @@ var RIGHT_PANEL = function() {
 		if (data.browser) {
 			browser.innerHTML += data.browser + "<br>";
 		}
-		fillContent();
 	}
-	changeScreen(diary_btn, "notebook");
+	changeScreen(notebook_btn, "notebook");
 }
 
 
