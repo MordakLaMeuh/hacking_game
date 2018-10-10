@@ -9,8 +9,6 @@ var RIGHT_PANEL = function() {
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("notebook");
 
-
-
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;
 
@@ -50,13 +48,13 @@ var RIGHT_PANEL = function() {
 
 	this.onmessage  = function(data) {
 		if (data.victory) {
-		    diary.innerHTML += "You win !";
+		    diary.innerHTML += data.victory + "<br>";
 		}
 		if (data.mail) {
-			mail.innerhtml +=  "<br>";
+			mail.innerhtml += data.mail + "<br>";
 		}
 		if (data.social) {
-			social.innerHTML +=  "<br>";
+			social.innerHTML += data.social + "<br>";
 		}
 		if (data.browser) {
 			browser.innerHTML += data.browser + "<br>";
