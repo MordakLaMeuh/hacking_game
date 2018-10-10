@@ -60,32 +60,78 @@ var RIGHT_PANEL = function() {
         }
     }
 
-/*
-    mail.addEventListener("mousedown", function (){
+    mail_btn.addEventListener("mousedown", function (){
+		//
+        // sequence = screen_enum.mail;
+        // switchToContent();
+        var i, tabcontent, tablinks;
 
-        sequence = screen_enum.mail;
-        switchToContent();
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById("mail").style.display = "block";
+        console.log(this);
+     //   this.currentTarget.className += " active";
+
     });
 
-    browser.addEventListener("mousedown", function (){
-        sequence = screen_enum.browser;
-        switchToContent();
+    browser_btn.addEventListener("mousedown", function () {
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById("browser").style.display = "block";
     });
 
-    social.addEventListener("mousedown", function (){
-        sequence = screen_enum.social;
-        switchToContent();
+    sms_btn.addEventListener("mousedown", function (){
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById("phone").style.display = "block";
     });
 
-    summary.addEventListener("mousedown", function (){
-        sequence = screen_enum.diary;
-        switchToContent();
+    diary_btn.addEventListener("mousedown", function (){
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById("notebook").style.display = "block";
     });
 
-    content.addEventListener("mousedown", function (){
-        sequence = screen_enum.button_tab;
-        switchToButtonTab();
-    });
 
     this.onmessage  = function(data) {
         if (data.victory) {
@@ -101,7 +147,7 @@ var RIGHT_PANEL = function() {
             browser_content += data.browser + "<br>";
         }
         fillContent();
-    }*/
+    }
 }
 
 

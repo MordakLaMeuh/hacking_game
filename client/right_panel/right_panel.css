@@ -14,7 +14,6 @@
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-	/*background-color: inherit;*/
 	float: left;
 	border: none;
 	outline: none;
@@ -26,12 +25,10 @@
 }
 
 .tab img {
-	/*background-color: inherit;*/
 	float: left;
 	border: none;
 	outline: none;
 	cursor: pointer;
-	/*padding: 14px 16px;*/
 	transition: 0.3s;
 	width:7.5vw;
 	height:10vh;
@@ -59,18 +56,30 @@
 }
 
 
-#mail{
+#mail_btn {
+	background-color: violet;
+}
+#mail {
 	background-color: violet;
 }
 
+#browser_btn{
+	background-color: cornflowerblue;
+}
 #browser{
 	background-color: cornflowerblue;
 }
 
+#sms_btn{
+	background-color: indianred;
+}
 #phone{
 	background-color: indianred;
 }
 
+#diary_btn{
+	background-color: palegoldenrod;
+}
 #notebook{
-	background-color: darkseagreen;
+	background-color: palegoldenrod;
 }
