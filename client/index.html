@@ -83,34 +83,76 @@
 </div>
 
 
-<div id="right_panel">
-	<table id="right_panel_button_tab">
-		<tr>
-			<td id="mail" class="tab">
-				<img src="medias/mail.svg" alt="www" height="87px" width="100px"/>
-			</td>
-		</tr>
-		<tr>
-			<td id="browser" class="tab">
-				<img src="medias/browser.svg" alt="www" height="87px" width="100px"/>
-			</td>
-		</tr>
-		<tr>
-			<td id="social" class="tab">
-				<img src="medias/sms.svg" alt="sms" height="87px" width="100px"/>
-			</td>
-		<tr>
-			<td id="summary" class="tab">
-				<img src="medias/diary.svg" alt="diary" height="87px" width="100px"/>
-			</td>
-		</tr>
-	</table>
+<!--<div id="right_panel">-->
+	<!--<table id="right_panel_button_tab">-->
+		<!--<tr>-->
+			<!--<td id="mail" class="tab">-->
+				<!--<img src="medias/mail.svg" alt="www" height="87px" width="100px"/>-->
+			<!--</td>-->
+		<!--</tr>-->
+		<!--<tr>-->
+			<!--<td id="browser" class="tab">-->
+				<!--<img src="medias/browser.svg" alt="www" height="87px" width="100px"/>-->
+			<!--</td>-->
+		<!--</tr>-->
+		<!--<tr>-->
+			<!--<td id="social" class="tab">-->
+				<!--<img src="medias/sms.svg" alt="sms" height="87px" width="100px"/>-->
+			<!--</td>-->
+		<!--<tr>-->
+			<!--<td id="summary" class="tab">-->
+				<!--<img src="medias/diary.svg" alt="diary" height="87px" width="100px"/>-->
+			<!--</td>-->
+		<!--</tr>-->
+	<!--</table>-->
 
-	<div id="right_panel_content">
+	<!--<div id="right_panel_content">-->
+	<!--</div>-->
+<!--</div>-->
+
+
+<div class="right_panel">
+	<!-- Tab links -->
+	<div class="tab" id="tab">
+		<!--<button class="tablinks" style="background: url(/medias/mail.svg)" onclick="openTab(event, 'mail')">Mail</button>-->
+		<!--<input type="image" class="tablinks" src="/medias/mail.svg" onclick="openTab(event, 'mail')" />-->
+
+		<!--<button class="tablinks" onclick="openTab(event, 'browser')">Browser</button>-->
+		<!--<button class="tablinks" onclick="openTab(event, 'phone')">Phone</button>-->
+		<!--<button class="tablinks" onclick="openTab(event, 'notebook')">Notebook</button>-->
+		<img src="medias/mail.svg" class="tablinks" alt="mail" height="50px" width="50px" id="mail" />
+		<img src="medias/browser.svg" class="tablinks" alt="www" height="50px" width="50px"/>
+		<img src="medias/sms.svg" class="tablinks" alt="sms" height="50px" width="50px"/>
+		<img src="medias/diary.svg" class="tablinks" alt="diary" height="50px" width="50px"/>
 	</div>
+
+	<!--&lt;!&ndash; Tab content &ndash;&gt;-->
+	<!--<div id="mail" class="tabcontent">-->
+		<!--<h3>Mail</h3>-->
+		<!--<p>No new mail.</p>-->
+	<!--</div>-->
+
+	<!--<div id="browser" class="tabcontent">-->
+		<!--<h3>Browser</h3>-->
+		<!--<p>This is the browser.</p>-->
+	<!--</div>-->
+
+	<!--<div id="phone" class="tabcontent">-->
+		<!--<h3>Phone</h3>-->
+		<!--<p>No missed calls.</p>-->
+	<!--</div>-->
+	<!--<div id="notebook" class="tabcontent">-->
+		<!--<h3>Notebook</h3>-->
+		<!--<p>No notes yet.</p>-->
+	<!--</div>-->
+
+
 </div>
 
-<script type="text/javascript">
+
+
+
+	<script type="text/javascript">
 
 /*
 	window.ondragstart = function()		{ return false; }	// IMPORTANT - FIX BUG
@@ -138,6 +180,29 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
     }
 
 
+</script>
+
+<script>
+    function openTab(evt, tab) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tab).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
 </script>
 
 </body>
