@@ -44,6 +44,7 @@ ws.on('connection', function (client, req)
 	var filesSSH = termfunc.createFileSystem("molang.csv");
 	var root = termfunc.getFile(files, "/");
 	var curDir = root;
+	var originCurDir; // for ssh
 
 	var lvlData = lvlValidation.getLvlData("./levels.json");
 	var curLvl = 0;
@@ -67,7 +68,11 @@ ws.on('connection', function (client, req)
 
 		if (logged == false) {
 			if (json_msg.login == "root" && json_msg.password == "root") {
-				send(client, JSON.stringify({"auth":1}));
+				send(client, JSON.stringify({
+					"auth":1,
+					"directory":"/",
+					"login":"root",
+					"server":"hacking_game"}));
 				logged = true;
 			} else {
 				send(client, JSON.stringify({"auth":0}));
@@ -79,9 +84,14 @@ ws.on('connection', function (client, req)
 			ssh_request = false;
 			if (json_msg.login == "molang" && json_msg.password == "molang") {
 				root = termfunc.getFile(filesSSH, "/");
+				originCurDir = curDir;
 				curDir = root;
 				ssh_active = true;
-				send(client, JSON.stringify({"string": "SSH Connexion successful."}));
+				send(client, JSON.stringify({
+					"string":"SSH Connexion successful.",
+					"directory":"/",
+					"login":"molang",
+					"server":"molang"}));
 
 			} else {
 				send(client, JSON.stringify({"string": "SSH Connexion failed."}));
@@ -89,6 +99,7 @@ ws.on('connection', function (client, req)
 			return;
 		}
 
+		var newDirectory;
 		console.log("input command: " + json_msg.command);
 
 		var input;
@@ -132,8 +143,12 @@ ws.on('connection', function (client, req)
 			break;
 		case "cd":
 			var retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
-			curDir = retArray[0];
-			output = retArray[1];
+			if (retArray[0] != null) {
+				curDir = retArray[0];
+				newDirectory = termfunc.pwd(curDir);
+			} else {
+				output = retArray[1];
+			}
 			break;
 		case "pwd":
 			output = termfunc.pwd(curDir);
@@ -151,11 +166,16 @@ ws.on('connection', function (client, req)
 			if(ssh_active == true) {
 					ssh_active = false;
 					root = termfunc.getFile(files, "/");
-					curDir = root;
-					send(client, JSON.stringify({"string":"SSH sucessfully exited."}));
+					curDir = originCurDir;
+					newDirectory = termfunc.pwd(curDir);
+					send(client, JSON.stringify({
+						"string":"SSH sucessfully exited.",
+						"directory":termfunc.pwd(curDir),
+						"login":"root",
+						"server":"hacking_game"
+					}));
 					return;
-			}
-			else {
+			} else {
 					output = "No SSH connexion active.";
 			}
 			break;
@@ -163,9 +183,12 @@ ws.on('connection', function (client, req)
 			output = "unknown command !";
 			break;
 		}
-		send(client, JSON.stringify({"string":output, "victory":
-				(lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]) == true ?
-					"Congratulations, you win !" : undefined)}));
+		send(client, JSON.stringify({
+			"string": (output) ? output : undefined,
+			"victory":
+				(lvlValidation.checkVictory(winningCondition, input.join(" "), termfunc.pwd(curDir)) == true ?
+					"Congratulations, you win !" : undefined),
+			"directory": (newDirectory) ? newDirectory : undefined}));
 		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
 		{
 			if (++curLvl < lvlData.length)

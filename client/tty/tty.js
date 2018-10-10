@@ -37,6 +37,11 @@ var TTY = function() {
 	var visibleCursorPosition;
 	var visibleStringLen;
 
+	/*
+	 * current directory, utilized by prompt
+	 */
+	var directory;
+
 	var putCursor = function (position) {
 		var div_origin_y = inputDiv.getBoundingClientRect().top;
 		var div_origin_x = inputDiv.offsetLeft;
@@ -206,7 +211,7 @@ var TTY = function() {
 				if (historyIdx != 0) {
 					tty.removeChild(inputDiv);
 					historyIdx -= 1;
-					createNewInputString(login + "@" + server_name + ":" + space_expr, inputHistory[historyIdx]);
+					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr, inputHistory[historyIdx]);
 
 					console.log("new history index: ", historyIdx);
 				}
@@ -218,7 +223,7 @@ var TTY = function() {
 				if (historyIdx != inputHistory.length) {
 					tty.removeChild(inputDiv);
 					historyIdx += 1;
-					createNewInputString(login + "@" + server_name + ":" + space_expr, inputHistory[historyIdx]);
+					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr, inputHistory[historyIdx]);
 
 					console.log("new history index: ", historyIdx);
 				}
@@ -247,6 +252,12 @@ var TTY = function() {
 	var sequence = sequence_enum.auth_login;
 
 	this.onmessage = function(data) {
+		if (data.directory)
+			directory = data.directory;
+		if (data.login)
+			login = data.login;
+		if (data.server)
+			server_name = data.server;
 		switch (sequence) {
 			case sequence_enum.auth_password:
 				if (data.auth == 1) {
@@ -254,7 +265,7 @@ var TTY = function() {
 					createDiv("<br>");
 					createDiv("Welcome to " + server_name + " Mr " + login);
 					createDiv("<br>");
-					createNewInputString(login + "@" + server_name + ":" + space_expr);
+					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr);
 				} else {
 					sequence = sequence_enum.auth_login;
 					createDiv("<br>");
@@ -267,10 +278,11 @@ var TTY = function() {
 					createNewInputString("SSH login:" + space_expr);
 					break;
 				}
-				createDiv(data.string);
+				if (data.string)
+					createDiv(data.string);
 
 				historyIdx = inputHistory.length;
-				createNewInputString(login + "@" + server_name + ":" + space_expr);
+				createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr);
 				break;
 			default:
 				console.warn("Unknown sequence");
