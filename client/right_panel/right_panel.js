@@ -25,7 +25,7 @@ var RIGHT_PANEL = function() {
 	var social_content = "Your phone numbers:<br>";
 	var diary_content = "Are you victorious ?<br>";
 
-	var switchToContent = function() {
+	var switchToContent = function () {
 		fillContent();
 		button_tab.style.opacity = 0;
 		content.style.opacity = 1;
@@ -33,56 +33,68 @@ var RIGHT_PANEL = function() {
 		content.style.zIndex = 0;
 	}
 
-	var switchToButtonTab = function() {
+	var switchToButtonTab = function () {
 		button_tab.style.opacity = 1;
 		content.style.opacity = 0;
 		button_tab.style.zIndex = 0;
 		content.style.zIndex = -1;
 	}
 
-	var fillContent = function() {
+	var fillContent = function () {
 		switch (sequence) {
-		case screen_enum.mail:
-			content.innerHTML = mail_content;
-			break;
-		case screen_enum.browser:
-			content.innerHTML = browser_content;
-			break;
-		case screen_enum.social:
-			content.innerHTML = social_content;
-			break;
-		case screen_enum.diary:
-			content.innerHTML = diary_content;
-			break;
-		default:
-			console.log("unexpected default case");
-			break;
+			case screen_enum.mail:
+				content.innerHTML = mail_content;
+				break;
+			case screen_enum.browser:
+				content.innerHTML = browser_content;
+				break;
+			case screen_enum.social:
+				content.innerHTML = social_content;
+				break;
+			case screen_enum.diary:
+				content.innerHTML = diary_content;
+				break;
+			default:
+				console.log("unexpected default case");
+				break;
 		}
 	}
 
-	mail.addEventListener("mousedown", function (){
-		sequence = screen_enum.mail;
-		switchToContent();
+	function changeScreen(button, target) {
+		var i, tabcontent, tablinks;
+
+		// Get all elements with class="tabcontent" and hide them
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+		// Get all elements with class="tablinks" and remove the class "active"
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].classList.remove("active");
+		}
+
+		// Show the current tab, and add an "active" class to the button that opened the tab
+		document.getElementById(target).style.display = "block";
+		button.classList.add("active");
+		console.log(button);
+	}
+
+	mail_btn.addEventListener("mousedown", function (){
+		changeScreen(this, "mail");
 	});
 
-	browser.addEventListener("mousedown", function (){
-		sequence = screen_enum.browser;
-		switchToContent();
+	browser_btn.addEventListener("mousedown", function () {
+		changeScreen(this, "browser");
 	});
 
-	social.addEventListener("mousedown", function (){
-		sequence = screen_enum.social;
-		switchToContent();
+	sms_btn.addEventListener("mousedown", function (){
+		changeScreen(this, "phone");
 	});
 
-	summary.addEventListener("mousedown", function (){
-		sequence = screen_enum.diary;
-		switchToContent();
-	});
-
-	content.addEventListener("mousedown", function (){
-		sequence = screen_enum.button_tab;
-		switchToButtonTab();
+	diary_btn.addEventListener("mousedown", function () {
+		changeScreen(this, "notebook");
 	});
 
 	this.onmessage  = function(data) {
@@ -100,4 +112,7 @@ var RIGHT_PANEL = function() {
 		}
 		fillContent();
 	}
+	changeScreen(diary_btn, "notebook");
 }
+
+

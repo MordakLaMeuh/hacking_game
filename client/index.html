@@ -78,35 +78,30 @@
 
 <div id="js_tty">
 
-<!-- <span id="test">a</span> -->
-
 </div>
 
+<div class="right_panel">
+	<div class="tab" id="tab">
+		<img src="medias/mail.svg" id="mail_btn" class="tablinks" alt="mail" height="50px" width="50px"/>
+		<img src="medias/browser.svg" id="browser_btn" class="tablinks" alt="www" height="50px" width="50px"/>
+		<img src="medias/sms.svg" id="sms_btn" class="tablinks" alt="sms" height="50px" width="50px"/>
+		<img src="medias/diary.svg" id="diary_btn" class="tablinks" alt="diary" height="50px" width="50px"/>
+	</div>
 
-<div id="right_panel">
-	<table id="right_panel_button_tab">
-		<tr>
-			<td id="mail" class="tab">
-				<img src="medias/mail.svg" alt="www" height="87px" width="100px"/>
-			</td>
-		</tr>
-		<tr>
-			<td id="browser" class="tab">
-				<img src="medias/browser.svg" alt="www" height="87px" width="100px"/>
-			</td>
-		</tr>
-		<tr>
-			<td id="social" class="tab">
-				<img src="medias/sms.svg" alt="sms" height="87px" width="100px"/>
-			</td>
-		<tr>
-			<td id="summary" class="tab">
-				<img src="medias/diary.svg" alt="diary" height="87px" width="100px"/>
-			</td>
-		</tr>
-	</table>
+	<div id="mail" class="tabcontent">
+		<p>No new mail.</p>
+	</div>
 
-	<div id="right_panel_content">
+	<div id="browser" class="tabcontent">
+		<p>This is the browser.</p>
+	</div>
+
+	<div id="phone" class="tabcontent">
+		<p>No missed calls.</p>
+	</div>
+
+	<div id="notebook" class="tabcontent">
+		<p>No notes yet.</p>
 	</div>
 </div>
 
@@ -116,7 +111,6 @@
 	window.ondragstart = function()		{ return false; }	// IMPORTANT - FIX BUG
 	document.onmousedown = function()	{ return false; }	// IMPORTANT - FIX BUG / DISABLE AUTOMATIC SELECT OF ELEMENT
 */
-
 var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"
 
 </script>
@@ -136,7 +130,6 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 		tty.onmessage(data);
 		right_panel.onmessage(data);
     }
-
 
 </script>
 
