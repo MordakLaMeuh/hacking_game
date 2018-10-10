@@ -42,7 +42,9 @@ ws.on('connection', function (client, req)
 
 	var root = termfunc.createFileSystem("generateVFS.csv");
 	console.log(root);
+
 	var curDir = root;
+	var originCurDir; // for ssh
 
 	var lvlData = lvlValidation.getLvlData("./level_00.json");
 	var cmdList = lvlData.cmdList;
@@ -67,7 +69,7 @@ ws.on('connection', function (client, req)
 
 		if (logged == false) {
 			if (json_msg.login == "root" && json_msg.password == "root") {
-				send(client, JSON.stringify({"auth":1}));
+				send(client, JSON.stringify({"auth":1, "directory":"/"}));
 				logged = true;
 			} else {
 				send(client, JSON.stringify({"auth":0}));
@@ -79,9 +81,10 @@ ws.on('connection', function (client, req)
 			ssh_request = false;
 			if (json_msg.login == "molang" && json_msg.password == "molang") {
 				root = termfunc.createFileSystem("molang.csv");
+				originCurDir = curDir;
 				curDir = root;
 				ssh_active = true;
-				send(client, JSON.stringify({"string": "SSH Connexion successful."}));
+				send(client, JSON.stringify({"string": "SSH Connexion successful.", "directory":"/"}));
 
 			} else {
 				send(client, JSON.stringify({"string": "SSH Connexion failed."}));
@@ -89,6 +92,7 @@ ws.on('connection', function (client, req)
 			return;
 		}
 
+		var newDirectory;
 		console.log("input command: " + json_msg.command);
 
 		var input;
@@ -133,7 +137,7 @@ ws.on('connection', function (client, req)
 		case "cd":
 			var retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
 			curDir = retArray[0];
-			output = retArray[1];
+			newDirectory = termfunc.pwd(curDir);
 			break;
 		case "pwd":
 			output = termfunc.pwd(curDir);
@@ -151,11 +155,10 @@ ws.on('connection', function (client, req)
 			if(ssh_active == true) {
 					ssh_active = false;
 					root = termfunc.createFileSystem("generateVFS.csv");
-					curDir = root;
-					send(client, JSON.stringify({"string":"SSH sucessfully exited."}));
-					return;
-			}
-			else {
+					curDir = originCurDir;
+					output = "SSH sucessfully exited.";
+					newDirectory = termfunc.pwd(curDir);
+			} else {
 					output = "No SSH connexion active.";
 			}
 			break;
@@ -163,9 +166,12 @@ ws.on('connection', function (client, req)
 			output = "unknown command !";
 			break;
 		}
-		send(client, JSON.stringify({"string":output, "victory":
+		send(client, JSON.stringify({
+			"string": (output) ? output : undefined,
+			"victory":
 				(lvlValidation.checkVictory(winningCondition, input.join(" "), termfunc.pwd(curDir)) == true ?
-					"Congratulations, you win !" : undefined)}));
+					"Congratulations, you win !" : undefined),
+			"directory": (newDirectory) ? newDirectory : undefined}));
 	})
 
 
