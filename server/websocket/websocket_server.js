@@ -144,8 +144,12 @@ ws.on('connection', function (client, req)
 			break;
 		case "cd":
 			var retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
-			curDir = retArray[0];
-			newDirectory = termfunc.pwd(curDir);
+			if (retArray[0] != null) {
+				curDir = retArray[0];
+				newDirectory = termfunc.pwd(curDir);
+			} else {
+				output = retArray[1];
+			}
 			break;
 		case "pwd":
 			output = termfunc.pwd(curDir);

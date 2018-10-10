@@ -95,9 +95,9 @@ cd: function(root, curDir, args)
 		{
 			tmpDir = getFile(tmpDir.children, path[i]);
 			if (tmpDir == null)
-				return ([curDir, "cd: " + args[0] + ": No such file or directory"]);
+				return ([null, "cd: " + args[0] + ": No such file or directory"]);
 			else if (tmpDir.isDir == false)
-				return ([curDir, "cd: " + args[0] + ": Not a directory"]);
+				return ([null, "cd: " + args[0] + ": Not a directory"]);
 		}
 		++i;
 	}
