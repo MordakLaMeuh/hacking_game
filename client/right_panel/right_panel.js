@@ -59,7 +59,6 @@ var RIGHT_PANEL = function() {
 		if (data.browser) {
 			browser.innerHTML += data.browser + "<br>";
 		}
-		fillContent();
 	}
 	changeScreen(diary_btn, "notebook");
 }

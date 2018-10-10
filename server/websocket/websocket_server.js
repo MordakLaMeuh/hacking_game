@@ -186,20 +186,19 @@ ws.on('connection', function (client, req)
 		send(client, JSON.stringify({
 			"string": (output) ? output : undefined,
 			"victory":
-				(lvlValidation.checkVictory(winningCondition, input.join(" "), termfunc.pwd(curDir)) == true ?
-					"Congratulations, you win !" : undefined),
+				lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]) == true ?
+					"Congratulations, you win !" : undefined,
 			"directory": (newDirectory) ? newDirectory : undefined}));
 		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
 		{
-			if (++curLvl < lvlData.length)
+			curLvl++;
+			if (curLvl < lvlData.length)
 			{
 				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
 				cmdList = lvlData[curLvl].cmdList;
 				winningCondition = lvlData[curLvl].winningCondition;
 				console.log("NEW LEVEL LOADED");
-			}
-			else
-			{
+			} else {
 					console.log("GAME FINISHED !");
 			}
 		}
