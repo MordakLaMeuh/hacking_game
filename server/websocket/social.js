@@ -33,6 +33,10 @@ getDialogSeq: function(obj)
 	var output = new Object();
 	console.log(obj);
 
+	if (obj.name == undefined) {
+		console.warn("undefined name field")
+		return;
+	}
 	var i = 0;
 	for (i = 0; i < this.social.length; i++) {
 		if (this.social[i].name == obj.name) {
@@ -42,6 +46,10 @@ getDialogSeq: function(obj)
 				output.r = this.social[i].exchange[this.social[i].idx].r;
 				this.social[i].active = true;
 			} else {
+				if (obj.r == undefined) {
+					console.log("already activated");
+					return;
+				}
 				console.log("length: " + this.social[i].exchange[this.social[i].idx].r.length);
 				if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
 					console.warn("bad index: " + obj.r);
