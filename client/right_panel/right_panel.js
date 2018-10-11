@@ -86,8 +86,6 @@ function addHim(str)
 function showAnswer(str, len)
 {
 	var answers = document.getElementById("answers");
-	var b = document.createElement('button');
-	b.setAttribute('class', 'btn');
 	var i = 0;
 	while (i < len)
 	{
