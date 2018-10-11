@@ -66,39 +66,43 @@ var RIGHT_PANEL = function() {
 	{
 		for (var i = 0; i < contactsArray.length; i++)
 		{
-			// Get contacts_list div (container for all the contacts)
-			var contacts_list = document.getElementById("contacts_list");
+			(function () {
+				// Get contacts_list div (container for all the contacts)
+				var contacts_list = document.getElementById("contacts_list");
 
-			// Create a new contact div
-			var contact = document.createElement('div');
-			contact.className = "contact";
+				// Create a new contact div
+				var contact = document.createElement('div');
+				contact.className = "contact";
 
-			// Add EventListener to contact div to send contact name to the server
-			var obj = new Object();
-			obj.name = contactsArray[i];
-			contact.addEventListener("mousedown", function (){
-				console.log("OK");
-				socket.send(JSON.stringify({"social": obj}));
-			});
+				// Add EventListener to contact div to send contact name to the server
+				var obj = new Object();
+				obj.name = contactsArray[i];
+				contact.addEventListener("mousedown", function (){
+					socket.send(JSON.stringify({"social": obj}));
+					contacts_list.style.visibility = "hidden";
+				});
 
-			// Create a new img
-			var img = document.createElement('img');
-			img.src = "/medias/macaron.jpg";
-			img.alt = "contact_picture";
+				// Create a new img
+				var img = document.createElement('img');
+				img.src = "/medias/macaron.jpg";
+				img.alt = "contact_picture";
 
-			// Create a new contact_name div
-			var contact_name = document.createElement('div');
-			contact_name.className = "contact_name";
+				// Create a new contact_name div
+				var contact_name = document.createElement('div');
+				contact_name.className = "contact_name";
 
-			// Create a new paragraph
-			var paragraph = document.createElement('p');
-			paragraph.textContent = contactsArray[i];
+				// Create a new paragraph
+				var paragraph = document.createElement('p');
+				paragraph.textContent = contactsArray[i];
 
-			// Append all these new elements to their parents div
-			contact_name.appendChild(paragraph);
-			contact.appendChild(img);
-			contact.appendChild(contact_name);
-			contacts_list.appendChild(contact);
+				// Append all these new elements to their parents div
+				contact_name.appendChild(paragraph);
+				contact.appendChild(img);
+				contact.appendChild(contact_name);
+				contacts_list.appendChild(contact);
+    		}());
+
+
 		}
 	}
 }
