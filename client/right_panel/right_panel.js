@@ -61,6 +61,46 @@ var RIGHT_PANEL = function() {
 		}
 	}
 	changeScreen(diary_btn, "notebook");
+
+	this.displayContacts = function(contactsArray)
+	{
+		for (var i = 0; i < contactsArray.length; i++)
+		{
+			// Get contacts_list div (container for all the contacts)
+			var contacts_list = document.getElementById("contacts_list");
+
+			// Create a new contact div
+			var contact = document.createElement('div');
+			contact.className = "contact";
+
+			// Add EventListener to contact div to send contact name to the server
+			var obj = new Object();
+			obj.name = contactsArray[i];
+			contact.addEventListener("mousedown", function (){
+				console.log("OK");
+				socket.send(JSON.stringify({"social": obj}));
+			});
+
+			// Create a new img
+			var img = document.createElement('img');
+			img.src = "/medias/macaron.jpg";
+			img.alt = "contact_picture";
+
+			// Create a new contact_name div
+			var contact_name = document.createElement('div');
+			contact_name.className = "contact_name";
+
+			// Create a new paragraph
+			var paragraph = document.createElement('p');
+			paragraph.textContent = contactsArray[i];
+
+			// Append all these new elements to their parents div
+			contact_name.appendChild(paragraph);
+			contact.appendChild(img);
+			contact.appendChild(contact_name);
+			contacts_list.appendChild(contact);
+		}
+	}
 }
 
 // Create a li for him and me
@@ -107,7 +147,6 @@ function showAnswer(tab)
 }
 
 /* send answer to server */
-
 function sendAnswer(clicked_id)
 {
 	var obj = new Object();
@@ -115,4 +154,7 @@ function sendAnswer(clicked_id)
 	addMe(document.getElementById(clicked_id).innerHTML);
 	obj.name = document.getElementById("contact_name").innerHTML;
 	socket.send(JSON.stringify({"social":obj}));
+}
+
+
 }

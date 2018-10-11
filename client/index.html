@@ -102,6 +102,7 @@
 		</ul>
 		<div id="answers">
 
+		<div id="contacts_list">
 		</div>
 	</div>
 
@@ -128,10 +129,10 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 var socket  = new WebSocket('ws://localhost:8081');
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
-
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
+		right_panel.displayContacts(data.socialContacts);
 		console.log(data.socialContacts);
 		var obj = new Object();
 		obj.name = "Felix";

@@ -130,3 +130,47 @@ hr {
 	height: 5px;
 }
 
+#contacts_list
+{
+	margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact
+{
+	display: flex;
+	margin-top: 3%;
+	cursor: pointer;
+}
+
+.contact:hover
+{
+	opacity: .5;
+	background-color: white;
+}
+
+.contact_name
+{
+	margin-left: 4%;
+	margin-right: 4%;
+	width: 100%;
+	display: flex;
+	border-bottom: 1px solid black;
+}
+
+.contact_name p
+{
+	font-size: 20px;
+	width: 100%;
+	margin: auto;
+	margin-left: 4%;
+	font-weight: bold;
+}
+
+.contact img
+{
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+}
