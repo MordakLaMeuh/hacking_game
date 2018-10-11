@@ -1,6 +1,11 @@
 'use strict';
 
 var RIGHT_PANEL = function() {
+	document.getElementById("messages").addEventListener(mousewheelevt, function (e) {
+		var e = window.event || e; // old IE support
+		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+		document.getElementById("messages").scrollTop -= delta * 20;
+	}, false);
 
 	var right_panel = document.getElementById("right_panel");
 
@@ -119,6 +124,7 @@ function addMe(str)
 	li.appendChild(document.createTextNode(str));
 	li.setAttribute("class", "me");
 	ul.appendChild(li);
+	document.getElementById("messages").scrollTop += 10000;
 }
 
 function addHim(str)
@@ -128,6 +134,7 @@ function addHim(str)
 	li.appendChild(document.createTextNode(str));
 	li.setAttribute("class", "him");
 	ul.appendChild(li);
+	document.getElementById("messages").scrollTop += 10000;
 }
 
 // Write name and create buttons according to received number
