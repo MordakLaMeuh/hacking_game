@@ -79,7 +79,7 @@ ws.on('connection', function (client, req)
 					"directory":"/",
 					"login":"root",
 					"server":"hacking_game",
-					"social":JSON.stringify(social.createContactList())}));
+					"socialContacts":social.createContactList()}));
 				logged = true;
 			} else {
 				send(client, JSON.stringify({"auth":0}));
@@ -103,6 +103,11 @@ ws.on('connection', function (client, req)
 			} else {
 				send(client, JSON.stringify({"string": "SSH Connexion failed."}));
 			}
+			return;
+		}
+
+		if (json_msg.social) {
+			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}))
 			return;
 		}
 
@@ -205,7 +210,7 @@ ws.on('connection', function (client, req)
 					"string": (output) ? output : undefined,
 					"victory": "Congratulations, you win !",
 					"directory": (newDirectory) ? newDirectory : undefined,
-					"social": JSON.stringify(social.createContactList())}));
+					"socialContacts": social.createContactList()}));
 			} else {
 				console.log("GAME FINISHED !");
 			}
