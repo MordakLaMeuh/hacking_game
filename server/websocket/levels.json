@@ -15,6 +15,53 @@
 			["help"],
 			["ssh"],
 			["exit"]
+		],
+		"social":
+		[
+			{
+				"name": "Norton",
+				"exchange":
+				[
+					{
+						"q":"hello I'm Norton, what do you want ?",
+						"r":["nothing", "nein, niet, nada"],
+						"i":["1", "1"]
+					},
+					{
+						"q":"Okay, good by",
+						"r":[]
+					}
+				]
+			},
+			{
+				"name": "Felix",
+				"exchange":
+				[
+					{
+						"q":"hello I'm Felix, what i can do for you ?",
+						"r":["give me a coffee please", "tell my wife i'm fired"],
+						"i":["1", "2"]
+					},
+					{
+						"q":"A coffee ?!? Are you kiding me ? Fuck you",
+						"r":[]
+					},
+					{
+						"q":"Oh compassions, may i do sometyhing for you ?",
+						"r":["give me a coffee please", "hack my boss computer please and give me hispital password"],
+						"i":["1", "3"]
+					},
+					{
+						"q":"I got this password, is molang",
+						"r":["now give me a coffee !", "Thank you very much, goodbye !"],
+						"i":["1", "4"]
+					},
+					{
+						"q": "Goodbye to you too",
+						"r": []
+					}
+				]
+			}
 		]
 	},
 	{
@@ -40,7 +87,9 @@
 			["A", "framboise.txt", "Fruits", "false", "Miam Miam !"],
 			["D", "mission.txt"],
 			["M", "mission2.txt", "/"]
-		]
+		],
+		"social":
+		[]
 	},
 	{
 		"winningCondition":
@@ -59,6 +108,8 @@
 			["help"],
 			["ssh"],
 			["exit"]
-		]
+		],
+		"social":
+		[]
 	}
 ]

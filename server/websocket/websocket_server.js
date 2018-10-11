@@ -6,6 +6,7 @@ var port = 8081;
 
 var math = require('math');
 var termfunc = require('./termfunc.js');
+var social = require('./social.js');
 var lvlValidation = require('./lvlValidation.js');
 
 
@@ -50,6 +51,11 @@ ws.on('connection', function (client, req)
 	var curLvl = 0;
 	var cmdList = lvlData[curLvl].cmdList;
 	var winningCondition = lvlData[curLvl].winningCondition;
+	social.constructor();
+	social.addEntries(lvlData[curLvl].social);
+	console.log(social);
+	social.displayObj();
+	console.log(social.createContactList());
 
 	/*
 	 * Event on input client message
@@ -72,7 +78,8 @@ ws.on('connection', function (client, req)
 					"auth":1,
 					"directory":"/",
 					"login":"root",
-					"server":"hacking_game"}));
+					"server":"hacking_game",
+					"social":JSON.stringify(social.createContactList())}));
 				logged = true;
 			} else {
 				send(client, JSON.stringify({"auth":0}));
@@ -183,12 +190,6 @@ ws.on('connection', function (client, req)
 			output = "unknown command !";
 			break;
 		}
-		send(client, JSON.stringify({
-			"string": (output) ? output : undefined,
-			"victory":
-				lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]) == true ?
-					"Congratulations, you win !" : undefined,
-			"directory": (newDirectory) ? newDirectory : undefined}));
 		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
 		{
 			curLvl++;
@@ -197,10 +198,21 @@ ws.on('connection', function (client, req)
 				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
 				cmdList = lvlData[curLvl].cmdList;
 				winningCondition = lvlData[curLvl].winningCondition;
+				social.addEntries(lvlData[curLvl].social);
+				console.log(social);
 				console.log("NEW LEVEL LOADED");
+				send(client, JSON.stringify({
+					"string": (output) ? output : undefined,
+					"victory": "Congratulations, you win !",
+					"directory": (newDirectory) ? newDirectory : undefined,
+					"social": JSON.stringify(social.createContactList())}));
 			} else {
-					console.log("GAME FINISHED !");
+				console.log("GAME FINISHED !");
 			}
+		} else {
+			send(client, JSON.stringify({
+				"string": (output) ? output : undefined,
+				"directory": (newDirectory) ? newDirectory : undefined}));
 		}
 	})
 
