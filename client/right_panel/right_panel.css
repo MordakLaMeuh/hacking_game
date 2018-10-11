@@ -118,4 +118,7 @@ ul li{
 	bottom:0;
 	width:30vw;
 	font-size: 1em;
+	color: #fff;
+	background: #0084ff;
+	border-radius: 10px;
 }
