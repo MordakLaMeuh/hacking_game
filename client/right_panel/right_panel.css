@@ -1,7 +1,6 @@
 #right_panel {
 	height:100vh;
 	width:30vw;
-	background-color: yellow;
 	float:right;
 	position:relative;
 }
@@ -40,35 +39,94 @@
 	float:right;
 	width: 30vw;
 	height: 90vh;
-	background-color: greenyellow;
 	display: none;
 	border: none;
 }
 
-#mail_btn {
-	background-color: violet;
-}
-#mail {
-	background-color: violet;
+#mail_btn, #mail {
+	background-color: firebrick;
 }
 
-#browser_btn{
-	background-color: cornflowerblue;
-}
-#browser{
-	background-color: cornflowerblue;
+#browser_btn, #browser{
+	background-color: sandybrown;
 }
 
-#sms_btn{
-	background-color: indianred;
-}
-#phone{
-	background-color: indianred;
+#sms_btn, #phone{
+	background-color: lightblue;
 }
 
-#diary_btn{
-	background-color: palegoldenrod;
+#diary_btn, #notebook{
+	background-color: darkseagreen;
 }
-#notebook{
-	background-color: palegoldenrod;
+
+/* Messenger-like style */
+
+#contact_name {
+	text-align: center;
+	font-size: 1.2em;
+	color: black;
+	font-family: Verdana, sans-serif;
 }
+
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul li{
+	display:inline-block;
+	clear: both;
+	padding: 20px;
+	border-radius: 30px;
+	margin-bottom: 2px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.him{
+	background: #eee;
+	float: left;
+}
+
+.me{
+	float: right;
+	background: dodgerblue;
+	color: #fff;
+}
+
+.him + .me{
+	border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+	border-bottom-right-radius: 30px;
+}
+
+#answers{
+	position:absolute;
+	bottom:0;
+}
+
+#answers button{
+	bottom:0;
+	width:30vw;
+	font-size: 1em;
+	color: #fff;
+	background: dodgerblue;
+	border-radius: 10px;
+}
+
+hr {
+	border: none;
+	border-top: 3px double #333;
+	color: #333;
+	overflow: visible;
+	text-align: center;
+	height: 5px;
+}
+

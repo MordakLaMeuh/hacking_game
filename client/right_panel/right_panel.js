@@ -63,4 +63,52 @@ var RIGHT_PANEL = function() {
 	changeScreen(diary_btn, "notebook");
 }
 
+// Create a li for him and me
 
+function addMe(str)
+{
+	var ul = document.getElementById("messages");
+	var li = document.createElement('li');
+	li.appendChild(document.createTextNode(str));
+	li.setAttribute("class", "me");
+	ul.appendChild(li);
+}
+
+function addHim(str)
+{
+	var ul = document.getElementById("messages");
+	var li = document.createElement('li');
+	li.appendChild(document.createTextNode(str));
+	li.setAttribute("class", "him");
+	ul.appendChild(li);
+}
+
+// Write name and create buttons according to received number
+
+function showName(str)
+{
+	var name = document.getElementById("contact_name");
+	name.innerHTML = str;
+}
+
+function showAnswer(str, len)
+{
+	var answers = document.getElementById("answers");
+	var i = 0;
+	while (i < len)
+	{
+		var b = document.createElement('button');
+		b.id = i;
+		b.setAttribute("onClick", "sendAnswer(this.id)");
+		b.innerHTML = str;
+		answers.appendChild(b);
+		i++;
+	}
+}
+
+/* send answer to server */
+
+function sendAnswer(clicked_id)
+{
+	socket.send(JSON.stringify({"r":clicked_id}));
+}

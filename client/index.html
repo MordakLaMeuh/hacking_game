@@ -97,7 +97,12 @@
 	</div>
 
 	<div id="phone" class="tabcontent">
-		<p>No missed calls.</p>
+		<p id="contact_name"></p><hr/>
+		<ul id="messages">
+		</ul>
+		<div id="answers">
+
+		</div>
 	</div>
 
 	<div id="notebook" class="tabcontent">
@@ -137,6 +142,15 @@ socket.onmessage = function (res){
 	right_panel.onmessage(data);
 }
 
+</script>
+
+<script>
+	showName("Brett Montgomery");
+	addMe("Hi there.")
+	addHim("Good morning");
+	addMe("How are you ?")
+	addHim("Who are you ?");
+	showAnswer("I AM BATMAN", 3);
 </script>
 
 </body>
