@@ -63,4 +63,38 @@ var RIGHT_PANEL = function() {
 	changeScreen(diary_btn, "notebook");
 }
 
+// Create a li for him and me
 
+function addMe(str)
+{
+	var ul = document.getElementById("messages");
+	var li = document.createElement('li');
+	li.appendChild(document.createTextNode(str));
+	li.setAttribute("class", "me");
+	ul.appendChild(li);
+}
+
+function addHim(str)
+{
+	var ul = document.getElementById("messages");
+	var li = document.createElement('li');
+	li.appendChild(document.createTextNode(str));
+	li.setAttribute("class", "him");
+	ul.appendChild(li);
+}
+
+function showAnswer(str, len)
+{
+	var answers = document.getElementById("answers");
+	var b = document.createElement('button');
+	b.setAttribute('class', 'btn');
+	var i = 0;
+	while (i < len)
+	{
+		var b = document.createElement('button');
+		b.id = "btn" + i;
+		b.innerHTML = str;
+		answers.appendChild(b);
+		i++;
+	}
+}

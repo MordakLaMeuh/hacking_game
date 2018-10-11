@@ -40,25 +40,24 @@
 	float:right;
 	width: 30vw;
 	height: 90vh;
-	background-color: greenyellow;
 	display: none;
 	border: none;
 }
 
 #mail_btn, #mail {
-	background-color: violet;
+	background-color: firebrick;
 }
 
 #browser_btn, #browser{
-	background-color: cornflowerblue;
+	background-color: sandybrown;
 }
 
 #sms_btn, #phone{
-	background-color: indianred;
+	background-color: darkgrey;
 }
 
 #diary_btn, #notebook{
-	background-color: palegoldenrod;
+	background-color: darkseagreen;
 }
 
 /* Messenger-like style */
@@ -122,3 +121,6 @@ ul li{
 	background: #0084ff;
 	border-radius: 10px;
 }
+
+
+

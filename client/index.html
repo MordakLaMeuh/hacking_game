@@ -98,17 +98,10 @@
 
 	<div id="phone" class="tabcontent">
 		<p id="contact_name">Steven Norton</p>
-		<ul>
-			<li class="him">Hello who is this ?</li>
-			<li class="me">Hello, I am Steven Norton, famous goulolog.</li>
-			<li class="me">I have the perfect opportunity for you.</li>
-			<li class="me">Are you interested ?</li>
-			<li class="him">Yes, please tell me more. I am very interested. In fact, I am a goulolog myself and studied at New York Goul University.</li>
+		<ul id="messages">
 		</ul>
 		<div id="answers">
-		<button type="button">La reponse A : "Sorry my house is burning."</button>
-		<button type="button">La reponse B : "I will call you back later."</button>
-		<button type="button">La reponse C: "Great, give me your credit card number."</button>
+
 		</div>
 	</div>
 
@@ -143,6 +136,11 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 		right_panel.onmessage(data);
     }
 
+</script>
+
+<script>
+	addHim("Good morning");
+	showAnswer("hello", 1);
 </script>
 
 </body>
