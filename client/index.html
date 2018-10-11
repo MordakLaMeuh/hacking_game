@@ -137,6 +137,14 @@ socket.onmessage = function (res){
 		obj.name = "Norton";
 		socket.send(JSON.stringify({"social": obj}));
 	}
+	if (data.social) {
+		console.log(data.social);
+		var obj = data.social;
+		showName(obj.name);
+		addHim(obj.q);
+		showAnswer(obj.r);
+		return ;
+	}
 	console.log(data);
 	tty.onmessage(data);
 	right_panel.onmessage(data);
@@ -145,12 +153,14 @@ socket.onmessage = function (res){
 </script>
 
 <script>
+/*
 	showName("Brett Montgomery");
 	addMe("Hi there.")
 	addHim("Good morning");
 	addMe("How are you ?")
 	addHim("Who are you ?");
 	showAnswer("I AM BATMAN", 3);
+*/
 </script>
 
 </body>

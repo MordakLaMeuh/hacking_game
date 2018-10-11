@@ -91,16 +91,16 @@ function showName(str)
 	name.innerHTML = str;
 }
 
-function showAnswer(str, len)
+function showAnswer(tab)
 {
 	var answers = document.getElementById("answers");
 	var i = 0;
-	while (i < len)
+	while (i < tab.length)
 	{
 		var b = document.createElement('button');
 		b.id = i;
 		b.setAttribute("onClick", "sendAnswer(this.id)");
-		b.innerHTML = str;
+		b.innerHTML = tab[i];
 		answers.appendChild(b);
 		i++;
 	}
@@ -110,5 +110,9 @@ function showAnswer(str, len)
 
 function sendAnswer(clicked_id)
 {
-	socket.send(JSON.stringify({"r":clicked_id}));
+	var obj = new Object();
+	obj.r = clicked_id;
+	addMe(document.getElementById(clicked_id).innerHTML);
+	obj.name = document.getElementById("contact_name").innerHTML;
+	socket.send(JSON.stringify({"social":obj}));
 }
