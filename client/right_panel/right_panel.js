@@ -64,11 +64,19 @@ var RIGHT_PANEL = function() {
 
 	this.displayContacts = function(contactsArray)
 	{
+		// Get contacts_list div (container for all the contacts)
+		var contacts_list = document.getElementById("contacts_list");
+
+		// Remove old children before display new
+		while (contacts_list.firstChild)
+		{
+	    	contacts_list.removeChild(contacts_list.firstChild);
+		}
+
 		for (var i = 0; i < contactsArray.length; i++)
 		{
 			(function () {
-				// Get contacts_list div (container for all the contacts)
-				var contacts_list = document.getElementById("contacts_list");
+
 
 				// Create a new contact div
 				var contact = document.createElement('div');
