@@ -84,6 +84,13 @@
 {
 	display: flex;
 	margin-top: 3%;
+	cursor: pointer;
+}
+
+.contact:hover
+{
+	opacity: .5;
+	background-color: white;
 }
 
 .contact_name

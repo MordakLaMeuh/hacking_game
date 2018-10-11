@@ -98,22 +98,6 @@
 
 	<div id="phone" class="tabcontent">
 		<div id="contacts_list">
-			<div class="contact">
-				<img src="/medias/macaron.jpg"  alt="contact_picture">
-				<div class="contact_name"><p>Macaron</p></div>
-			</div>
-			<div class="contact">
-				<img src="/medias/macaron.jpg"  alt="contact_picture">
-				<div class="contact_name"><p>Macaron</p></div>
-			</div>
-			<div class="contact">
-				<img src="/medias/ours.png"  alt="contact_picture">
-				<div class="contact_name"><p>Ours</p></div>
-			</div>
-			<div class="contact">
-				<img src="/medias/macaron.jpg"  alt="contact_picture">
-				<div class="contact_name"><p>Macaron</p></div>
-			</div>
 		</div>
 	</div>
 
@@ -140,10 +124,10 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 var socket  = new WebSocket('ws://localhost:8081');
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
-
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
+		right_panel.displayContacts(data.socialContacts);
 		console.log(data.socialContacts);
 		var obj = new Object();
 		obj.name = "Norton";
