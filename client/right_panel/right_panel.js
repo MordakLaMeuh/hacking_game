@@ -48,7 +48,7 @@ var RIGHT_PANEL = function() {
 
 	this.onmessage  = function(data) {
 		if (data.victory) {
-		    diary.innerHTML += data.victory + "<br>";
+			diary.innerHTML += data.victory + "<br>";
 		}
 		if (data.mail) {
 			mail.innerhtml += data.mail + "<br>";
@@ -68,16 +68,13 @@ var RIGHT_PANEL = function() {
 		var contacts_list = document.getElementById("contacts_list");
 
 		// Remove old children before display new
-		while (contacts_list.firstChild)
-		{
-	    	contacts_list.removeChild(contacts_list.firstChild);
+		while (contacts_list.firstChild) {
+			contacts_list.removeChild(contacts_list.firstChild);
 		}
 
 		for (var i = 0; i < contactsArray.length; i++)
 		{
 			(function () {
-
-
 				// Create a new contact div
 				var contact = document.createElement('div');
 				contact.className = "contact";
@@ -108,9 +105,7 @@ var RIGHT_PANEL = function() {
 				contact.appendChild(img);
 				contact.appendChild(contact_name);
 				contacts_list.appendChild(contact);
-    		}());
-
-
+			}());
 		}
 	}
 }

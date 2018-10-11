@@ -133,8 +133,8 @@ hr {
 #contacts_list
 {
 	margin-top: 5px;
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .contact
