@@ -143,8 +143,13 @@ var tty = new TTY();
 
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
-	if (data.social)
-		console.log(data.social);
+	if (data.socialContacts) {
+		console.log(data.socialContacts);
+		var obj = new Object();
+		obj.name = "Norton";
+		obj.idx = 0;
+		socket.send(JSON.stringify({"social": obj}));
+	}
 	console.log(data);
 	tty.onmessage(data);
 	right_panel.onmessage(data);
