@@ -87,7 +87,9 @@
 			["A", "framboise.txt", "Fruits", "false", "Miam Miam !"],
 			["D", "mission.txt"],
 			["M", "mission2.txt", "/"]
-		]
+		],
+		"social":
+		[]
 	},
 	{
 		"winningCondition":
@@ -106,6 +108,8 @@
 			["help"],
 			["ssh"],
 			["exit"]
-		]
+		],
+		"social":
+		[]
 	}
 ]
