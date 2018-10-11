@@ -50,6 +50,7 @@ ws.on('connection', function (client, req)
 	var curLvl = 0;
 	var cmdList = lvlData[curLvl].cmdList;
 	var winningCondition = lvlData[curLvl].winningCondition;
+	console.log(lvlData[curLvl].social);
 
 	/*
 	 * Event on input client message
