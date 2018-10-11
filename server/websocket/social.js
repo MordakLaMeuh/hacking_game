@@ -8,7 +8,7 @@ addEntries: function(obj)
 {
 	for (var i = 0; i < obj.length; i++) {
 		this.social.push(obj[i]);
-		this.social[this.social.length - 1].active = true;
+		this.social[this.social.length - 1].active = false;
 		this.social[this.social.length - 1].idx = 0;
 	}
 },
@@ -31,22 +31,35 @@ displayObj: function()
 getDialogSeq: function(obj)
 {
 	var output = new Object();
+	console.log(obj);
 
-	for (var i = 0; i < this.social.length; i++) {
+	var i = 0;
+	for (i = 0; i < this.social.length; i++) {
 		if (this.social[i].name == obj.name) {
 			output.name = obj.name;
-
-			if (obj.idx >= this.social[i].exchange.length) {
-				console.warn("unexpected index: " + obj.idx);
-				return;
+			if (this.social[i].active == false) {
+				output.q = this.social[i].exchange[this.social[i].idx].q;
+				output.r = this.social[i].exchange[this.social[i].idx].r;
+				this.social[i].active == true;
+			} else {
+				if (obj.r < 0 || r >= this.social[i].exchange[this.social[i].idx].length) {
+					console.warn("bad index: " + obj.r);
+					return;
+				}
+				var newIdx = this.social[i].exchange[this.social[i].idx].i[obj.r];
+				this.social[i].idx = newIdx;
+				output.q = this.social[i].exchange[this.social[i].idx].q;
+				output.r = this.social[i].exchange[this.social[i].idx].r;
 			}
-			var input = this.social[i].exchange[obj.idx];
-			console.log("name founded !");
-			console.log(input);
+			break;
 		}
 	}
-	console.log(obj);
-	return "";
+	if (i == this.social.length) {
+		console.warn("unknown name: " + obj.name);
+		return;
+	}
+	console.log(output);
+	return output;
 }
 }
 

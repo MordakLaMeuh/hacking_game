@@ -130,7 +130,6 @@ socket.onmessage = function (res){
 		console.log(data.socialContacts);
 		var obj = new Object();
 		obj.name = "Norton";
-		obj.idx = 0;
 		socket.send(JSON.stringify({"social": obj}));
 	}
 	console.log(data);
