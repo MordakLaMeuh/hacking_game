@@ -61,6 +61,56 @@
 						"r": []
 					}
 				]
+			},
+			{
+				"name": "Macaron",
+				"exchange":
+				[
+					{
+						"q":"hello I'm Macaron, what i can do for you ?",
+						"r":["I want to go to the beach", "I want to go to the zoo"],
+						"i":["1", "2"]
+					},
+					{
+						"q":"Okay, let's go, do you want an ice cream ?",
+						"r":["Yes, of course, what's flavour ?","No, I am on diet !"],
+						"i":["3", "4"]
+					},
+					{
+						"q":"Great, what is your favorite animal ?",
+						"r":["The Lion", "The Panda", "The Giraffe"],
+						"i":["1", "1", "1"]
+					},
+					{
+						"q":"I've got Vanilla, Strawberry and chocolate",
+						"r":["Give me Vanilla !", "Give me strawberry !", "Give me chocolate !"],
+						"i":["5", "5", "5"]
+					},
+					{
+						"q": "Okay, i will give you a salad",
+						"r": ["I love Salad, thank you", "no, I hate salad, i prefer meat !"],
+						"i": ["6", "7"]
+					},
+					{
+						"q": "My favorite favour is cococuts",
+						"r": ["I dont care", "Oh me too !"],
+						"i": ["7", "6"]
+					},
+					{
+						"q": "Dont forget to brush your teeth after eating",
+						"r": ["Yes, I know, thank you"],
+						"i": ["8"]
+					},
+					{
+						"q": "You are very anoying",
+						"r": ["I am sorry, i was tied"],
+						"i": ["8"]
+					},
+					{
+						"q": "I hope you have a good day, goodbye, see you later",
+						"r": []
+					}
+				]
 			}
 		]
 	},
