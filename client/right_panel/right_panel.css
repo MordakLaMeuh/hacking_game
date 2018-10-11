@@ -72,8 +72,8 @@ ul{
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	height:300px;
 	overflow: hidden;
-	height: 300px;
 }
 
 ul li{
