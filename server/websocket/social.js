@@ -50,14 +50,12 @@ getDialogSeq: function(obj)
 					console.log("already activated");
 					return;
 				}
-				console.log("length: " + this.social[i].exchange[this.social[i].idx].r.length);
 				if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
 					console.warn("bad index: " + obj.r);
 					return;
 				}
 				var newIdx = this.social[i].exchange[this.social[i].idx].i[obj.r];
 				this.social[i].idx = newIdx;
-				console.log("newIdx: " + this.social[i].idx);
 				output.q = this.social[i].exchange[this.social[i].idx].q;
 				output.r = this.social[i].exchange[this.social[i].idx].r;
 			}
