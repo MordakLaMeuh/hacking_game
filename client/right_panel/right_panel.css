@@ -108,3 +108,14 @@ ul li{
 .me:last-of-type {
 	border-bottom-right-radius: 30px;
 }
+
+#answers{
+	position:absolute;
+	bottom:0;
+}
+
+#answers button{
+	bottom:0;
+	width:30vw;
+	font-size: 1em;
+}
