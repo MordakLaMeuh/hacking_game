@@ -83,6 +83,14 @@ function addHim(str)
 	ul.appendChild(li);
 }
 
+// Write name and create buttons according to received number
+
+function showName(str)
+{
+	var name = document.getElementById("contact_name");
+	name.innerHTML = str;
+}
+
 function showAnswer(str, len)
 {
 	var answers = document.getElementById("answers");
@@ -90,9 +98,17 @@ function showAnswer(str, len)
 	while (i < len)
 	{
 		var b = document.createElement('button');
-		b.id = "btn" + i;
+		b.id = i;
+		b.setAttribute("onClick", "sendAnswer(this.id)");
 		b.innerHTML = str;
 		answers.appendChild(b);
 		i++;
 	}
+}
+
+/* send answer to server */
+
+function sendAnswer(clicked_id)
+{
+	socket.send(JSON.stringify({"r":clicked_id}));
 }

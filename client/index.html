@@ -97,7 +97,7 @@
 	</div>
 
 	<div id="phone" class="tabcontent">
-		<p id="contact_name">Steven Norton</p>
+		<p id="contact_name"></p><hr/>
 		<ul id="messages">
 		</ul>
 		<div id="answers">
@@ -139,8 +139,12 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 </script>
 
 <script>
+	showName("Brett Montgomery");
+	addMe("Hi there.")
 	addHim("Good morning");
-	showAnswer("hello", 3);
+	addMe("How are you ?")
+	addHim("Who are you ?");
+	showAnswer("I AM BATMAN", 3);
 </script>
 
 </body>
