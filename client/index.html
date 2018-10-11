@@ -134,9 +134,9 @@ socket.onmessage = function (res){
 	if (data.socialContacts) {
 		right_panel.displayContacts(data.socialContacts);
 		console.log(data.socialContacts);
-		var obj = new Object();
-		obj.name = "Felix";
-		socket.send(JSON.stringify({"social": obj}));
+//		var obj = new Object();
+//		obj.name = "Felix";
+//		socket.send(JSON.stringify({"social": obj}));
 	}
 	if (data.social) {
 		console.log(data.social);

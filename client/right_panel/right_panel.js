@@ -155,6 +155,3 @@ function sendAnswer(clicked_id)
 	obj.name = document.getElementById("contact_name").innerHTML;
 	socket.send(JSON.stringify({"social":obj}));
 }
-
-
-}
