@@ -43,8 +43,7 @@ getDialogSeq: function(obj)
 				this.social[i].active = true;
 			} else {
 				console.log("length: " + this.social[i].exchange[this.social[i].idx].r.length);
-				if (
-						obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
+				if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
 					console.warn("bad index: " + obj.r);
 					return;
 				}
@@ -65,4 +64,3 @@ getDialogSeq: function(obj)
 	return output;
 }
 }
-
