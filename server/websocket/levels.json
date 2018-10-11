@@ -89,7 +89,23 @@
 			["M", "mission2.txt", "/"]
 		],
 		"social":
-		[]
+		[
+			{
+				"name": "Paulux",
+				"exchange":
+				[
+					{
+						"q":"hello I'm Paulox, what do you want ?",
+						"r":["Give me a coffee", "Give me 100 dollars"],
+						"i":["1", "1"]
+					},
+					{
+						"q":"Yes master",
+						"r":[]
+					}
+				]
+			}
+		]
 	},
 	{
 		"winningCondition":
