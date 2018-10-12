@@ -125,6 +125,8 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script src="right_panel/diary.js"></script>
 
 <script>
+var d = document.getElementById("diary_btn");
+d.classList.add("notif");
 
 var socket  = new WebSocket('ws://localhost:8081');
 var right_panel = new RIGHT_PANEL();
