@@ -72,6 +72,7 @@
 	<link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/right_panel.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/dialog.css' type='text/css' media='all'>
+	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
@@ -83,10 +84,12 @@
 
 <div id="right_panel">
 	<div class="tab" id="tab">
-		<img src="medias/mail.svg" id="mail_btn" class="tablinks" alt="mail" height="50px" width="50px"/>
-		<img src="medias/browser.svg" id="browser_btn" class="tablinks" alt="www" height="50px" width="50px"/>
-		<img src="medias/sms.svg" id="sms_btn" class="tablinks" alt="sms" height="50px" width="50px"/>
-		<img src="medias/diary.svg" id="diary_btn" class="tablinks" alt="diary" height="50px" width="50px"/>
+		<ul>
+			<li id="mail_btn" class="notif" class="tablinks"><a href="#" ><i class="material-icons">email</i></a></li>
+			<li id="browser_btn" class="tablinks"><a href="#" ><i class="material-icons">language</i></a></li>
+			<li id="sms_btn" class="notif" class="tablinks"><a href="#" ><i class="material-icons">contact_phone</i></a></li>
+			<li id="diary_btn" class="tablinks"><a href="#" ><i class="material-icons">event_note</i></a></li>
+		</ul>
 	</div>
 
 	<div id="mail" class="tabcontent">
