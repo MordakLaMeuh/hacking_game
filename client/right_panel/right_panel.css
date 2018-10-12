@@ -62,7 +62,7 @@
 }
 
 #phone{
-	background-color: lightblue;
+	background-color: black;
 }
 
 #diary{
@@ -85,7 +85,6 @@
 .contact:hover
 {
 	opacity: .5;
-	background-color: white;
 }
 
 .contact_name
@@ -94,7 +93,7 @@
 	margin-right: 4%;
 	width: 100%;
 	display: flex;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #15ABC3;
 }
 
 .contact_name p
@@ -145,6 +144,7 @@
 	font-size: 30px;
 	color: #666;
 	transition: .5s;
+	outline: 0;
 }
 
 .tab ul li a:before
