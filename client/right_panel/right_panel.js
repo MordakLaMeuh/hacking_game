@@ -3,12 +3,6 @@
 var RIGHT_PANEL = function() {
 	var right_panel = document.getElementById("right_panel");
 
-	document.getElementById("messages").addEventListener(mousewheelevt, function (e) {
-		var e = window.event || e; // old IE support
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-		document.getElementById("messages").scrollTop -= delta * 20;
-	}, false);
-
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
 	var social = document.getElementById("phone");
@@ -66,11 +60,158 @@ var RIGHT_PANEL = function() {
 		}
 	}
 	changeScreen(diary_btn, "notebook");
+}
 
+/*
+<div id="contact_name"></div><hr/>
+<ul id="messages">
+</ul>
+<div id="answers"></div> -->
+*/
+
+/*
+ * Create a li for him and me
+ */
+var SOCIAL = function() {
+	var self = this;
+	var phone = document.getElementById("phone");
+
+	var name;
+	var messages;
+	var answers;
+	var scope = new Array();
+
+	var done = 0;
+	this.addEntry = function(obj)
+	{
+		if (done == 0) {
+			this.createDialogBox();
+			done = 1;
+		}
+		this.showName(obj.name);
+		this.addHim(obj.q);
+		this.showAnswer(obj.r);
+		this.createButton();
+	}
+
+	this.createDialogBox = function()
+	{
+		phone.removeChild(contacts_list);
+		name = document.createElement('div');
+		name.setAttribute("id", "contact_name");
+		phone.appendChild(name);
+
+		messages = document.createElement('ul');
+		messages.setAttribute("id", "messages");
+		phone.appendChild(messages);
+
+		answers = document.createElement('div');
+		answers.setAttribute("id", "answers");
+		phone.appendChild(answers);
+
+		messages.addEventListener(mousewheelevt, function (e) {
+			var e = window.event || e; // old IE support
+			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+			messages.scrollTop -= delta * 20;
+		}, false);
+	}
+
+	this.addMe = function(str)
+	{
+		var li = document.createElement('li');
+		li.appendChild(document.createTextNode(str));
+		li.setAttribute("class", "me");
+		messages.appendChild(li);
+		messages.scrollTop += 10000;
+	}
+
+	this.addHim = function(str)
+	{
+		var li = document.createElement('li');
+		li.appendChild(document.createTextNode(str));
+		li.setAttribute("class", "him");
+		messages.appendChild(li);
+		messages.scrollTop += 10000;
+	}
+
+	/*
+	 * Write name and create buttons according to received number
+	 */
+	this.showName = function(str)
+	{
+		var name = document.getElementById("contact_name");
+		name.innerHTML = str;
+	}
+
+	this.showAnswer = function(tab)
+	{
+		var answers = document.getElementById("answers");
+		var i = 0;
+		while (i < tab.length)
+		{
+			var b = document.createElement('button');
+			b.id = i;
+			b.addEventListener("mousedown", function () {
+				sendAnswer(this.id);
+			});
+//			b.setAttribute("onClick", "sendAnswer(this.id)");
+			b.setAttribute("class", "btn");
+			b.innerHTML = tab[i];
+			answers.appendChild(b);
+			i++;
+		}
+	}
+
+	this.createButton = function()
+	{
+		var answers = document.getElementById("answers");
+		var b = document.createElement('button');
+		b.addEventListener("mousedown", function () {
+			phone.removeChild(name);
+			phone.removeChild(messages);
+			phone.removeChild(answers);
+			self.displayContacts(contacts);
+		});
+		b.setAttribute("class", "btn");
+		b.innerHTML = "BACK";
+		answers.appendChild(b);
+	}
+
+	/*
+	 * remove all buttons and create new ones
+	 */
+	var removeButton = function()
+	{
+		var btns = document.getElementsByClassName('btn');
+		while(btns[0])
+			btns[0].parentNode.removeChild(btns[0]);
+	}
+
+	/*
+	 * send answer to server
+	 */
+	var sendAnswer = function(clicked_id)
+	{
+		var obj = new Object();
+		obj.r = clicked_id;
+		self.addMe(document.getElementById(clicked_id).innerHTML);
+		obj.name = document.getElementById("contact_name").innerHTML;
+		socket.send(JSON.stringify({"social":obj}));
+		removeButton();
+	}
+
+	var contacts;
+	var contacts_list;
 	this.displayContacts = function(contactsArray)
 	{
+		contacts = contactsArray;
+
 		// Get contacts_list div (container for all the contacts)
-		var contacts_list = document.getElementById("contacts_list");
+		contacts_list = document.createElement('div');
+		contacts_list.setAttribute("id", "contacts_list");
+		phone.appendChild(contacts_list);
+
+		//var contacts_list = document.getElementById("contacts_list");
 
 		// Remove old children before display new
 		while (contacts_list.firstChild) {
@@ -112,105 +253,5 @@ var RIGHT_PANEL = function() {
 				contacts_list.appendChild(contact);
 			}());
 		}
-	}
-}
-
-/*
- * Create a li for him and me
- */
-var SOCIAL = function() {
-	var self = this;
-	var ul = document.getElementById("messages");
-
-	ul.addEventListener(mousewheelevt, function (e) {
-		var e = window.event || e; // old IE support
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-		ul.scrollTop -= delta * 20;
-	}, false);
-
-	this.addEntry = function(obj)
-	{
-		social.showName(obj.name);
-		social.addHim(obj.q);
-		social.showAnswer(obj.r);
-		addBackBtn();
-	}
-
-	this.addMe = function(str)
-	{
-		var li = document.createElement('li');
-		li.appendChild(document.createTextNode(str));
-		li.setAttribute("class", "me");
-		ul.appendChild(li);
-		ul.scrollTop += 10000;
-	}
-
-	this.addHim = function(str)
-	{
-		var li = document.createElement('li');
-		li.appendChild(document.createTextNode(str));
-		li.setAttribute("class", "him");
-		ul.appendChild(li);
-		ul.scrollTop += 10000;
-	}
-
-	/*
-	 * Write name and create buttons according to received number
-	 */
-	this.showName = function(str)
-	{
-		var name = document.getElementById("contact_name");
-		name.innerHTML = str;
-	}
-
-	this.showAnswer = function(tab)
-	{
-		var answers = document.getElementById("answers");
-		var i = 0;
-		while (i < tab.length)
-		{
-			var b = document.createElement('button');
-			b.id = i;
-			b.addEventListener("mousedown", function () {
-				sendAnswer(this.id);
-			});
-			b.setAttribute("class", "btn");
-			b.innerHTML = tab[i];
-			answers.appendChild(b);
-			i++;
-		}
-	}
-
-	/*
-	 * remove all buttons and create new ones
-	 */
-	var removeButton = function()
-	{
-		var btns = document.getElementsByClassName('btn');
-		while(btns[0])
-			btns[0].parentNode.removeChild(btns[0]);
-	}
-
-	/*
-	 * send answer to server
-	 */
-	var sendAnswer= function(clicked_id)
-	{
-		var obj = new Object();
-		obj.r = clicked_id;
-		self.addMe(document.getElementById(clicked_id).innerHTML);
-		obj.name = document.getElementById("contact_name").innerHTML;
-		socket.send(JSON.stringify({"social":obj}));
-		removeButton();
-	}
-
-	var addBackBtn = function()
-	{
-		console.log("BCK");
-		var name = document.getElementById("contact_name");
-		var b = document.createElement('button');
-		name.appendChild(b);
-		b.setAttribute("onClick", "BackToContacts()");
-		b.innerHTML = "Back";
 	}
 }

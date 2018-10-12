@@ -97,12 +97,6 @@
 	</div>
 
 	<div id="phone" class="tabcontent">
-		<p id="contact_name"></p><hr/>
-		<ul id="messages">
-		</ul>
-		<div id="answers"></div>
-
-		<div id="contacts_list"></div>
 	</div>
 
 	<div id="notebook" class="tabcontent">
@@ -132,7 +126,7 @@ var social = new SOCIAL();
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
-		right_panel.displayContacts(data.socialContacts);
+		social.displayContacts(data.socialContacts);
 		console.log(data.socialContacts);
 	}
 	if (data.social) {
