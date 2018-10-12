@@ -79,14 +79,14 @@ var SOCIAL = function() {
 	var name;
 	var messages;
 	var answers;
-	var scope = new Array();
+	var messenger;
+	var currentZindex = 0;
 
-	var done = 0;
 	this.addEntry = function(obj)
 	{
-		if (done == 0) {
-			this.createDialogBox();
-			done = 1;
+		var div = document.getElementById(obj.name);
+		if (div == undefined) {
+			this.createMessenger(obj.name)
 		}
 		this.showName(obj.name);
 		this.addHim(obj.q);
@@ -94,26 +94,35 @@ var SOCIAL = function() {
 		this.createButton();
 	}
 
-	this.createDialogBox = function()
+	this.createDialogBox = function(messengerDiv)
 	{
-		phone.removeChild(contacts_list);
 		name = document.createElement('div');
-		name.setAttribute("id", "contact_name");
-		phone.appendChild(name);
+		name.setAttribute("class", "contact_name");
+		messengerDiv.appendChild(name);
 
 		messages = document.createElement('ul');
-		messages.setAttribute("id", "messages");
-		phone.appendChild(messages);
+		messages.setAttribute("class", "messages");
+		messengerDiv.appendChild(messages);
 
 		answers = document.createElement('div');
-		answers.setAttribute("id", "answers");
-		phone.appendChild(answers);
+		answers.setAttribute("class", "answers");
+		messengerDiv.appendChild(answers);
 
 		messages.addEventListener(mousewheelevt, function (e) {
 			var e = window.event || e; // old IE support
 			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 			messages.scrollTop -= delta * 20;
 		}, false);
+	}
+
+	this.createMessenger = function(idName)
+	{
+		messenger = document.createElement('div');
+		messenger.setAttribute("class", "messenger");
+		messenger.setAttribute("id", idName);
+		phone.appendChild(messenger);
+		messenger.style.zIndex = currentZindex++;
+		this.createDialogBox(messenger);
 	}
 
 	this.addMe = function(str)
@@ -139,13 +148,13 @@ var SOCIAL = function() {
 	 */
 	this.showName = function(str)
 	{
-		var name = document.getElementById("contact_name");
+		var name = messenger.getElementsByClassName("contact_name")[0];
 		name.innerHTML = str;
 	}
 
 	this.showAnswer = function(tab)
 	{
-		var answers = document.getElementById("answers");
+		var answers = messenger.getElementsByClassName("answers")[0];
 		var i = 0;
 		while (i < tab.length)
 		{
@@ -154,7 +163,6 @@ var SOCIAL = function() {
 			b.addEventListener("mousedown", function () {
 				sendAnswer(this.id);
 			});
-//			b.setAttribute("onClick", "sendAnswer(this.id)");
 			b.setAttribute("class", "btn");
 			b.innerHTML = tab[i];
 			answers.appendChild(b);
@@ -164,13 +172,10 @@ var SOCIAL = function() {
 
 	this.createButton = function()
 	{
-		var answers = document.getElementById("answers");
+		var answers = messenger.getElementsByClassName("answers")[0];
 		var b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
-			phone.removeChild(name);
-			phone.removeChild(messages);
-			phone.removeChild(answers);
-			self.displayContacts(contacts);
+			contacts_list.style.zIndex = currentZindex++;
 		});
 		b.setAttribute("class", "btn");
 		b.innerHTML = "BACK";
@@ -182,7 +187,7 @@ var SOCIAL = function() {
 	 */
 	var removeButton = function()
 	{
-		var btns = document.getElementsByClassName('btn');
+		var btns = messenger.getElementsByClassName('btn');
 		while(btns[0])
 			btns[0].parentNode.removeChild(btns[0]);
 	}
@@ -195,23 +200,16 @@ var SOCIAL = function() {
 		var obj = new Object();
 		obj.r = clicked_id;
 		self.addMe(document.getElementById(clicked_id).innerHTML);
-		obj.name = document.getElementById("contact_name").innerHTML;
+		obj.name = messenger.getElementsByClassName("contact_name")[0].innerHTML;
 		socket.send(JSON.stringify({"social":obj}));
 		removeButton();
 	}
 
-	var contacts;
-	var contacts_list;
+	// Get contacts_list div (container for all the contacts)
+	var contacts_list = document.getElementById("contacts_list");
 	this.displayContacts = function(contactsArray)
 	{
-		contacts = contactsArray;
-
-		// Get contacts_list div (container for all the contacts)
-		contacts_list = document.createElement('div');
-		contacts_list.setAttribute("id", "contacts_list");
-		phone.appendChild(contacts_list);
-
-		//var contacts_list = document.getElementById("contacts_list");
+		contacts_list.style.zIndex = currentZindex++;
 
 		// Remove old children before display new
 		while (contacts_list.firstChild) {
@@ -229,8 +227,16 @@ var SOCIAL = function() {
 				var obj = new Object();
 				obj.name = contactsArray[i];
 				contact.addEventListener("mousedown", function (){
-					socket.send(JSON.stringify({"social": obj}));
-					contacts_list.style.visibility = "hidden";
+					var div = document.getElementById(obj.name);
+					if (div == undefined) {
+						socket.send(JSON.stringify({"social": obj}));
+					} else {
+						div.style.zIndex = currentZindex++;
+						messenger = div;
+						name = messenger.getElementsByClassName("contact_name")[0];
+						messages = messenger.getElementsByClassName("messages")[0];
+						answers = messenger.getElementsByClassName("answers")[0];
+					}
 				});
 
 				// Create a new img
