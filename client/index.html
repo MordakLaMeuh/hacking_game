@@ -101,7 +101,7 @@
 		<div class="messenger" id="contacts_list"></div>
 	</div>
 
-	<div id="notebook" class="tabcontent">
+	<div id="diary" class="tabcontent">
 		<p>No notes yet.</p>
 	</div>
 </div>
@@ -118,6 +118,8 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
  <script src="tty/tty.js"></script>
 <script src="right_panel/right_panel.js"></script>
+<script src="right_panel/social.js"></script>
+<script src="right_panel/diary.js"></script>
 
 <script>
 
@@ -125,6 +127,7 @@ var socket  = new WebSocket('ws://localhost:8081');
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
 var social = new SOCIAL();
+var diary = new DIARY();
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
@@ -134,8 +137,13 @@ socket.onmessage = function (res){
 	if (data.social) {
 		console.log(data.social);
 		social.addEntry(data.social);
+		if (data.social.s)
+			diary.addEntry(data.social.s)
 		return ;
 	}
+	if (data.diary)
+		diary.addEntry(data.diary);
+
 	console.log(data);
 	tty.onmessage(data);
 	right_panel.onmessage(data);

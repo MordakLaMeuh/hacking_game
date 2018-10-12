@@ -44,6 +44,8 @@ getDialogSeq: function(obj)
 			if (this.social[i].active == false) {
 				output.q = this.social[i].exchange[this.social[i].idx].q;
 				output.r = this.social[i].exchange[this.social[i].idx].r;
+				if (this.social[i].exchange[this.social[i].idx].s)
+					output.s = this.social[i].exchange[this.social[i].idx].s;
 				this.social[i].active = true;
 			} else {
 				if (obj.r == undefined) {
@@ -58,6 +60,8 @@ getDialogSeq: function(obj)
 				this.social[i].idx = newIdx;
 				output.q = this.social[i].exchange[this.social[i].idx].q;
 				output.r = this.social[i].exchange[this.social[i].idx].r;
+				if (this.social[i].exchange[this.social[i].idx].s)
+					output.s = this.social[i].exchange[this.social[i].idx].s;
 			}
 			break;
 		}

@@ -207,7 +207,7 @@ ws.on('connection', function (client, req)
 				console.log("NEW LEVEL LOADED");
 				send(client, JSON.stringify({
 					"string": (output) ? output : undefined,
-					"victory": "Congratulations, you win !",
+					"diary": "Congratulations, you win !",
 					"directory": (newDirectory) ? newDirectory : undefined,
 					"socialContacts": social.createContactList()}));
 			} else {

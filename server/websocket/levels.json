@@ -48,13 +48,14 @@
 					},
 					{
 						"q":"Oh compassions, may i do sometyhing for you ?",
-						"r":["give me a coffee please", "hack my boss computer please and give me hispital password"],
+						"r":["give me a coffee please", "hack my boss computer please and give me hospital password"],
 						"i":["1", "3"]
 					},
 					{
 						"q":"I got this password, is molang",
 						"r":["now give me a coffee !", "Thank you very much, goodbye !"],
-						"i":["1", "4"]
+						"i":["1", "4"],
+						"s":"You got the Molang password"
 					},
 					{
 						"q": "Goodbye to you too",
