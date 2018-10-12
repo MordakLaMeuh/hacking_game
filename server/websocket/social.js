@@ -48,15 +48,22 @@ getDialogSeq: function(obj)
 					output.s = this.social[i].exchange[this.social[i].idx].s;
 				this.social[i].active = true;
 			} else {
-				if (obj.r == undefined) {
-					console.log("already activated");
-					return;
+				var newIdx;
+				if (obj.r != undefined) {
+					if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
+						console.warn("bad index: " + obj.r);
+						return;
+					}
+					newIdx = this.social[i].exchange[this.social[i].idx].i[obj.r];
+				} else {
+					if (this.social[i].exchange[this.social[i].idx].r.length == 0 &&
+							this.social[i].exchange[this.social[i].idx].i != undefined) {
+						newIdx = this.social[i].exchange[this.social[i].idx].i[0];
+					} else {
+						console.log("already activated");
+						return;
+					}
 				}
-				if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
-					console.warn("bad index: " + obj.r);
-					return;
-				}
-				var newIdx = this.social[i].exchange[this.social[i].idx].i[obj.r];
 				this.social[i].idx = newIdx;
 				output.q = this.social[i].exchange[this.social[i].idx].q;
 				output.r = this.social[i].exchange[this.social[i].idx].r;

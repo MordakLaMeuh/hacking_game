@@ -21,7 +21,6 @@ var SOCIAL = function() {
 		this.showName(obj.name);
 		this.addHim(obj.q);
 		this.showAnswer(obj.r);
-		this.createButton();
 	}
 
 	this.createDialogBox = function(messengerDiv)
@@ -37,6 +36,8 @@ var SOCIAL = function() {
 		currentAnswersDiv = document.createElement('div');
 		currentAnswersDiv.setAttribute("class", "answers");
 		messengerDiv.appendChild(currentAnswersDiv);
+
+		this.createBackButton();
 
 		currentMessagesDiv.addEventListener(mousewheelevt, function (e) {
 			var e = window.event || e; // old IE support
@@ -93,18 +94,18 @@ var SOCIAL = function() {
 			});
 			b.setAttribute("class", "btn");
 			b.innerHTML = tab[i];
-			currentAnswersDiv.appendChild(b);
+			currentAnswersDiv.insertAdjacentElement('afterbegin', b);
 			i++;
 		}
 	}
 
-	this.createButton = function()
+	this.createBackButton = function()
 	{
 		var b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
 			contacts_list.style.zIndex = currentZindex++;
 		});
-		b.setAttribute("class", "btn");
+		b.setAttribute("class", "backBtn");
 		b.innerHTML = "BACK";
 		currentAnswersDiv.appendChild(b);
 	}
@@ -173,6 +174,7 @@ var SOCIAL = function() {
 						currentNameDiv = currentMessengerDiv.getElementsByClassName("contact_name")[0];
 						currentMessagesDiv = currentMessengerDiv.getElementsByClassName("messages")[0];
 						currentAnswersDiv = currentMessengerDiv.getElementsByClassName("answers")[0];
+						socket.send(JSON.stringify({"social": obj}));
 					}
 				});
 

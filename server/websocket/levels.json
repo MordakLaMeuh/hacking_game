@@ -44,7 +44,8 @@
 					},
 					{
 						"q":"A coffee ?!? Are you kiding me ? Fuck you",
-						"r":[]
+						"r":[],
+						"i":["5"]
 					},
 					{
 						"q":"Oh compassions, may i do sometyhing for you ?",
@@ -58,8 +59,27 @@
 						"s":"You got the Molang password"
 					},
 					{
-						"q": "Goodbye to you too",
-						"r": []
+						"q":"Goodbye to you too",
+						"r":[],
+						"i":["8"]
+					},
+					{
+						"q":"What do you want again ?!?",
+						"r":["A coffee, I insist !", "I want you to hack my boss computer for the hospital password please"],
+						"i":["6", "7"]
+					},
+					{
+						"q":"Definitively fuck you !",
+						"r":[]
+					},
+					{
+						"q":"I founded him, it is Molang ! Good bye",
+						"r":[],
+						"s":"You got the Molang password"
+					},
+					{
+						"q":"I have nothing to say again, good bye and have a nive day !",
+						"r":[]
 					}
 				]
 			},
