@@ -128,21 +128,16 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 var socket  = new WebSocket('ws://localhost:8081');
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
+var social = new SOCIAL();
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
 		right_panel.displayContacts(data.socialContacts);
 		console.log(data.socialContacts);
-//		var obj = new Object();
-//		obj.name = "Felix";
-//		socket.send(JSON.stringify({"social": obj}));
 	}
 	if (data.social) {
 		console.log(data.social);
-		var obj = data.social;
-		showName(obj.name);
-		addHim(obj.q);
-		showAnswer(obj.r);
+		social.addEntry(data.social);
 		return ;
 	}
 	console.log(data);

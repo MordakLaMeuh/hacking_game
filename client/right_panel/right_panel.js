@@ -1,12 +1,6 @@
 'use strict';
 
 var RIGHT_PANEL = function() {
-	document.getElementById("messages").addEventListener(mousewheelevt, function (e) {
-		var e = window.event || e; // old IE support
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-		document.getElementById("messages").scrollTop -= delta * 20;
-	}, false);
-
 	var right_panel = document.getElementById("right_panel");
 
 	document.getElementById("messages").addEventListener(mousewheelevt, function (e) {
@@ -121,68 +115,92 @@ var RIGHT_PANEL = function() {
 	}
 }
 
-// Create a li for him and me
-
-function addMe(str)
-{
+/*
+ * Create a li for him and me
+ */
+var SOCIAL = function() {
+	var self = this;
 	var ul = document.getElementById("messages");
-	var li = document.createElement('li');
-	li.appendChild(document.createTextNode(str));
-	li.setAttribute("class", "me");
-	ul.appendChild(li);
-	document.getElementById("messages").scrollTop += 10000;
-}
 
-function addHim(str)
-{
-	var ul = document.getElementById("messages");
-	var li = document.createElement('li');
-	li.appendChild(document.createTextNode(str));
-	li.setAttribute("class", "him");
-	ul.appendChild(li);
-	document.getElementById("messages").scrollTop += 10000;
-}
+	ul.addEventListener(mousewheelevt, function (e) {
+		var e = window.event || e; // old IE support
+		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+		ul.scrollTop -= delta * 20;
+	}, false);
 
-// Write name and create buttons according to received number
-
-function showName(str)
-{
-	var name = document.getElementById("contact_name");
-	name.innerHTML = str;
-}
-
-function showAnswer(tab)
-{
-	var answers = document.getElementById("answers");
-	var i = 0;
-	while (i < tab.length)
+	this.addEntry = function(obj)
 	{
-		var b = document.createElement('button');
-		b.id = i;
-		b.setAttribute("onClick", "sendAnswer(this.id)");
-		b.setAttribute("class", "btn");
-		b.innerHTML = tab[i];
-		answers.appendChild(b);
-		i++;
+		social.showName(obj.name);
+		social.addHim(obj.q);
+		social.showAnswer(obj.r);
 	}
-}
 
-/*remove all buttons and create new ones */
-function removeButton()
-{
-	var btns = document.getElementsByClassName('btn');
+	this.addMe = function(str)
+	{
+		var li = document.createElement('li');
+		li.appendChild(document.createTextNode(str));
+		li.setAttribute("class", "me");
+		ul.appendChild(li);
+		ul.scrollTop += 10000;
+	}
 
-	while(btns[0])
-		btns[0].parentNode.removeChild(btns[0]);
-}
+	this.addHim = function(str)
+	{
+		var li = document.createElement('li');
+		li.appendChild(document.createTextNode(str));
+		li.setAttribute("class", "him");
+		ul.appendChild(li);
+		ul.scrollTop += 10000;
+	}
 
-/* send answer to server */
-function sendAnswer(clicked_id)
-{
-	var obj = new Object();
-	obj.r = clicked_id;
-	addMe(document.getElementById(clicked_id).innerHTML);
-	obj.name = document.getElementById("contact_name").innerHTML;
-	socket.send(JSON.stringify({"social":obj}));
-	removeButton();
+	/*
+	 * Write name and create buttons according to received number
+	 */
+	this.showName = function(str)
+	{
+		var name = document.getElementById("contact_name");
+		name.innerHTML = str;
+	}
+
+	this.showAnswer = function(tab)
+	{
+		var answers = document.getElementById("answers");
+		var i = 0;
+		while (i < tab.length)
+		{
+			var b = document.createElement('button');
+			b.id = i;
+			b.addEventListener("mousedown", function () {
+				sendAnswer(this.id);
+			});
+			b.setAttribute("class", "btn");
+			b.innerHTML = tab[i];
+			answers.appendChild(b);
+			i++;
+		}
+	}
+
+	/*
+	 * remove all buttons and create new ones
+	 */
+	var removeButton = function()
+	{
+		var btns = document.getElementsByClassName('btn');
+
+		while(btns[0])
+			btns[0].parentNode.removeChild(btns[0]);
+	}
+
+	/*
+	 * send answer to server
+	 */
+	var sendAnswer= function(clicked_id)
+	{
+		var obj = new Object();
+		obj.r = clicked_id;
+		self.addMe(document.getElementById(clicked_id).innerHTML);
+		obj.name = document.getElementById("contact_name").innerHTML;
+		socket.send(JSON.stringify({"social":obj}));
+		removeButton();
+	}
 }
