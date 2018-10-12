@@ -171,7 +171,6 @@ function showAnswer(tab)
 function removeButton()
 {
 	var btns = document.getElementsByClassName('btn');
-
 	while(btns[0])
 		btns[0].parentNode.removeChild(btns[0]);
 }

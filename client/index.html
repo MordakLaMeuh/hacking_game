@@ -141,8 +141,10 @@ socket.onmessage = function (res){
 		console.log(data.social);
 		var obj = data.social;
 		showName(obj.name);
+		addBackBtn();
 		addHim(obj.q);
 		showAnswer(obj.r);
+
 		return ;
 	}
 	console.log(data);
@@ -150,9 +152,22 @@ socket.onmessage = function (res){
 	right_panel.onmessage(data);
 }
 
+function addBackBtn()
+{
+	console.log("BCK");
+	var name = document.getElementById("contact_name");
+	var b = document.createElement('button');
+	name.appendChild(b);
+	b.setAttribute("onClick", "BackToContacts()");
+	b.innerHTML = "Back";
+}
+
+
 </script>
 
 <script>
+
+
 </script>
 
 </body>
