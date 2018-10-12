@@ -133,6 +133,7 @@ var SOCIAL = function() {
 		social.showName(obj.name);
 		social.addHim(obj.q);
 		social.showAnswer(obj.r);
+		addBackBtn();
 	}
 
 	this.addMe = function(str)
@@ -186,7 +187,6 @@ var SOCIAL = function() {
 	var removeButton = function()
 	{
 		var btns = document.getElementsByClassName('btn');
-
 		while(btns[0])
 			btns[0].parentNode.removeChild(btns[0]);
 	}
@@ -202,5 +202,15 @@ var SOCIAL = function() {
 		obj.name = document.getElementById("contact_name").innerHTML;
 		socket.send(JSON.stringify({"social":obj}));
 		removeButton();
+	}
+
+	var addBackBtn = function()
+	{
+		console.log("BCK");
+		var name = document.getElementById("contact_name");
+		var b = document.createElement('button');
+		name.appendChild(b);
+		b.setAttribute("onClick", "BackToContacts()");
+		b.innerHTML = "Back";
 	}
 }
