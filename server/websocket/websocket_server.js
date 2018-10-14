@@ -55,6 +55,10 @@ ws.on('connection', function (client, req)
 	console.log(social);
 	social.displayObj();
 
+	send(client, JSON.stringify({
+		"socialContacts":social.createContactList()
+	}));
+
 	/*
 	 * Event on input client message
 	 */
@@ -70,6 +74,11 @@ ws.on('connection', function (client, req)
 			return ;
 		}
 
+		if (json_msg.social) {
+			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}))
+			return;
+		}
+
 		if (logged == false) {
 			if (json_msg.login == "root" && json_msg.password == "root") {
 				var obj = new Object();
@@ -78,8 +87,8 @@ ws.on('connection', function (client, req)
 				obj.login = "root";
 				obj.server = "hacking_game";
 				send(client, JSON.stringify({
-					"tty": obj,
-					"socialContacts":social.createContactList()}));
+					"tty": obj
+				}));
 				logged = true;
 			} else {
 				var obj = new Object();
@@ -110,11 +119,6 @@ ws.on('connection', function (client, req)
 				obj.string = "SSH Connexion failed.";
 				send(client, JSON.stringify({"tty": obj}));
 			}
-			return;
-		}
-
-		if (json_msg.social) {
-			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}))
 			return;
 		}
 
