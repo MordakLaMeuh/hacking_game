@@ -224,7 +224,7 @@ ws.on('connection', function (client, req)
 				obj.directory = (newDirectory) ? newDirectory : undefined;
 				send(client, JSON.stringify({
 					"tty": obj,
-					"diary": "Congratulations, you win !",
+					"diary": ["Congratulations, you win !", "you reach level " + (curLvl + 1) + " now."],
 					"socialContacts": social.createContactList()}));
 			} else {
 				console.log("GAME FINISHED !");
