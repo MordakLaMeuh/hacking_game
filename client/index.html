@@ -141,7 +141,7 @@ var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
 var social = new SOCIAL();
 var diary = new DIARY();
-var browser = new BROWSER();
+var browser = new BROWSER(tty.key_cb);
 
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);

@@ -11,6 +11,13 @@ var TTY = function() {
 		tty.scrollTop -= delta * 20;
 	}, false);
 
+	var block_key = false;
+	this.key_cb = function(val)
+	{
+		block_key = (val == true) ? false : true;
+		console.log("key cb");
+	}
+
 	const space_expr = "&nbsp;";
 	const space_regex = /&nbsp;/g;
 
@@ -106,6 +113,9 @@ var TTY = function() {
 	}
 
 	document.addEventListener('keydown', (event) => {
+		if (block_key == true)
+			return;
+
 		key = event.key;
 
 		/*
