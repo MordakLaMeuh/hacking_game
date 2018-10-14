@@ -3,16 +3,19 @@
 }
 
 #browser {
-	box-sizing: border-box;
+	/* box-sizing: border-box; */
 	font-size: 1em;
 	/*padding: 2.1em 0 0 0;*/
     background: rgba(120, 200, 255, 0.1);
 	display: inline-block;
 	position: relative;
 	overflow: hidden;
-	box-shadow: 0 0.25em 0.9em -0.1em rgba(0,0,0,.3);
-    border: 1px solid rgba(120, 200, 255, 0.2);
-    margin-top: 2vh;
+	/* box-shadow: 0 0.25em 0.9em -0.1em rgba(0,0,0,.3); */
+    /* border-left: 1px solid rgba(120, 200, 255, 0.5);
+	border-right: 1px solid rgba(120, 200, 255, 0.2);
+	border-bottom: 1px solid rgba(120, 200, 255, 0.2); */
+
+    /* margin-top: 2vh; */
 }
 
 #browser #browser-navigation-bar {
@@ -80,7 +83,7 @@ input[type="submit"]
 	width: 100%;
 	overflow: hidden;
     text-align: center;
-    border: 1px solid rgba(120, 200, 255, 0.2);
+    /* border: 1px solid rgba(120, 200, 255, 0.2); */
     margin-top: 5%;
 }
 
@@ -88,4 +91,3 @@ input[type="submit"]
 img {
 	width: 100%;
 }
-
