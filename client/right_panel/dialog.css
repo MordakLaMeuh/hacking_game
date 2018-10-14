@@ -11,7 +11,7 @@
 .contact_name {
     text-align: center;
     font-size: 1.2em;
-	color: #15ABC3;
+	color: #78C8FF;
     font-family: Verdana, sans-serif;
 }
 
@@ -35,12 +35,12 @@
 .him{
     background: black;
     float: left;
-	color: #15ABC3;
+	color: #78C8FF;
 }
 
 .me{
     float: right;
-    background: #15ABC3;
+    background: #78C8FF;
     color: black;
 }
 
@@ -64,11 +64,11 @@
 
 .answers button{
 	border-radius: 1em;
-    border: 1px solid rgba(21,171,195,1.0);
+	border: 1px solid rgba(120, 200, 255, 1.0);
     background-color: rgba(0,0,0,0.7);
     bottom: 0;
     width: 30vw;
     font-size: 1em;
-    color: #15ABC3;
+    color: #78C8FF;
     background: black;
 }
