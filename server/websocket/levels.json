@@ -2,7 +2,7 @@
 	{
 		"winningCondition":
 		[
-			""
+			"pwd"
 		],
 		"cmdList":
 		[
@@ -64,12 +64,14 @@
 						"q": "My favorite favour is coconuts",
 						"r": ["I dont care", "Oh me too !"],
 						"i": ["7", "6"],
-						"s": ["After a conversation with Macaron ...", "... you know that Macaron likes coconuts !"]
+						"s": ["After a conversation with Macaron ...", "... you know that Macaron likes coconuts !"],
+						"w": "1"
 					},
 					{
 						"q": "Dont forget to brush your teeth after eating",
 						"r": ["Yes, I know, thank you"],
-						"i": ["8"]
+						"i": ["8"],
+						"s": ["After a conversation with Macaron ...", "... you know that Macaron brush his tooth !"]
 					},
 					{
 						"q": "You are very anoying",

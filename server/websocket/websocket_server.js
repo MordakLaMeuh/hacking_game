@@ -51,13 +51,12 @@ ws.on('connection', function (client, req)
 	var cmdList = lvlData[curLvl].cmdList;
 	var winningCondition = lvlData[curLvl].winningCondition;
 	social.constructor();
-	social.addEntries(lvlData[curLvl].social);
-	console.log(social);
-	social.displayObj();
 
 	send(client, JSON.stringify({
-		"socialContacts":social.createContactList()
+		"socialContacts":social.addEntries(lvlData[curLvl].social)
 	}));
+	console.log(social);
+	social.displayObj();
 
 	/*
 	 * Event on input client message
@@ -220,8 +219,6 @@ ws.on('connection', function (client, req)
 				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
 				cmdList = lvlData[curLvl].cmdList;
 				winningCondition = lvlData[curLvl].winningCondition;
-				social.addEntries(lvlData[curLvl].social);
-				console.log(social);
 				console.log("NEW LEVEL LOADED");
 				var obj = new Object();
 				obj.string = (output) ? output : undefined;
@@ -229,7 +226,7 @@ ws.on('connection', function (client, req)
 				send(client, JSON.stringify({
 					"tty": obj,
 					"diary": ["Congratulations, you win !", "you reach level " + (curLvl + 1) + " now."],
-					"socialContacts": social.createContactList()}));
+					"socialContacts": social.addEntries(lvlData[curLvl].social)}));
 			} else {
 				console.log("GAME FINISHED !");
 			}

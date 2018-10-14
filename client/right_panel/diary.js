@@ -23,6 +23,6 @@ var DIARY = function(notif_button_cb) {
 		diaryBodyDiv.appendChild(p);
 		diaryBodyDiv.scrollTop += 10000;
 
-		notif_button_cb("diary");
+		notif_button_cb("diary", true, false);
 	}
 }

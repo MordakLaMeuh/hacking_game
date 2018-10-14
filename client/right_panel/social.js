@@ -103,6 +103,7 @@ var SOCIAL = function(notif_button_cb) {
 	{
 		var b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
+			notif_button_cb("social", false, true);
 			contacts_list.style.zIndex = currentZindex++;
 		});
 		b.setAttribute("class", "backBtn");
@@ -138,15 +139,6 @@ var SOCIAL = function(notif_button_cb) {
 	 */
 	this.displayContacts = function(contactsArray)
 	{
-		contactsListDiv.style.zIndex = currentZindex++;
-
-		/*
-		 * Remove old children before display new
-		 */
-		while (contactsListDiv.firstChild) {
-			contactsListDiv.removeChild(contactsListDiv.firstChild);
-		}
-
 		for (var i = 0; i < contactsArray.length; i++)
 		{
 			(function () {
@@ -205,7 +197,7 @@ var SOCIAL = function(notif_button_cb) {
 				contact.appendChild(contact_name);
 				contactsListDiv.appendChild(contact);
 
-				notif_button_cb("social");
+				notif_button_cb("social", true, true);
 			}());
 		}
 	}

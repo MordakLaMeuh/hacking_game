@@ -54,19 +54,31 @@ var RIGHT_PANEL = function() {
 		changeScreen(this, "diary");
 	});
 
-	this.notif_button_cb = function(str) {
+	this.notif_button_cb = function(str, state, force) {
 		switch (str) {
 		case "diary":
-			if (diary_btn.classList.contains("active") == false)
-				diary_btn.classList.add("notif");
+			if (diary_btn.classList.contains("active") == false || force == true) {
+				if (state == true)
+					diary_btn.classList.add("notif");
+				else
+					diary_btn.classList.remove("notif");
+			}
 			break;
 		case "social":
-			if (sms_btn.classList.contains("active") == false)
-				sms_btn.classList.add("notif");
+			if (sms_btn.classList.contains("active") == false || force == true) {
+				if (state == true)
+					sms_btn.classList.add("notif");
+				else
+					sms_btn.classList.remove("notif");
+			}
 			break;
 		case "mail":
-			if (mail_btn.classList.contains("active") == false)
-				mail_btn.classList.add("notif");
+			if (mail_btn.classList.contains("active") == false || force == true) {
+				if (state == true)
+					mail_btn.classList.add("notif");
+				else
+					mail_btn.classList.remove("notif");
+			}
 			break;
 		default:
 			console.warn("unexpected default case");
