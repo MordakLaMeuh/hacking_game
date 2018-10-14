@@ -35,4 +35,13 @@ var BROWSER = function(tty_key_cb) {
 		img.setAttribute("id", "bwr_img");
 		bwr_content.appendChild(img);
 	}
+
+
+	bwr_content.addEventListener(mousewheelevt, function (e) {
+		console.log("scroll");
+	var e = window.event || e; // old IE support
+	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+	bwr_content.scrollTop -= delta * 50;
+}, false);
+
 }

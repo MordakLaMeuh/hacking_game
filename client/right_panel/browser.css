@@ -78,10 +78,9 @@ input[type="submit"]
 #browser-container {
 	height: 80%;
 	width: 100%;
-	overflow: auto;
+	overflow: hidden;
     text-align: center;
     border: 1px solid rgba(120, 200, 255, 0.2);
-    box-sizing: border-box;
     margin-top: 5%;
 }
 
