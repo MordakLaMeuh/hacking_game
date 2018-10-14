@@ -68,6 +68,15 @@
 			border-spacing: 0;
 		}
 
+		.noselect {
+		  -webkit-touch-callout: none; /* iOS Safari */
+		    -webkit-user-select: none; /* Safari */
+		     -khtml-user-select: none; /* Konqueror HTML */
+		       -moz-user-select: none; /* Firefox */
+		        -ms-user-select: none; /* Internet Explorer/Edge */
+		            user-select: none; /* Non-prefixed version, currently
+		                                  supported by Chrome and Opera */
+		}
 	</style>
 	<link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/right_panel.css' type='text/css' media='all'>
@@ -78,7 +87,7 @@
 
 </head>
 
-<body>
+<body class="noselect">
 
 <div id="js_tty">
 
