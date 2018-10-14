@@ -27,7 +27,7 @@ displayObj: function()
 {
 	console.log(this.social);
 },
-getDialogSeq: function(obj)
+getDialogSeq: function(obj, victory_cb)
 {
 	var output = new Object();
 	console.log(obj);
@@ -43,8 +43,11 @@ getDialogSeq: function(obj)
 			if (this.social[i].active == false) {
 				output.q = this.social[i].exchange[this.social[i].idx].q;
 				output.r = this.social[i].exchange[this.social[i].idx].r;
-				if (this.social[i].exchange[this.social[i].idx].s)
+				if (this.social[i].exchange[this.social[i].idx].s) {
 					output.s = this.social[i].exchange[this.social[i].idx].s;
+					if (this.social[i].exchange[this.social[i].idx].w)
+						victory_cb();
+				}
 				this.social[i].active = true;
 			} else {
 				var newIdx;
@@ -66,8 +69,11 @@ getDialogSeq: function(obj)
 				this.social[i].idx = newIdx;
 				output.q = this.social[i].exchange[this.social[i].idx].q;
 				output.r = this.social[i].exchange[this.social[i].idx].r;
-				if (this.social[i].exchange[this.social[i].idx].s)
+				if (this.social[i].exchange[this.social[i].idx].s) {
 					output.s = this.social[i].exchange[this.social[i].idx].s;
+					if (this.social[i].exchange[this.social[i].idx].w)
+						victory_cb();
+				}
 			}
 			break;
 		}

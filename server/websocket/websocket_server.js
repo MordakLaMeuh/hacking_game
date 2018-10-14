@@ -73,8 +73,26 @@ ws.on('connection', function (client, req)
 			return ;
 		}
 
+		var victoryRoutine = function(title)
+		{
+			curLvl++;
+			if (curLvl < lvlData.length)
+			{
+				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
+				cmdList = lvlData[curLvl].cmdList;
+				winningCondition = lvlData[curLvl].winningCondition;
+				console.log("NEW LEVEL LOADED");
+				send(client, JSON.stringify({
+					"diary": ["Congratulations, you win !", "you reach level " + (curLvl + 1) + " now."],
+					"socialContacts": social.addEntries(lvlData[curLvl].social)}));
+			} else {
+				console.log("GAME FINISHED !");
+			}
+			return ;
+		}
+
 		if (json_msg.social) {
-			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}))
+			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social, victoryRoutine)}));
 			return;
 		}
 
@@ -211,32 +229,14 @@ ws.on('connection', function (client, req)
 			output = "unknown command !";
 			break;
 		}
+
 		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
-		{
-			curLvl++;
-			if (curLvl < lvlData.length)
-			{
-				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
-				cmdList = lvlData[curLvl].cmdList;
-				winningCondition = lvlData[curLvl].winningCondition;
-				console.log("NEW LEVEL LOADED");
-				var obj = new Object();
-				obj.string = (output) ? output : undefined;
-				obj.directory = (newDirectory) ? newDirectory : undefined;
-				send(client, JSON.stringify({
-					"tty": obj,
-					"diary": ["Congratulations, you win !", "you reach level " + (curLvl + 1) + " now."],
-					"socialContacts": social.addEntries(lvlData[curLvl].social)}));
-			} else {
-				console.log("GAME FINISHED !");
-			}
-		} else {
-			var obj = new Object();
-			obj.string = (output) ? output : undefined;
-			obj.directory = (newDirectory) ? newDirectory : undefined;
-			send(client, JSON.stringify({
-				"tty": obj}));
-		}
+			victoryRoutine();
+		var obj = new Object();
+		obj.string = (output) ? output : undefined;
+		obj.directory = (newDirectory) ? newDirectory : undefined;
+		send(client, JSON.stringify({
+			"tty": obj}));
 	})
 
 	client.on("close", function()
