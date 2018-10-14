@@ -56,7 +56,7 @@
 						"q":"I got this password, is molang",
 						"r":["now give me a coffee !", "Thank you very much, goodbye !"],
 						"i":["1", "4"],
-						"s":"You got the Molang password"
+						"s":["After a conversation with Felix ...", "... you got the Molang password !"]
 					},
 					{
 						"q":"Goodbye to you too",
@@ -75,7 +75,7 @@
 					{
 						"q":"I founded him, it is Molang ! Good bye",
 						"r":[],
-						"s":"You got the Molang password"
+						"s":["After a conversation with Felix ...", "... you got the Molang password !"]
 					},
 					{
 						"q":"I have nothing to say again, good bye and have a nive day !",
