@@ -72,6 +72,7 @@ input[type="submit"]
     padding: 0 .8em;
     letter-spacing: .06em;
     width: 20%;
+    margin-left: 5%;
 }
 
 #browser-container {
