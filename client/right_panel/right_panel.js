@@ -62,7 +62,7 @@ var RIGHT_PANEL = function() {
 	}
 	changeScreen(diary_btn, "diary");
 
-	this.resizeCircles = function(tabUl)
+	this.resizeCircles = function()
 	{
 		for (var i = 0; i < tabUl.children.length; i++)
 		{
