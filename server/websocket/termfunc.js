@@ -229,7 +229,7 @@ function getLsContent(children, args, hidden)
 			if (children[i].name[0] == ".")
 				str += "<span class='red'>" + children[i].name + "</span>";
 			else if (children[i].isDir == true)
-				str += "<span class='blue'>" + children[i].name + "</span>";
+				str += "<span class='yellow'>" + children[i].name + "</span>";
 			else
 				str += children[i].name;
 			i++;
