@@ -173,7 +173,6 @@ socket.onmessage = function (res){
 	if (data.social) {
 		console.log(data.social);
 		social.addEntry(data.social);
-		console.log(data.social.s);
 		if (data.social.s)
 			diary.addEntry(data.social.s[0], data.social.s[1]);
 		return ;

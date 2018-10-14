@@ -127,7 +127,6 @@ var SOCIAL = function(notif_button_cb) {
 	 */
 	var sendAnswer = function(clicked_id)
 	{
-		console.log("id = ", clicked_id);
 		var obj = new Object();
 		obj.r = clicked_id;
 		var classCollection = currentAnswersDiv.getElementsByClassName("btn");

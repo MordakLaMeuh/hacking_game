@@ -6,7 +6,6 @@ var DIARY = function(notif_button_cb) {
 	var diaryBodyDiv = document.getElementById("diary__body");
 
 	diaryBodyDiv.addEventListener(mousewheelevt, function (e) {
-		console.log("scroll");
 		var e = window.event || e; // old IE support
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		diaryBodyDiv.scrollTop -= delta * 20;

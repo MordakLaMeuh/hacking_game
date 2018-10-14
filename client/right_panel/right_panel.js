@@ -84,7 +84,6 @@ var RIGHT_PANEL = function() {
 			console.warn("unexpected default case");
 			break;
 		}
-		console.log("notif button cb for " + str);
 	}
 
 	this.onmessage  = function(data) {
