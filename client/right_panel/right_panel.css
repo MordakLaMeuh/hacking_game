@@ -87,7 +87,7 @@
 	margin-right: 4%;
 	width: 100%;
 	display: flex;
-	border-bottom: 1px solid #15ABC3;
+	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
 }
 
 .contact_name p
@@ -96,7 +96,7 @@
 	width: 100%;
 	margin: auto;
 	margin-left: 4%;
-	font-weight: bold;
+	font: normal 100 20px/1.5em "Exo 2", Arial, sans-serif;
 }
 
 .contact img
