@@ -180,7 +180,8 @@ socket.onmessage = function (res){
 var toto = new Object();
 toto.login = "Macaron";
 toto.password = "macaron";
-socket.send(JSON.stringify({"mail":toto}));
+setTimeout(function() {
+	socket.send(JSON.stringify({"mail":toto}));}, 1000);
 
 </script>
 

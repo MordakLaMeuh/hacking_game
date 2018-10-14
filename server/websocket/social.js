@@ -32,17 +32,27 @@ displayObj: function(name, password)
 },
 
 
-	sendMail: function(name, password) {
+	sendMail: function(obj) {
+		var output = new Array();
+		console.log("SEND MAIL ");
+
 		for (var i = 0; i < this.social.length; i++)
 		{
-			if (this.social[i].name == name && this.social[i].password == password)
+			if (this.social[i].name == obj.login && this.social[i].password == obj.password)
 			{
 				var obj = new Object();
-				obj.mail = this.mail;
-				send(client, JSON.stringify({"mail":obj, "name":this.social[i].name}));
+				output.content = this.social[i].mail;
+				output.name = this.social[i].name;
+				output.read = false;
+				console.log("IDENTIFICATION OK");
 			}
-			send(client, JSON.stringify({}));
+			else
+			{
+				console.log("BAD ID");
+			}
 		}
+		console.log(output);
+		return output;
 },
 
 
