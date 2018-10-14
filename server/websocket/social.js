@@ -16,8 +16,10 @@ createContactList: function()
 {
 	var output = new Array();
 
-	for (var i = 0; i < this.social.length; i++)
-		output.push(this.social[i].name);
+	for (var i = 0; i < this.social.length; i++) {
+		if (this.social[i].exchange != undefined)
+			output.push(this.social[i].name);
+	}
 
 	console.log("CreateContactList len: " + this.social.length + " output");
 	console.log(output);
