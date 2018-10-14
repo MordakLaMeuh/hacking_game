@@ -177,10 +177,15 @@ socket.onmessage = function (res){
 	right_panel.onmessage(data);
 }
 
+var toto = new Object();
+toto.login = "Macaron";
+toto.password = "macaron";
+socket.send(JSON.stringify({"mail":toto}));
+
 </script>
 
 <script>
-</script>
 
+</script>
 </body>
 </html>

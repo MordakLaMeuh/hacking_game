@@ -73,10 +73,16 @@ ws.on('connection', function (client, req)
 			send(client, JSON.stringify({"error":"Internal server error"}));
 			return ;
 		}
+		console.log(json_msg);
 
 		if (json_msg.social) {
 			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}))
 			return;
+		}
+
+		if (json_msg.mail) {
+			console.log("J'AI RECU UN E-MAIL");
+			sendMail(json_msg.login, json_msg.password);
 		}
 
 		if (logged == false) {
@@ -97,6 +103,7 @@ ws.on('connection', function (client, req)
 			}
 			return ;
 		}
+
 
 		if (ssh_request == true) {
 			ssh_request = false;
@@ -121,6 +128,7 @@ ws.on('connection', function (client, req)
 			}
 			return;
 		}
+
 
 		var newDirectory;
 		console.log("input command: " + json_msg.command);

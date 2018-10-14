@@ -26,10 +26,26 @@ createContactList: function()
 
 	return output;
 },
-displayObj: function()
+displayObj: function(name, password)
 {
 	console.log(this.social);
 },
+
+
+	sendMail: function(name, password) {
+		for (var i = 0; i < this.social.length; i++)
+		{
+			if (this.social[i].name == name && this.social[i].password == password)
+			{
+				var obj = new Object();
+				obj.mail = this.mail;
+				send(client, JSON.stringify({"mail":obj, "name":this.social[i].name}));
+			}
+			send(client, JSON.stringify({}));
+		}
+},
+
+
 getDialogSeq: function(obj)
 {
 	var output = new Object();
