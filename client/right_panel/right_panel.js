@@ -7,6 +7,7 @@ var RIGHT_PANEL = function() {
 	var browser = document.getElementById("browser");
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("diary");
+	var tabUl = document.getElementById("tabUl");
 
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;
@@ -60,4 +61,12 @@ var RIGHT_PANEL = function() {
 		}
 	}
 	changeScreen(diary_btn, "diary");
+
+	this.resizeCircles = function(tabUl)
+	{
+		for (var i = 0; i < tabUl.children.length; i++)
+		{
+			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
+		}
+	};
 }

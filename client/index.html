@@ -72,7 +72,7 @@
 	<link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/right_panel.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/dialog.css' type='text/css' media='all'>
-	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
@@ -84,7 +84,7 @@
 
 <div id="right_panel">
 	<div class="tab" id="tab">
-		<ul>
+		<ul id="tabUl">
 			<li id="mail_btn" class="notif" class="tablinks"><a href="#" ><i class="material-icons">email</i></a></li>
 			<li id="browser_btn" class="tablinks"><a href="#" ><i class="material-icons">language</i></a></li>
 			<li id="sms_btn" class="notif" class="tablinks"><a href="#" ><i class="material-icons">contact_phone</i></a></li>
@@ -131,6 +131,8 @@ var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
 var social = new SOCIAL();
 var diary = new DIARY();
+window.onload = right_panel.resizeCircles;
+window.onresize = right_panel.resizeCircles;
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
