@@ -87,9 +87,9 @@
 <div id="right_panel">
 	<div class="tab" id="tab">
 		<ul id="tabUl">
-			<li id="mail_btn" class="notif" class="tablinks"><a href="#" ><i class="material-icons">email</i></a></li>
+			<li id="mail_btn" class="tablinks"><a href="#" ><i class="material-icons">email</i></a></li>
 			<li id="browser_btn" class="tablinks"><a href="#" ><i class="material-icons">language</i></a></li>
-			<li id="sms_btn" class="notif" class="tablinks"><a href="#" ><i class="material-icons">contact_phone</i></a></li>
+			<li id="sms_btn" class="tablinks"><a href="#" ><i class="material-icons">contact_phone</i></a></li>
 			<li id="diary_btn" class="tablinks"><a href="#" ><i class="material-icons">event_note</i></a></li>
 		</ul>
 	</div>
@@ -142,18 +142,16 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
 
 <script>
-var d = document.getElementById("diary_btn");
-d.classList.add("notif");
-
 var socket  = new WebSocket('ws://localhost:8081');
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
-var social = new SOCIAL();
-var diary = new DIARY();
+var social = new SOCIAL(right_panel.notif_button_cb);
+var diary = new DIARY(right_panel.notif_button_cb);
+var browser = new BROWSER(tty.key_cb);
 
 window.onload = right_panel.resizeCircles;
 window.onresize = right_panel.resizeCircles;
-var browser = new BROWSER(tty.key_cb);
+
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	console.log(data);

@@ -34,6 +34,8 @@ var RIGHT_PANEL = function() {
 		document.getElementById(target).style.display = "block";
 		button.classList.add("active");
 		console.log(button);
+
+		button.classList.remove("notif");
 	}
 
 	mail_btn.addEventListener("mousedown", function (){
@@ -51,6 +53,27 @@ var RIGHT_PANEL = function() {
 	diary_btn.addEventListener("mousedown", function () {
 		changeScreen(this, "diary");
 	});
+
+	this.notif_button_cb = function(str) {
+		switch (str) {
+		case "diary":
+			if (diary_btn.classList.contains("active") == false)
+				diary_btn.classList.add("notif");
+			break;
+		case "social":
+			if (sms_btn.classList.contains("active") == false)
+				sms_btn.classList.add("notif");
+			break;
+		case "mail":
+			if (mail_btn.classList.contains("active") == false)
+				mail_btn.classList.add("notif");
+			break;
+		default:
+			console.warn("unexpected default case");
+			break;
+		}
+		console.log("notif button cb for " + str);
+	}
 
 	this.onmessage  = function(data) {
 		if (data.mail) {

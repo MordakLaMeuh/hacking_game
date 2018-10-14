@@ -1,7 +1,7 @@
 /*
  * Create a li for him and me
  */
-var SOCIAL = function() {
+var SOCIAL = function(notif_button_cb) {
 	var self = this;
 
 	var phoneDiv = document.getElementById("phone");
@@ -204,6 +204,8 @@ var SOCIAL = function() {
 				contact.appendChild(img);
 				contact.appendChild(contact_name);
 				contactsListDiv.appendChild(contact);
+
+				notif_button_cb("social");
 			}());
 		}
 	}

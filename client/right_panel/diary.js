@@ -1,5 +1,5 @@
 
-var DIARY = function() {
+var DIARY = function(notif_button_cb) {
 	var self = this;
 
 	var diaryDiv = document.getElementById("diary");
@@ -22,5 +22,7 @@ var DIARY = function() {
 		p.textContent = content;
 		diaryBodyDiv.appendChild(p);
 		diaryBodyDiv.scrollTop += 10000;
+
+		notif_button_cb("diary");
 	}
 }
