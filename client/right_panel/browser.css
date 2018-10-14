@@ -6,6 +6,7 @@ $blue: rgb(120, 200, 255);
 }
 
 #browser {
+	box-sizing: border-box;
 	font-size: 1em;
 	/*padding: 2.1em 0 0 0;*/
     background: rgba(120, 200, 255, 0.1);
@@ -76,7 +77,7 @@ input[type="text"] {
     box-sizing: border-box;
     padding: 0 .8em;
     letter-spacing: .06em;
-    width: 1000%;
+    width: 100%;
 }
 
 #browser #go_btn{
@@ -96,8 +97,8 @@ input[type="text"] {
 #browser-container {
 	height: 100%;
 	width: 100%;
-	/*overflow-x: hidden;*/
-	/*overflow-y: auto;*/
+	/*overflow-x: hidden;
+	overflow-y: auto;*/
 	overflow: hidden;
     text-align: center;
 }
