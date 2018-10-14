@@ -85,17 +85,18 @@ var SOCIAL = function(notif_button_cb) {
 	this.showAnswer = function(tab)
 	{
 		var i = 0;
-		while (i < tab.length)
+		i = tab.length - 1;
+		while (i >= 0)
 		{
 			var b = document.createElement('button');
-			b.id = i;
 			b.addEventListener("mousedown", function () {
-				sendAnswer(this.id);
+				sendAnswer(this.z);
 			});
 			b.setAttribute("class", "btn");
+			b.z = i;
 			b.innerHTML = tab[i];
 			currentAnswersDiv.insertAdjacentElement('afterbegin', b);
-			i++;
+			i--;
 		}
 	}
 
@@ -126,9 +127,11 @@ var SOCIAL = function(notif_button_cb) {
 	 */
 	var sendAnswer = function(clicked_id)
 	{
+		console.log("id = ", clicked_id);
 		var obj = new Object();
 		obj.r = clicked_id;
-		self.addMe(document.getElementById(clicked_id).innerHTML);
+		var classCollection = currentAnswersDiv.getElementsByClassName("btn");
+		self.addMe(classCollection[clicked_id].innerHTML);
 		obj.name = currentNameDiv.innerHTML;
 		socket.send(JSON.stringify({"social":obj}));
 		removeButton();
