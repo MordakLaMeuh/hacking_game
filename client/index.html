@@ -72,7 +72,8 @@
 	<link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/right_panel.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/dialog.css' type='text/css' media='all'>
-	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel='stylesheet' href='right_panel/browser.css' type='text/css' media='all'>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
@@ -97,7 +98,14 @@
 	</div>
 
 	<div id="browser" class="tabcontent">
-		<p>This is the browser.</p>
+		<div class="browser-navigation-bar">
+			<i></i><i></i><i></i>
+			<input id="url" type="text" name="url" value="enter your URL" />
+			<input id="go_btn" type="submit" value="Go" />
+		</div>
+		<div class="browser-container" id="browser-container">
+			<img src="medias/macaron.jpg" id="bwr_img" alt="browser content">
+		</div>
 	</div>
 
 	<div id="phone" class="tabcontent">
@@ -119,10 +127,12 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
 </script>
 
- <script src="tty/tty.js"></script>
+<script src="tty/tty.js"></script>
 <script src="right_panel/right_panel.js"></script>
 <script src="right_panel/social.js"></script>
 <script src="right_panel/diary.js"></script>
+<script src="right_panel/browser.js"></script>
+
 
 <script>
 
@@ -131,6 +141,8 @@ var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
 var social = new SOCIAL();
 var diary = new DIARY();
+var browser = new BROWSER();
+
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);
 	if (data.socialContacts) {
@@ -141,7 +153,7 @@ socket.onmessage = function (res){
 		console.log(data.social);
 		social.addEntry(data.social);
 		if (data.social.s)
-			diary.addEntry(data.social.s)
+			diary.addEntry(data.social.s);
 		return ;
 	}
 	if (data.diary)
