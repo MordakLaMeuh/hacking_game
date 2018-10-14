@@ -64,7 +64,7 @@
 						"q": "My favorite favour is coconuts",
 						"r": ["I dont care", "Oh me too !"],
 						"i": ["7", "6"],
-						"s":["After a conversation with Macaron ...", "... you know that Macaron likes coconuts !"]
+						"s": ["After a conversation with Macaron ...", "... you know that Macaron likes coconuts !"]
 					},
 					{
 						"q": "Dont forget to brush your teeth after eating",
@@ -88,7 +88,8 @@
 						"sender": "1",
 						"from_to": "Molang",
 						"title": "My Favorite food",
-						"text": "I love Pineapple"
+						"text": "I love Pineapple",
+						"s": ["After a conversation with Macaron ...", "... you know that Macaron loves Pineapple."]
 					},
 					{
 						"sender": "0",
