@@ -1,3 +1,6 @@
+$blue: rgb(120, 200, 255);
+
+
 #browser{
 	background-color: grey;
 }
@@ -12,7 +15,6 @@
 	box-shadow: 0 0.25em 0.9em -0.1em rgba(0,0,0,.3);
     border: 1px solid rgba(120, 200, 255, 0.2);
     margin-top: 2vh;
-
 }
 
 #browser #browser-navigation-bar {
@@ -22,7 +24,7 @@
 	position: absolute;
 	top: 0;
 	padding: 0.3em;
-	width: 100%;
+	width: 90%;
 	background: linear-gradient(to bottom, #edeaed 0%, #dddfdd 100%);
 	border-bottom: 2px solid #cbcbcb;
 }
@@ -48,14 +50,16 @@
 
 #browser i:nth-child(3):hover {background-color: rgb(10, 225, 10)}
 
-/*#browser input {*/
+
+
+/*#browser #url{*/
 	/*font-size: 0.75em;*/
 	/*vertical-align: top;*/
 	/*display: inline-block;*/
 	/*height: 1.6em;*/
 	/*color: #aaa;*/
 	/*!*width: calc(100% - 6em);*!*/
-	/*width:700%;*/
+	/*width:70%;*/
 	/*border: 0.1em solid #E1E1E1;*/
 	/*border-radius: 0.25em;*/
 	/*background-color: #eee;*/
@@ -63,19 +67,16 @@
 	/*padding: 0 0.4em;*/
 /*}*/
 
-#browser #url{
-	font-size: 0.75em;
-	vertical-align: top;
-	display: inline-block;
-	height: 1.6em;
-	color: #aaa;
-	/*width: calc(100% - 6em);*/
-	width:70%;
-	border: 0.1em solid #E1E1E1;
-	border-radius: 0.25em;
-	background-color: #eee;
-	margin: 0.1em;
-	padding: 0 0.4em;
+input[type="text"] {
+    font: normal 100 1em/2.4em $font-stack;
+    background-color: rgba(120, 200, 255, 0.1);
+    border: 1px solid rgba(120, 200, 255, 0.2);
+    color: rgba($base-color, .8);
+    height: 2.4em;
+    box-sizing: border-box;
+    padding: 0 .8em;
+    letter-spacing: .06em;
+    width: 1000%;
 }
 
 #browser #go_btn{
@@ -95,13 +96,14 @@
 #browser-container {
 	height: 100%;
 	width: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
-
-	text-align: center;
+	/*overflow-x: hidden;*/
+	/*overflow-y: auto;*/
+	overflow: hidden;
+    text-align: center;
 }
 
 
 img {
 	width: 100%;
 }
+
