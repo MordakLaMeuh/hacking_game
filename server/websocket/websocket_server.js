@@ -9,7 +9,6 @@ var termfunc = require('./termfunc.js');
 var social = require('./social.js');
 var lvlValidation = require('./lvlValidation.js');
 
-
 /*
  * Opening socket websocket server
  */
@@ -73,15 +72,19 @@ ws.on('connection', function (client, req)
 
 		if (logged == false) {
 			if (json_msg.login == "root" && json_msg.password == "root") {
+				var obj = new Object();
+				obj.auth = 1;
+				obj.directory = "/";
+				obj.login = "root";
+				obj.server = "hacking_game";
 				send(client, JSON.stringify({
-					"auth":1,
-					"directory":"/",
-					"login":"root",
-					"server":"hacking_game",
+					"tty": obj,
 					"socialContacts":social.createContactList()}));
 				logged = true;
 			} else {
-				send(client, JSON.stringify({"auth":0}));
+				var obj = new Object();
+				obj.auth = 0;
+				send(client, JSON.stringify({"tty": obj}));
 			}
 			return ;
 		}
@@ -93,14 +96,19 @@ ws.on('connection', function (client, req)
 				originCurDir = curDir;
 				curDir = root;
 				ssh_active = true;
+				var obj = new Object();
+				obj.string = "SSH Connexion successful.";
+				obj.directory = "/";
+				obj.login = "molang";
+				obj.server = "molang";
 				send(client, JSON.stringify({
-					"string":"SSH Connexion successful.",
-					"directory":"/",
-					"login":"molang",
-					"server":"molang"}));
+					"tty": obj
+				}));
 
 			} else {
-				send(client, JSON.stringify({"string": "SSH Connexion failed."}));
+				var obj = new Object();
+				obj.string = "SSH Connexion failed.";
+				send(client, JSON.stringify({"tty": obj}));
 			}
 			return;
 		}
@@ -127,7 +135,9 @@ ws.on('connection', function (client, req)
 		input = input.split(' ');
 		if (lvlValidation.checkCommand(cmdList, input[0]) == false)
 		{
-			send(client, JSON.stringify({"string":"unknown command !"}));
+			var obj = new Object();
+			obj.string = "unknown command !";
+			send(client, JSON.stringify({"tty": obj}));
 			return ;
 		}
 		switch (input[0]) {
@@ -170,7 +180,9 @@ ws.on('connection', function (client, req)
 				break;
 			}
 			ssh_request = true;
-			send(client, JSON.stringify({"auth_ssh":1}));
+			var obj = new Object();
+			obj.auth_ssh = 1;
+			send(client, JSON.stringify({"tty": obj}));
 			return;
 			break;
 		case "exit":
@@ -179,11 +191,13 @@ ws.on('connection', function (client, req)
 					root = termfunc.getFile(files, "/");
 					curDir = originCurDir;
 					newDirectory = termfunc.pwd(curDir);
+					var obj = new Object();
+					obj.string = "SSH sucessfully exited.";
+					obj.directory = termfunc.pwd(curDir);
+					obj.login = "root";
+					obj.server = "hacking_game";
 					send(client, JSON.stringify({
-						"string":"SSH sucessfully exited.",
-						"directory":termfunc.pwd(curDir),
-						"login":"root",
-						"server":"hacking_game"
+						"tty": obj
 					}));
 					return;
 			} else {
@@ -205,22 +219,24 @@ ws.on('connection', function (client, req)
 				social.addEntries(lvlData[curLvl].social);
 				console.log(social);
 				console.log("NEW LEVEL LOADED");
+				var obj = new Object();
+				obj.string = (output) ? output : undefined;
+				obj.directory = (newDirectory) ? newDirectory : undefined;
 				send(client, JSON.stringify({
-					"string": (output) ? output : undefined,
-					"diary": "Congratulations, you win !",
-					"directory": (newDirectory) ? newDirectory : undefined,
+					"tty": obj,
+					"diary": ["Congratulations, you win !", "you reach level " + (curLvl + 1) + " now."],
 					"socialContacts": social.createContactList()}));
 			} else {
 				console.log("GAME FINISHED !");
 			}
 		} else {
+			var obj = new Object();
+			obj.string = (output) ? output : undefined;
+			obj.directory = (newDirectory) ? newDirectory : undefined;
 			send(client, JSON.stringify({
-				"string": (output) ? output : undefined,
-				"directory": (newDirectory) ? newDirectory : undefined}));
+				"tty": obj}));
 		}
 	})
-
-
 
 	client.on("close", function()
 	{
