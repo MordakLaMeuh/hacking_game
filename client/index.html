@@ -74,6 +74,7 @@
 	<link rel='stylesheet' href='right_panel/dialog.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/browser.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/diary.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='right_panel/mail.css' type='text/css' media='all'>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -95,7 +96,44 @@
 	</div>
 
 	<div id="mail" class="tabcontent">
-		<p>No new mail.</p>
+
+		<div id="mail-window-bar">
+			<i></i><i></i><i></i>
+		</div>
+		<div id="mail_header">
+
+		</div>
+		<div id="mail_body">
+			<ul id="left_side_mail">
+				<li><i class="material-icons">inbox</i>Inbox</li>
+				<li><i class="material-icons">send</i>Sent</li>
+				<li><i class="material-icons">delete</i>Trash</li>
+			</ul>
+			<div id="right_side_mail">
+				<ul id="mail_info_bar">
+					<li><i class="material-icons">call_received</i>From</li>
+					<li><i class="material-icons">call_made</i>To</li>
+					<li><i class="material-icons">forum</i>Subject</li>
+				</ul>
+				<ul id="mail_messages">
+					<li>
+						<ul>
+							<li class="from">Macaron</li>
+							<li class="to">Toto</li>
+							<li class="subject">I want my coffee</li>
+						</ul>
+					</li>
+					<li>
+						<ul>
+							<li class="from">Macaron</li>
+							<li class="to">Toto</li>
+							<li class="subject">I want my coffee</li>
+						</ul>
+					</li>
+
+				</ul>
+		</div>
+		</div>
 	</div>
 
 	<div id="browser" class="tabcontent">
