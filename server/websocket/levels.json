@@ -113,9 +113,10 @@
 						"i": ["6", "7"]
 					},
 					{
-						"q": "My favorite favour is cococuts",
+						"q": "My favorite favour is coconuts",
 						"r": ["I dont care", "Oh me too !"],
-						"i": ["7", "6"]
+						"i": ["7", "6"],
+						"s":["After a conversation with Macaron ...", "... you know that Macaron likes coconuts !"]
 					},
 					{
 						"q": "Dont forget to brush your teeth after eating",

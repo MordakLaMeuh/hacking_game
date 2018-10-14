@@ -15,7 +15,7 @@ var BROWSER = function(tty_key_cb) {
 		var input_url = document.getElementById('url').value;
 		console.log(input_url);
 		if (!(input_url in dict))
-			input_url = "medias/404.jpg";
+			input_url = "medias/404.png";
 		else
 			input_url = dict[input_url];
 		showImginBrowser(input_url);

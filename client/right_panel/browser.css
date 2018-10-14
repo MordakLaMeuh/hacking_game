@@ -1,37 +1,39 @@
 #browser{
-    background-color: grey;
+	background-color: grey;
 }
 
 #browser {
-    font-size: 1em;
-    padding: 2.1em 0 0 0;
-    border-radius: 0.25em;
-    background: #ddd;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0.25em 0.9em -0.1em rgba(0,0,0,.3);
+	font-size: 1em;
+	/*padding: 2.1em 0 0 0;*/
+    background: rgba(120, 200, 255, 0.1);
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 0.25em 0.9em -0.1em rgba(0,0,0,.3);
+    border: 1px solid rgba(120, 200, 255, 0.2);
+    margin-top: 2vh;
+
 }
 
 #browser #browser-navigation-bar {
-    display: block;
-    box-sizing: border-box;
-    height: 2.1em;
-    position: absolute;
-    top: 0;
-    padding: 0.3em;
-    width: 100%;
-    background: linear-gradient(to bottom, #edeaed 0%, #dddfdd 100%);
-    border-bottom: 2px solid #cbcbcb;
+	display: block;
+	box-sizing: border-box;
+	height: 2.1em;
+	position: absolute;
+	top: 0;
+	padding: 0.3em;
+	width: 100%;
+	background: linear-gradient(to bottom, #edeaed 0%, #dddfdd 100%);
+	border-bottom: 2px solid #cbcbcb;
 }
 
 #browser i {
-    display: inline-block;
-    height: 0.7em;
-    width: 0.7em;
-    border-radius: 0.45em;
-    background-color: #eee;
-    margin: 0.4em 0.15em;
+	display: inline-block;
+	height: 0.7em;
+	width: 0.7em;
+	border-radius: 0.45em;
+	background-color: #eee;
+	margin: 0.4em 0.15em;
 }
 
 #browser i:nth-child(1) {background-color: rgb(255, 86, 79)}
@@ -47,59 +49,59 @@
 #browser i:nth-child(3):hover {background-color: rgb(10, 225, 10)}
 
 /*#browser input {*/
-    /*font-size: 0.75em;*/
-    /*vertical-align: top;*/
-    /*display: inline-block;*/
-    /*height: 1.6em;*/
-    /*color: #aaa;*/
-    /*!*width: calc(100% - 6em);*!*/
-    /*width:700%;*/
-    /*border: 0.1em solid #E1E1E1;*/
-    /*border-radius: 0.25em;*/
-    /*background-color: #eee;*/
-    /*margin: 0.1em;*/
-    /*padding: 0 0.4em;*/
+	/*font-size: 0.75em;*/
+	/*vertical-align: top;*/
+	/*display: inline-block;*/
+	/*height: 1.6em;*/
+	/*color: #aaa;*/
+	/*!*width: calc(100% - 6em);*!*/
+	/*width:700%;*/
+	/*border: 0.1em solid #E1E1E1;*/
+	/*border-radius: 0.25em;*/
+	/*background-color: #eee;*/
+	/*margin: 0.1em;*/
+	/*padding: 0 0.4em;*/
 /*}*/
 
 #browser #url{
-    font-size: 0.75em;
-    vertical-align: top;
-    display: inline-block;
-    height: 1.6em;
-    color: #aaa;
-    /*width: calc(100% - 6em);*/
-    width:70%;
-    border: 0.1em solid #E1E1E1;
-    border-radius: 0.25em;
-    background-color: #eee;
-    margin: 0.1em;
-    padding: 0 0.4em;
+	font-size: 0.75em;
+	vertical-align: top;
+	display: inline-block;
+	height: 1.6em;
+	color: #aaa;
+	/*width: calc(100% - 6em);*/
+	width:70%;
+	border: 0.1em solid #E1E1E1;
+	border-radius: 0.25em;
+	background-color: #eee;
+	margin: 0.1em;
+	padding: 0 0.4em;
 }
 
 #browser #go_btn{
-    font-size: 0.75em;
-    vertical-align: top;
-    display: inline-block;
-    height: 1.6em;
-    color: #aaa;
-    width:10%;
-    border: 0.1em solid #E1E1E1;
-    border-radius: 0.25em;
-    background-color: #eee;
-    margin: 0.1em;
-    padding: 0 0.4em;
+	font-size: 0.75em;
+	vertical-align: top;
+	display: inline-block;
+	height: 1.6em;
+	color: #aaa;
+	width:10%;
+	border: 0.1em solid #E1E1E1;
+	border-radius: 0.25em;
+	background-color: #eee;
+	margin: 0.1em;
+	padding: 0 0.4em;
 }
 
 #browser-container {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+	height: 100%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
 
-    text-align: center;
+	text-align: center;
 }
 
 
 img {
-    width: 100%;
+	width: 100%;
 }
