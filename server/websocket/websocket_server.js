@@ -76,12 +76,12 @@ ws.on('connection', function (client, req)
 		console.log(json_msg);
 
 		if (json_msg.social) {
-			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}))
+			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}));
 			return;
 		}
 
 		if (json_msg.mail) {
-			send(client, JSON.stringify({"mail": social.sendMail(json_msg.mail)}))
+			send(client, JSON.stringify({"name":json_msg.name, "content": social.sendMail(json_msg.mail)}));
 			return;
 		}
 
@@ -96,6 +96,11 @@ ws.on('connection', function (client, req)
 					"tty": obj
 				}));
 				logged = true;
+				var obj2 = new Object();
+				obj2.name = "root";
+				obj2.password = "root";
+				send(client, JSON.stringify({"name": "root", "content":social.sendMail(obj2)}));
+				console.log("ON EST CONNECTE");
 			} else {
 				var obj = new Object();
 				obj.auth = 0;
@@ -204,7 +209,7 @@ ws.on('connection', function (client, req)
 					var obj = new Object();
 					obj.string = "SSH sucessfully exited.";
 					obj.directory = termfunc.pwd(curDir);
-					obj.login = "root";
+					obj.name = "root";
 					obj.server = "hacking_game";
 					send(client, JSON.stringify({
 						"tty": obj

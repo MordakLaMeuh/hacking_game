@@ -38,25 +38,18 @@ displayObj: function(name, password)
 },
 
 sendMail: function(obj) {
-	var output = new Array();
-	for (var i = 0; i < this.social.length; i++)
-	{
-		if (this.social[i].name == obj.login
-				&& this.social[i].password != undefined
-				&& this.social[i].password == obj.password
-				&& this.social[i].mail != undefined)
-		{
-			var o = new Object();
-			o.content = this.social[i].mail;
-			o.name = this.social[i].name;
-			output.push(o);
-			break;
+	for (var i = 0; i < this.social.length; i++) {
+		if (this.social[i].name == obj.name
+			&& this.social[i].password != undefined
+			&& this.social[i].password == obj.password
+			&& this.social[i].mail != undefined) {
+			console.log("AUTH OK");
+			return (this.social[i].mail);
 		} else {
 			console.warn("Cannot access mailbox for " + this.social[i].name);
 		}
 	}
-	console.log(output);
-	return output;
+	return (undefined);
 },
 
 getDialogSeq: function(obj)
