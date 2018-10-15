@@ -7,13 +7,19 @@ constructor: function()
 addEntries: function(obj)
 {
 	for (var i = 0; i < obj.length; i++) {
+
 		this.social.push(obj[i]);
-		this.social[this.social.length - 1].active = false;
-		this.social[this.social.length - 1].idx = 0;
-	// 	for(var j = 0; j < obj.length; j++)
-	// 	{
-	// 		this.social[j].mail.read = false;
-	// 	}
+		var n = this.social.length - 1;
+		this.social[n].active = false;
+		this.social[n].idx = 0;
+		if (this.social[n].mail != undefined)
+		{
+			for(var j = 0; j < this.social[n].mail.length ; j++)
+			{
+				this.social[n].mail[j].read = false;
+				console.log(this.social[n].mail[j].read);
+			}
+		}
 	 }
 },
 createContactList: function()
@@ -40,12 +46,14 @@ displayObj: function(name, password)
 		var output = new Array();
 		for (var i = 0; i < this.social.length; i++)
 		{
-			if (this.social[i].name == obj.login && this.social[i].password == obj.password)
+			if (this.social[i].name == obj.login && this.social[i].password == obj.password &&
+				this.social[i].mail != undefined)
 			{
-				var obj = new Object();
-				output.content = this.social[i].mail;
-				output.name = this.social[i].name;
+				var o = new Object();
+				o.content = this.social[i].mail;
+				o.name = this.social[i].name;
 				console.log("IDENTIFICATION OK");
+				output.push(o);
 				break;
 			}
 			else

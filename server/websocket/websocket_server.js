@@ -84,7 +84,7 @@ ws.on('connection', function (client, req)
 			console.log("J'AI RECU UN E-MAIL");
 		//	social.sendMail(json_msg.login, json_msg.password);
 			send(client, JSON.stringify({"mail": social.sendMail(json_msg.mail)}))
-
+			return;
 		}
 
 		if (logged == false) {
