@@ -228,6 +228,7 @@ socket.onmessage = function (res){
 		if (data.mail.s)
 			diary.addEntry(data.mail.s[0], data.mail.s[1]);
 		console.log("ON RECOIT = " + data.mail);
+		mail.mailObj = data.mail;
 		mail.displayMailList(data.mail);
 	}
 
