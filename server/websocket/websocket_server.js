@@ -81,8 +81,6 @@ ws.on('connection', function (client, req)
 		}
 
 		if (json_msg.mail) {
-			console.log("J'AI RECU UN E-MAIL");
-		//	social.sendMail(json_msg.login, json_msg.password);
 			send(client, JSON.stringify({"mail": social.sendMail(json_msg.mail)}))
 			return;
 		}
@@ -105,7 +103,6 @@ ws.on('connection', function (client, req)
 			}
 			return ;
 		}
-
 
 		if (ssh_request == true) {
 			ssh_request = false;
@@ -130,7 +127,6 @@ ws.on('connection', function (client, req)
 			}
 			return;
 		}
-
 
 		var newDirectory;
 		console.log("input command: " + json_msg.command);

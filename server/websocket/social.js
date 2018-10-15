@@ -7,17 +7,13 @@ constructor: function()
 addEntries: function(obj)
 {
 	for (var i = 0; i < obj.length; i++) {
-
 		this.social.push(obj[i]);
 		var n = this.social.length - 1;
 		this.social[n].active = false;
 		this.social[n].idx = 0;
-		if (this.social[n].mail != undefined)
-		{
-			for(var j = 0; j < this.social[n].mail.length ; j++)
-			{
+		if (this.social[n].mail != undefined) {
+			for(var j = 0; j < this.social[n].mail.length; j++) {
 				this.social[n].mail[j].read = false;
-				console.log(this.social[n].mail[j].read);
 			}
 		}
 	 }
@@ -41,33 +37,27 @@ displayObj: function(name, password)
 	console.log(this.social);
 },
 
-
-	sendMail: function(obj) {
-		var output = new Array();
-		for (var i = 0; i < this.social.length; i++)
+sendMail: function(obj) {
+	var output = new Array();
+	for (var i = 0; i < this.social.length; i++)
+	{
+		if (this.social[i].name == obj.login
+				&& this.social[i].password != undefined
+				&& this.social[i].password == obj.password
+				&& this.social[i].mail != undefined)
 		{
-			if (this.social[i].name == obj.login && this.social[i].password == obj.password &&
-				this.social[i].mail != undefined)
-			{
-				var o = new Object();
-				o.content = this.social[i].mail;
-				o.name = this.social[i].name;
-				console.log("IDENTIFICATION OK");
-				output.push(o);
-				break;
-			}
-			else
-			{
-				console.log("BAD ID");
-			}
+			var o = new Object();
+			o.content = this.social[i].mail;
+			o.name = this.social[i].name;
+			output.push(o);
+			break;
+		} else {
+			console.warn("Cannot access mailbox for " + this.social[i].name);
 		}
-		console.log(output);
-		return output;
+	}
+	console.log(output);
+	return output;
 },
-
-
-
-
 
 getDialogSeq: function(obj)
 {
