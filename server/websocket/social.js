@@ -54,15 +54,12 @@ sendMail: function(obj) {
 
 markAsRead: function(obj) {
 	for (var i = 0; i < this.social.length; i++) {
-		if (this.social[i].name == obj.name && this.social[i].mail.length) {
-			// console.log(this.social[i].mail[obj.index].text);
-			// console.log(this.social[i].mail[obj.index].read);
+		if (obj.name != undefined && this.social[i].name == obj.name &&
+			obj.index < this.social[i].mail.length) {
 			this.social[i].mail[obj.index].read = true;
-			// console.log(this.social[i].mail[obj.index].read);
 		}
 	}
 },
-
 getDialogSeq: function(obj)
 {
 	var output = new Object();

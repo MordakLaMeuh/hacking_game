@@ -15,7 +15,7 @@ var lvlValidation = require('./lvlValidation.js');
 var ws = new WebSocketServer({port: port});
 
 /*
- * That librairy tell us the IP of the server
+ * That library tell us the IP of the server
  */
 var ip = require('ip');
 
