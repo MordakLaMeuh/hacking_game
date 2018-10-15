@@ -9,11 +9,13 @@ constructor: function()
  */
 addEntries: function(obj)
 {
-	output = new Array();
+	var output = new Array();
 
 	for (var i = 0; i < obj.length; i++) {
 		this.social.push(obj[i]);
 		var n = this.social.length - 1;
+		if (this.social[n].exchange !== undefined)
+			output.push(this.social[n].name);
 		this.social[n].active = false;
 		this.social[n].idx = 0;
 		if (this.social[n].mail != undefined) {
@@ -22,6 +24,8 @@ addEntries: function(obj)
 			}
 		}
 	 }
+
+	return output;
 },
 createContactList: function()
 {
