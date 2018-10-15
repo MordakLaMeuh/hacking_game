@@ -27,7 +27,8 @@
 						"sender": "0",
 						"from_to": "Admin 42",
 						"title": "Welcome",
-						"text": "We need your help to catch the Molang."
+						"text": "We need your help to catch the Molang.",
+						"s": ["After a root conversation ...", "... you got the roots access"]
 					}
 				]
 			},

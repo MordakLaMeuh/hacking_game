@@ -75,24 +75,24 @@ ws.on('connection', function (client, req)
 		}
 		console.log(json_msg);
 
-		if (json_msg.social) {
+		if (json_msg.social !== undefined) {
 			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social)}));
 			return;
 		}
 
-		if (json_msg.mail) {
-			if (json_msg.mail.password)
+		if (json_msg.mail != undefined) {
+			if (json_msg.mail.password !== undefined)
 			{
 				json_msg.mail.content = social.sendMail(json_msg.mail);
 				console.log(json_msg.mail.content);
 				send(client, JSON.stringify({json_msg}));
 			}
-			if (json_msg.mail.index)
+			if (json_msg.mail.index !== undefined)
 			{
 				console.log("MAIL LU");
-				social.markAsRead(json_msg.mail);
+				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail)}));
 			}
-				return;
+			return;
 		}
 
 		if (logged == false) {

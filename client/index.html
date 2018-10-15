@@ -217,21 +217,14 @@ socket.onmessage = function (res){
 		tty.onmessage(data.tty);
 	if (data.mail)
 	{
+		if (data.mail.s)
+			diary.addEntry(data.mail.s[0], data.mail.s[1]);
 		console.log("ON RECOIT = " + data.mail);
-		// console.log(data.mail);
 		mail.displayMailList(data.mail);
 	}
 
 	right_panel.onmessage(data);
 }
-
-var toto = new Object();
-toto.name = "Macaron";
-// toto.password = "macaron";
-toto.index = 1;
-setTimeout(function() {
-	socket.send(JSON.stringify({"mail":toto}));}, 1000);
-
 </script>
 
 <script>
