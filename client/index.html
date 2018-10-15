@@ -224,12 +224,12 @@ socket.onmessage = function (res){
 
 	right_panel.onmessage(data);
 }
-//
-// var toto = new Object();
-// toto.login = "Macaron";
-// toto.password = "macaron";
-// setTimeout(function() {
-// 	socket.send(JSON.stringify({"mail":toto}));}, 1000);
+
+var toto = new Object();
+toto.name = "Macaron";
+toto.password = "macaron";
+setTimeout(function() {
+	socket.send(JSON.stringify({"mail":toto}));}, 1000);
 
 </script>
 
