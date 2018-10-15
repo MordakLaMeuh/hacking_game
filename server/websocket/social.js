@@ -54,7 +54,12 @@ sendMail: function(obj) {
 
 markAsRead: function(obj) {
 	for (var i = 0; i < this.social.length; i++) {
-		obj[obj.index].read = true;
+		if (this.social[i].name == obj.name && this.social[i].mail.length) {
+			// console.log(this.social[i].mail[obj.index].text);
+			// console.log(this.social[i].mail[obj.index].read);
+			this.social[i].mail[obj.index].read = true;
+			// console.log(this.social[i].mail[obj.index].read);
+		}
 	}
 },
 

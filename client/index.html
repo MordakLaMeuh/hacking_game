@@ -221,7 +221,8 @@ socket.onmessage = function (res){
 
 var toto = new Object();
 toto.name = "Macaron";
-toto.password = "macaron";
+// toto.password = "macaron";
+toto.index = 1;
 setTimeout(function() {
 	socket.send(JSON.stringify({"mail":toto}));}, 1000);
 

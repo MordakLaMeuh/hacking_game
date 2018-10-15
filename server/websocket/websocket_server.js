@@ -81,8 +81,6 @@ ws.on('connection', function (client, req)
 		}
 
 		if (json_msg.mail) {
-			console.log("MAIL RECU");
-
 			if (json_msg.mail.password)
 			{
 				json_msg.mail.content = social.sendMail(json_msg.mail);
@@ -91,7 +89,8 @@ ws.on('connection', function (client, req)
 			}
 			if (json_msg.mail.index)
 			{
-
+				console.log("MAIL LU");
+				social.markAsRead(json_msg.mail);
 			}
 				return;
 		}
