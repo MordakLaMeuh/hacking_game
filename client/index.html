@@ -101,7 +101,8 @@
 			<i></i><i></i><i></i>
 		</div>
 		<div id="mail_header">
-
+				<p>MolangMail</p>
+				<input id="go_btn" type="submit" value="Sign out"/>
 		</div>
 		<div id="mail_body">
 			<ul id="left_side_mail">
@@ -188,6 +189,7 @@ var tty = new TTY();
 var social = new SOCIAL(right_panel.notif_button_cb);
 var diary = new DIARY(right_panel.notif_button_cb);
 var browser = new BROWSER(tty.key_cb);
+var mail = new MAIL();
 
 window.onload = right_panel.resizeCircles;
 window.onresize = right_panel.resizeCircles;

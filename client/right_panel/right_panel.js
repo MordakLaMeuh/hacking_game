@@ -8,6 +8,7 @@ var RIGHT_PANEL = function() {
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("diary");
 	var tabUl = document.getElementById("tabUl");
+	var isLogged = false;
 
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;
@@ -40,6 +41,14 @@ var RIGHT_PANEL = function() {
 
 	mail_btn.addEventListener("mousedown", function (){
 		changeScreen(this, "mail");
+		if (isLogged == false)
+		{
+			var obj = new Object();
+			obj.name = "root";
+			obj.password = "root";
+			socket.send(JSON.stringify({"email": obj}));
+			isLogged == true;
+		}
 	});
 
 	browser_btn.addEventListener("mousedown", function () {
