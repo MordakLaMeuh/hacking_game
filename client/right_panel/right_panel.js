@@ -8,6 +8,7 @@ var RIGHT_PANEL = function() {
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("diary");
 	var tabUl = document.getElementById("tabUl");
+	var isLogged = false;
 
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;

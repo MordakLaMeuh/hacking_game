@@ -15,7 +15,7 @@ var lvlValidation = require('./lvlValidation.js');
 var ws = new WebSocketServer({port: port});
 
 /*
- * That librairy tell us the IP of the server
+ * That library tell us the IP of the server
  */
 var ip = require('ip');
 
@@ -72,6 +72,7 @@ ws.on('connection', function (client, req)
 			send(client, JSON.stringify({"error":"Internal server error"}));
 			return ;
 		}
+		console.log(json_msg);
 
 		var victoryRoutine = function(title)
 		{
@@ -91,8 +92,23 @@ ws.on('connection', function (client, req)
 			return ;
 		}
 
-		if (json_msg.social) {
+		if (json_msg.social !== undefined) {
 			send(client, JSON.stringify({"social": social.getDialogSeq(json_msg.social, victoryRoutine)}));
+			return;
+		}
+
+		if (json_msg.mail != undefined) {
+			if (json_msg.mail.password !== undefined)
+			{
+				json_msg.mail.content = social.sendMail(json_msg.mail);
+				console.log(json_msg.mail.content);
+				send(client, JSON.stringify({json_msg}));
+			}
+			if (json_msg.mail.index !== undefined)
+			{
+				console.log("MAIL LU");
+				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail)}));
+			}
 			return;
 		}
 
@@ -103,10 +119,18 @@ ws.on('connection', function (client, req)
 				obj.directory = "/";
 				obj.login = "root";
 				obj.server = "hacking_game";
+				var obj_mail = new Object();
+				var obj2 = new Object();
+				obj2.name = "root";
+				obj2.password = "root";
+				obj_mail.name = obj2.name;
+				obj_mail.content = social.sendMail(obj2);
 				send(client, JSON.stringify({
-					"tty": obj
+					"tty": obj, "mail":obj_mail
 				}));
 				logged = true;
+				 // send(client, JSON.stringify({obj_mail});
+				console.log("ON EST CONNECTE");
 			} else {
 				var obj = new Object();
 				obj.auth = 0;
@@ -215,7 +239,7 @@ ws.on('connection', function (client, req)
 					var obj = new Object();
 					obj.string = "SSH sucessfully exited.";
 					obj.directory = termfunc.pwd(curDir);
-					obj.login = "root";
+					obj.name = "root";
 					obj.server = "hacking_game";
 					send(client, JSON.stringify({
 						"tty": obj

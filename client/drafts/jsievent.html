@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Titre</title>
+	<style>
+	.banane {
+		width: 100px;
+		height: 100px;
+		background-color: red;
+		border: 2px solid black;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="1" class="banane"></div>
+	<div id="2" class="banane"></div>
+	<div id="3" class="banane"></div>
+</body>
+
+<script>
+	var elmts = document.getElementsByClassName("banane");
+
+	for (var i = 0; i < elmts.length; i++) {
+		var fn = function(i){
+			elmts[i].addEventListener("mousedown", function(){
+				console.log("click: " + i);
+			});
+		}
+		fn(i);
+	};
+</script>
+</html>
