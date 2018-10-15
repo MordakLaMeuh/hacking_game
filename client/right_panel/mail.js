@@ -96,6 +96,8 @@ var MAIL = function()
 			var backBtn = document.createElement("input");
 			backBtn.value = "Back";
 			backBtn.type = "submit";
+			backBtn.addEventListener("mousedown", function(){
+				self.displayFolder()});
 			mailHeaderDiv.insertBefore(backBtn, mailHeaderDiv.firstChild);
 		}
 		else
