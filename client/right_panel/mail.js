@@ -1,30 +1,38 @@
 var MAIL = function()
 {
 	var self = this;
-	// this connectToMail = function(name, password)
-	// {
-	// 	var obj = new Object();
-	// 	obj.name = name;
-	// 	obj.password = password;
-	// 	socket.send(JSON.stringify({"email": obj}));
-	// }
+	this.mailObj;
+	var onFolder = true;
+
+	(function()
+	{
+		var leftSideUl = document.getElementById("left_side_mail");
+		for (var i = 0; i < leftSideUl.children.length; i++)
+		{
+			leftSideUl.children[i].addEventListener("mousedown", function(){
+				self.displayFolder()});
+		}
+	}());
+
+	this.displayFolder = function()
+	{
+		if (!onFolder)
+		{
+			this.displayMailList(this.mailObj);
+			onFolder = true;
+			this.changeMailHeader(onFolder);
+		}
+
+	}
 
 	this.displayMailList = function(mail)
 	{
-		console.log("ICI");
-		// console.log(mail);
-		// console.log(mail_list[0].content[0].title);
 		var mailMessagesUl = document.getElementById("mail_messages");
-		// while (mailMessagesUl.firstChild)
-		// {
-		// 	mailMessagesUl.removeChild(mailMessagesUl.firstChild);
-		// }
 		this.removeMailList(mailMessagesUl);
 		for (var i = 0; i < mail.content.length; i++)
 		{
 			var func = function(i)
 			{
-				console.log("la");
 				var mailLiContainer = document.createElement("li");
 				var mailUlContainer = document.createElement("ul");
 
@@ -61,26 +69,54 @@ var MAIL = function()
 		{
 			mailList.removeChild(mailList.firstChild);
 		}
-
 	}
-	this.displayMailContent = function(mailList, mail, index)
+
+	this.changeMailHeader = function(onFolder)
 	{
-		console.log("on est la");
-		this.removeMailList(mailList);
 		var mailInfoBarUl = document.getElementById("mail_info_bar");
+
 		for (var i = 0; i < mailInfoBarUl.children.length; i++)
 		{
-			mailInfoBarUl.children[i].style.display = "none";
+			if (!onFolder)
+				mailInfoBarUl.children[i].style.display = "none";
+			else
+			{
+				if (i < 3)
+					mailInfoBarUl.children[i].style.display = "flex";
+				else
+				{
+					mailInfoBarUl.removeChild(mailInfoBarUl.children[i]);
+					i--;
+				}
+			}
 		}
 		var mailHeaderDiv = document.getElementById("mail_header");
-		var backBtn = document.createElement("input");
+		if (!onFolder)
+		{
+			var backBtn = document.createElement("input");
+			backBtn.value = "Back";
+			backBtn.type = "submit";
+			mailHeaderDiv.insertBefore(backBtn, mailHeaderDiv.firstChild);
+		}
+		else
+			mailHeaderDiv.removeChild(mailHeaderDiv.firstChild);
+	}
+
+	this.displayMailContent = function(mailList, mail, index)
+	{
+		onFolder = false;
+		this.removeMailList(mailList);
+		var mailInfoBarUl = document.getElementById("mail_info_bar");
+		this.changeMailHeader(onFolder);
+		// for (var i = 0; i < mailInfoBarUl.children.length; i++)
+		// {
+		// 	mailInfoBarUl.children[i].style.display = "none";
+		// }
 		var from = document.createElement("li");
 		var to = document.createElement("li");
 		var title = document.createElement("li");
 		var mailContent = document.createElement("p");
 
-		backBtn.value = "Back";
-		backBtn.type = "submit";
 		from.innerHTML = "From: " + mail.content[index].from_to;
 		to.innerHTML = "To: " + mail.name;
 		title.innerHTML = mail.content[index].title;
@@ -90,12 +126,12 @@ var MAIL = function()
 		mailInfoBarUl.appendChild(to);
 		mailInfoBarUl.appendChild(title);
 		mailList.appendChild(mailContent);
-		mailHeaderDiv.insertBefore(backBtn, mailHeaderDiv.firstChild);
 
 		var obj = new Object();
 		obj.name = mail.name;
 		obj.index = index;
 		socket.send(JSON.stringify({"mail": obj}));
+
 
 	}
 

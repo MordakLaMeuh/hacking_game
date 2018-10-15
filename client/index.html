@@ -217,8 +217,7 @@ socket.onmessage = function (res){
 		tty.onmessage(data.tty);
 	if (data.mail)
 	{
-		console.log("ON RECOIT = " + data.mail);
-		// console.log(data.mail);
+		mail.mailObj = data.mail;
 		mail.displayMailList(data.mail);
 	}
 
