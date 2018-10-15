@@ -102,7 +102,7 @@
 		</div>
 		<div id="mail_header">
 				<p>MolangMail</p>
-				<input id="go_btn" type="submit" value="Sign out"/>
+				<input type="submit" value="Sign out"/>
 		</div>
 		<div id="mail_body">
 			<ul id="left_side_mail">
@@ -180,6 +180,8 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script src="right_panel/social.js"></script>
 <script src="right_panel/diary.js"></script>
 <script src="right_panel/browser.js"></script>
+<script src="right_panel/mail.js"></script>
+
 
 
 <script>
@@ -216,12 +218,12 @@ socket.onmessage = function (res){
 
 	right_panel.onmessage(data);
 }
-
-var toto = new Object();
-toto.login = "Macaron";
-toto.password = "macaron";
-setTimeout(function() {
-	socket.send(JSON.stringify({"mail":toto}));}, 1000);
+//
+// var toto = new Object();
+// toto.login = "Macaron";
+// toto.password = "macaron";
+// setTimeout(function() {
+// 	socket.send(JSON.stringify({"mail":toto}));}, 1000);
 
 </script>
 

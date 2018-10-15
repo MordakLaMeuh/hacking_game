@@ -10,7 +10,11 @@ addEntries: function(obj)
 		this.social.push(obj[i]);
 		this.social[this.social.length - 1].active = false;
 		this.social[this.social.length - 1].idx = 0;
-	}
+	// 	for(var j = 0; j < obj.length; j++)
+	// 	{
+	// 		this.social[j].mail.read = false;
+	// 	}
+	 }
 },
 createContactList: function()
 {
@@ -34,8 +38,6 @@ displayObj: function(name, password)
 
 	sendMail: function(obj) {
 		var output = new Array();
-		console.log("SEND MAIL ");
-
 		for (var i = 0; i < this.social.length; i++)
 		{
 			if (this.social[i].name == obj.login && this.social[i].password == obj.password)
@@ -43,8 +45,8 @@ displayObj: function(name, password)
 				var obj = new Object();
 				output.content = this.social[i].mail;
 				output.name = this.social[i].name;
-				output.read = false;
 				console.log("IDENTIFICATION OK");
+				break;
 			}
 			else
 			{
@@ -54,6 +56,9 @@ displayObj: function(name, password)
 		console.log(output);
 		return output;
 },
+
+
+
 
 
 getDialogSeq: function(obj)

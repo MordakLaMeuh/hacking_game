@@ -44,7 +44,7 @@ var RIGHT_PANEL = function() {
 		if (isLogged == false)
 		{
 			var obj = new Object();
-			obj.name = "root";
+			obj.login = "root";
 			obj.password = "root";
 			socket.send(JSON.stringify({"mail": obj}));
 			isLogged == true;

@@ -8,7 +8,7 @@ var MAIL = function()
 	// 	socket.send(JSON.stringify({"email": obj}));
 	// }
 
-	this displayMailList = function(email_list)
+	this.displayMailList = function(email_list)
 	{
 		var mailMessagesUl = document.getElementById("mail_messages");
 
@@ -43,7 +43,7 @@ var MAIL = function()
 		}
 	}
 
-	this displayMailContent = function()
+	this.displayMailContent = function()
 	{
 
 	}
