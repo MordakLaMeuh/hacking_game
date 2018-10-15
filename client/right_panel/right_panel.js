@@ -41,15 +41,6 @@ var RIGHT_PANEL = function() {
 
 	mail_btn.addEventListener("mousedown", function (){
 		changeScreen(this, "mail");
-		if (isLogged == false)
-		{
-			var obj = new Object();
-			obj.login = "root";
-			obj.password = "root";
-			socket.send(JSON.stringify({"mail": obj}));
-			isLogged == true;
-
-		}
 	});
 
 	browser_btn.addEventListener("mousedown", function () {
