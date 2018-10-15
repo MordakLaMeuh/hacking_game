@@ -52,6 +52,12 @@ sendMail: function(obj) {
 	return (undefined);
 },
 
+markAsRead: function(obj) {
+	for (var i = 0; i < this.social.length; i++) {
+		obj[obj.index].read = true;
+	}
+},
+
 getDialogSeq: function(obj)
 {
 	var output = new Object();

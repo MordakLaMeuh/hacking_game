@@ -81,8 +81,19 @@ ws.on('connection', function (client, req)
 		}
 
 		if (json_msg.mail) {
-			send(client, JSON.stringify({"name":json_msg.name, "content": social.sendMail(json_msg.mail)}));
-			return;
+			console.log("MAIL RECU");
+
+			if (json_msg.mail.password)
+			{
+				json_msg.mail.content = social.sendMail(json_msg.mail);
+				console.log(json_msg.mail.content);
+				send(client, JSON.stringify({json_msg}));
+			}
+			if (json_msg.mail.index)
+			{
+
+			}
+				return;
 		}
 
 		if (logged == false) {
@@ -92,14 +103,17 @@ ws.on('connection', function (client, req)
 				obj.directory = "/";
 				obj.login = "root";
 				obj.server = "hacking_game";
-				send(client, JSON.stringify({
-					"tty": obj
-				}));
-				logged = true;
+				var obj_mail = new Object();
 				var obj2 = new Object();
 				obj2.name = "root";
 				obj2.password = "root";
-				send(client, JSON.stringify({"name": "root", "content":social.sendMail(obj2)}));
+				obj_mail.name = obj2.name;
+				obj_mail.content = social.sendMail(obj2);
+				send(client, JSON.stringify({
+					"tty": obj, "mail":obj_mail
+				}));
+				logged = true;
+				 // send(client, JSON.stringify({obj_mail});
 				console.log("ON EST CONNECTE");
 			} else {
 				var obj = new Object();
