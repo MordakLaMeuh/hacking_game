@@ -29,8 +29,10 @@ addEntries: function(obj)
 },
 
 sendMail: function(obj) {
+
 	for (var i = 0; i < this.social.length; i++) {
-		if (this.social[i].name == obj.name
+		console.log(obj.name.localeCompare(this.social[i].name));
+		if (this.social[i].name.toUpperCase() == obj.name.toUpperCase()
 			&& this.social[i].password !== undefined
 			&& this.social[i].password == obj.password
 			&& this.social[i].mail !== undefined) {
