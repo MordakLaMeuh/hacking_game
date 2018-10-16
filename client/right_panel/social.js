@@ -4,7 +4,7 @@
 var SOCIAL = function(notif_button_cb) {
 	var self = this;
 
-	var phoneDiv = document.getElementById("phone");
+	var socialDiv = document.getElementById("social");
 	var contactsListDiv = document.getElementById("contacts_list");
 	var currentNameDiv;
 	var currentMessagesDiv;
@@ -51,7 +51,7 @@ var SOCIAL = function(notif_button_cb) {
 		currentMessengerDiv = document.createElement('div');
 		currentMessengerDiv.setAttribute("class", "messenger");
 		currentMessengerDiv.setAttribute("id", idName);
-		phoneDiv.appendChild(currentMessengerDiv);
+		socialDiv.appendChild(currentMessengerDiv);
 		currentMessengerDiv.style.zIndex = currentZindex++;
 		this.createDialogBox(currentMessengerDiv);
 	}
@@ -105,7 +105,7 @@ var SOCIAL = function(notif_button_cb) {
 		var b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
 			notif_button_cb("social", false, true);
-			contacts_list.style.zIndex = currentZindex++;
+			contactsListDiv.style.zIndex = currentZindex++;
 		});
 		b.setAttribute("class", "backBtn");
 		b.innerHTML = "BACK";
