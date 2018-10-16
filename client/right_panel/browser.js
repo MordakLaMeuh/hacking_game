@@ -11,9 +11,8 @@ var BROWSER = function(tty_key_cb) {
 	dict["www.ours.com"] = "medias/ours.png";
 	dict["www.phone.com"] = "medias/macaron.jpg";
 
-
-		go_btn.addEventListener("mousedown", function () {
-		var input_url = document.getElementById('url').value;
+	go_btn.addEventListener("mousedown", function () {
+		let input_url = form.value;
 		if (!(input_url in dict))
 			input_url = "medias/404.png";
 		else
@@ -21,17 +20,17 @@ var BROWSER = function(tty_key_cb) {
 		showImginBrowser(input_url);
 	});
 
-	form.addEventListener("focus", function( event ) {
+	form.addEventListener("focus", function() {
 		tty_key_cb(0);
 	}, true);
-	form.addEventListener("blur", function( event ) {
+	form.addEventListener("blur", function() {
 		tty_key_cb(1);
 	}, true);
 
 	form.addEventListener("keyup", function(event) {
 		event.preventDefault();
 		if (event.key === "Enter") {
-			var input_url = document.getElementById('url').value;
+			let input_url = form.value;
 			if (!(input_url in dict))
 				input_url = "medias/404.png";
 			else
@@ -46,7 +45,6 @@ var BROWSER = function(tty_key_cb) {
 		img.setAttribute("id", "bwr_img");
 		bwr_content.appendChild(img);
 	}
-
 
 	bwr_content.addEventListener(mousewheelevt, function (e) {
 		console.log("scroll");
