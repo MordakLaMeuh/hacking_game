@@ -86,21 +86,11 @@ var RIGHT_PANEL = function() {
 			break;
 		}
 	}
-
-	this.onmessage  = function(data) {
-		if (data.mail) {
-			mail.innerhtml += data.mail + "<br>";
-		}
-		if (data.browser) {
-			browser.innerHTML += data.browser + "<br>";
-		}
-	}
 	changeScreen(diary_btn, "diary");
 
 	this.resizeCircles = function()
 	{
-		for (var i = 0; i < tabUl.children.length; i++)
-		{
+		for (var i = 0; i < tabUl.children.length; i++) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
 	};
