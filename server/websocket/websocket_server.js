@@ -56,7 +56,6 @@ ws.on('connection', function (client, req)
 		"socialContacts":social.addEntries(lvlData[curLvl].social)
 	}));
 	console.log(social);
-	social.displayObj();
 
 	/*
 	 * Event on input client message

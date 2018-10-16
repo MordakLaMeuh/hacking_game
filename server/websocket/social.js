@@ -4,6 +4,7 @@ constructor: function()
 {
 	this.social = new Array();
 },
+
 /*
  * Add new social entries and return new png name with exchange feature
  */
@@ -18,46 +19,27 @@ addEntries: function(obj)
 			output.push(this.social[n].name);
 		this.social[n].active = false;
 		this.social[n].idx = 0;
-		if (this.social[n].mail != undefined) {
-			for(var j = 0; j < this.social[n].mail.length; j++) {
+		if (this.social[n].mail !== undefined) {
+			for (var j = 0; j < this.social[n].mail.length; j++) {
 				this.social[n].mail[j].read = false;
 			}
 		}
 	 }
-
 	return output;
-},
-createContactList: function()
-{
-	var output = new Array();
-
-	for (var i = 0; i < this.social.length; i++) {
-		if (this.social[i].exchange != undefined)
-			output.push(this.social[i].name);
-	}
-	console.log("CreateContactList len: " + this.social.length + " output");
-	console.log(output);
-
-	return output;
-},
-displayObj: function(name, password)
-{
-	console.log(this.social);
 },
 
 sendMail: function(obj) {
 	for (var i = 0; i < this.social.length; i++) {
 		if (this.social[i].name == obj.name
-			&& this.social[i].password != undefined
+			&& this.social[i].password !== undefined
 			&& this.social[i].password == obj.password
-			&& this.social[i].mail != undefined) {
-			console.log("AUTH OK");
-			return (this.social[i].mail);
+			&& this.social[i].mail !== undefined) {
+			return this.social[i].mail;
 		} else {
 			console.warn("Cannot access mailbox for " + this.social[i].name);
 		}
 	}
-	return (undefined);
+	return undefined;
 },
 
 markAsRead: function(obj) {
@@ -65,22 +47,22 @@ markAsRead: function(obj) {
 
 	for (var i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
-			obj.index < this.social[i].mail.length) {
+			obj.index >= 0 && obj.index < this.social[i].mail.length) {
 			this.social[i].mail[obj.index].read = true;
 			if (this.social[i].mail[obj.index].s)
 				output.s = this.social[i].mail[obj.index].s;
 			break;
 		}
 	}
-	console.log(output);
 	return output;
 },
+
 getDialogSeq: function(obj, victory_cb)
 {
 	var output = new Object();
 	console.log(obj);
 
-	if (obj.name == undefined) {
+	if (obj.name === undefined) {
 		console.warn("undefined name field")
 		return;
 	}
@@ -99,7 +81,7 @@ getDialogSeq: function(obj, victory_cb)
 				this.social[i].active = true;
 			} else {
 				var newIdx;
-				if (obj.r != undefined) {
+				if (obj.r !== undefined) {
 					if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
 						console.warn("bad index: " + obj.r);
 						return;
