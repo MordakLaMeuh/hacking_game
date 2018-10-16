@@ -31,9 +31,13 @@ var MAIL = function()
 
 	this.displayMailList = function(mail)
 	{
-		this.mailObj = mail;
+		var mailDiv = document.getElementById("mail");
 		var mailMessagesUl = document.getElementById("mail_messages");
-		this.removeMailList(mailMessagesUl);
+		if (mailDiv.children.length > 3)
+			this.removeSignInForm(mailDiv);
+		else
+			this.removeMailList(mailMessagesUl);
+		this.mailObj = mail;
 		for (var i = 0; i < mail.content.length; i++)
 		{
 			var func = function(i)
@@ -195,6 +199,41 @@ var MAIL = function()
 		signInForm.appendChild(passwordDiv);
 		signInForm.appendChild(loginBtn);
 		mailDiv.appendChild(signInForm);
+
+		loginBtn.addEventListener("mousedown", function(){
+			self.sendLoginData();
+		});
 	}
 
+	this.sendLoginData = function()
+	{
+		var obj = new Object();
+		obj.name = "ro";
+		obj.password = "ro";
+		socket.send(JSON.stringify({"mail": obj}));
+		console.log("On envoie");
+	}
+
+	this.removeSignInForm = function(mailDiv)
+	{
+		mailDiv.removeChild(mailDiv.lastChild);
+		onFolder = true;
+		this.changeMailHeader(onFolder);
+
+	}
+
+	this.login = function(mail)
+	{
+		// if (mail.content)
+		// {
+		// 	this.mailObj = mail;
+		// 	this.displayMailList(mail);
+		//
+		// }
+		console.log("ICI");
+		console.log(mail);
+		console.log("FIN");
+
+
+	}
 }
