@@ -1,0 +1,144 @@
+[
+	{
+		"winningCondition":
+		[
+			""
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+			{
+				"name": "Carlos",
+				"password": "papayou",
+				"exchange":
+				[
+					{
+						"q":"hello my friend, can i ask you a favour ?",
+						"r":["Yes of course", "Sorry, i'am busy"],
+						"i":["1", "2"]
+					},
+					{
+						"q":"Thank you. A friend of mine lost her cat, maybe you can help her",
+						"r":["What can i do ?", "What color is the cat ?"],
+						"i":["3", "3"]
+					},
+					{
+						"q":"Okay, let me know when you are free",
+						"r":[],
+						"i":["1"]
+					},
+					{
+						"q":"I will send you all the details by email. I changed the login and the password to your computer to root. Bye",
+						"r":[],
+						"s": ["Conversation", "login: root, password: root"]
+					}
+				]
+			},
+			{
+				"name": "root",
+				"password": "root",
+				"mail":
+				[
+					{
+						"sender": "0",
+						"from_to": "Carlos",
+						"title": "Lost cat",
+						"text": "Hello, my friend name is Susane, I send you her phone number. You can call her and she will tell you more about the mission. Goodbye !",
+						"s": ["Mail", "You got Susane contact."],
+						"w": "1"
+					}
+				]
+			}
+		]
+	},
+	{
+		"winningCondition":
+		[
+			""
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+			{
+				"name": "Suzane",
+				"exchange":
+				[
+					{
+						"q":"Hello, who is it ?",
+						"r":["I am a friend of Carlos, i can help you"],
+						"i":["1"]
+					},
+					{
+						"q":"I it for my cat ?",
+						"r":["Yes", "No it is for your dog"],
+						"i":["2", "3"]
+					},
+					{
+						"q":"My cat name is Pringles, it is a black and white cat. I can't find him since three days",
+						"r":["Do you have any Idea about where he can be ?", "Where do you live ?"],
+						"i":["4", "4"]
+					},
+					{
+						"q":"I am not in the mood for joking, I'am very concerned !",
+						"r":["Sorry, please tell me more about him", "I don't care"],
+						"i":["2", "3"]
+					},
+					{
+						"q":"I live near the black lake, close to the woods",
+						"r":["Okay, I will try to get informations", "The wood are very beautifull"],
+						"i":["5", "5"]
+					},
+					{
+						"q":"Thank you, let me know when you find something",
+						"r":[],
+						"s":["After conversation with Suzane ...", "... i have to find her cat."],
+						"w":"1"
+					}
+				]
+			}
+		]
+	},
+	{
+		"winningCondition":
+		[
+			""
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+		]
+	}
+]

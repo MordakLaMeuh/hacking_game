@@ -58,7 +58,7 @@ ws.on('connection', function (client, req)
 	var curDir = root;
 	var originCurDir; // for ssh
 
-	var lvlData = lvlValidation.getLvlData("./levels.json");
+	var lvlData = lvlValidation.getLvlData("./tutorial.json");
 	if (lvlData === undefined) {
 		send(client, JSON.stringify({"error": "critical Internal server error"}));
 		client.close();
@@ -120,7 +120,7 @@ ws.on('connection', function (client, req)
 			if (json_msg.mail.password !== undefined) {
 				send(client, JSON.stringify({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}}));
 			} if (json_msg.mail.index !== undefined) {
-				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail)}));
+				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail, victoryRoutine)}));
 			}
 			return;
 		}
