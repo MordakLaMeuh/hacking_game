@@ -96,15 +96,10 @@ ws.on('connection', function (client, req)
 			return;
 		}
 
-		if (json_msg.mail != undefined) {
-			if (json_msg.mail.password !== undefined)
-			{
-				json_msg.mail.content = social.sendMail(json_msg.mail);
-				console.log(json_msg.mail.content);
-				send(client, JSON.stringify({json_msg}));
-			}
-			if (json_msg.mail.index !== undefined)
-			{
+		if (json_msg.mail !== undefined) {
+			if (json_msg.mail.password !== undefined) {
+				send(client, JSON.stringify({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}}));
+			} if (json_msg.mail.index !== undefined) {
 				console.log("MAIL LU");
 				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail)}));
 			}
