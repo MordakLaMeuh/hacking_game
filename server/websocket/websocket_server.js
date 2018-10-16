@@ -120,7 +120,6 @@ ws.on('connection', function (client, req)
 			if (json_msg.mail.password !== undefined) {
 				send(client, JSON.stringify({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}}));
 			} if (json_msg.mail.index !== undefined) {
-				console.log("MAIL LU");
 				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail)}));
 			}
 			return;
@@ -142,7 +141,6 @@ ws.on('connection', function (client, req)
 					"mail": obj_mail
 				}));
 				logged = true;
-				console.log("ON EST CONNECTE");
 			} else {
 				var obj = new Object();
 				obj.auth = 0;
