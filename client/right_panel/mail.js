@@ -2,7 +2,7 @@ var MAIL = function()
 {
 	var self = this;
 	this.mailObj;
-	var onFolder = true;
+	var onFolder = false;
 
 	(function()
 	{
@@ -18,26 +18,38 @@ var MAIL = function()
 		});
 	}());
 
-	this.displayFolder = function()
+	this.displayFolder = function(mail)
 	{
 		if (!onFolder)
 		{
-			this.displayMailList(this.mailObj);
-			onFolder = true;
-			this.changeMailHeader(onFolder);
+			var mailDiv = document.getElementById("mail");
+			var mailMessagesUl = document.getElementById("mail_messages");
+			if (mailDiv.children.length > 3)
+			{
+				mailDiv.removeChild(mailDiv.lastChild);
+				// this.removeSignInForm(mailDiv);
+				this.displayMailHeaderAndBody(true);
+			}
+			else
+			{
+				onFolder = true;
+				this.changeMailHeader(onFolder);
+				this.removeMailList(mailMessagesUl);
+			}
+			this.displayMailList(this.mailObj, mailMessagesUl);
 		}
 
 	}
 
-	this.displayMailList = function(mail)
+	this.displayMailList = function(mail, mailMessagesUl)
 	{
-		var mailDiv = document.getElementById("mail");
-		var mailMessagesUl = document.getElementById("mail_messages");
-		if (mailDiv.children.length > 3)
-			this.removeSignInForm(mailDiv);
-		else
-			this.removeMailList(mailMessagesUl);
-		this.mailObj = mail;
+		// var mailDiv = document.getElementById("mail");
+		// var mailMessagesUl = document.getElementById("mail_messages");
+		// if (mailDiv.children.length > 3)
+		// 	this.removeSignInForm(mailDiv);
+		// else
+		// 	this.removeMailList(mailMessagesUl);
+		// this.mailObj = mail;
 		for (var i = 0; i < mail.content.length; i++)
 		{
 			var func = function(i)
@@ -148,14 +160,27 @@ var MAIL = function()
 		socket.send(JSON.stringify({"mail": obj}));
 	}
 
-	this.signOut = function()
+	this.displayMailHeaderAndBody = function(display)
 	{
-		// if (root root se reloguer directmeent)
-		//creation d'une div pour tout contenir ??
 		var mailHeaderDiv = document.getElementById("mail_header");
 		var mailBodyDiv = document.getElementById("mail_body");
+		if (!display)
+		{
+			mailHeaderDiv.style.display = "none";
+			mailBodyDiv.style.display = "none";
+		}
+		else
+		{
+			mailHeaderDiv.style.display = "flex";
+			mailBodyDiv.style.display = "flex";
+		}
+	}
+
+	this.signOut = function()
+	{
+		this.displayMailHeaderAndBody(false);
 		var mailDiv = document.getElementById("mail");
-		var signInForm = document.createElement("form");
+		var loginForm = document.createElement("form");
 		var loginDiv = document.createElement("div");
 		var passwordDiv = document.createElement("div");
 		var loginInput = document.createElement("input");
@@ -164,15 +189,12 @@ var MAIL = function()
 		var iPassword = document.createElement("i");
 		var loginBtn = document.createElement("button");
 
-
-		mailHeaderDiv.style.display = "none";
-		mailBodyDiv.style.display = "none";
-
 		loginDiv.className = "input-container";
 		passwordDiv.className = "input-container";
 
 		loginInput.className = "input-field";
 		passwordInput.className = "input-field";
+		loginForm.className = "login-form";
 
 		loginInput.id = "essai1";
 
@@ -195,10 +217,10 @@ var MAIL = function()
 		loginDiv.appendChild(loginInput);
 		passwordDiv.appendChild(iPassword);
 		passwordDiv.appendChild(passwordInput);
-		signInForm.appendChild(loginDiv);
-		signInForm.appendChild(passwordDiv);
-		signInForm.appendChild(loginBtn);
-		mailDiv.appendChild(signInForm);
+		loginForm.appendChild(loginDiv);
+		loginForm.appendChild(passwordDiv);
+		loginForm.appendChild(loginBtn);
+		mailDiv.appendChild(loginForm);
 
 		loginBtn.addEventListener("mousedown", function(){
 			self.sendLoginData();
@@ -214,25 +236,25 @@ var MAIL = function()
 		console.log("On envoie");
 	}
 
-	this.removeSignInForm = function(mailDiv)
-	{
-		mailDiv.removeChild(mailDiv.lastChild);
-		onFolder = true;
-		this.changeMailHeader(onFolder);
-
-	}
-
 	this.login = function(mail)
 	{
-		// if (mail.content)
-		// {
-		// 	this.mailObj = mail;
-		// 	this.displayMailList(mail);
-		//
-		// }
-		console.log("ICI");
-		console.log(mail);
-		console.log("FIN");
+		if (mail.content)
+		{
+			this.mailObj = mail;
+			this.displayFolder(mail);
+		}
+		else
+		{
+			// var loginForm = document.getElementById("login-form");
+			// if (loginForm.children.length < 4)
+			// {
+			// 	var errorForm = document.createElement("p");
+			// 	errorForm.innerHTML = "Invalid login or password";
+			// 	loginForm.insertBefore(errorForm, loginForm.firstChild);
+			// }
+			console.log("WRONG LOGIN");
+
+		}
 
 
 	}
