@@ -1,6 +1,5 @@
-/*
- * Create a li for him and me
- */
+'use strict';
+
 var SOCIAL = function(notif_button_cb) {
 	var self = this;
 

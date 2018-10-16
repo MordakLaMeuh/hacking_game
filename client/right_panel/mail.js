@@ -1,3 +1,5 @@
+'use strict';
+
 var MAIL = function()
 {
 	var self = this;

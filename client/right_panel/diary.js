@@ -1,3 +1,4 @@
+'use strict';
 
 var DIARY = function(notif_button_cb) {
 	var self = this;

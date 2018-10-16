@@ -1,3 +1,5 @@
+'use strict';
+
 var BROWSER = function(tty_key_cb) {
 	var self = this;
 

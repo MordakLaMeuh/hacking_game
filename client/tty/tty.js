@@ -1,4 +1,4 @@
-//var socket  = new WebSocket('ws://localhost:8081');
+'use strict';
 
 var TTY = function() {
 
@@ -34,7 +34,7 @@ var TTY = function() {
 	var LETTERSIZE = 12;
 	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
 	if (isChrome) {
-		var LETTERSIZE = 12.04;
+		LETTERSIZE = 12.04;
 		NBLETTERPERLINE -= 1;
 	}
 
@@ -88,7 +88,7 @@ var TTY = function() {
 	}
 
 	var createDiv = function (content) {
-		outputDiv = document.createElement('div');
+		var outputDiv = document.createElement('div');
 		outputDiv.innerHTML = content;
 		tty.appendChild(outputDiv);
 
@@ -107,8 +107,8 @@ var TTY = function() {
 	}
 
 	function removeCharacters(str, char_pos, len) {
-		part1 = str.substring(0, char_pos);
-		part2 = str.substring(char_pos + len, str.length);
+		var part1 = str.substring(0, char_pos);
+		var part2 = str.substring(char_pos + len, str.length);
 		return part1 + part2;
 	}
 
@@ -116,7 +116,7 @@ var TTY = function() {
 		if (block_key == true)
 			return;
 
-		key = event.key;
+		var key = event.key;
 
 		/*
 		 * Prevent the quick search feature on Firefox triggered by /
@@ -127,10 +127,10 @@ var TTY = function() {
 		}
 
 		if (key.length == 1) {
-			part1 = inputString.substring(0, cursorPosition);
+			var part1 = inputString.substring(0, cursorPosition);
 			console.log("part_1: '" + part1 + "'");
 
-			part2 = inputString.substring(cursorPosition, inputString.length);
+			var part2 = inputString.substring(cursorPosition, inputString.length);
 			console.log("part_2: '" + part2 + "'");
 
 			if (key == " ") {
