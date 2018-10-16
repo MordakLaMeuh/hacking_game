@@ -5,9 +5,9 @@ var WebSocketServer = require("ws").Server;
 var port = 8081;
 
 var math = require('math');
-var termfunc = require('./termfunc.js');
+var termfunc = require('./term_func.js');
 var social = require('./social.js');
-var lvlValidation = require('./lvlValidation.js');
+var lvlValidation = require('./lvl_validation.js');
 
 /*
  * Opening socket websocket server

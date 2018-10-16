@@ -7,7 +7,7 @@ getLvlData: function(levelFile)
 {
 	const fs = require('fs');
 	try {
-		var lvlData = fs.readFileSync(levelFile + 'a', 'utf8');
+		var lvlData = fs.readFileSync(levelFile, 'utf8');
 	} catch(error) {
 		console.log('Error:', error.stack);
 		return undefined;
