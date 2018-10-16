@@ -13,13 +13,13 @@
 	margin-top: 2vh;
 }
 
-#diary .futurepanel .futurepanel__header {
+#diary .futurepanel .futurepanel_header {
 	box-sizing: border-box;
 	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
 	height: 6vh;
 }
 
-#diary .futurepanel .futurepanel__header .futurepanel__title {
+#diary .futurepanel .futurepanel_header .futurepanel_title {
 	box-sizing: border-box;
 	font: normal 100 1.429em/1em "Exo 2", Arial, sans-serif;
 	text-transform: uppercase;
@@ -30,41 +30,41 @@
 	text-overflow: ellipsis;
 }
 
-#diary .futurepanel .futurepanel__body {
+#diary .futurepanel .futurepanel_body {
 	box-sizing: border-box;
 	padding: 1em;
 	overflow: hidden;
 	height: 82vh;
 }
 
-#diary .futurepanel .futurepanel__body .heading {
+#diary .futurepanel .futurepanel_body .heading {
 	font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
 	text-transform: uppercase;
 	padding: 0;
 	margin: 0;
 }
 
-#diary .futurepanel .futurepanel__body h6.heading {
+#diary .futurepanel .futurepanel_body h6.heading {
 	font-size: 1em;
 }
 
-#diary .futurepanel .futurepanel__body h5.heading {
+#diary .futurepanel .futurepanel_body h5.heading {
 	font-size: 1.143em;
 }
 
-#diary .futurepanel .futurepanel__body h4.heading {
+#diary .futurepanel .futurepanel_body h4.heading {
 	font-size: 1.286em;
 }
 
-#diary .futurepanel .futurepanel__body h3.heading {
+#diary .futurepanel .futurepanel_body h3.heading {
 	font-size: 1.429em;
 }
 
-#diary .futurepanel .futurepanel__body h2.heading {
+#diary .futurepanel .futurepanel_body h2.heading {
 	font-size: 1.714em;
 }
 
-#diary .futurepanel .futurepanel__body h1.heading {
+#diary .futurepanel .futurepanel_body h1.heading {
 	font-size: 2em;
 	border-bottom: 1px solid rgba(0, 255, 255, .2);
 }
