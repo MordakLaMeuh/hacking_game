@@ -115,21 +115,19 @@ ws.on('connection', function (client, req)
 		if (logged == false) {
 			if (json_msg.login == "root" && json_msg.password == "root") {
 				var obj = new Object();
+				var obj_mail = new Object();
 				obj.auth = 1;
 				obj.directory = "/";
 				obj.login = "root";
 				obj.server = "hacking_game";
-				var obj_mail = new Object();
-				var obj2 = new Object();
-				obj2.name = "root";
-				obj2.password = "root";
-				obj_mail.name = obj2.name;
-				obj_mail.content = social.sendMail(obj2);
+				obj_mail.name = "root";
+				obj_mail.password = "root";
+				obj_mail.content = social.sendMail(obj_mail);
 				send(client, JSON.stringify({
-					"tty": obj, "mail":obj_mail
+					"tty": obj,
+					"mail": obj_mail
 				}));
 				logged = true;
-				 // send(client, JSON.stringify({obj_mail});
 				console.log("ON EST CONNECTE");
 			} else {
 				var obj = new Object();
@@ -154,7 +152,6 @@ ws.on('connection', function (client, req)
 				send(client, JSON.stringify({
 					"tty": obj
 				}));
-
 			} else {
 				var obj = new Object();
 				obj.string = "SSH Connexion failed.";
@@ -163,21 +160,22 @@ ws.on('connection', function (client, req)
 			return;
 		}
 
-		var newDirectory;
-		console.log("input command: " + json_msg.command);
-
-		var input;
-		var output;
-		input = json_msg.command;
-		if (!input) {
-			console.log("JSON: no input field");
-			send(client, JSON.stringify({"error":"Internal server error"}));
+		if (json_msg.command === undefined) {
+			console.log("JSON: no command field");
+			send(client, JSON.stringify({"error": "Internal server error"}));
 			return ;
 		}
+
+		var newDirectory;
+		var input;
+		var output;
+
+		input = json_msg.command;
 
 		input = input.replace(/^\s+|\s+$/gm,'');
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
+
 		if (lvlValidation.checkCommand(cmdList, input[0]) == false)
 		{
 			var obj = new Object();
@@ -185,6 +183,7 @@ ws.on('connection', function (client, req)
 			send(client, JSON.stringify({"tty": obj}));
 			return ;
 		}
+
 		switch (input[0]) {
 		case "rot":
 			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
@@ -225,13 +224,11 @@ ws.on('connection', function (client, req)
 				break;
 			}
 			ssh_request = true;
-			var obj = new Object();
-			obj.auth_ssh = 1;
-			send(client, JSON.stringify({"tty": obj}));
+			send(client, JSON.stringify({"tty": {"auth_ssh": "1"}}));
 			return;
 			break;
 		case "exit":
-			if(ssh_active == true) {
+			if (ssh_active == true) {
 					ssh_active = false;
 					root = termfunc.getFile(files, "/");
 					curDir = originCurDir;
@@ -256,11 +253,13 @@ ws.on('connection', function (client, req)
 
 		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
 			victoryRoutine();
+
 		var obj = new Object();
 		obj.string = (output) ? output : undefined;
 		obj.directory = (newDirectory) ? newDirectory : undefined;
 		send(client, JSON.stringify({
-			"tty": obj}));
+			"tty": obj
+		}));
 	})
 
 	client.on("close", function()
