@@ -111,7 +111,7 @@
 		</div>
 		<div id="mail_header">
 				<p>MolangMail</p>
-				<input type="submit" value="Sign out"/>
+				<input id="signInBtn" type="submit" value="Sign out"/>
 		</div>
 		<div id="mail_body">
 			<ul id="left_side_mail">
@@ -223,12 +223,10 @@ socket.onmessage = function (res){
 		diary.addEntry(data.diary[0], data.diary[1]);
 	if (data.tty)
 		tty.onmessage(data.tty);
-	if (data.mail)
-	{
+	if (data.mail) {
 		if (data.mail.s)
 			diary.addEntry(data.mail.s[0], data.mail.s[1]);
-		mail.mailObj = data.mail;
-		mail.displayMailList(data.mail);
+		mail.login(data.mail);
 	}
 }
 </script>
