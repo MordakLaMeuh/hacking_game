@@ -48,6 +48,7 @@ createFileSystem: function(file)
 		var data = fs.readFileSync(file, 'utf8');
 	} catch(error) {
 		console.log('Error:', error.stack);
+		return undefined;
 	}
 	var lines = data.split('\n'), files = [];
 	for (var i = 1; i < lines.length; ++i)
@@ -102,14 +103,13 @@ cd: function(root, curDir, args)
 ls: function(curDir, args)
 {
 	if (args.length == 0)
-		return (getLsContent(curDir.children, args, false));
-	if (args.length == 1)
-	{
+		return getLsContent(curDir.children, args, false);
+	else if (args.length == 1) {
 		if (args[0] == "-a")
-			return (getLsContent(curDir.children, args, true))
-		return ("ls: invalid option -- " + "\'" + args[0] + "\'");
+			return getLsContent(curDir.children, args, true);
+		return "ls: invalid option -- " + "\'" + args[0] + "\'";
 	}
-	return ("Usage : ls OPTION");
+	return "Usage : ls OPTION";
 },
 
 /*
@@ -118,16 +118,14 @@ ls: function(curDir, args)
 help: function(cmdList)
 {
 	var str = "";
-	for (var i = 0; i < cmdList.length; ++i)
-	{
-		if (cmdList[i].length == 2)
-		{
+	for (var i = 0; i < cmdList.length; i++) {
+		if (cmdList[i].length == 2) {
 			str += cmdList[i][1];
 			if (i + 1 < cmdList.length)
 				str += "<br>";
 		}
 	}
-	return (str);
+	return str;
 },
 
 /*
@@ -136,13 +134,13 @@ help: function(cmdList)
 cat: function(curDir, args)
 {
 	if (args.length != 1)
-		return ("Usage : cat FILE");
+		return "Usage : cat FILE";
 	curDir = this.getFile(curDir.children, args[0]);
 	if (curDir == null)
-		return ("cat: " + args[0] + ": No such file or directory");
+		return "cat: " + args[0] + ": No such file or directory";
 	if (curDir.isDir == true)
-		return ("cat: " + args[0] + ": Is a directory");
-	return (curDir.content);
+		return "cat: " + args[0] + ": Is a directory";
+	return curDir.content;
 },
 
 /*
@@ -159,7 +157,7 @@ pwd: function(curDir)
 			pwd = curDir.parent.name + "/" + pwd;
 		curDir = curDir.parent;
 	}
-	return (pwd);
+	return pwd;
 },
 
 /*
@@ -170,9 +168,9 @@ getFile: function(files, name)
 	for (var i = 0; i < files.length; ++i)
 	{
 		if (files[i].name == name)
-			return (files[i]);
+			return files[i];
 	}
-	return (null);
+	return null;
 },
 
 updateFileSystem: function(files, updateFiles)
@@ -180,7 +178,7 @@ updateFileSystem: function(files, updateFiles)
 	if (!updateFiles)
 	{
 		console.log("RETURN");
-		return (files);
+		return files;
 	}
 	for (var i = 0; i < updateFiles.length; i++)
 	{
@@ -191,7 +189,7 @@ updateFileSystem: function(files, updateFiles)
 		else if (updateFiles[i][0] == "M")
 			moveFile([updateFiles[i][1], updateFiles[i][2]], files);
 	}
-	return (files);
+	return files;
 },
 }
 
@@ -235,7 +233,7 @@ function getLsContent(children, args, hidden)
 		else
 			++i;
 	}
-	return (str);
+	return str;
 }
 
 function delFile(name, files)
@@ -254,13 +252,13 @@ function delFile(name, files)
 		if (index != -1)
 			files.splice(index, 1);
 	}
-	return(files);
+	return files;
 }
 
 function addFile(fileInfo, files)
 {
 	files.push(new File(fileInfo[0], fileInfo[1], fileInfo[2], fileInfo[3], files));
-	return (files);
+	return files;
 }
 
 function moveFile(fileInfo, files)

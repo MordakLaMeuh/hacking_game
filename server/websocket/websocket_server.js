@@ -41,20 +41,34 @@ ws.on('connection', function (client, req)
 	var ssh_active = false;
 
 	var files = termfunc.createFileSystem("generateVFS.csv");
+	if (files === undefined) {
+		send(client, JSON.stringify({"error": "Internal server error"}));
+		client.close();
+		return;
+	}
+
 	var filesSSH = termfunc.createFileSystem("molang.csv");
+	if (filesSSH === undefined) {
+		send(client, JSON.stringify({"error": "Internal server error"}));
+		client.close();
+		return;
+	}
+
 	var root = termfunc.getFile(files, "/");
 	var curDir = root;
 	var originCurDir; // for ssh
 
 	var lvlData = lvlValidation.getLvlData("./levels.json");
 	if (lvlData === undefined) {
-		send(client, JSON.stringify({"error": "Internal server error"}));
+		send(client, JSON.stringify({"error": "critical Internal server error"}));
 		client.close();
 		return;
 	}
+
 	var curLvl = 0;
 	var cmdList = lvlData[curLvl].cmdList;
 	var winningCondition = lvlData[curLvl].winningCondition;
+
 	social.constructor();
 
 	send(client, JSON.stringify({
@@ -73,7 +87,8 @@ ws.on('connection', function (client, req)
 			json_msg = JSON.parse(str);
 		} catch (e) {
 			console.log("not a JSON");
-			send(client, JSON.stringify({"error":"Internal server error"}));
+			send(client, JSON.stringify({"error": "bad json"}));
+			client.close();
 			return ;
 		}
 		console.log(json_msg);
