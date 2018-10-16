@@ -10,6 +10,9 @@ var MAIL = function()
 	{
 		var leftSideUl = document.getElementById("left_side_mail");
 		var signInBtn = document.getElementById("signInBtn");
+		var loginBtn = document.getElementById("loginBtn");
+		var backBtn = document.getElementById("backBtn");
+
 		for (var i = 0; i < leftSideUl.children.length; i++)
 		{
 			leftSideUl.children[i].addEventListener("mousedown", function(){
@@ -18,43 +21,30 @@ var MAIL = function()
 		signInBtn.addEventListener("mousedown", function(){
 			self.signOut()
 		});
+		loginBtn.addEventListener("mousedown", function(){
+			self.sendLoginData();
+		});
+		backBtn.addEventListener("mousedown", function(){
+			self.displayFolder()});
 	}());
 
 	this.displayFolder = function(mail)
 	{
-		console.log("folder = ");
-		console.log(onFolder);
 		if (!onFolder)
 		{
-			var mailDiv = document.getElementById("mail");
+			onFolder = true;
 			var mailMessagesUl = document.getElementById("mail_messages");
-			if (mailDiv.children.length > 3)
-			{
-				mailDiv.removeChild(mailDiv.lastChild);
-				// this.removeSignInForm(mailDiv);
-				this.displayMailHeaderAndBody(true);
-			}
-			else
-			{
-				console.log("on efface");
-				onFolder = true;
-				this.changeMailHeader(onFolder);
-			}
+			this.displayLoginForm(false);
+			this.displayMailHeaderAndBody(true);
+			console.log("on efface");
+			this.changeMailHeader(onFolder);
 			this.removeMailList(mailMessagesUl);
 			this.displayMailList(this.mailObj, mailMessagesUl);
 		}
-
 	}
 
 	this.displayMailList = function(mail, mailMessagesUl)
 	{
-		// var mailDiv = document.getElementById("mail");
-		// var mailMessagesUl = document.getElementById("mail_messages");
-		// if (mailDiv.children.length > 3)
-		// 	this.removeSignInForm(mailDiv);
-		// else
-		// 	this.removeMailList(mailMessagesUl);
-		// this.mailObj = mail;
 		for (var i = 0; i < mail.content.length; i++)
 		{
 			var func = function(i)
@@ -122,19 +112,12 @@ var MAIL = function()
 				}
 			}
 		}
-		var mailHeaderDiv = document.getElementById("mail_header");
+		var backBtn = document.getElementById("backBtn");
 		if (!onFolder)
-		{
-			var backBtn = document.createElement("input");
-			backBtn.value = "Back";
-			backBtn.type = "submit";
-			backBtn.cursor = "pointer";
-			backBtn.addEventListener("mousedown", function(){
-				self.displayFolder()});
-			mailHeaderDiv.insertBefore(backBtn, mailHeaderDiv.firstChild);
-		}
+			backBtn.style.display = "flex";
+
 		else
-			mailHeaderDiv.removeChild(mailHeaderDiv.firstChild);
+			backBtn.style.display = "none";
 	}
 
 	this.displayMailContent = function(mailList, mail, index)
@@ -181,57 +164,31 @@ var MAIL = function()
 		}
 	}
 
+	this.displayErrorForm = function(display)
+	{
+		var errorForm = document.getElementById("errorForm");
+		if (!display)
+			errorForm.style.display = "none";
+		else
+			errorForm.style.display = "flex";
+	}
+
+	this.displayLoginForm = function(display)
+	{
+		var loginForm = document.getElementById("loginForm");
+		if (display)
+			loginForm.style.display = "block";
+		else
+			loginForm.style.display = "none";
+	}
+
 	this.signOut = function()
 	{
 		onFolder = false;
 		this.displayMailHeaderAndBody(false);
-		var mailDiv = document.getElementById("mail");
-		var loginForm = document.createElement("form");
-		var loginDiv = document.createElement("div");
-		var passwordDiv = document.createElement("div");
-		var loginInput = document.createElement("input");
-		var passwordInput = document.createElement("input");
-		var iLogin = document.createElement("i");
-		var iPassword = document.createElement("i");
-		var loginBtn = document.createElement("button");
+		this.displayErrorForm(false);
+		this.displayLoginForm(true);
 
-		loginDiv.className = "input-container";
-		passwordDiv.className = "input-container";
-
-		loginInput.className = "input-field";
-		passwordInput.className = "input-field";
-		loginForm.className = "login-form";
-
-		loginInput.id = "loginInput";
-		passwordInput.id = "passwordInput";
-
-		loginInput.type = "password";
-		loginInput.placeholder = "Login";
-
-		loginInput.spellcheck = "false";
-		passwordInput.placeholder = "Password";
-		passwordInput.type = "password";
-		iLogin.className = "material-icons icon";
-		iLogin.innerHTML = "email";
-		iPassword.className = "material-icons icon";
-		loginBtn.type = "submit";
-		loginBtn.className = "btn";
-		loginBtn.innerHTML = "Login";
-
-		iPassword.innerHTML = "lock";
-
-		loginDiv.appendChild(iLogin);
-		loginDiv.appendChild(loginInput);
-		passwordDiv.appendChild(iPassword);
-		passwordDiv.appendChild(passwordInput);
-		loginForm.appendChild(loginDiv);
-		loginForm.appendChild(passwordDiv);
-		loginForm.appendChild(loginBtn);
-		mailDiv.appendChild(loginForm);
-
-		loginBtn.addEventListener("mousedown", function(){
-			self.sendLoginData();
-		});
 	}
 
 	this.sendLoginData = function()
@@ -252,15 +209,7 @@ var MAIL = function()
 		}
 		else
 		{
-			// var loginForm = document.getElementById("login-form");
-			// if (loginForm.children.length < 4)
-			// {
-			// 	var errorForm = document.createElement("p");
-			// 	errorForm.innerHTML = "Invalid login or password";
-			// 	loginForm.insertBefore(errorForm, loginForm.firstChild);
-			// }
-			console.log("WRONG LOGIN");
-
+			this.displayErrorForm(true);
 		}
 
 

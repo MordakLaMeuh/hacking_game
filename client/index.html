@@ -110,6 +110,7 @@
 			<i></i><i></i><i></i>
 		</div>
 		<div id="mail_header">
+				<input id="backBtn" type="submit" value="Back"/>
 				<p>MolangMail</p>
 				<input id="signInBtn" type="submit" value="Sign out"/>
 		</div>
@@ -126,35 +127,21 @@
 					<li><i class="material-icons">forum</i>Subject</li>
 				</ul>
 				<ul id="mail_messages">
-					<!-- <li>
-						<ul>
-							<li class="from">Macaron</li>
-							<li class="to">Toto</li>
-							<li class="title">I want my coffee</li>
-						</ul>
-					</li>
-					<li>
-						<ul>
-							<li class="from">Macaron</li>
-							<li class="to">Toto</li>
-							<li class="title">I want my coffee</li>
-						</ul>
-					</li> -->
-
 				</ul>
 			</div>
 		</div>
-		<!-- <form>
+		<form id="loginForm">
+			<p id="errorForm">Invalid login or password</p>
 			<div class="input-container">
-				<i class="=material-icons icon">email</i>
-				<input class="input-field" type="password" placeholder="Login" spellcheck="false">
+				<i class="material-icons icon">email</i>
+				<input id= "loginInput" class="input-field" type="password" placeholder="Login" spellcheck="false">
 			</div>
 			<div class="input-container">
-				<i class="=material-icons icon">lock</i>
-				<input class="input-field" type="password" placeholder="Password" spellcheck="false">
+				<i class="material-icons icon">lock</i>
+				<input id="passwordInput" class="input-field" type="password" placeholder="Password" spellcheck="false">
 			</div>
-			<button class="btn" type="submit">Login</button>
-		</form> -->
+			<button id="loginBtn" class="btn" type="submit">Login</button>
+		</form>
 	</div>
 
 	<div id="browser" class="tabcontent">
