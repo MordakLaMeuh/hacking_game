@@ -6,9 +6,13 @@ module.exports =
 getLvlData: function(levelFile)
 {
 	const fs = require('fs');
-	var lvlData = fs.readFileSync(levelFile);
-	lvlData = JSON.parse(lvlData);
-	return (lvlData);
+	try {
+		var lvlData = fs.readFileSync(levelFile + 'a', 'utf8');
+	} catch(error) {
+		console.log('Error:', error.stack);
+		return undefined;
+	}
+	return JSON.parse(lvlData);
 },
 
 /*
@@ -17,12 +21,11 @@ getLvlData: function(levelFile)
 checkCommand: function(cmdList, usrCmd)
 {
 	return true; // TODO
-	for (var i = 0; i < cmdList.length; i++)
-	{
+	for (var i = 0; i < cmdList.length; i++) {
 		if (cmdList[i][0] == usrCmd)
-			return (true);
+			return true;
 	}
-	return (false);
+	return false;
 },
 
 /*
@@ -30,11 +33,10 @@ checkCommand: function(cmdList, usrCmd)
  */
 checkVictory: function(winningCondition, usrCondition)
 {
-	for (var i = 0; i < winningCondition.length; i++)
-	{
+	for (var i = 0; i < winningCondition.length; i++) {
 		if (winningCondition[i] != usrCondition[i])
-			return (false);
+			return false;
 	}
-	return (true);
+	return true;
 }
 }

@@ -47,6 +47,11 @@ ws.on('connection', function (client, req)
 	var originCurDir; // for ssh
 
 	var lvlData = lvlValidation.getLvlData("./levels.json");
+	if (lvlData === undefined) {
+		send(client, JSON.stringify({"error": "Internal server error"}));
+		client.close();
+		return;
+	}
 	var curLvl = 0;
 	var cmdList = lvlData[curLvl].cmdList;
 	var winningCondition = lvlData[curLvl].winningCondition;
