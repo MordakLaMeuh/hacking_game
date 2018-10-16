@@ -9,7 +9,7 @@ str_rot: function(num, str) {
 	num = num % 26;
 	for (var i = 0; i < str.length; i++) {
 		var char = str[i],
-		isUpper = char === char.toUpperCase() ? true : false;
+		isUpper = (char === char.toUpperCase()) ? true : false;
 
 		char = char.toLowerCase();
 
@@ -44,12 +44,9 @@ filterInt: function(value) {
 createFileSystem: function(file)
 {
 	const fs = require('fs');
-	try
-	{
+	try {
 		var data = fs.readFileSync(file, 'utf8');
-	}
-	catch(error)
-	{
+	} catch(error) {
 		console.log('Error:', error.stack);
 	}
 	var lines = data.split('\n'), files = [];
@@ -59,7 +56,7 @@ createFileSystem: function(file)
 		if (words.length == 4)
 			files.push(new File(words[0], words[1], words[2], words[3], files));
 	}
-	return (files);
+	return files;
 },
 
 /*
@@ -70,14 +67,13 @@ cd: function(root, curDir, args)
 	if (args.length != 1)
 		return ([curDir, "Usage : cd PATH"]);
 	var path = args[0].replace(/\/+/g, '/'), i = 0;
-	if (path.charAt(0) == '/')
-	{
+	if (path.charAt(0) == '/') {
 		var tmpDir = root;
 		if (path.length == 1)
 			++i;
-	}
-	else
+	} else {
 		var tmpDir = curDir;
+	}
 	path = path.replace(/^\/+|\/+$/gm,'');
 	path = path.split('/')
 	while (i < path.length)
