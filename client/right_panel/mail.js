@@ -34,8 +34,6 @@ var MAIL = function()
 		{
 			onFolder = true;
 			var mailMessagesUl = document.getElementById("mail_messages");
-			this.displayLoginForm(false);
-			this.displayMailHeaderAndBody(true);
 			console.log("on efface");
 			this.changeMailHeader(onFolder);
 			this.removeMailList(mailMessagesUl);
@@ -205,6 +203,9 @@ var MAIL = function()
 		if (mail.content)
 		{
 			this.mailObj = mail;
+			document.getElementById("mailName").innerHTML = mail.name + " Mail";
+			this.displayLoginForm(false);
+			this.displayMailHeaderAndBody(true);
 			this.displayFolder(mail);
 		}
 		else
