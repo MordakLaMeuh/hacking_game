@@ -47,8 +47,8 @@ var RIGHT_PANEL = function() {
 		changeScreen(this, "browser");
 	});
 
-	sms_btn.addEventListener("mousedown", function (){
-		changeScreen(this, "phone");
+	social_btn.addEventListener("mousedown", function (){
+		changeScreen(this, "social");
 	});
 
 	diary_btn.addEventListener("mousedown", function () {
@@ -66,11 +66,11 @@ var RIGHT_PANEL = function() {
 			}
 			break;
 		case "social":
-			if (sms_btn.classList.contains("active") == false || force == true) {
+			if (social_btn.classList.contains("active") == false || force == true) {
 				if (state == true)
-					sms_btn.classList.add("notif");
+					social_btn.classList.add("notif");
 				else
-					sms_btn.classList.remove("notif");
+					social_btn.classList.remove("notif");
 			}
 			break;
 		case "mail":

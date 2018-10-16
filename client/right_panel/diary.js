@@ -4,7 +4,7 @@ var DIARY = function(notif_button_cb) {
 	var self = this;
 
 	var diaryDiv = document.getElementById("diary");
-	var diaryBodyDiv = document.getElementById("diary__body");
+	var diaryBodyDiv = document.getElementById("diary_body");
 
 	diaryBodyDiv.addEventListener(mousewheelevt, function (e) {
 		var e = window.event || e; // old IE support

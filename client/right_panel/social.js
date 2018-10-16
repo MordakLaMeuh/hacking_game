@@ -3,7 +3,7 @@
 var SOCIAL = function(notif_button_cb) {
 	var self = this;
 
-	var phoneDiv = document.getElementById("phone");
+	var socialDiv = document.getElementById("social");
 	var contactsListDiv = document.getElementById("contacts_list");
 	var currentNameDiv;
 	var currentMessagesDiv;
@@ -14,7 +14,7 @@ var SOCIAL = function(notif_button_cb) {
 	this.addEntry = function(obj)
 	{
 		var div = document.getElementById(obj.name);
-		if (div == undefined) {
+		if (div === undefined) {
 			this.createMessenger(obj.name)
 		}
 		this.showName(obj.name);
@@ -50,7 +50,7 @@ var SOCIAL = function(notif_button_cb) {
 		currentMessengerDiv = document.createElement('div');
 		currentMessengerDiv.setAttribute("class", "messenger");
 		currentMessengerDiv.setAttribute("id", idName);
-		phoneDiv.appendChild(currentMessengerDiv);
+		socialDiv.appendChild(currentMessengerDiv);
 		currentMessengerDiv.style.zIndex = currentZindex++;
 		this.createDialogBox(currentMessengerDiv);
 	}
@@ -104,7 +104,7 @@ var SOCIAL = function(notif_button_cb) {
 		var b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
 			notif_button_cb("social", false, true);
-			contacts_list.style.zIndex = currentZindex++;
+			contactsListDiv.style.zIndex = currentZindex++;
 		});
 		b.setAttribute("class", "backBtn");
 		b.innerHTML = "BACK";
@@ -159,7 +159,7 @@ var SOCIAL = function(notif_button_cb) {
 					/*
 					 * Test of messenger div already exist
 					 */
-					if (div == undefined) {
+					if (div === undefined) {
 						socket.send(JSON.stringify({"social": obj}));
 					} else {
 						div.style.zIndex = currentZindex++;

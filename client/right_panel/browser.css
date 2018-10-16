@@ -1,11 +1,6 @@
-#browser{
-	background-color: grey;
-}
-
 #browser {
 	box-sizing: border-box;
 	font-size: 1em;
-	/*padding: 2.1em 0 0 0;*/
     background: rgba(120, 200, 255, 0.1);
 	display: inline-block;
 	position: relative;
@@ -49,7 +44,6 @@
 #browser i:nth-child(3):hover {background-color: rgb(10, 225, 10)}
 
 input[type="text"] {
-    /*font: normal 100 1em/2.4em $font-stack;*/
     font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
     background-color: rgba(120, 200, 255, 0.1);
     border: 1px solid rgba(120, 200, 255, 0.2);
@@ -84,8 +78,7 @@ input[type="submit"]
     margin-top: 5%;
 }
 
-
-img {
+#browser img {
 	width: 100%;
 }
 
