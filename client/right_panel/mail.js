@@ -7,11 +7,15 @@ var MAIL = function()
 	(function()
 	{
 		var leftSideUl = document.getElementById("left_side_mail");
+		var signInBtn = document.getElementById("signInBtn");
 		for (var i = 0; i < leftSideUl.children.length; i++)
 		{
 			leftSideUl.children[i].addEventListener("mousedown", function(){
 				self.displayFolder()});
 		}
+		signInBtn.addEventListener("mousedown", function(){
+			self.signOut()
+		});
 	}());
 
 	this.displayFolder = function()
@@ -27,6 +31,7 @@ var MAIL = function()
 
 	this.displayMailList = function(mail)
 	{
+		this.mailObj = mail;
 		var mailMessagesUl = document.getElementById("mail_messages");
 		this.removeMailList(mailMessagesUl);
 		for (var i = 0; i < mail.content.length; i++)
@@ -44,7 +49,7 @@ var MAIL = function()
 				receiverLi.className = "to";
 				titleLi.className = "title";
 
-				senderLi.innerHTML = 	mail.content[i].from_to;
+				senderLi.innerHTML = mail.content[i].from_to;
 				receiverLi.innerHTML = mail.name;
 				titleLi.innerHTML = mail.content[i].title;
 
@@ -54,6 +59,12 @@ var MAIL = function()
 
 				mailLiContainer.appendChild(mailUlContainer);
 				mailMessagesUl.appendChild(mailLiContainer);
+
+				if (!mail.content[i].read)
+				{
+					mailLiContainer.style.fontWeight = "bold";
+					mailLiContainer.style.backgroundColor = "rgba(120, 200, 255, 0.2)";
+				}
 
 				mailLiContainer.addEventListener("mousedown", function(){
 					self.displayMailContent(mailMessagesUl, mail, i);
@@ -96,6 +107,7 @@ var MAIL = function()
 			var backBtn = document.createElement("input");
 			backBtn.value = "Back";
 			backBtn.type = "submit";
+			backBtn.cursor = "pointer";
 			backBtn.addEventListener("mousedown", function(){
 				self.displayFolder()});
 			mailHeaderDiv.insertBefore(backBtn, mailHeaderDiv.firstChild);
@@ -107,13 +119,10 @@ var MAIL = function()
 	this.displayMailContent = function(mailList, mail, index)
 	{
 		onFolder = false;
+		mail.content[index].read = true;
 		this.removeMailList(mailList);
 		var mailInfoBarUl = document.getElementById("mail_info_bar");
 		this.changeMailHeader(onFolder);
-		// for (var i = 0; i < mailInfoBarUl.children.length; i++)
-		// {
-		// 	mailInfoBarUl.children[i].style.display = "none";
-		// }
 		var from = document.createElement("li");
 		var to = document.createElement("li");
 		var title = document.createElement("li");
@@ -133,8 +142,59 @@ var MAIL = function()
 		obj.name = mail.name;
 		obj.index = index;
 		socket.send(JSON.stringify({"mail": obj}));
+	}
+
+	this.signOut = function()
+	{
+		// if (root root se reloguer directmeent)
+		//creation d'une div pour tout contenir ??
+		var mailHeaderDiv = document.getElementById("mail_header");
+		var mailBodyDiv = document.getElementById("mail_body");
+		var mailDiv = document.getElementById("mail");
+		var signInForm = document.createElement("form");
+		var loginDiv = document.createElement("div");
+		var passwordDiv = document.createElement("div");
+		var loginInput = document.createElement("input");
+		var passwordInput = document.createElement("input");
+		var iLogin = document.createElement("i");
+		var iPassword = document.createElement("i");
+		var loginBtn = document.createElement("button");
 
 
+		mailHeaderDiv.style.display = "none";
+		mailBodyDiv.style.display = "none";
+
+		loginDiv.className = "input-container";
+		passwordDiv.className = "input-container";
+
+		loginInput.className = "input-field";
+		passwordInput.className = "input-field";
+
+		loginInput.id = "essai1";
+
+		loginInput.type = "password";
+		loginInput.placeholder = "Login";
+
+		loginInput.spellcheck = "false";
+		passwordInput.placeholder = "Password";
+		passwordInput.type = "password";
+		iLogin.className = "material-icons icon";
+		iLogin.innerHTML = "email";
+		iPassword.className = "material-icons icon";
+		loginBtn.type = "submit";
+		loginBtn.className = "btn";
+		loginBtn.innerHTML = "Login";
+
+		iPassword.innerHTML = "lock";
+
+		loginDiv.appendChild(iLogin);
+		loginDiv.appendChild(loginInput);
+		passwordDiv.appendChild(iPassword);
+		passwordDiv.appendChild(passwordInput);
+		signInForm.appendChild(loginDiv);
+		signInForm.appendChild(passwordDiv);
+		signInForm.appendChild(loginBtn);
+		mailDiv.appendChild(signInForm);
 	}
 
 }
