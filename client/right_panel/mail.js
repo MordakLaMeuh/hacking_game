@@ -6,6 +6,9 @@ var MAIL = function()
 	this.mailObj;
 	var onFolder = false;
 
+	/*
+	 * Self invoked function to add listener
+	 */
 	(function()
 	{
 		var leftSideUl = document.getElementById("left_side_mail");
@@ -28,6 +31,9 @@ var MAIL = function()
 			self.displayFolder()});
 	}());
 
+	/*
+	 * Display clicked email folder by displaying all the mails of the folder
+	 */
 	this.displayFolder = function(mail)
 	{
 		if (!onFolder)
@@ -41,6 +47,9 @@ var MAIL = function()
 		}
 	}
 
+	/*
+	 * Display all the mail of a folder
+	 */
 	this.displayMailList = function(mail, mailMessagesUl)
 	{
 		for (var i = 0; i < mail.content.length; i++)
@@ -83,6 +92,9 @@ var MAIL = function()
 		}
 	}
 
+	/*
+	 * Remove all the mails of a folder
+	 */
 	this.removeMailList = function(mailList)
 	{
 		while (mailList.firstChild)
@@ -91,6 +103,9 @@ var MAIL = function()
 		}
 	}
 
+	/*
+	 * Change mail header to fit to the current display (mail list or mail content)
+	 */
 	this.changeMailHeader = function(onFolder)
 	{
 		var mailInfoBarUl = document.getElementById("mail_info_bar");
@@ -118,6 +133,9 @@ var MAIL = function()
 			backBtn.style.display = "none";
 	}
 
+	/*
+	 * Display content of the clicked mail
+	 */
 	this.displayMailContent = function(mailList, mail, index)
 	{
 		onFolder = false;
@@ -146,6 +164,9 @@ var MAIL = function()
 		socket.send(JSON.stringify({"mail": obj}));
 	}
 
+	/*
+	 * Display or hide mail_header and mail_body
+	 */
 	this.displayMailHeaderAndBody = function(display)
 	{
 		var mailHeaderDiv = document.getElementById("mail_header");
@@ -162,6 +183,9 @@ var MAIL = function()
 		}
 	}
 
+	/*
+	 * Display or hide error login message
+	 */
 	this.displayErrorForm = function(display)
 	{
 		var errorForm = document.getElementById("errorForm");
@@ -171,6 +195,9 @@ var MAIL = function()
 			errorForm.style.display = "flex";
 	}
 
+	/*
+	 * Display or hide login form
+	 */
 	this.displayLoginForm = function(display)
 	{
 		var loginForm = document.getElementById("loginForm");
@@ -180,6 +207,9 @@ var MAIL = function()
 			loginForm.style.display = "none";
 	}
 
+	/*
+	 * Sign out from mail and display login form
+	 */
 	this.signOut = function()
 	{
 		onFolder = false;
@@ -189,6 +219,9 @@ var MAIL = function()
 
 	}
 
+	/*
+	 * Send login data to server
+	 */
 	this.sendLoginData = function()
 	{
 		var obj = new Object();
@@ -198,21 +231,25 @@ var MAIL = function()
 		console.log("On envoie");
 	}
 
+	/*
+	 * Check mail data received from server to allow or deny login
+	 */
 	this.login = function(mail)
 	{
 		if (mail.content)
 		{
 			this.mailObj = mail;
-			document.getElementById("mailName").innerHTML = mail.name + " Mail";
+			var mailName = document.getElementById("mailName");
+			if (mail.name == "root")
+				mailName.innerHTML = "Your Mail";
+			else
+				mailName.innerHTML = mail.name + "\'s Mail";
+
 			this.displayLoginForm(false);
 			this.displayMailHeaderAndBody(true);
 			this.displayFolder(mail);
 		}
 		else
-		{
 			this.displayErrorForm(true);
-		}
-
-
 	}
 }
