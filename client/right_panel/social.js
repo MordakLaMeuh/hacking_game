@@ -15,7 +15,7 @@ var SOCIAL = function(notif_button_cb) {
 	this.addEntry = function(obj)
 	{
 		var div = document.getElementById(obj.name);
-		if (div == undefined) {
+		if (div === undefined) {
 			this.createMessenger(obj.name)
 		}
 		this.showName(obj.name);
@@ -160,7 +160,7 @@ var SOCIAL = function(notif_button_cb) {
 					/*
 					 * Test of messenger div already exist
 					 */
-					if (div == undefined) {
+					if (div === undefined) {
 						socket.send(JSON.stringify({"social": obj}));
 					} else {
 						div.style.zIndex = currentZindex++;
