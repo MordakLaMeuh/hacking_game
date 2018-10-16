@@ -22,6 +22,8 @@ var MAIL = function()
 
 	this.displayFolder = function(mail)
 	{
+		console.log("folder = ");
+		console.log(onFolder);
 		if (!onFolder)
 		{
 			var mailDiv = document.getElementById("mail");
@@ -34,10 +36,11 @@ var MAIL = function()
 			}
 			else
 			{
+				console.log("on efface");
 				onFolder = true;
 				this.changeMailHeader(onFolder);
-				this.removeMailList(mailMessagesUl);
 			}
+			this.removeMailList(mailMessagesUl);
 			this.displayMailList(this.mailObj, mailMessagesUl);
 		}
 
@@ -180,6 +183,7 @@ var MAIL = function()
 
 	this.signOut = function()
 	{
+		onFolder = false;
 		this.displayMailHeaderAndBody(false);
 		var mailDiv = document.getElementById("mail");
 		var loginForm = document.createElement("form");
@@ -198,7 +202,8 @@ var MAIL = function()
 		passwordInput.className = "input-field";
 		loginForm.className = "login-form";
 
-		loginInput.id = "essai1";
+		loginInput.id = "loginInput";
+		passwordInput.id = "passwordInput";
 
 		loginInput.type = "password";
 		loginInput.placeholder = "Login";
@@ -232,8 +237,8 @@ var MAIL = function()
 	this.sendLoginData = function()
 	{
 		var obj = new Object();
-		obj.name = "ro";
-		obj.password = "ro";
+		obj.name = document.getElementById("loginInput").value;;
+		obj.password = document.getElementById("passwordInput").value;;
 		socket.send(JSON.stringify({"mail": obj}));
 		console.log("On envoie");
 	}
