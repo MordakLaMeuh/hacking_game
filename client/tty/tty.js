@@ -111,21 +111,9 @@ var TTY = function() {
 		var part2 = str.substring(char_pos + len, str.length);
 		return part1 + part2;
 	}
-
-	document.addEventListener('keydown', (event) => {
-		if (block_key == true)
-			return;
-
-		var key = event.key;
-
-		/*
-		 * Prevent the quick search feature on Firefox triggered by /
-		 */
-		if (key == "/") {
-			event.stopPropagation();
-			event.preventDefault();
-		}
-
+	
+	var putchar = function(key)
+	{
 		if (key.length == 1) {
 			var part1 = inputString.substring(0, cursorPosition);
 			console.log("part_1: '" + part1 + "'");
@@ -243,7 +231,46 @@ var TTY = function() {
 		}
 
 		console.log("key: " + key + " position: " + cursorPosition + " realLen: " + visibleStringLen);
+	}
+
+	document.addEventListener('keydown', (event) => {
+		if (block_key == true)
+			return;
+
+		var key = event.key;
+
+		/*
+		 * Prevent the quick search feature on Firefox triggered by /
+		 */
+		if (key == "/") {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+
+		putchar(key);
 	});
+
+	this.virtualPutchar = function(virtualKey)
+	{
+		var outKey;
+
+		switch (virtualKey) {
+		case "{enter}":
+			outKey = "Enter";
+			break;
+		case "back":
+			outKey = "Backspace";
+			break;
+		case "{space}":
+			outKey = " ";
+			break;
+		default:
+			outKey = virtualKey;
+		break;
+		}
+
+		putchar(outKey);
+	}
 
 	socket.onerror = function () {
 		createDiv("Aucune réponse du serveur...");

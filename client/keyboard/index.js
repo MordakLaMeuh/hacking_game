@@ -17,11 +17,12 @@ let myKeyboard = new Keyboard({
 );
 
 function onChange(input) {
-	document.querySelector(".input").value = input;
+//	document.querySelector(".input").value = input;
 	console.log("Input changed", input);
 }
 
 function onKeyPress(button) {
+	tty.virtualPutchar(button);
 	console.log("Button pressed", button);
 }
 

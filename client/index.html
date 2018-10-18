@@ -16,6 +16,7 @@
 			display: block;
 			background:#FFFFFF;
 			height:100vh;
+			height: calc(var(--vh, 1vh) * 100);
 			width: 100vw;
 			position: fixed;
 		}
@@ -191,7 +192,17 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
 
 <script>
-var socket  = new WebSocket('ws://localhost:8081');
+//First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+</script>
+
+<script src="keyboard/keyboard.js"></script>
+<script src="keyboard/index.js"></script>
+<script>
+
+var socket  = new WebSocket('ws://192.168.43.128:8081');
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
 var social = new SOCIAL(right_panel.notif_button_cb);
@@ -228,8 +239,5 @@ socket.onmessage = function (res){
 	}
 }
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.min.js"></script>
-<script src="keyboard/index.js"></script>
 </body>
 </html>

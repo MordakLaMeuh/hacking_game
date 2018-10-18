@@ -1,5 +1,6 @@
 #js_tty {
-	height:50vh;
+	height: 50vh;
+	height: calc(var(--vh, 1vh) * 50);
 	width: 100vw;
 	color: #78C8FF;
 	background:#000000;
@@ -8,6 +9,7 @@
 	font-size: 20px;
 	word-wrap:break-word;
 	/*float:left;*/
+	position: absolute;
 }
 #cursor {
 	height: 24px;
