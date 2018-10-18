@@ -2,6 +2,7 @@
 
 var RIGHT_PANEL = function() {
 	var right_panel = document.getElementById("right_panel");
+	var tty = document.getElementById("js_tty");
 
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
@@ -10,9 +11,15 @@ var RIGHT_PANEL = function() {
 	var tabUl = document.getElementById("tabUl");
 	var isLogged = false;
 
+	function displayPanel()
+	{
+		// console.log("ixi");
+		tty.style.height = "10vh";
+	}
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;
 
+		displayPanel();
 		/*
 		 * Get all elements with class="tabcontent" and hide them
 		 */

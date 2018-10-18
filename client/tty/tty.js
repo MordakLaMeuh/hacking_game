@@ -357,4 +357,15 @@ var TTY = function() {
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
+
+
+	var self = this;
+	tty.addEventListener("mousedown", function(){
+		self.displayTty();
+	});
+	this.displayTty = function ()
+	{
+		console.log("la");
+		tty.style.height = "90vh";
+	}
 }
