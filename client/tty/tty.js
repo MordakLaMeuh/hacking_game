@@ -357,4 +357,23 @@ var TTY = function() {
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
+
+	// var right_panel = document.getElementById("right_panel");
+	// var tabcontent = document.getElementsByClassName("tabcontent");
+	//
+	// if( navigator.userAgent.match(/Android/i)
+	// || navigator.userAgent.match(/webOS/i)
+	// || navigator.userAgent.match(/iPhone/i)
+	// || navigator.userAgent.match(/iPad/i)
+	// || navigator.userAgent.match(/iPod/i)
+	// || navigator.userAgent.match(/BlackBerry/i)
+	// || navigator.userAgent.match(/Windows Phone/i))
+	// {
+	// 	js_tty.addEventListener("mousedown", function(){
+	// 		right_panel.style.height = "10vh";
+	// 		for (var i = 0; i < tabcontent.length; i++) {
+	// 			tabcontent[i].style.display = "none";
+	// 		}
+	// 	});
+	// }
 }

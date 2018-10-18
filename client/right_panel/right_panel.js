@@ -13,6 +13,17 @@ var RIGHT_PANEL = function() {
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;
 
+		if( navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i))
+		{
+			right_panel.style.height = "90vh";
+		}
+
 		/*
 		 * Get all elements with class="tabcontent" and hide them
 		 */
@@ -94,4 +105,15 @@ var RIGHT_PANEL = function() {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
 	};
+
+	var tab = document.getElementById("js_tty");
+	tab.addEventListener("mousedown", function(){
+		right_panel.style.height = "10vh";
+		console.log("ok");
+		var tabcontent = document.getElementsByClassName("tabcontent");
+		for (var i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+	});
 }
