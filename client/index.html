@@ -115,30 +115,23 @@
 				<input id="signInBtn" type="submit" value="Sign out"/>
 		</div>
 		<div id="mail_body">
-			<ul id="left_side_mail">
-				<li><i class="material-icons">inbox</i>Inbox</li>
-				<li><i class="material-icons">send</i>Sent</li>
-				<li><i class="material-icons">delete</i>Trash</li>
-			</ul>
-			<div id="right_side_mail">
 				<ul id="mail_info_bar">
-					<li><i class="material-icons">call_received</i>From</li>
-					<li><i class="material-icons">call_made</i>To</li>
-					<li><i class="material-icons">forum</i>Subject</li>
+					<li>From</li>
+					<li>To</li>
+					<li>Subject</li>
 				</ul>
 				<ul id="mail_messages">
 				</ul>
-			</div>
 		</div>
 		<form id="loginForm">
 			<p id="errorForm">Invalid login or password</p>
 			<div class="input-container">
 				<i class="material-icons icon">email</i>
-				<input id= "loginInput" class="input-field" type="text" placeholder="Login" spellcheck="false">
+				<input id= "loginInput" onfocus="this.value=''" class="input-field" type="text" placeholder="Login" spellcheck="false">
 			</div>
 			<div class="input-container">
 				<i class="material-icons icon">lock</i>
-				<input id="passwordInput" class="input-field" type="text" placeholder="Password" spellcheck="false">
+				<input id="passwordInput" onfocus="this.value=''" class="input-field" type="text" placeholder="Password" spellcheck="false">
 			</div>
 			<button id="loginBtn" class="btn" type="submit">Login</button>
 		</form>

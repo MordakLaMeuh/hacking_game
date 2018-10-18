@@ -11,16 +11,10 @@ var MAIL = function()
 	 */
 	(function()
 	{
-		var leftSideUl = document.getElementById("left_side_mail");
 		var signInBtn = document.getElementById("signInBtn");
 		var loginBtn = document.getElementById("loginBtn");
 		var backBtn = document.getElementById("backBtn");
 
-		for (var i = 0; i < leftSideUl.children.length; i++)
-		{
-			leftSideUl.children[i].addEventListener("mousedown", function(){
-				self.displayFolder()});
-		}
 		signInBtn.addEventListener("mousedown", function(){
 			self.signOut()
 		});
