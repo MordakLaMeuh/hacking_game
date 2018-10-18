@@ -112,19 +112,21 @@ var TTY = function() {
 		return part1 + part2;
 	}
 
-	document.addEventListener('keydown', (event) => {
+	//document.addEventListener('keydown', (event) => {
+	function updateCharString(key)
+	{
 		if (block_key == true)
 			return;
 
-		var key = event.key;
+		//var key = event.key;
 
 		/*
 		 * Prevent the quick search feature on Firefox triggered by /
 		 */
-		if (key == "/") {
-			event.stopPropagation();
-			event.preventDefault();
-		}
+		//if (key == "/") {
+		//	event.stopPropagation();
+		//	event.preventDefault();
+		//}
 
 		if (key.length == 1) {
 			var part1 = inputString.substring(0, cursorPosition);
@@ -243,7 +245,8 @@ var TTY = function() {
 		}
 
 		console.log("key: " + key + " position: " + cursorPosition + " realLen: " + visibleStringLen);
-	});
+	}
+//);
 
 	socket.onerror = function () {
 		createDiv("Aucune réponse du serveur...");
@@ -357,4 +360,45 @@ var TTY = function() {
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
+
+
+	var __tty = document.querySelector("#js_tty");
+	var input = document.createElement("input");
+	input.setAttribute("type", "text");
+	input.style.height = 0;
+	input.style.width = 0;
+	input.style.border = 0;
+	input.style.color = "#ffffff";
+	__tty.appendChild(input);
+	
+	document.body.onclick = function()
+	{
+		input.focus();
+	}
+
+	var old_len = 0;
+
+	input.onkeyup = function(e)
+	{
+		if (e.key == "Enter")
+		{
+			updateCharString("Enter");
+		}
+	}
+
+	input.oninput = function(e)
+	{
+		var len_diff = this.value.length - old_len;
+		old_len = this.value.length;
+		
+		if (len_diff > 0)
+		{
+			var c = this.value[this.value.length - 1];
+			updateCharString(c);
+		}
+		else if (len_diff < 0)
+		{
+			updateCharString("Backspace");
+		}
+	}
 }
