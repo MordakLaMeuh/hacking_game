@@ -21,7 +21,7 @@ var RIGHT_PANEL = function() {
 		|| navigator.userAgent.match(/BlackBerry/i)
 		|| navigator.userAgent.match(/Windows Phone/i))
 		{
-			right_panel.style.height = "90vh";
+			right_panel.style.height = "100vh";
 		}
 
 		/*
@@ -106,14 +106,23 @@ var RIGHT_PANEL = function() {
 		}
 	};
 
-	var tab = document.getElementById("js_tty");
-	tab.addEventListener("mousedown", function(){
-		right_panel.style.height = "10vh";
-		console.log("ok");
-		var tabcontent = document.getElementsByClassName("tabcontent");
-		for (var i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
+	if( navigator.userAgent.match(/Android/i)
+	|| navigator.userAgent.match(/webOS/i)
+	|| navigator.userAgent.match(/iPhone/i)
+	|| navigator.userAgent.match(/iPad/i)
+	|| navigator.userAgent.match(/iPod/i)
+	|| navigator.userAgent.match(/BlackBerry/i)
+	|| navigator.userAgent.match(/Windows Phone/i))
+	{
+		tabUl.addEventListener("mousedown", function(event){
+			if (tabUl !== event.target)
+				return;
+			right_panel.style.height = "10vh";
+			var tabcontent = document.getElementsByClassName("tabcontent");
+			for (var i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
 
-	});
+		});
+	}
 }
