@@ -84,6 +84,7 @@
 	<link rel='stylesheet' href='right_panel/browser.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/diary.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/mail.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='keyboard/keyboard.css' type='text/css' media='all'>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -93,6 +94,11 @@
 <div id="js_tty">
 
 </div>
+
+<div class="simple-keyboard">
+
+</div>
+
 
 <div id="right_panel">
 	<div class="tab" id="tab">
@@ -223,8 +229,7 @@ socket.onmessage = function (res){
 }
 </script>
 
-<script>
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.min.js"></script>
+<script src="keyboard/index.js"></script>
 </body>
 </html>

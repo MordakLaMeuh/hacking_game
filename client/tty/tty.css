@@ -1,13 +1,13 @@
 #js_tty {
-	height:100vh;
-	width: 70vw;
+	height:50vh;
+	width: 100vw;
 	color: #78C8FF;
 	background:#000000;
 	font-family: monospace;
 	overflow:hidden;
 	font-size: 20px;
 	word-wrap:break-word;
-	float:left;
+	/*float:left;*/
 }
 #cursor {
 	height: 24px;
