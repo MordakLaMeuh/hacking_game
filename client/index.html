@@ -91,6 +91,7 @@
 <body class="noselect">
 
 
+
 <div id="right_panel">
 	<div class="tab" id="tab">
 		<ul id="tabUl">
@@ -153,15 +154,14 @@
 
 	<div id="diary" class="tabcontent">
 		<!-- <div class="futurepanel"> -->
-		<div class="futurepanel_header">
-			<h1 class="futurepanel_title">My diary</h1>
-		</div>
-		<div class="futurepanel_body" id="diary_body">
-		</div>
+			<div class="futurepanel_header">
+				<h1 class="futurepanel_title">My diary</h1>
+			</div>
+			<div class="futurepanel_body" id="diary_body">
+			</div>
 		<!-- </div> -->
 	</div>
 </div>
-
 
 <div id="js_tty">
 
@@ -187,7 +187,9 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
 
 <script>
+// var socket  = new WebSocket('ws://192.168.43.29:8081');
 var socket  = new WebSocket('ws://localhost:8081');
+
 var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
 var social = new SOCIAL(right_panel.notif_button_cb);

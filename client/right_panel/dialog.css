@@ -19,7 +19,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    height:70vh;
+    height:40vh;
     overflow: hidden;
 }
 
@@ -67,7 +67,7 @@
 	border: 1px solid rgba(120, 200, 255, 1.0);
     background-color: rgba(0,0,0,0.7);
     bottom: 0;
-    width: 30vw;
+    width: 100vw;
     font-size: 1em;
     color: #78C8FF;
     background: black;
