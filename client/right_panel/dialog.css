@@ -5,8 +5,14 @@
 	position: absolute;
 	width: 100%;
 	height: 90vh;
+	height: calc(var(--vh, 1vh) * 90);
 	/* background-color: #262626; */
 	background-color: rgb(46, 55, 60);
+
+
+	display: flex;
+	flex-direction: column;
+
 
 }
 
@@ -21,8 +27,11 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    height:40vh;
+    /* height:40vh; */
+	/* height: calc(var(--vh, 1vh) * 40); */
     overflow: hidden;
+
+	flex:auto;
 }
 
 .messenger ul li{
@@ -60,8 +69,13 @@
 }
 
 .answers{
-    position:absolute;
-    bottom:0;
+    /* position:absolute;
+    bottom:0; */
+
+	height: 14vh;
+	height: calc(var(--vh, 1vh) * 14);
+	display: flex;
+	flex-direction: column;
 }
 
 .answers button{
@@ -73,4 +87,6 @@
     font-size: 1em;
     color: #78C8FF;
     background: black;
+
+	height: 100%;
 }

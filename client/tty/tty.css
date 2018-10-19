@@ -1,5 +1,6 @@
 #js_tty {
 	height:100vh;
+	height: calc(var(--vh, 1vh) * 100);
 	width: 100vw;
 	color: #78C8FF;
 	background:#000000;
