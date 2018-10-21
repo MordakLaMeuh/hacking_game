@@ -361,26 +361,6 @@ var TTY = function() {
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
 
-<<<<<<< HEAD
-	// var right_panel = document.getElementById("right_panel");
-	// var tabcontent = document.getElementsByClassName("tabcontent");
-	//
-	// if( navigator.userAgent.match(/Android/i)
-	// || navigator.userAgent.match(/webOS/i)
-	// || navigator.userAgent.match(/iPhone/i)
-	// || navigator.userAgent.match(/iPad/i)
-	// || navigator.userAgent.match(/iPod/i)
-	// || navigator.userAgent.match(/BlackBerry/i)
-	// || navigator.userAgent.match(/Windows Phone/i))
-	// {
-	// 	js_tty.addEventListener("mousedown", function(){
-	// 		right_panel.style.height = "10vh";
-	// 		for (var i = 0; i < tabcontent.length; i++) {
-	// 			tabcontent[i].style.display = "none";
-	// 		}
-	// 	});
-	// }
-=======
 
 	var __tty = document.querySelector("#js_tty");
 	var input = document.createElement("input");
@@ -390,7 +370,7 @@ var TTY = function() {
 	input.style.border = 0;
 	input.style.color = "#ffffff";
 	__tty.appendChild(input);
-	
+
 	document.body.onclick = function()
 	{
 		input.focus();
@@ -410,7 +390,7 @@ var TTY = function() {
 	{
 		var len_diff = this.value.length - old_len;
 		old_len = this.value.length;
-		
+
 		if (len_diff > 0)
 		{
 			var c = this.value[this.value.length - 1];
@@ -421,5 +401,4 @@ var TTY = function() {
 			updateCharString("Backspace");
 		}
 	}
->>>>>>> feature/virtual-keyboard
 }
