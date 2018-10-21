@@ -380,11 +380,14 @@ var TTY = function() {
 		input.style.width = 0;
 		input.style.border = 0;
 		input.style.color = "#ffffff";
+		input.spellcheck="false";
+		input.autocapitalize="none";
 		__tty.appendChild(input);
 
-		document.body.onclick = function()
+		__tty.onclick = function()
 		{
 			input.focus();
+
 		}
 
 		var old_len = 0;
