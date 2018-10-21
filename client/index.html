@@ -78,15 +78,23 @@
 		                                  supported by Chrome and Opera */
 		}
 	</style>
-	<link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
+	<!-- <link rel='stylesheet' href='tty/tty.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/right_panel.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/dialog.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/browser.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='right_panel/diary.css' type='text/css' media='all'>
-	<link rel='stylesheet' href='right_panel/mail.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='right_panel/mail.css' type='text/css' media='all'> -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<script type="text/javascript">
+	{
+		var link = document.createElement( "link" );
+		var link2 = document.createElement( "link" );
+		var link3 = document.createElement( "link" );
+		var link4 = document.createElement( "link" );
+		var link5 = document.createElement( "link" );
+		var link6 = document.createElement( "link" );
+
 		if( navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
 		|| navigator.userAgent.match(/iPhone/i)
@@ -95,23 +103,55 @@
 		|| navigator.userAgent.match(/BlackBerry/i)
 		|| navigator.userAgent.match(/Windows Phone/i))
 		{
-			var link = document.createElement( "link" );
-			var link2 = document.createElement( "link" );
-			var link3 = document.createElement( "link" );
-			var link4 = document.createElement( "link" );
-
-			link.href = "right_panel_mobile.css";
-			link2.href = "right_panel_mobile.css";
-			link3.href = "right_panel_mobile.css";
-			link4.href = "right_panel_mobile.css";
-
-			link.rel = "stylesheet";
-			link2.rel = "stylesheet";
-			link3.rel = "stylesheet";
-			link4.rel = "stylesheet";
-
-			document.getElementsByTagName( "head" )[0].appendChild( link );
+			console.log("Mobile");
+			link.href = "right_panel/right_panel_mobile.css";
+			link2.href = "right_panel/dialog_mobile.css";
+			link3.href = "right_panel/browser_mobile.css";
+			link4.href = "right_panel/diary_mobile.css";
+			link5.href = "right_panel/mail_mobile.css";
+			link6.href = "tty/tty_mobile.css";
 		}
+		else
+		{
+			console.log("BROWSER");
+
+			link.href = "right_panel/right_panel.css";
+			link2.href = "right_panel/dialog.css";
+			link3.href = "right_panel/browser.css";
+			link4.href = "right_panel/diary.css";
+			link5.href = "right_panel/mail.css";
+			link6.href = "tty/tty.css";
+
+		}
+		link.rel = "stylesheet";
+		link2.rel = "stylesheet";
+		link3.rel = "stylesheet";
+		link4.rel = "stylesheet";
+		link5.rel = "stylesheet";
+		link6.rel = "stylesheet";
+
+		link.media = "all";
+		link2.media = "all";
+		link3.media = "all";
+		link4.media = "all";
+		link5.media = "all";
+		link6.media = "all";
+
+		link.type = "text/css";
+		link2.type = "text/css";
+		link3.type = "text/css";
+		link4.type = "text/css";
+		link5.type = "text/css";
+		link6.type = "text/css";
+
+		var head = document.getElementsByTagName( "head" );
+		head[0].appendChild( link );
+		head[0].appendChild( link2 );
+		head[0].appendChild( link3 );
+		head[0].appendChild( link4 );
+		head[0].appendChild( link5 );
+		head[0].appendChild( link6 );
+	}
 	</script>
 </head>
 
@@ -221,8 +261,8 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
 
 <script>
-var socket  = new WebSocket('ws://192.168.43.29:8081');
 // var socket  = new WebSocket('ws://192.168.43.29:8081');
+var socket  = new WebSocket('ws://192.168.1.7:8081');
 
 // var socket  = new WebSocket('ws://localhost:8081');
 

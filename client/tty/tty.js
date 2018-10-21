@@ -362,43 +362,53 @@ var TTY = function() {
 	document.body.appendChild(cursor);
 
 
-	var __tty = document.querySelector("#js_tty");
-	var input = document.createElement("input");
-	input.setAttribute("type", "text");
-	input.style.height = 0;
-	input.style.width = 0;
-	input.style.border = 0;
-	input.style.color = "#ffffff";
-	__tty.appendChild(input);
-
-	document.body.onclick = function()
+	if( !navigator.userAgent.match(/Android/i)
+	|| navigator.userAgent.match(/webOS/i)
+	|| navigator.userAgent.match(/iPhone/i)
+	|| navigator.userAgent.match(/iPad/i)
+	|| navigator.userAgent.match(/iPod/i)
+	|| navigator.userAgent.match(/BlackBerry/i)
+	|| navigator.userAgent.match(/Windows Phone/i))
 	{
-		input.focus();
-	}
 
-	var old_len = 0;
+		var __tty = document.querySelector("#js_tty");
+		var input = document.createElement("input");
+		input.setAttribute("type", "text");
+		input.style.height = 0;
+		input.style.width = 0;
+		input.style.border = 0;
+		input.style.color = "#ffffff";
+		__tty.appendChild(input);
 
-	input.onkeyup = function(e)
-	{
-		if (e.key == "Enter")
+		document.body.onclick = function()
 		{
-			updateCharString("Enter");
+			input.focus();
 		}
-	}
 
-	input.oninput = function(e)
-	{
-		var len_diff = this.value.length - old_len;
-		old_len = this.value.length;
+		var old_len = 0;
 
-		if (len_diff > 0)
+		input.onkeyup = function(e)
 		{
-			var c = this.value[this.value.length - 1];
-			updateCharString(c);
+			if (e.key == "Enter")
+			{
+				updateCharString("Enter");
+			}
 		}
-		else if (len_diff < 0)
+
+		input.oninput = function(e)
 		{
-			updateCharString("Backspace");
+			var len_diff = this.value.length - old_len;
+			old_len = this.value.length;
+
+			if (len_diff > 0)
+			{
+				var c = this.value[this.value.length - 1];
+				updateCharString(c);
+			}
+			else if (len_diff < 0)
+			{
+				updateCharString("Backspace");
+			}
 		}
 	}
 }
