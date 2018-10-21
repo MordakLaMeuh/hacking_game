@@ -115,6 +115,7 @@ var TTY = function() {
 	//document.addEventListener('keydown', (event) => {
 	function updateCharString(key)
 	{
+		console.log("key = " + key);
 		if (block_key == true)
 			return;
 
@@ -362,7 +363,7 @@ var TTY = function() {
 	document.body.appendChild(cursor);
 
 
-	if( !navigator.userAgent.match(/Android/i)
+	if( navigator.userAgent.match(/Android/i)
 	|| navigator.userAgent.match(/webOS/i)
 	|| navigator.userAgent.match(/iPhone/i)
 	|| navigator.userAgent.match(/iPad/i)
@@ -371,6 +372,7 @@ var TTY = function() {
 	|| navigator.userAgent.match(/Windows Phone/i))
 	{
 
+		console.log("MOB");
 		var __tty = document.querySelector("#js_tty");
 		var input = document.createElement("input");
 		input.setAttribute("type", "text");
@@ -410,5 +412,13 @@ var TTY = function() {
 				updateCharString("Backspace");
 			}
 		}
+	}
+	else {
+		console.log("PC");
+
+		document.addEventListener("keydown", function(e)
+		{
+			updateCharString(e.key);
+		});
 	}
 }
