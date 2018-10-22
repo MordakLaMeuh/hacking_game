@@ -113,8 +113,6 @@ var RIGHT_PANEL = function() {
 			if (window.innerHeight < originalHeight)
 			{
 				tty.style.height =  "calc(var(--vh, 1vh) * 100)";
-				tty.scrollTop += 40000;
-
 			}
 			else
 			{
