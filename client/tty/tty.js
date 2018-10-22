@@ -1,7 +1,6 @@
 'use strict';
 
 var TTY = function() {
-
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
@@ -81,7 +80,8 @@ var TTY = function() {
 		else
 			inputDiv.innerHTML = inputString;
 
-		tty.appendChild(inputDiv);
+		// tty.appendChild(inputDiv);
+		tty.insertBefore(inputDiv, tty.lastChild);
 
 		tty.scrollTop += 10000;
 		putCursor(visibleCursorPosition);
@@ -90,7 +90,8 @@ var TTY = function() {
 	var createDiv = function (content) {
 		var outputDiv = document.createElement('div');
 		outputDiv.innerHTML = content;
-		tty.appendChild(outputDiv);
+		// tty.appendChild(outputDiv);
+		tty.insertBefore(outputDiv, tty.lastChild);
 
 		tty.scrollTop += 10000;
 	}
@@ -101,7 +102,8 @@ var TTY = function() {
 			inputDiv.innerHTML = inputString + optionalStr;
 		else
 			inputDiv.innerHTML = inputString;
-		tty.appendChild(inputDiv);
+		// tty.appendChild(inputDiv);
+		tty.insertBefore(inputDiv, tty.lastChild);
 
 		tty.scrollTop += 10000;
 	}
@@ -347,7 +349,7 @@ var TTY = function() {
 		}
 	}
 
-	createDiv("Enter login root and password root<br><br>");
+
 
 	/*
 	 * Calculate from font-size 20px.
@@ -358,6 +360,9 @@ var TTY = function() {
 
 	historyIdx = 0;
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
+
+	createDiv("Enter login root and password root<br><br>");
+	
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
 
