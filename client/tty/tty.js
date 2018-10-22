@@ -377,7 +377,7 @@ var TTY = function() {
 		input.setAttribute("type", "text");
 		input.id = "tty_input";
 		input.style.height = 0;
-		input.style.width = 0;
+		input.style.width = 1;
 		input.style.border = 0;
 		input.style.color = "#ffffff";
 		input.autocapitalize = "none";
@@ -405,8 +405,6 @@ var TTY = function() {
 			var len_diff = this.value.length - old_len;
 			old_len = this.value.length;
 
-			console.log(this.value.length);
-			console.log(this.value);
 			if (len_diff > 0)
 			{
 				var c = this.value[this.value.length - 1];
