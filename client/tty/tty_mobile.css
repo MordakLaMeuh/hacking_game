@@ -5,7 +5,7 @@
 	color: #78C8FF;
 	background:#000000;
 	font-family: monospace;
-	overflow:hidden;
+	overflow: scroll;
 	font-size: 20px;
 	word-wrap:break-word;
 }

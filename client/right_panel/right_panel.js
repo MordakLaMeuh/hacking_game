@@ -112,7 +112,8 @@ var RIGHT_PANEL = function() {
 		{
 			if (window.innerHeight < originalHeight)
 			{
-				tty.style.height =  "calc(var(--vh, 1vh) * 40)";
+				var newHeight = Math.trunc(window.innerHeight * 100 / originalHeight) - 3;
+				tty.style.height =  "calc(var(--vh, 1vh) * " + newHeight + ")";
 			}
 			else
 			{
