@@ -171,7 +171,6 @@ var TTY = function() {
 
 					visibleCursorPosition -= 1;
 					visibleStringLen -= 1;
-
 					inputString = removeCharacters(inputString, cursorPosition, len);
 
 					if ((visibleStringLen % NBLETTERPERLINE == 0) &&
@@ -376,18 +375,19 @@ var TTY = function() {
 		var __tty = document.querySelector("#js_tty");
 		var input = document.createElement("input");
 		input.setAttribute("type", "text");
+		input.id = "tty_input";
 		input.style.height = 0;
 		input.style.width = 0;
 		input.style.border = 0;
 		input.style.color = "#ffffff";
-		input.spellcheck="false";
-		input.autocapitalize="none";
+		input.autocapitalize = "none";
+		// input.spellcheck = "false";
 		__tty.appendChild(input);
 
 		__tty.onclick = function()
 		{
 			input.focus();
-
+			input.setSelectionRange(input.value.length, input.value.length);
 		}
 
 		var old_len = 0;
@@ -405,6 +405,8 @@ var TTY = function() {
 			var len_diff = this.value.length - old_len;
 			old_len = this.value.length;
 
+			console.log(this.value.length);
+			console.log(this.value);
 			if (len_diff > 0)
 			{
 				var c = this.value[this.value.length - 1];

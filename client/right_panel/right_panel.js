@@ -1,8 +1,9 @@
 'use strict';
 
 var RIGHT_PANEL = function() {
+	var originalHeight = window.innerHeight;
 	var right_panel = document.getElementById("right_panel");
-
+	var tty = document.getElementById("js_tty");
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
 	var social = document.getElementById("phone");
@@ -101,6 +102,27 @@ var RIGHT_PANEL = function() {
 
 	this.resizeCircles = function()
 	{
+		if( navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i))
+		{
+			if (window.innerHeight < originalHeight)
+			{
+				tty.style.height =  "calc(var(--vh, 1vh) * 100)";
+				tty.scrollTop += 40000;
+
+			}
+			else
+			{
+				tty.style.height = "100vh";
+				document.getElementById("tty_input").blur();
+			}
+
+		}
 		for (var i = 0; i < tabUl.children.length; i++) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
