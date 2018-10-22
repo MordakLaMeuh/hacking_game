@@ -40,7 +40,7 @@ ws.on('connection', function (client, req)
 	var ssh_request = false;
 	var ssh_active = false;
 
-	var files = termfunc.createFileSystem("generateVFS.csv");
+	var files = termfunc.createFileSystem("tutoVFS.csv");
 	if (files === undefined) {
 		send(client, JSON.stringify({"error": "Internal server error"}));
 		client.close();
@@ -58,7 +58,7 @@ ws.on('connection', function (client, req)
 	var curDir = root;
 	var originCurDir; // for ssh
 
-	var lvlData = lvlValidation.getLvlData("./levels.json");
+	var lvlData = lvlValidation.getLvlData("./tuto.json");
 	if (lvlData === undefined) {
 		send(client, JSON.stringify({"error": "critical Internal server error"}));
 		client.close();
@@ -151,7 +151,7 @@ ws.on('connection', function (client, req)
 
 		if (ssh_request == true) {
 			ssh_request = false;
-			if (json_msg.login == "molang" && json_msg.password == "molang") {
+			if (json_msg.login == "zero" && json_msg.password == "12122000") {
 				root = termfunc.getFile(filesSSH, "/");
 				originCurDir = curDir;
 				curDir = root;
@@ -159,8 +159,8 @@ ws.on('connection', function (client, req)
 				var obj = new Object();
 				obj.string = "SSH Connexion successful.";
 				obj.directory = "/";
-				obj.login = "molang";
-				obj.server = "molang";
+				obj.login = "zero";
+				obj.server = "12122000";
 				send(client, JSON.stringify({
 					"tty": obj
 				}));

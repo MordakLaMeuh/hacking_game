@@ -1,0 +1,206 @@
+[
+	{
+		"winningCondition":
+		[
+			""
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+			{
+				"name": "root",
+				"password": "root",
+				"mail":
+				[
+					{
+						"sender": "0",
+						"from_to": "Admin 42",
+						"title": "Welcome",
+						"text": "Welcome to 42 ! We hope you'll enjoy staying with us."
+					},
+					{
+						"sender": "0",
+						"from_to": "Netflux",
+						"title": "Come back",
+						"text": "Come back now and get a -30% discount !"
+					},
+					{
+						"sender": "0",
+						"from_to": "Zero",
+						"title": "Birthday Party",
+						"text": "You're invited to my 18th b-day party, Monday 12th of December at MY PLACE !<br/> I hope you'll be able make it ! <br/>PARTY ON ✿♥‿♥✿ "
+					},
+					{
+						"sender": "0",
+						"from_to": "Mom",
+						"title": "Need help",
+						"text": "Sweetheart, when are you coming home ? <br/>I need your help to fix my computer. <br/>Call me.<br/>Mom"
+					}
+				]
+			},
+			{
+				"name": "Admin",
+				"exchange":
+				[
+					{
+						"q":"Hey, it's been a long time. I changed your computer login and password to 'root'. Try to log in terminal.",
+						"r":["Got it", "What next ?"],
+						"i":["1", "1"]
+					},
+					{
+						"q":"Once you're done, contact Zero, I heard she wants to talk to you.",
+						"r": ["Okay, thank you"],
+						"i":["2", "2"],
+						"s": ["Credentials", "You can get access to your computer using root/root."],
+						"w": "1"
+					},
+					{
+						"q":"Good luck.",
+						"r":[]
+					}
+				]
+			}
+		]
+	},
+	{
+		"winningCondition":
+		[
+			"help"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+			{
+				"name": "Zero",
+				"exchange": [
+					{
+						"q": "Helloooo (￣▼￣) !!",
+						"r": [
+							"What's up ?",
+							"Who are you ?"
+						],
+						"i": ["1", "2"]
+					},
+					{
+						"q": "Got something to ask you... (〃ー〃)",
+						"r": [
+							"What is it ?"
+						],
+						"i": ["3"]
+					},
+					{
+						"q": "Haha, good one. Like you'd forget your best friend ! (/ω＼)",
+						"r": [
+							"You want to talk to me ?",
+							"Is something wrong ?"],
+						"i": ["1", "1"]
+					},
+					{
+						"q": "I'm gonna give you a secret mission. I left a file just for you in your computer. Just open it.",
+						"r": [
+							"How ?"
+						],
+						"i": ["4"]
+					},
+					{
+						"q": "Eaaasy ! Use 'help' in the terminal to see the available commands. Byyyye ! (⌒.－)＝★",
+						"r": []
+					}
+				],
+				"password": "12122000",
+				"mail": [
+					{
+						"sender": "1",
+						"from_to": "Macaron",
+						"title": "Hello",
+						"text": "How are you Macaron ?"
+					}
+				]
+			}
+		]
+	},
+	{
+		"winningCondition":
+		[
+			"ls"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+		]
+	},
+	{
+		"winningCondition":
+		[
+			"cat mission.txt",
+			"/Missions"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[]
+	},
+	{
+		"winningCondition":
+		[
+			"cat .hidden.txt",
+			"/.Secret"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[]
+	}
+]
