@@ -1,23 +1,43 @@
 [
 	{
-		"winningCondition":
-		[
+		"winningCondition": [
 			""
 		],
-		"cmdList":
-		[
-			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
-			["ls", "ls : list all files on the current folder"],
-			["pwd", "pwd : print name of current directory"],
-			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
-			["roll"],
-			["help"],
-			["ssh"],
-			["exit"]
+		"cmdList": [
+			[
+				"cat",
+				"cat filename : display content of file"
+			],
+			[
+				"cd",
+				"cd directory : change directory"
+			],
+			[
+				"ls",
+				"ls : list all files on the current folder"
+			],
+			[
+				"pwd",
+				"pwd : print name of current directory"
+			],
+			[
+				"rot",
+				"rot : replaces all letters of a string with the Xth letter after it"
+			],
+			[
+				"roll"
+			],
+			[
+				"help"
+			],
+			[
+				"ssh"
+			],
+			[
+				"exit"
+			]
 		],
-		"social":
-		[
+		"social": [
 			{
 				"name": "root",
 				"password": "root",
@@ -40,45 +60,44 @@
 						"from_to": "Zero",
 						"title": "Birthday Party",
 						"text": "You're invited to my 18th b-day party, Monday 12th of December at MY PLACE !<br/> I hope you'll be able make it ! <br/>PARTY ON ✿♥‿♥✿ "
-					}
-				]
-			},
-
-			{
+					},
+					{
 						"sender": "0",
 						"from_to": "Mom",
 						"title": "Need help",
 						"text": "Sweetheart, when are you coming home ? <br/>I need your help to fix my computer. <br/>Call me.<br/>Mom"
+					}
+				]
+			},
+			{
+				"name": "vyoung@big.com",
+				"password": "laddie",
+				"mail":
+				[
+					{
+						"sender": "0",
+						"from_to": "Kurt Oliveira",
+						"title": "Holidays",
+						"text": "Victor, <br/>As I told you before, I am leaving for a two weeks seminar in Boston.<br/> I leave you in charge, so you are responsible for the server status during the day.<br/> Nigel will monitor it at night. <br/> Do NOT contact me unless it is very important.<br/>Regards."
 					},
 					{
-						"name": "vyoung@big.com",
-						"password": "laddie",
-						"mail":
-						[
-							{
-								"sender": "0",
-								"from_to": "Kurt Oliveira",
-								"title": "Holidays",
-								"text": "Victor, <br/>As I told you before, I am leaving for a two weeks seminar in Boston.<br/> I leave you in charge, so you are responsible for the server status during the day.<br/> Nigel will monitor it at night. <br/> Do NOT contact me unless it is very important.<br/>Regards."
-							},
-							{
-								"sender": "1",
-								"from_to": "Nigel Blackwood",
-								"title": "More work",
-								"text": "I head you'll be in charge of the server at night. Good luck with that !<br/> I hate it when the boss leaves..."
-							},
-							{
-								"sender": "1",
-								"from_to": "Sarah Jones",
-								"title": "Walk",
-								"text": "Hello Sarah, I was thinking, since you also have a dog, we should walk them together, what do you think ?<br/> How about thursday ?<br/> Laddie would be thrilled to meet your little Buddy. Let me know,<br/>Victor"
-							},
-							{
-								"sender": "0",
-								"from_to": "Building Managment",
-								"title": "Power Outage",
-								"text": "There will be a power outage next week at 3 A.M in the east wing (building J).<br/>"
-							}
+						"sender": "1",
+						"from_to": "Nigel Blackwood",
+						"title": "More work",
+						"text": "I head you'll be in charge of the server at night. Good luck with that !<br/> I hate it when the boss leaves..."
+					},
+					{
+						"sender": "1",
+						"from_to": "Sarah Jones",
+						"title": "Walk",
+						"text": "Hello Sarah, I was thinking, since you also have a dog, we should walk them together, what do you think ?<br/> How about thursday ?<br/> Laddie would be thrilled to meet your little Buddy. Let me know,<br/>Victor"
+					},
+					{
+						"sender": "0",
+						"from_to": "Building Managment",
+						"title": "Power Outage",
+						"text": "There will be a power outage next week at 3 A.M in the east wing (building J).<br/>"
+					}
 				]
 			},
 			{
@@ -233,6 +252,9 @@
 			["exit"]
 		],
 		"social":
-		[]
+		[
+		]
 	}
-]
+	]
+
+

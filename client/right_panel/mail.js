@@ -222,6 +222,8 @@ var MAIL = function()
 		obj.name = document.getElementById("loginInput").value;;
 		obj.password = document.getElementById("passwordInput").value;;
 		socket.send(JSON.stringify({"mail": obj}));
+		console.log(obj.name);
+		console.log(obj.password);
 		console.log("On envoie");
 	}
 

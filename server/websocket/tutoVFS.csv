@@ -3,9 +3,11 @@
 Missions,/,true,null
 Programs,/,true,null
 Other,/,true,null
-readme.txt,/,false,Thanks for reading me I was feeling lonely
+readme.txt,/,false,Ceci est le readme
 .hidden.txt,/,false,Ceci est un fichier cache
-mission.txt,Missions,false,Heyyyy ! Your mission is to connect to my computer via ssh, I left something for you there. My login is zero and my password... well I let you guess but I can tell you it's something meaningful to me
+mission.txt,Missions,false,Heyyyy ! Your mission is to connect to my computer via ssh - I left something for you there. My login is zero and my password... well I let you guess but I can tell you it's something meaningful to me
 mission2.txt,Missions,false,Your mission is to find the hidden file
-other.txt,Other,false,Just a random file
+other.txt,Other,false,blabla
+bigFoot,Other,true,null
+bigFoot.txt,bigFoot,false,Ceci est un gros fichier
 rot,Programs,false,Cannot open rot. Try using rot.
