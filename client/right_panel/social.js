@@ -175,8 +175,9 @@ var SOCIAL = function(notif_button_cb) {
 				 * Create a new img
 				 */
 				var img = document.createElement('img');
-				img.src = "/medias/macaron.jpg";
+				img.src = "/medias/contact.svg";
 				img.alt = "contact_picture";
+				img.style.backgroundColor = "#57D1FA";
 
 				/*
 				 * Create a new contact_name div

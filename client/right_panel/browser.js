@@ -9,9 +9,9 @@ var BROWSER = function(tty_key_cb) {
 
 	/* Create key-value pairs with the url and matching img */
 	var dict = new Object();
-	dict["www.molang.com"] = "medias/macaron.jpg";
+	dict["www.fakebook.com/vyoung"] = "medias/victor.jpeg";
 	dict["www.ours.com"] = "medias/ours.png";
-	dict["www.phone.com"] = "medias/macaron.jpg";
+	dict["www.molang.com"] = "medias/macaron.jpg";
 
 	go_btn.addEventListener("mousedown", function () {
 		let input_url = form.value;

@@ -103,10 +103,15 @@ ws.on('connection', function (client, req)
 				winningCondition = lvlData[curLvl].winningCondition;
 				console.log("NEW LEVEL LOADED");
 				send(client, JSON.stringify({
-					"diary": ["Congratulations, you win !", "you reach level " + (curLvl + 1) + " now."],
+					"diary": ["Congratulations", "you reach level " + (curLvl + 1) + " now."],
 					"socialContacts": social.addEntries(lvlData[curLvl].social)}));
 			} else {
 				console.log("GAME FINISHED !");
+				// var obj = new Object();
+				// obj.string = "Congratulations, you win !";
+				// send(client, JSON.stringify({"tty": obj}));
+				send(client, JSON.stringify({
+					"diary": ["Congratulations", "you win. The End...?"]}));
 			}
 			return ;
 		}

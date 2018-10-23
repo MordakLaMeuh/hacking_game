@@ -1,0 +1,69 @@
+[
+	{
+		"winningCondition":
+		[
+			"help"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder"],
+			["pwd", "pwd : print name of current directory"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+			{
+				"name": "Banana",
+				"exchange": [
+					{
+						"q": "Helloooo (￣▼￣) !!",
+						"r": [
+							"What's up ?",
+							"Who are you ?"
+						],
+						"i": ["1", "2"]
+					},
+					{
+						"q": "Got something to ask you... (〃ー〃)",
+						"r": [
+							"What is it ?"
+						],
+						"i": ["3"]
+					},
+					{
+						"q": "Haha, good one. Like you'd forget your best friend ! (/ω＼)",
+						"r": [
+							"You want to talk to me ?",
+							"Is something wrong ?"],
+						"i": ["1", "1"]
+					},
+					{
+						"q": "I'm gonna give you a secret mission. I left a file just for you in your computer. Just open it.",
+						"r": [
+							"How ?"
+						],
+						"i": ["4"]
+					},
+					{
+						"q": "Eaaasy ! Use 'help' in the terminal to see the available commands. Byyyye ! (⌒.－)＝★",
+						"r": []
+					}
+				],
+				"password": "12122000",
+				"mail": [
+					{
+						"sender": "1",
+						"from_to": "Macaron",
+						"title": "Hello",
+						"text": "How are you Macaron ?"
+					}
+				]
+			}
+		]
+	}
+]
