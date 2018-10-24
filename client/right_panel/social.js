@@ -140,8 +140,7 @@ var SOCIAL = function(notif_button_cb) {
 	 */
 	this.displayContacts = function(contactsArray)
 	{
-		for (var i = 0; i < contactsArray.length; i++)
-		{
+		for (var i = 0; i < contactsArray.length; i++) {
 			(function () {
 				/*
 				 * Create a new contact div
