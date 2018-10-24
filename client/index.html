@@ -258,12 +258,10 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script src="right_panel/browser.js"></script>
 <script src="right_panel/mail.js"></script>
 
-
-
 <script>
 var socket  = new WebSocket('ws://localhost:8081');
-var right_panel = new RIGHT_PANEL();
 var tty = new TTY();
+var right_panel = new RIGHT_PANEL(tty.displayCursor);
 var social = new SOCIAL(right_panel.notif_button_cb);
 var diary = new DIARY(right_panel.notif_button_cb);
 var browser = new BROWSER(tty.key_cb);

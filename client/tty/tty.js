@@ -384,6 +384,10 @@ var TTY = function() {
 	cursor.id = "cursor"
 	cursor.style.height = CHAR_HEIGHT + "px";
 
+	this.displayCursor = function(actif) {
+			cursor.style.display = (actif == true) ? "block" : "none";
+	}
+
 	historyIdx = 0;
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
 	cursor.getContext('2d');

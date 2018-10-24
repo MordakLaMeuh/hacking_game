@@ -1,6 +1,6 @@
 'use strict';
 
-var RIGHT_PANEL = function() {
+var RIGHT_PANEL = function(displayCursor_cb) {
 	var originalHeight = window.innerHeight;
 	var right_panel = document.getElementById("right_panel");
 	var tty = document.getElementById("js_tty");
@@ -130,11 +130,16 @@ var RIGHT_PANEL = function() {
 	|| navigator.userAgent.match(/BlackBerry/i)
 	|| navigator.userAgent.match(/Windows Phone/i)) {
 		tabUl.addEventListener("mousedown", function(event){
-			if (tabUl !== event.target)
+			if (tabUl !== event.target) {
+				console.log("On right panel");
+				displayCursor_cb(false);
 				return;
+			}
 			right_panel.style.height = "10vh";
 			var tabcontent = document.getElementsByClassName("tabcontent");
 			for (var i = 0; i < tabcontent.length; i++) {
+				console.log("back to TTY");
+				displayCursor_cb(true);
 				tabcontent[i].style.display = "none";
 			}
 		});
