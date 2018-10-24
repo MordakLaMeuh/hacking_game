@@ -2,6 +2,20 @@
 
 var TTY = function() {
 
+	var isMobile = function() {
+		if (navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
@@ -93,7 +107,11 @@ var TTY = function() {
 		else
 			inputDiv.innerHTML = inputString;
 
-		tty.appendChild(inputDiv);
+		if (isMobile() == true) {
+			tty.insertBefore(inputDiv, tty.lastChild);
+		} else {
+			tty.appendChild(inputDiv);
+		}
 
 		tty.scrollTop += 10000;
 		putCursor(visibleCursorPosition);
@@ -102,7 +120,12 @@ var TTY = function() {
 	var createDiv = function (content) {
 		var outputDiv = document.createElement('div');
 		outputDiv.innerHTML = content;
-		tty.appendChild(outputDiv);
+
+		if (isMobile() == true) {
+			tty.insertBefore(outputDiv, tty.lastChild);
+		} else {
+			tty.appendChild(outputDiv);
+		}
 
 		tty.scrollTop += 10000;
 	}
@@ -113,7 +136,12 @@ var TTY = function() {
 			inputDiv.innerHTML = inputString + optionalStr;
 		else
 			inputDiv.innerHTML = inputString;
-		tty.appendChild(inputDiv);
+
+		if (isMobile() == true) {
+			tty.insertBefore(inputDiv, tty.lastChild);
+		} else {
+			tty.appendChild(inputDiv);
+		}
 
 		tty.scrollTop += 10000;
 	}
@@ -124,24 +152,9 @@ var TTY = function() {
 		return part1 + part2;
 	}
 
-	document.addEventListener('keydown', (event) => {
+	function updateCharString(key) {
 		if (block_key == true)
 			return;
-
-		var key = event.key;
-
-		/*
-		 * Prevent the quick search feature on Firefox triggered by /
-		 */
-		if (key == "/") {
-			event.stopPropagation();
-			event.preventDefault();
-		}
-
-		if (key == "Backspace") {
-			event.stopPropagation();
-			event.preventDefault();
-		}
 
 		if (key.length == 1) {
 			var part1 = inputString.substring(0, cursorPosition);
@@ -260,7 +273,7 @@ var TTY = function() {
 		}
 
 		console.log("key: " + key + " position: " + cursorPosition + " realLen: " + visibleStringLen);
-	});
+	};
 
 	socket.onerror = function () {
 		createDiv("Aucune réponse du serveur...");
@@ -375,4 +388,65 @@ var TTY = function() {
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
+
+	if(isMobile() == true) {
+		console.log("Mobile TTY");
+		var __tty = document.querySelector("#js_tty");
+		var input = document.createElement("input");
+		input.setAttribute("type", "text");
+		input.id = "tty_input";
+		input.style.height = 0;
+		input.style.width = 1;
+		input.style.border = 0;
+		input.style.color = "#ffffff";
+		input.autocapitalize = "none";
+		// input.spellcheck = "false";
+		__tty.appendChild(input);
+
+		__tty.onclick = function() {
+			input.focus();
+			input.setSelectionRange(input.value.length, input.value.length);
+		}
+
+		var old_len = 0;
+
+		input.onkeyup = function(e) {
+			if (e.key == "Enter") {
+				updateCharString("Enter");
+			}
+		}
+
+		input.oninput = function(e) {
+			var len_diff = this.value.length - old_len;
+			old_len = this.value.length;
+
+			if (len_diff > 0) {
+				var c = this.value[this.value.length - 1];
+				updateCharString(c);
+			} else if (len_diff < 0) {
+				updateCharString("Backspace");
+			}
+		}
+	} else {
+		console.log("Browser TTY");
+
+		document.addEventListener("keydown", function(event) {
+			let key = event.key;
+
+			/*
+			 * Prevent the quick search feature on Firefox triggered by /
+			 */
+			if (key == "/") {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+
+			if (key == "Backspace") {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+
+			updateCharString(key);
+		});
+	}
 }
