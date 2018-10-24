@@ -1,17 +1,29 @@
 'use strict';
 
 var RIGHT_PANEL = function() {
+	var originalHeight = window.innerHeight;
 	var right_panel = document.getElementById("right_panel");
-
+	var tty = document.getElementById("js_tty");
 	var mail = document.getElementById("mail");
 	var browser = document.getElementById("browser");
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("diary");
 	var tabUl = document.getElementById("tabUl");
+
 	var isLogged = false;
 
 	function changeScreen(button, target) {
 		var i, tabcontent, tablinks;
+
+		if (navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i)) {
+			right_panel.style.height = "100vh";
+		}
 
 		/*
 		 * Get all elements with class="tabcontent" and hide them
@@ -90,8 +102,41 @@ var RIGHT_PANEL = function() {
 
 	this.resizeCircles = function()
 	{
+		if (navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i)) {
+			if (window.innerHeight < originalHeight) {
+				var newHeight = Math.trunc(window.innerHeight * 100 / originalHeight) - 3;
+				tty.style.height =  "calc(var(--vh, 1vh) * " + newHeight + ")";
+			} else {
+				tty.style.height = "100vh";
+				document.getElementById("tty_input").blur();
+			}
+		}
 		for (var i = 0; i < tabUl.children.length; i++) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
 	};
+
+	if (navigator.userAgent.match(/Android/i)
+	|| navigator.userAgent.match(/webOS/i)
+	|| navigator.userAgent.match(/iPhone/i)
+	|| navigator.userAgent.match(/iPad/i)
+	|| navigator.userAgent.match(/iPod/i)
+	|| navigator.userAgent.match(/BlackBerry/i)
+	|| navigator.userAgent.match(/Windows Phone/i)) {
+		tabUl.addEventListener("mousedown", function(event){
+			if (tabUl !== event.target)
+				return;
+			right_panel.style.height = "10vh";
+			var tabcontent = document.getElementsByClassName("tabcontent");
+			for (var i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+		});
+	}
 }
