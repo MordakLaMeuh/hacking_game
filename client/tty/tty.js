@@ -153,9 +153,6 @@ var TTY = function() {
 	}
 
 	function updateCharString(key) {
-		if (block_key == true)
-			return;
-
 		if (key.length == 1) {
 			var part1 = inputString.substring(0, cursorPosition);
 			console.log("part_1: '" + part1 + "'");
@@ -424,11 +421,17 @@ var TTY = function() {
 
 		input.onkeyup = function(e) {
 			if (e.key == "Enter") {
+				if (block_key == true)
+					return;
+
 				updateCharString("Enter");
 			}
 		}
 
 		input.oninput = function(e) {
+			if (block_key == true)
+				return;
+
 			var len_diff = this.value.length - old_len;
 			old_len = this.value.length;
 
@@ -444,6 +447,9 @@ var TTY = function() {
 
 		document.addEventListener("keydown", function(event) {
 			let key = event.key;
+
+			if (block_key == true)
+				return;
 
 			/*
 			 * Prevent the quick search feature on Firefox triggered by /
