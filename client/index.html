@@ -191,7 +191,7 @@ var tty = new TTY();
 var social = new SOCIAL(right_panel.notif_button_cb);
 var diary = new DIARY(right_panel.notif_button_cb);
 var browser = new BROWSER(tty.key_cb);
-var mail = new MAIL();
+var mail = new MAIL(tty.key_cb);
 
 window.onload = right_panel.resizeCircles;
 window.onresize = right_panel.resizeCircles;

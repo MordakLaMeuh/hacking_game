@@ -1,6 +1,6 @@
 'use strict';
 
-var MAIL = function()
+var MAIL = function(tty_key_cb)
 {
 	var self = this;
 	this.mailObj;
@@ -24,6 +24,20 @@ var MAIL = function()
 		backBtn.addEventListener("mousedown", function(){
 			self.displayFolder()});
 	}());
+
+	document.getElementById("loginInput").addEventListener("focus", function() {
+		tty_key_cb(0);
+	}, true);
+	document.getElementById("loginInput").addEventListener("blur", function() {
+		tty_key_cb(1);
+	}, true);
+
+	document.getElementById("passwordInput").addEventListener("focus", function() {
+		tty_key_cb(0);
+	}, true);
+	document.getElementById("passwordInput").addEventListener("blur", function() {
+		tty_key_cb(1);
+	}, true);
 
 	/*
 	 * Display clicked email folder by displaying all the mails of the folder
