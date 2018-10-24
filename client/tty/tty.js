@@ -379,8 +379,9 @@ var TTY = function() {
 	 * DIV width must be multiple of 12
 	 */
 	var cursor = document.createElement('canvas');
-	cursor.id = "cursor"
+	cursor.id = "cursor";
 	cursor.style.height = CHAR_HEIGHT + "px";
+	cursor.style.width = CHAR_WIDTH + "px";
 
 	this.displayCursor = function(actif) {
 			if (actif == true) {
