@@ -45,8 +45,10 @@ var TTY = function() {
 	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
 	if (isChrome) {
 		LETTERSIZE = CHAR_WIDTH;
-		NBLETTERPERLINE -= 1;
 	}
+	NBLETTERPERLINE = Math.trunc(NBLETTERPERLINE);
+
+	console.log("nb letter per line: ", NBLETTERPERLINE);
 
 	/*
 	 * visible len and cursor position, avoid exeption of &nbsp;
