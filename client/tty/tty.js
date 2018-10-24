@@ -374,8 +374,6 @@ var TTY = function() {
 		}
 	}
 
-	createDiv("Enter login root and password root<br><br>");
-
 	/*
 	 * Calculate from font-size 20px.
 	 * DIV width must be multiple of 12
@@ -385,7 +383,12 @@ var TTY = function() {
 	cursor.style.height = CHAR_HEIGHT + "px";
 
 	this.displayCursor = function(actif) {
-			cursor.style.display = (actif == true) ? "block" : "none";
+			if (actif == true) {
+				putCursor(visibleCursorPosition);
+				cursor.style.display = "block";
+			} else {
+				cursor.style.display = "none";
+			}
 	}
 
 	historyIdx = 0;
@@ -411,6 +414,10 @@ var TTY = function() {
 			input.focus();
 			input.setSelectionRange(input.value.length, input.value.length);
 		}
+
+		window.addEventListener("resize", function() {
+			putCursor(visibleCursorPosition);
+		});
 
 		var old_len = 0;
 
