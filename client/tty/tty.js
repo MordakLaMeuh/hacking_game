@@ -5,6 +5,16 @@ var TTY = function() {
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
+	var divTest = document.createElement("div");
+	tty.appendChild(divTest);
+	var innerTest = document.createElement("X");
+	innerTest.innerHTML = "b";
+	divTest.appendChild(innerTest);
+	var CHAR_HEIGHT = divTest.offsetHeight;
+	var CHAR_WIDTH = innerTest.offsetWidth;
+	console.log("height: " + CHAR_HEIGHT + " width: " + CHAR_WIDTH);
+	tty.removeChild(tty.firstChild);
+
 	tty.addEventListener(mousewheelevt, function (e) {
 		var e = window.event || e; // old IE support
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
@@ -31,10 +41,10 @@ var TTY = function() {
 
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
 
-	var LETTERSIZE = 12;
+	var LETTERSIZE = CHAR_WIDTH;
 	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
 	if (isChrome) {
-		LETTERSIZE = 12.04;
+		LETTERSIZE = CHAR_WIDTH;
 		NBLETTERPERLINE -= 1;
 	}
 
@@ -55,7 +65,7 @@ var TTY = function() {
 		var div_width = inputDiv.offsetWidth;
 
 		var x_pixel = position % Math.trunc(div_width / LETTERSIZE) * LETTERSIZE;
-		var y_pixel = Math.trunc(position / Math.trunc(div_width / LETTERSIZE)) * 24;
+		var y_pixel = Math.trunc(position / Math.trunc(div_width / LETTERSIZE)) * CHAR_HEIGHT;
 
 		cursor.style.left = div_origin_x + x_pixel + "px";
 		cursor.style.top = div_origin_y + y_pixel + "px";
@@ -352,6 +362,7 @@ var TTY = function() {
 	 */
 	var cursor = document.createElement('canvas');
 	cursor.id = "cursor"
+	cursor.style.height = CHAR_HEIGHT + "px";
 
 	historyIdx = 0;
 	createNewInputString(server_name + "&nbsp;login:" + space_expr);
