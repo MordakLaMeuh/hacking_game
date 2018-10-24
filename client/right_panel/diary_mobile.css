@@ -1,0 +1,68 @@
+
+#diary{
+	box-sizing: border-box;
+	display: inline-block;
+	font: normal 100 14px/1.2em "Exo 2", Arial, sans-serif;
+	letter-spacing: .06em;
+	background-color: rgba(120, 200, 255, 0.1);
+	border: 1px solid rgba(120, 200, 255, 0.2);
+	color: rgba(120, 200, 255, 0.8);
+	padding: 0 1em 1em;
+	width: 100%;
+	/* height: 100vh; */
+}
+
+#diary .futurepanel_header {
+	box-sizing: border-box;
+	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
+	height: 6vh;
+}
+
+#diary .futurepanel_header .futurepanel_title {
+	box-sizing: border-box;
+	font: normal 100 1.429em/1em "Exo 2", Arial, sans-serif;
+	text-transform: uppercase;
+	padding: .4em 0;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#diary .futurepanel_body {
+	box-sizing: border-box;
+	padding: 1em;
+	overflow: hidden;
+}
+
+#diary .futurepanel_body .heading {
+	font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
+	text-transform: uppercase;
+	padding: 0;
+	margin: 0;
+}
+
+#diary .futurepanel_body h6.heading {
+	font-size: 1em;
+}
+
+#diary .futurepanel_body h5.heading {
+	font-size: 1.143em;
+}
+
+#diary .futurepanel_body h4.heading {
+	font-size: 1.286em;
+}
+
+#diary .futurepanel_body h3.heading {
+	font-size: 1.429em;
+}
+
+#diary .futurepanel_body h2.heading {
+	font-size: 1.714em;
+}
+
+#diary .futurepanel_body h1.heading {
+	font-size: 2em;
+	border-bottom: 1px solid rgba(0, 255, 255, .2);
+}

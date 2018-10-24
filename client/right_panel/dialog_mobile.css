@@ -1,0 +1,92 @@
+
+/* Messenger-like style */
+
+.messenger {
+	position: absolute;
+	width: 100%;
+	height: 90vh;
+	height: calc(var(--vh, 1vh) * 90);
+	/* background-color: #262626; */
+	background-color: rgb(46, 55, 60);
+
+
+	display: flex;
+	flex-direction: column;
+
+
+}
+
+.contact_name {
+    text-align: center;
+    font-size: 1.2em;
+	color: #78C8FF;
+    font-family: Verdana, sans-serif;
+}
+
+.messenger ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* height:40vh; */
+	/* height: calc(var(--vh, 1vh) * 40); */
+    overflow: auto;
+
+	flex:auto;
+}
+
+.messenger ul li{
+    display:inline-block;
+    clear: both;
+    padding: 20px;
+    border-radius: 30px;
+    margin-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.him{
+    background: black;
+    float: left;
+	color: #78C8FF;
+}
+
+.me{
+    float: right;
+    background: #78C8FF;
+    color: black;
+}
+
+.him + .me{
+    border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+    border-bottom-right-radius: 30px;
+}
+
+.answers{
+    /* position:absolute;
+    bottom:0; */
+
+	height: 14vh;
+	height: calc(var(--vh, 1vh) * 14);
+	display: flex;
+	flex-direction: column;
+}
+
+.answers button{
+	border-radius: 1em;
+	border: 1px solid rgba(120, 200, 255, 1.0);
+    background-color: rgba(0,0,0,0.7);
+    bottom: 0;
+    width: 100vw;
+    font-size: 1em;
+    color: #78C8FF;
+    background: black;
+
+	height: 100%;
+}

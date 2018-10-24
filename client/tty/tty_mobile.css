@@ -1,0 +1,26 @@
+#js_tty {
+	height:100vh;
+	height: calc(var(--vh, 1vh) * 100);
+	width: 100vw;
+	color: #78C8FF;
+	background:#000000;
+	font-family: monospace;
+	overflow: scroll;
+	font-size: 20px;
+	word-wrap:break-word;
+}
+#cursor {
+	height: 24px;
+	width: 12px;
+	background: #78C8FF;
+	opacity: 0.6;
+	position: absolute;
+}
+
+.red {
+	color:red;
+}
+
+.yellow {
+	color:yellow;
+}
