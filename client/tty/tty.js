@@ -136,6 +136,11 @@ var TTY = function() {
 			event.preventDefault();
 		}
 
+		if (key == "Backspace") {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+
 		if (key.length == 1) {
 			var part1 = inputString.substring(0, cursorPosition);
 			console.log("part_1: '" + part1 + "'");
