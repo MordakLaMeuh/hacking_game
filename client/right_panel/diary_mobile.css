@@ -16,6 +16,7 @@
 	box-sizing: border-box;
 	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
 	height: 6vh;
+	height: calc(var(--vh, 1vh) * 6);
 }
 
 #diary .futurepanel_header .futurepanel_title {

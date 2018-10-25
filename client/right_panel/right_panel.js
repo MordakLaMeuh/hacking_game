@@ -135,7 +135,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 				displayCursor_cb(false);
 				return;
 			}
-			right_panel.style.height = "10vh";
+			right_panel.style.height = "calc(var(--vh, 1vh) * 10vh";
 			var tabcontent = document.getElementsByClassName("tabcontent");
 			for (var i = 0; i < tabcontent.length; i++) {
 				console.log("back to TTY");
