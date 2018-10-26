@@ -177,9 +177,9 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 			<i></i><i></i><i></i>
 		</div>
 		<div id="mail_header">
-				<input id="backBtn" type="submit" value="Back"/>
+				<input autocomplete="off" id="backBtn" type="submit" value="Back"/>
 				<p id="mailName"></p>
-				<input id="signInBtn" type="submit" value="Sign out"/>
+				<input autocomplete="off" id="signInBtn" type="submit" value="Sign out"/>
 		</div>
 		<div id="mail_body">
 				<ul id="mail_info_bar">
@@ -194,11 +194,11 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 			<p id="errorForm">Invalid login or password</p>
 			<div class="input-container">
 				<i class="material-icons icon">email</i>
-				<input id= "loginInput" class="input-field" type="text" placeholder="Login" spellcheck="false" autocapitalize="none">
+				<input id= "loginInput" class="input-field" type="text" placeholder="Login" spellcheck="false" autocapitalize="none" autocomplete="off">
 			</div>
 			<div class="input-container">
 				<i class="material-icons icon">lock</i>
-				<input id="passwordInput" class="input-field" type="text" placeholder="Password" spellcheck="false" autocapitalize="none">
+				<input id="passwordInput" class="input-field" type="text" placeholder="Password" spellcheck="false" autocapitalize="none" autocomplete="off">
 			</div>
 			<button id="loginBtn" class="btn" type="submit">Login</button>
 		</form>
@@ -209,7 +209,7 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 			<i></i><i></i><i></i>
 		</div>
 		<div class="url-bar">
-		<input id="url" type="text" onfocus="this.value=''" spellcheck="false" autocorrect="off" autocapitalize="none" name="url" value="enter your URL" />
+		<input id="url" type="text" onfocus="this.value=''" spellcheck="false" autocorrect="off" autocapitalize="none" autocomplete="off" name="url" value="enter your URL" />
 			<input id="go_btn" type="submit" value="Go" />
 		</div>
 		<div class="browser-container" id="browser-container">
