@@ -75,8 +75,16 @@ var MAIL = function(tty_key_cb)
 				receiverLi.className = "to";
 				titleLi.className = "title";
 
-				senderLi.innerHTML = mail.content[i].from_to;
-				receiverLi.innerHTML = mail.name;
+				if (mail.content[i].sender == 1)
+				{
+					senderLi.innerHTML = mail.name;
+					receiverLi.innerHTML = mail.content[i].from_to;
+				}
+				else
+				{
+					senderLi.innerHTML = mail.content[i].from_to;
+					receiverLi.innerHTML = mail.name;
+				}
 				titleLi.innerHTML = mail.content[i].title;
 
 				mailUlContainer.appendChild(senderLi);
@@ -156,8 +164,16 @@ var MAIL = function(tty_key_cb)
 		var title = document.createElement("li");
 		var mailContent = document.createElement("p");
 
-		from.innerHTML = "From: " + mail.content[index].from_to;
-		to.innerHTML = "To: " + mail.name;
+		if (mail.content[index].sender == 1)
+		{
+			from.innerHTML = "From: " + mail.name;
+			to.innerHTML = "To: " +  mail.content[index].from_to;
+		}
+		else
+		{
+			from.innerHTML = "From: " + mail.content[index].from_to;
+			to.innerHTML = "To: " + mail.name;
+		}
 		title.innerHTML = mail.content[index].title;
 		mailContent.innerHTML = mail.content[index].text;
 
@@ -224,7 +240,6 @@ var MAIL = function(tty_key_cb)
 		this.displayMailHeaderAndBody(false);
 		this.displayErrorForm(false);
 		this.displayLoginForm(true);
-
 	}
 
 	/*
@@ -253,7 +268,7 @@ var MAIL = function(tty_key_cb)
 			if (mail.name == "root")
 				mailName.innerHTML = "Your Mail";
 			else
-				mailName.innerHTML = mail.name + "\'s Mail";
+				mailName.innerHTML = mail.name;
 
 			this.displayLoginForm(false);
 			this.displayMailHeaderAndBody(true);
