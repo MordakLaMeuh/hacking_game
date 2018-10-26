@@ -142,6 +142,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 			} else {
 				right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
 				console.log("back to TTY");
+				tty.style.height =  "calc(var(--vh, 1vh) * " + (100 - TABBARHEIGHT) + ")";
 				hideContent();
 				active_screen = active_screen_enum.tty;
 				displayCursor_cb(true);
