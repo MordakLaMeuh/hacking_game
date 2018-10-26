@@ -29,11 +29,24 @@ var TTY = function() {
 	console.log("height: " + CHAR_HEIGHT + " width: " + CHAR_WIDTH);
 	tty.removeChild(tty.firstChild);
 
+	/*
+	 * Active mouse scroll on PC
+	 */
 	tty.addEventListener(mousewheelevt, function (e) {
 		var e = window.event || e; // old IE support
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		tty.scrollTop -= delta * 20;
+		putCursor(visibleCursorPosition);
 	}, false);
+
+	/*
+	 * Passive scroll on mobile
+	 */
+	if (isMobile() == true) {
+		tty.addEventListener('scroll', function(e) {
+			putCursor(visibleCursorPosition);
+		}, false);
+	}
 
 	var block_key = false;
 	this.key_cb = function(val)
@@ -85,6 +98,11 @@ var TTY = function() {
 		var div_origin_y = inputDiv.getBoundingClientRect().top;
 		var div_origin_x = inputDiv.offsetLeft;
 		var div_width = inputDiv.offsetWidth;
+
+		/*
+		 * Mitigation with innerHeight
+		 */
+		div_origin_y += tty.scrollHeight - tty.clientHeight - tty.scrollTop;
 
 		var x_pixel = position % Math.trunc(div_width / LETTERSIZE) * LETTERSIZE;
 		var y_pixel = Math.trunc(position / Math.trunc(div_width / LETTERSIZE)) * CHAR_HEIGHT;

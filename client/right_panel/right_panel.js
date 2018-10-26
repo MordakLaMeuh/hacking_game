@@ -120,6 +120,8 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 				let newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
 				if (active_screen == active_screen_enum.tty) {
 					tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
+					tty.scrollTop += 10000;
+					displayCursor_cb(true);
 				} else {
 					console.log("active_screen_enum.right_panel");
 					var tabcontent = document.getElementsByClassName("tabcontent");
