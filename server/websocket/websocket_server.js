@@ -47,12 +47,21 @@ ws.on('connection', function (client, req)
 		return;
 	}
 
-	var filesSSH = termfunc.createFileSystem("molang.csv");
-	if (filesSSH === undefined) {
+	var zeroSSH = termfunc.createFileSystem("molang.csv");
+	if (zeroSSH === undefined) {
 		send(client, JSON.stringify({"error": "Internal server error"}));
 		client.close();
 		return;
 	}
+
+	var bigSSH = termfunc.createFileSystem("molang.csv");
+	if (bigSSH === undefined) {
+		send(client, JSON.stringify({"error": "Internal server error"}));
+		client.close();
+		return;
+	}
+
+
 
 	var root = termfunc.getFile(files, "/");
 	var curDir = root;
@@ -157,7 +166,7 @@ ws.on('connection', function (client, req)
 		if (ssh_request == true) {
 			ssh_request = false;
 			if (json_msg.login == "zero" && json_msg.password == "12122000") {
-				root = termfunc.getFile(filesSSH, "/");
+				root = termfunc.getFile(zeroSSH, "/");
 				originCurDir = curDir;
 				curDir = root;
 				ssh_active = true;
@@ -169,6 +178,20 @@ ws.on('connection', function (client, req)
 				send(client, JSON.stringify({
 					"tty": obj
 				}));
+			}
+				else if (json_msg.login == "big" && json_msg.password == "1947") {
+					root = termfunc.getFile(bigSSH, "/");
+					originCurDir = curDir;
+					curDir = root;
+					ssh_active = true;
+					var obj = new Object();
+					obj.string = "SSH Connexion successful.";
+					obj.directory = "/";
+					obj.login = "big";
+					obj.server = "1947";
+					send(client, JSON.stringify({
+						"tty": obj
+					}));
 			} else {
 				var obj = new Object();
 				obj.string = "SSH Connexion failed.";
