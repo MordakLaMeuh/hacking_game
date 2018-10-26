@@ -44,15 +44,18 @@ sendMail: function(obj) {
 	return undefined;
 },
 
-markAsRead: function(obj) {
+markAsRead: function(obj, victory_cb) {
 	var output = new Object();
 
 	for (var i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
 			obj.index >= 0 && obj.index < this.social[i].mail.length) {
 			this.social[i].mail[obj.index].read = true;
-			if (this.social[i].mail[obj.index].s)
+			if (this.social[i].mail[obj.index].s){
 				output.s = this.social[i].mail[obj.index].s;
+				if (this.social[i].mail[obj.index].w)
+					victory_cb();
+			}
 			break;
 		}
 	}
