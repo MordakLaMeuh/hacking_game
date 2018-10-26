@@ -35,7 +35,16 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		}
 	}
 
+	var inhibitTtyCursor = function() {
+		if (isMobile()) {
+			active_screen = active_screen_enum.right_panel;
+			displayCursor_cb(false);
+		}
+	}
+
 	function changeScreen(button, target) {
+		console.log("On right panel");
+
 		if (isMobile())
 			right_panel.style.height = "calc(var(--vh, 1vh) * " + 100 + ")";
 
@@ -48,6 +57,8 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		console.log(button);
 
 		button.classList.remove("notif");
+
+		inhibitTtyCursor();
 	}
 
 	mail_btn.addEventListener("mousedown", function (){
@@ -65,6 +76,17 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	diary_btn.addEventListener("mousedown", function () {
 		changeScreen(this, "diary");
 	});
+
+	if (isMobile()) {
+		tty_btn.addEventListener("mousedown", function () {
+			right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
+			console.log("back to TTY");
+			tty.style.height =  "calc(var(--vh, 1vh) * " + (100 - TABBARHEIGHT) + ")";
+			hideContent();
+			active_screen = active_screen_enum.tty;
+			displayCursor_cb(true);
+		});
+	}
 
 	this.notif_button_cb = function(str, state, force) {
 		switch (str) {
@@ -134,21 +156,4 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
 	};
-
-	if (isMobile()) {
-		tabUl.addEventListener("mousedown", function(event){
-			if (tabUl !== event.target) {
-				console.log("On right panel");
-				active_screen = active_screen_enum.right_panel;
-				displayCursor_cb(false);
-			} else {
-				right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
-				console.log("back to TTY");
-				tty.style.height =  "calc(var(--vh, 1vh) * " + (100 - TABBARHEIGHT) + ")";
-				hideContent();
-				active_screen = active_screen_enum.tty;
-				displayCursor_cb(true);
-			}
-		});
-	}
 }
