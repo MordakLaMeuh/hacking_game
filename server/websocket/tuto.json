@@ -78,7 +78,9 @@
 						"sender": "0",
 						"from_to": "Kurt Oliveira",
 						"title": "Holidays",
-						"text": "Victor, <br/>As I told you before, I am leaving for a two weeks seminar in Boston.<br/> I leave you in charge, so you are responsible for the server status during the day.<br/> Nigel will monitor it at night. <br/> Do NOT contact me unless it is very important.<br/>Regards."
+						"text": "Victor, <br/>As I told you before, I am leaving for a two weeks seminar in Boston.<br/> I leave you in charge, so you are responsible for the server status during the day.<br/> Nigel will monitor it at night. <br/> Do NOT contact me unless it is very important.<br/>Regards.",
+						 "w":"1",
+						 "s": ["INFO", "You learnt valuable information about the BIG company."]
 					},
 					{
 						"sender": "1",
@@ -253,6 +255,140 @@
 		],
 		"social":
 		[
+		]
+	},
+	{
+		"winningCondition":
+		[
+			"cat .hidden.txt",
+			"/.Secret"
+		],
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+		]
+	},
+	{
+		"winningCondition":
+		[""],
+
+		"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory"],
+			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+			["roll"],
+			["help"],
+			["ssh"],
+			["exit"]
+		],
+		"social":
+		[
+			{
+			"name": "Sarah Jones",
+			"exchange":
+			[
+				{
+					"q":"Sarah speaking.",
+					"r":["Hello, I am Cathy Phelps.", "Hello, I am Francisco Gomez.", "Hello, you remember me ? I am Herbert Rowland."],
+					"i":["1", "2", "3"]
+				},
+				{
+					"q":"Cathy ? I didn't recognized your voice, are you sick ?",
+					"r": ["Yes, I think my kid caught a cold and gave it to me", "Yeah I think I need holidays"],
+					"i":["4", "5"]
+				},
+				{
+					"q":"Francisco Gomez ?",
+					"r":["Yes, I am from the Mexico branch.", "Yes, I am from the London branch.", "Yes I am from the Seattle branch."],
+					"i":["6", "6", "7"]
+				},
+				{
+					"q":"Hi Herbert, what can I do for you ?",
+					"r":["I need your help to reset the server so I can get access.", "I'd like to take you on a date."],
+					"i":["8", "9"]
+				},
+				{
+					"q": "What ? But Cathy don't have kids. Stop your stupid pranks Nigel and get back to work !",
+					"r":[]
+				},
+				{
+					"q":"Me too. What can I do for you ?.",
+					"r":["I want to get access to the server.", "Do you know how I can get the server credentials ?"],
+					"i":["10", "10"]
+				},
+				{
+					"q":"We don't have any branches abroad. Who are you really ?",
+					"r":["Yes we do but it's a secret", "I made a mistake, I meant New York"],
+					"i":["11", "11"]
+				},
+				{
+					"q":"What can I do for you ?",
+					"r":["I am from Technical Support. We are trying to solve a network problem. Have you heard on anyone in your team experiencing issues lately ?", "I am from the IT team. I am concerned amd I'd like you to run a few tests."],
+					"i":["12", "12"]
+				},
+				{
+					"q":"Why are you asking me this ? I am not in the IT team. I am calling your supervisor.",
+					"r":["Sorry, it was a silly joke. Geek humor.", "Please don't, I don't want to be fired.", "It was just a test to check if you understand our rules of security."],
+					"i":["13", "13", "13"]
+				},
+				{
+					"q":"Herbert, I am married. Have you not received the mail about sexual harassment ?",
+					"r":["Sorry, it was in my spam folder.", "I don't care, I like you anyway."],
+					"i":["13", "13"]
+				},
+				{
+					"q":"You lost your access ? Try asking the IT team. Sorry, but I don't have time for this.",
+					"r":[]
+				},
+				{
+					"q":"I am calling the security.",
+					"r":[""]
+				},
+				{
+					"q":"Everything is OK here.",
+					"r":["I know that there will be a power outage in a few days. Last month, we lost a lot of data because of the same situation. I want to check a few things with you."],
+					"i":["14"]
+				},
+				{
+					"q":"Goodbye Herbert.",
+					"r":[]
+				},
+				{
+					"q":"Yes sure but why don't you ask Nigel or Victor from the IT team ?",
+					"r":["I met Kurt on his way to Boston. I told him I'll handle the situation myself since I know the problem better than you guys.", "I don't really trust them. I am leaving for holidays tonight and I'd like to get it over with as soon as possible."],
+					"i":["15", "15"]
+				},
+				{
+					"q":"Very well, what do you need ?",
+					"r":["I know that your are busy, so send me the ssh credentials, and I'll fix everything for you guys."],
+					"i":["16"]
+				},
+				{
+					"q":"The login is big and the password is butterfly",
+					"r":["Ok, thank you for your time Mrs Jones."],
+					"i":["17"]
+				},
+				{
+					"q":"Thank you for taking care of this.",
+					"r":[]
+				}
+
+			]
+			}
 		]
 	}
 	]
