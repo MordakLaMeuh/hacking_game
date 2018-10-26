@@ -11,6 +11,8 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	var tabUl = document.getElementById("tabUl");
 	var TABBARHEIGHT = 10;
 
+	console.log("origin height: " + originalHeight);
+
 	var isMobile = function() {
 		if (navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)

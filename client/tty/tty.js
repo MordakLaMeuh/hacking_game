@@ -420,6 +420,7 @@ var TTY = function() {
 
 	if(isMobile() == true) {
 		console.log("Mobile TTY");
+
 		var __tty = document.querySelector("#js_tty");
 		var input = document.createElement("input");
 		input.setAttribute("type", "text");
