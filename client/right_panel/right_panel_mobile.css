@@ -21,13 +21,6 @@
 	align-items: center;
 	justify-content: center;
 	background: rgba(120, 200, 255, 0.1);
-
-}
-
-
-/* Create an active/current tablink class */
-.tab .active {
-	opacity: 1;
 }
 
 /* Style the tab content */

@@ -255,8 +255,8 @@ var diary = new DIARY(right_panel.notif_button_cb);
 var browser = new BROWSER(tty.key_cb);
 var mail = new MAIL(tty.key_cb);
 
-window.onload = right_panel.resizeCircles;
-window.onresize = right_panel.resizeCircles;
+window.onload = right_panel.resizeScreen;
+window.onresize = right_panel.resizeScreen;
 
 socket.onmessage = function (res){
 	data = JSON.parse(res.data);

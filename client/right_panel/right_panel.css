@@ -40,11 +40,6 @@
 	background-color: #000000;
 }
 
-/* Create an active/current tablink class */
-.tab .active {
-	opacity: 1;
-}
-
 /* Style the tab content */
 .tabcontent {
 	float:right;

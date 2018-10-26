@@ -56,13 +56,19 @@ var TTY = function() {
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
 
 	var LETTERSIZE = CHAR_WIDTH;
-	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
-	if (isChrome) {
-		LETTERSIZE = CHAR_WIDTH;
-	}
-	NBLETTERPERLINE = Math.trunc(NBLETTERPERLINE);
+	var NBLETTERPERLINE = 0;
 
-	console.log("nb letter per line: ", NBLETTERPERLINE);
+	var setLetterField = function()
+	{
+		NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
+		if (isChrome) {
+			LETTERSIZE = CHAR_WIDTH;
+		}
+		NBLETTERPERLINE = Math.trunc(NBLETTERPERLINE);
+
+		console.log("nb letter per line: ", NBLETTERPERLINE);
+	}
+	setLetterField();
 
 	/*
 	 * visible len and cursor position, avoid exeption of &nbsp;
@@ -414,6 +420,9 @@ var TTY = function() {
 		}
 
 		window.addEventListener("resize", function() {
+			console.log("resize");
+			tty.scrollTop += 10000;
+			setLetterField();
 			putCursor(visibleCursorPosition);
 		});
 
@@ -465,6 +474,12 @@ var TTY = function() {
 			}
 
 			updateCharString(key);
+		});
+
+		window.addEventListener("resize", function() {
+			tty.scrollTop += 10000;
+			setLetterField();
+			putCursor(visibleCursorPosition);
 		});
 	}
 }
