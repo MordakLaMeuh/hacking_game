@@ -9,6 +9,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("diary");
 	var tabUl = document.getElementById("tabUl");
+	var TABBARHEIGHT = 10;
 
 	var isMobile = function() {
 		if (navigator.userAgent.match(/Android/i)
@@ -109,7 +110,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	} else {
 		active_screen = active_screen_enum.tty;
 		hideContent();
-		right_panel.style.height =  "calc(var(--vh, 1vh) * " + 10 + ")";
+		right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
 	}
 
 	this.resizeScreen = function()
@@ -118,10 +119,13 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		if (isMobile()) {
 				let newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
 				if (active_screen == active_screen_enum.tty) {
-					tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - 10) + ")";
+					tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
 				} else {
 					console.log("active_screen_enum.right_panel");
-					right_panel.style.height =  "calc(var(--vh, 1vh) * " + newHeight + ")";
+					var tabcontent = document.getElementsByClassName("tabcontent");
+					for (var i = 0; i < tabcontent.length; i++) {
+						tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
+					}
 				}
 		}
 		for (var i = 0; i < tabUl.children.length; i++) {
@@ -136,7 +140,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 				active_screen = active_screen_enum.right_panel;
 				displayCursor_cb(false);
 			} else {
-				right_panel.style.height =  "calc(var(--vh, 1vh) * " + 10 + ")";
+				right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
 				console.log("back to TTY");
 				hideContent();
 				active_screen = active_screen_enum.tty;
