@@ -124,6 +124,8 @@
   text-align: center;
 }
 
+
+
 /* Style the input fields */
 #mail .input-field {
   width: 100%;
@@ -136,6 +138,8 @@
   height: 100%;
 
 }
+
+
 
 .input-field:focus {
   border: 2px solid #4c80a3;
@@ -151,6 +155,14 @@
   width: 100%;
   opacity: 0.9;
   font-size: 20px;
+}
+
+@media all and (max-width: 860px)
+{
+	#mail .input-field, #mail form .btn
+	{
+		font-size: 14px;
+	}
 }
 
 #mail form .btn:hover {
