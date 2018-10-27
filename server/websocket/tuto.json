@@ -77,7 +77,7 @@
 					{
 						"sender": "0",
 						"from_to": "Kurt Oliveira",
-						"title": "Holidays",
+						"title": "Schedule",
 						"text": "Victor, <br/>As I told you before, I am leaving for a two weeks seminar in Boston.<br/> I leave you in charge, so you are responsible for the server status during the day.<br/> Nigel will monitor it at night. <br/> Do NOT contact me unless it is very important.<br/>Regards.",
 						 "w":"1",
 						 "s": ["INFO", "You learnt valuable information about the BIG company."]
@@ -99,7 +99,14 @@
 						"from_to": "Building Managment",
 						"title": "Power Outage",
 						"text": "There will be a power outage next week at 3 A.M in the east wing (building J).<br/>"
+					},
+					{
+						"sender": "1",
+						"from_to": "SuperEddy",
+						"title": "Recruitment",
+						"text": "Hi Eddy,<br/>Good luck for your job interview tomorrow<br/>My advice is to check out a few facts about the company beforehand.<br/>Read our official website www.big.com you'll get some numbers to suck on the HR<br/>Victor"
 					}
+
 				]
 			},
 			{
@@ -378,19 +385,74 @@
 					"i":["16"]
 				},
 				{
-					"q":"The login is big and the password is butterfly",
-					"r":["Ok, thank you for your time Mrs Jones."],
+					"q":"The login is big and the password is the date of the creation of the company.",
+					"r":["Ok, thank you for your time Mrs Jones. I'll take care of it."],
 					"i":["17"]
 				},
 				{
 					"q":"Thank you for taking care of this.",
 					"r":[]
 				}
-
 			]
 			}
 		]
+	},
+	{
+		"winningCondition": [
+			"cat .hidden.txt",
+			"/.Secret"
+		],
+		"cmdList": [
+			[
+				"cat",
+				"cat filename : display content of file"
+			],
+			[
+				"cd",
+				"cd directory : change directory"
+			],
+			[
+				"ls",
+				"ls : list all files on the current folder. Option -a : displau hidden files."
+			],
+			[
+				"pwd",
+				"pwd : print name of current directory"
+			],
+			[
+				"rot",
+				"rot : replaces all letters of a string with the Xth letter after it"
+			],
+			[
+				"roll"
+			],
+			[
+				"help"
+			],
+			[
+				"ssh"
+			],
+			[
+				"exit"
+			]
+		],
+		"social": [
+			{
+				"name": "Seven",
+				"exchange": [
+					{
+						"q": "Hello Mr. Hacker, I heard you made a big discovery. Something interesting on the BIG server ?",
+						"r": ["I am still looking."],
+						"i": ["1"]
+					},
+					{
+						"q": "Don't forget the help command.",
+						"r": ["What is it ?"],
+						"i": ["3"]
+					}
+				]
+			}
+		]
 	}
-	]
-
+]
 

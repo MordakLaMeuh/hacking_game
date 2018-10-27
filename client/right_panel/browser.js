@@ -12,6 +12,7 @@ var BROWSER = function(tty_key_cb) {
 	dict["www.fakebook.com/vyoung"] = "medias/victor.jpeg";
 	dict["www.ours.com"] = "medias/ours.png";
 	dict["www.molang.com"] = "medias/macaron.jpg";
+	dict["www.big.com"] = "medias/big.png";
 
 	go_btn.addEventListener("mousedown", function () {
 		let input_url = form.value;
