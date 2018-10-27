@@ -9,12 +9,11 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	var social = document.getElementById("phone");
 	var diary = document.getElementById("diary");
 	var tabUl = document.getElementById("tabUl");
+	var TABBARHEIGHT = 10;
 
-	var isLogged = false;
+	console.log("origin height: " + originalHeight);
 
-	function changeScreen(button, target) {
-		var i, tabcontent, tablinks;
-
+	var isMobile = function() {
 		if (navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
 		|| navigator.userAgent.match(/iPhone/i)
@@ -22,33 +21,46 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		|| navigator.userAgent.match(/iPod/i)
 		|| navigator.userAgent.match(/BlackBerry/i)
 		|| navigator.userAgent.match(/Windows Phone/i)) {
-			right_panel.style.height = "100vh";
+			return true;
+		} else {
+			return false;
 		}
+	}
 
+	var hideContent = function() {
 		/*
 		 * Get all elements with class="tabcontent" and hide them
 		 */
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
+		var tabcontent = document.getElementsByClassName("tabcontent");
+		for (var i = 0; i < tabcontent.length; i++) {
 			tabcontent[i].style.display = "none";
 		}
+	}
 
-		/*
-		 * Get all elements with class="tablinks" and remove the class "active"
-		 */
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].classList.remove("active");
+	var inhibitTtyCursor = function() {
+		if (isMobile()) {
+			active_screen = active_screen_enum.right_panel;
+			displayCursor_cb(false);
 		}
+	}
+
+	function changeScreen(button, target) {
+		console.log("On right panel");
+
+		if (isMobile())
+			right_panel.style.height = "calc(var(--vh, 1vh) * " + 100 + ")";
+
+		hideContent();
 
 		/*
 		 * Show the current tab, and add an "active" class to the button that opened the tab
 		 */
 		document.getElementById(target).style.display = "block";
-		button.classList.add("active");
 		console.log(button);
 
 		button.classList.remove("notif");
+
+		inhibitTtyCursor();
 	}
 
 	mail_btn.addEventListener("mousedown", function (){
@@ -66,6 +78,17 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	diary_btn.addEventListener("mousedown", function () {
 		changeScreen(this, "diary");
 	});
+
+	if (isMobile()) {
+		tty_btn.addEventListener("mousedown", function () {
+			right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
+			console.log("back to TTY");
+			tty.style.height =  "calc(var(--vh, 1vh) * " + (100 - TABBARHEIGHT) + ")";
+			hideContent();
+			active_screen = active_screen_enum.tty;
+			displayCursor_cb(true);
+		});
+	}
 
 	this.notif_button_cb = function(str, state, force) {
 		switch (str) {
@@ -98,50 +121,41 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 			break;
 		}
 	}
-	changeScreen(diary_btn, "diary");
 
-	this.resizeCircles = function()
+	const active_screen_enum = {
+		"tty": 0,
+		"right_panel": 1
+	};
+	var active_screen;
+
+	if (!isMobile()) {
+		active_screen = active_screen_enum.right_panel;
+		changeScreen(diary_btn, "diary");
+	} else {
+		active_screen = active_screen_enum.tty;
+		hideContent();
+		right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
+	}
+
+	this.resizeScreen = function()
 	{
-		if (navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/webOS/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)) {
-			if (window.innerHeight < originalHeight) {
-				var newHeight = Math.trunc(window.innerHeight * 100 / originalHeight) - 3;
-				tty.style.height =  "calc(var(--vh, 1vh) * " + newHeight + ")";
-			} else {
-				tty.style.height = "100vh";
-				document.getElementById("tty_input").blur();
-			}
+		console.log("resize routines");
+		if (isMobile()) {
+				let newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
+				if (active_screen == active_screen_enum.tty) {
+					tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
+					tty.scrollTop += 10000;
+					displayCursor_cb(true);
+				} else {
+					console.log("active_screen_enum.right_panel");
+					var tabcontent = document.getElementsByClassName("tabcontent");
+					for (var i = 0; i < tabcontent.length; i++) {
+						tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
+					}
+				}
 		}
 		for (var i = 0; i < tabUl.children.length; i++) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
 	};
-
-	if (navigator.userAgent.match(/Android/i)
-	|| navigator.userAgent.match(/webOS/i)
-	|| navigator.userAgent.match(/iPhone/i)
-	|| navigator.userAgent.match(/iPad/i)
-	|| navigator.userAgent.match(/iPod/i)
-	|| navigator.userAgent.match(/BlackBerry/i)
-	|| navigator.userAgent.match(/Windows Phone/i)) {
-		tabUl.addEventListener("mousedown", function(event){
-			if (tabUl !== event.target) {
-				console.log("On right panel");
-				displayCursor_cb(false);
-				return;
-			}
-			right_panel.style.height = "10vh";
-			var tabcontent = document.getElementsByClassName("tabcontent");
-			for (var i = 0; i < tabcontent.length; i++) {
-				console.log("back to TTY");
-				displayCursor_cb(true);
-				tabcontent[i].style.display = "none";
-			}
-		});
-	}
 }

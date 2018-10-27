@@ -29,11 +29,24 @@ var TTY = function() {
 	console.log("height: " + CHAR_HEIGHT + " width: " + CHAR_WIDTH);
 	tty.removeChild(tty.firstChild);
 
+	/*
+	 * Active mouse scroll on PC
+	 */
 	tty.addEventListener(mousewheelevt, function (e) {
 		var e = window.event || e; // old IE support
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		tty.scrollTop -= delta * 20;
+		putCursor(visibleCursorPosition);
 	}, false);
+
+	/*
+	 * Passive scroll on mobile
+	 */
+	if (isMobile() == true) {
+		tty.addEventListener('scroll', function(e) {
+			putCursor(visibleCursorPosition);
+		}, false);
+	}
 
 	var block_key = false;
 	this.key_cb = function(val)
@@ -56,13 +69,19 @@ var TTY = function() {
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
 
 	var LETTERSIZE = CHAR_WIDTH;
-	var NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
-	if (isChrome) {
-		LETTERSIZE = CHAR_WIDTH;
-	}
-	NBLETTERPERLINE = Math.trunc(NBLETTERPERLINE);
+	var NBLETTERPERLINE = 0;
 
-	console.log("nb letter per line: ", NBLETTERPERLINE);
+	var setLetterField = function()
+	{
+		NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
+		if (isChrome) {
+			LETTERSIZE = CHAR_WIDTH;
+		}
+		NBLETTERPERLINE = Math.trunc(NBLETTERPERLINE);
+
+		console.log("nb letter per line: ", NBLETTERPERLINE);
+	}
+	setLetterField();
 
 	/*
 	 * visible len and cursor position, avoid exeption of &nbsp;
@@ -79,6 +98,11 @@ var TTY = function() {
 		var div_origin_y = inputDiv.getBoundingClientRect().top;
 		var div_origin_x = inputDiv.offsetLeft;
 		var div_width = inputDiv.offsetWidth;
+
+		/*
+		 * Mitigation with innerHeight
+		 */
+		div_origin_y += tty.scrollHeight - tty.clientHeight - tty.scrollTop;
 
 		var x_pixel = position % Math.trunc(div_width / LETTERSIZE) * LETTERSIZE;
 		var y_pixel = Math.trunc(position / Math.trunc(div_width / LETTERSIZE)) * CHAR_HEIGHT;
@@ -153,9 +177,6 @@ var TTY = function() {
 	}
 
 	function updateCharString(key) {
-		if (block_key == true)
-			return;
-
 		if (key.length == 1) {
 			var part1 = inputString.substring(0, cursorPosition);
 			console.log("part_1: '" + part1 + "'");
@@ -379,8 +400,9 @@ var TTY = function() {
 	 * DIV width must be multiple of 12
 	 */
 	var cursor = document.createElement('canvas');
-	cursor.id = "cursor"
+	cursor.id = "cursor";
 	cursor.style.height = CHAR_HEIGHT + "px";
+	cursor.style.width = CHAR_WIDTH + "px";
 
 	this.displayCursor = function(actif) {
 			if (actif == true) {
@@ -398,6 +420,7 @@ var TTY = function() {
 
 	if(isMobile() == true) {
 		console.log("Mobile TTY");
+
 		var __tty = document.querySelector("#js_tty");
 		var input = document.createElement("input");
 		input.setAttribute("type", "text");
@@ -416,6 +439,9 @@ var TTY = function() {
 		}
 
 		window.addEventListener("resize", function() {
+			console.log("resize");
+			tty.scrollTop += 10000;
+			setLetterField();
 			putCursor(visibleCursorPosition);
 		});
 
@@ -423,11 +449,17 @@ var TTY = function() {
 
 		input.onkeyup = function(e) {
 			if (e.key == "Enter") {
+				if (block_key == true)
+					return;
+
 				updateCharString("Enter");
 			}
 		}
 
 		input.oninput = function(e) {
+			if (block_key == true)
+				return;
+
 			var len_diff = this.value.length - old_len;
 			old_len = this.value.length;
 
@@ -444,6 +476,9 @@ var TTY = function() {
 		document.addEventListener("keydown", function(event) {
 			let key = event.key;
 
+			if (block_key == true)
+				return;
+
 			/*
 			 * Prevent the quick search feature on Firefox triggered by /
 			 */
@@ -458,6 +493,12 @@ var TTY = function() {
 			}
 
 			updateCharString(key);
+		});
+
+		window.addEventListener("resize", function() {
+			tty.scrollTop += 10000;
+			setLetterField();
+			putCursor(visibleCursorPosition);
 		});
 	}
 }

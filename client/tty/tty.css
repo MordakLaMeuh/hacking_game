@@ -10,8 +10,6 @@
 	float:left;
 }
 #cursor {
-	height: 24px;
-	width: 12px;
 	background: #78C8FF;
 	opacity: 0.6;
 	position: absolute;

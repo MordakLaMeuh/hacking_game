@@ -40,11 +40,6 @@
 	background-color: #000000;
 }
 
-/* Create an active/current tablink class */
-.tab .active {
-	opacity: 1;
-}
-
 /* Style the tab content */
 .tabcontent {
 	float:right;
@@ -168,6 +163,11 @@
   -moz-animation: glowing 1500ms infinite;
   -o-animation: glowing 1500ms infinite;
   animation: glowing 1500ms infinite;
+}
+
+#tty_btn
+{
+	display: none;
 }
 
 @-webkit-keyframes glowing {
