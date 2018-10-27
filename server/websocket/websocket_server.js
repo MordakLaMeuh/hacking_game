@@ -54,7 +54,7 @@ ws.on('connection', function (client, req)
 		return;
 	}
 
-	var bigSSH = termfunc.createFileSystem("molang.csv");
+	var bigSSH = termfunc.createFileSystem("big.csv");
 	if (bigSSH === undefined) {
 		send(client, JSON.stringify({"error": "Internal server error"}));
 		client.close();

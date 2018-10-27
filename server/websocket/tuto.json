@@ -71,7 +71,7 @@
 			},
 			{
 				"name": "vyoung@big.com",
-				"password": "laddie",
+				"password": "husky",
 				"mail":
 				[
 					{
@@ -109,6 +109,21 @@
 
 				]
 			},
+           {
+            "name": "boss@big.com",
+            "password": "ibaalymsf",
+            "mail":
+            [
+              {
+                "sender": "1",
+                "from_to": "Little Company",
+                "title": "Last notice",
+                "text": "We asked you before but you said no.<br/>I don't care about the animals, we need the forest to be cleared by next month for our new building.<br/>We are not paying you for arguing with my decisions so shut up and do your work.<br/>",
+                "s": ["Finally...", "You got proof of Big Company evil doings."],
+                "w":"1"
+              }
+            ]
+            },
 			{
 				"name": "Admin",
 				"exchange":
@@ -391,7 +406,9 @@
 				},
 				{
 					"q":"Thank you for taking care of this.",
-					"r":[]
+					"r":[],
+                    "s":["You got BIG company access", " login:big/password:date of the creation of the company"],
+                    "w":"1"
 				}
 			]
 			}
@@ -399,8 +416,8 @@
 	},
 	{
 		"winningCondition": [
-			"cat .hidden.txt",
-			"/.Secret"
+			"cat roster.txt",
+			"/Notes"
 		],
 		"cmdList": [
 			[
@@ -421,7 +438,7 @@
 			],
 			[
 				"rot",
-				"rot : replaces all letters of a string with the Xth letter after it"
+				"rot : replaces all letters of a word with the n-th letter after it"
 			],
 			[
 				"roll"
@@ -446,13 +463,103 @@
 						"i": ["1"]
 					},
 					{
-						"q": "Don't forget the help command.",
-						"r": ["What is it ?"],
-						"i": ["3"]
-					}
+						"q": "Now that you got access, I'll send you a program to infiltrate all the computers on the network. It will take me a while, so take your time to look around.",
+						"r": ["Why are we hacking this company ?", "What should I look for ?"],
+						"i": ["2", "3"]
+					},
+                    {
+                      "q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
+                      "r": ["Ok, let's do this."],
+                      "i": ["3"]
+                    },
+                    {
+                      "q": "Try finding hints and get access to sensitive information from the boss. They are cautious so the files can be encrypted. If you have trouble, try getting back to your computer. I shared something that can help you.",
+                      "r": []
+                    }
 				]
 			}
-		]
-	}
+		],
+    "updateFiles":
+    [
+      ["A", "Doc", "/", "true", "null"],
+      ["A", "rot.txt", "Doc", "false", "Rotate (or rot) is a simple letter substitution cipher that replaces a letter with the n-th letter after it, in the alphabet.<br/> Example : rot 1 abc = bcd<br/>"]
+    ]
+  },
+  {
+    "winningCondition":
+    [
+      ""
+    ],
+    "cmdList":
+    [
+      ["cat","cat filename : display content of file"],
+      ["cd", "cd directory : change directory"],
+      ["ls", "ls : list all files on the current folder"],
+      ["pwd", "pwd : print name of current directory"],
+      ["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+      ["roll"],
+      ["help"],
+      ["ssh"],
+      ["exit"]
+    ],
+    "social":
+    [
+    ]
+  },
+  {
+    "winningCondition": [""],
+    "cmdList": [
+      [
+        "cat",
+        "cat filename : display content of file"
+      ],
+      [
+        "cd",
+        "cd directory : change directory"
+      ],
+      [
+        "ls",
+        "ls : list all files on the current folder. Option -a : displau hidden files."
+      ],
+      [
+        "pwd",
+        "pwd : print name of current directory"
+      ],
+      [
+        "rot",
+        "rot : replaces all letters of a word with the n-th letter after it"
+      ],
+      [
+        "roll"
+      ],
+      [
+        "help"
+      ],
+      [
+        "ssh"
+      ],
+      [
+        "exit"
+      ]
+    ],
+    "social": [
+      {
+        "name": "Twelve",
+        "exchange": [
+          {
+            "q": "Well done ! Send us all the proof as soon as possible, We are gonna lock their server and leak all the data to the newspapers.",
+            "r": ["It was easy", "Thank you it was really hard..."],
+            "s": ["GAME CLEAR !", "Congratulations, the animals are thankful !"],
+            "w":"1"
+            "i": ["1"]
+          },
+          {
+            "q": "You can take a break now. Thank you for your help :)",
+            "r": []
+          }
+        ]
+      }
+    ]
+  }
 ]
 
