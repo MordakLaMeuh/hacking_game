@@ -3,4 +3,4 @@ FROM node
 WORKDIR /app
 COPY . /app
 
-ENTRYPOINT ["/app/launch_server.sh"]
+ENTRYPOINT ["/app/docker_entry_point.sh"]
