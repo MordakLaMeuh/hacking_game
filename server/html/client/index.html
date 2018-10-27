@@ -159,7 +159,7 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 </script>
 
-<body class="noselect" onload="view_screen()" style="opacity: 0">
+<body class="noselect" onload="after_load()" style="opacity: 0">
 
 <div id="right_panel">
 	<div class="tab" id="tab">
@@ -250,43 +250,51 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 
 <script>
 var socket  = new WebSocket('ws://' + window.location.hostname + ':8081');
-var tty = new TTY();
-var right_panel = new RIGHT_PANEL(tty.displayCursor);
-var social = new SOCIAL(right_panel.notif_button_cb);
-var diary = new DIARY(right_panel.notif_button_cb);
-var browser = new BROWSER(tty.key_cb);
-var mail = new MAIL(tty.key_cb);
 
-window.onresize = right_panel.resizeScreen;
-
-socket.onmessage = function (res){
-	data = JSON.parse(res.data);
-	console.log(data);
-	if (data.socialContacts) {
-		social.displayContacts(data.socialContacts);
-		console.log(data.socialContacts);
-	}
-	if (data.social) {
-		console.log(data.social);
-		social.addEntry(data.social);
-		if (data.social.s)
-			diary.addEntry(data.social.s[0], data.social.s[1]);
-		return ;
-	}
-	if (data.diary)
-		diary.addEntry(data.diary[0], data.diary[1]);
-	if (data.tty)
-		tty.onmessage(data.tty);
-	if (data.mail) {
-		if (data.mail.s)
-			diary.addEntry(data.mail.s[0], data.mail.s[1]);
-		else
-			mail.login(data.mail);
-	}
+blur_all_input = function()
+{
+	var elmt = document.getElementsByTagName("input");
+	for (let i = 0; i < elmt.length; i++)
+		elmt[i].blur();
 }
 
-view_screen = function() {
-	console.log("Displaying all");
+after_load = function() {
+	var tty = new TTY();
+	var right_panel = new RIGHT_PANEL(tty.displayCursor);
+	var social = new SOCIAL(right_panel.notif_button_cb);
+	var diary = new DIARY(right_panel.notif_button_cb);
+	var browser = new BROWSER(tty.key_cb);
+	var mail = new MAIL(tty.key_cb);
+
+	window.onresize = right_panel.resizeScreen;
+	window.onbeforeunload = blur_all_input;
+
+	socket.onmessage = function (res){
+		data = JSON.parse(res.data);
+		console.log(data);
+		if (data.socialContacts) {
+			social.displayContacts(data.socialContacts);
+			console.log(data.socialContacts);
+		}
+		if (data.social) {
+			console.log(data.social);
+			social.addEntry(data.social);
+			if (data.social.s)
+				diary.addEntry(data.social.s[0], data.social.s[1]);
+			return ;
+		}
+		if (data.diary)
+			diary.addEntry(data.diary[0], data.diary[1]);
+		if (data.tty)
+			tty.onmessage(data.tty);
+		if (data.mail) {
+			if (data.mail.s)
+				diary.addEntry(data.mail.s[0], data.mail.s[1]);
+			else
+				mail.login(data.mail);
+		}
+	}
+
 	right_panel.resizeScreen();
 	document.body.style.opacity = 100;
 }
