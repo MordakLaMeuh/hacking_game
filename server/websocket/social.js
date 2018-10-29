@@ -50,11 +50,14 @@ markAsRead: function(obj, victory_cb) {
 	for (var i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
 			obj.index >= 0 && obj.index < this.social[i].mail.length) {
-			this.social[i].mail[obj.index].read = true;
-			if (this.social[i].mail[obj.index].s){
+			console.log(this.social[i].mail[obj.index].read);
+			// this.social[i].mail[obj.index].read = true;
+			if (this.social[i].mail[obj.index].s && this.social[i].mail[obj.index].read === false){
 				output.s = this.social[i].mail[obj.index].s;
-				if (this.social[i].mail[obj.index].w)
+				if (this.social[i].mail[obj.index].w && this.social[i].mail[obj.index].read === false)
 					victory_cb();
+				this.social[i].mail[obj.index].read = true;
+
 			}
 			break;
 		}
