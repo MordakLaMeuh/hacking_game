@@ -345,7 +345,8 @@
 				},
 				{
 					"q": "What ? But Cathy don't have kids. Stop your stupid pranks Nigel and get back to work !",
-					"r":[]
+					"r":[],
+					"i":["0"]
 				},
 				{
 					"q":"Me too. What can I do for you ?.",
@@ -374,11 +375,13 @@
 				},
 				{
 					"q":"You lost your access ? Try asking the IT team. Sorry, but I don't have time for this.",
-					"r":[]
+					"r":[],
+					"i":["0"]
 				},
 				{
 					"q":"I am calling the security.",
-					"r":[""]
+					"r":[],
+					"i":["0"]
 				},
 				{
 					"q":"Everything is OK here.",
@@ -387,7 +390,8 @@
 				},
 				{
 					"q":"Goodbye Herbert.",
-					"r":[]
+					"r":[],
+					"i":["0"]
 				},
 				{
 					"q":"Yes sure but why don't you ask Nigel or Victor from the IT team ?",
