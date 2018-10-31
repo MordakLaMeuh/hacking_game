@@ -17,32 +17,42 @@
 		}
 	</style>
 </head>
-<body>
-<iframe id="iframe" src="http://localhost:8080/index.html" frameborder="0"></iframe>
+
+<body onload="after_load()">
+
 <script>
 // Create IE + others compatible event handler
-var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-var eventer = window[eventMethod];
-var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-var parseMessage = function(message){
-	var t = message.split(":");
-	var s = t[2].split("-");
-	return {
-		type: t[0],
-		difficulty: t[1],
-		scores: s
-	}
-}
-// Listen to message from child window
-eventer(messageEvent,function(e) {
-	console.log(e);
-	var message = parseMessage(e.data);
-	if (message.type === 'gameOver'){
-		document.getElementById('iframe').style = "display:none;";
-		document.body.innerHTML = "Scores: " + message.scores;
-	}
-},false);
-</script>
+var after_load = function()
+{
+	var iFrame = document.createElement("iframe");
+	iFrame.id = "iframe";
+	iFrame.src = "http://" + window.location.hostname  + ":8080/index.html";
+	iFrame.setAttribute("frameborder", "0");
+	document.body.appendChild(iFrame);
 
+	var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+	var eventer = window[eventMethod];
+	var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+	var parseMessage = function(message){
+		var t = message.split(":");
+		var s = t[2].split("-");
+		return {
+			type: t[0],
+			difficulty: t[1],
+			scores: s
+		}
+	}
+	// Listen to message from child window
+	eventer(messageEvent,function(e) {
+		console.log(e);
+		var message = parseMessage(e.data);
+		if (message.type === 'gameOver'){
+			document.getElementById('iframe').style = "display:none;";
+			document.body.innerHTML = "Scores: " + message.scores;
+		}
+	},false);
+}
+
+</script>
 </body>
 </html>
