@@ -141,6 +141,11 @@ var TTY = function() {
 		putCursor(visibleCursorPosition);
 	}
 
+	this.write = function(str)
+	{
+		createNewInputString(str);
+	}
+
 	var createDiv = function (content) {
 		var outputDiv = document.createElement('div');
 		outputDiv.innerHTML = content;
