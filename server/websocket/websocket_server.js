@@ -146,7 +146,7 @@ ws.on('connection', function (client, req)
 				obj.auth = 1;
 				obj.directory = "/";
 				obj.login = "root";
-				obj.server = "hacking_game";
+				obj.server = "home";
 				obj_mail.name = "root";
 				obj_mail.password = "root";
 				obj_mail.content = social.sendMail(obj_mail);
@@ -277,7 +277,7 @@ ws.on('connection', function (client, req)
 					obj.string = "SSH sucessfully exited.";
 					obj.directory = termfunc.pwd(curDir);
 					obj.login = "root";
-					obj.server = "hacking_game";
+					obj.server = "home";
 					send(client, JSON.stringify({
 						"tty": obj
 					}));
