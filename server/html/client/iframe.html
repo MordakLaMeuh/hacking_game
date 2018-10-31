@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" name=viewport content="width=device-width, initial-scale=1">
   <title>iFrame Test parent</title>
 	<style type="text/css">
 		* {
 			padding: 0;
 			margin: 0;
 		}
-		body, html {
-			background-color: red;
-			height: 100%;
-			width: 100%;
-		}
 		iframe
         {
 			min-width: 320px;
 			min-height: 382px;
-			height: 100%;
-			width: 100%;
+			height: 100vh;
+			width: 100vw;
 		}
 	</style>
 </head>
 <body>
-
 <iframe id="iframe" src="http://localhost:8080/index.html" frameborder="0"></iframe>
-
 <script>
 // Create IE + others compatible event handler
 var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
