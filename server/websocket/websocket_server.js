@@ -276,7 +276,7 @@ ws.on('connection', function (client, req)
 					var obj = new Object();
 					obj.string = "SSH sucessfully exited.";
 					obj.directory = termfunc.pwd(curDir);
-					obj.name = "root";
+					obj.login = "root";
 					obj.server = "hacking_game";
 					send(client, JSON.stringify({
 						"tty": obj
