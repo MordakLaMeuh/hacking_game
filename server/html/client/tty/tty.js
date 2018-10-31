@@ -296,13 +296,6 @@ var TTY = function() {
 		console.log("key: " + key + " position: " + cursorPosition + " realLen: " + visibleStringLen);
 	};
 
-	socket.onerror = function () {
-		createDiv("Aucune réponse du serveur...");
-
-		historyIdx = inputHistory.length;
-		createNewInputString("error");
-	}
-
 	const sequence_enum = {
 		"auth_login": 0,
 		"auth_password": 1,
