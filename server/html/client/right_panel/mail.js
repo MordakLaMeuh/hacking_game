@@ -14,6 +14,8 @@ var MAIL = function(tty_key_cb)
 		var signInBtn = document.getElementById("signInBtn");
 		var loginBtn = document.getElementById("loginBtn");
 		var backBtn = document.getElementById("backBtn");
+		var loginForm = document.getElementById("loginForm");
+
 
 		signInBtn.addEventListener("mousedown", function(){
 			self.signOut()
@@ -21,6 +23,13 @@ var MAIL = function(tty_key_cb)
 		loginBtn.addEventListener("mousedown", function(){
 			self.sendLoginData();
 		});
+
+		loginForm.addEventListener("keyup", function(event) {
+			event.preventDefault();
+			if (event.key === "Enter") {
+				self.sendLoginData();
+			}});
+
 		backBtn.addEventListener("mousedown", function(){
 			self.displayFolder()});
 	}());
