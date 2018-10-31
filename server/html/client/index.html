@@ -249,6 +249,8 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script src="right_panel/mail.js"></script>
 
 <script>
+var socket;
+
 blur_all_input = function()
 {
 	var elmt = document.getElementsByTagName("input");
@@ -257,8 +259,6 @@ blur_all_input = function()
 }
 
 after_load = function() {
-	var socket = new WebSocket('ws://' + window.location.hostname + ':8081');
-
 	var tty = new TTY();
 	var right_panel = new RIGHT_PANEL(tty.displayCursor);
 	var social = new SOCIAL(right_panel.notif_button_cb);
@@ -268,6 +268,11 @@ after_load = function() {
 
 	window.onresize = right_panel.resizeScreen;
 	window.onbeforeunload = blur_all_input;
+
+	right_panel.resizeScreen();
+	document.body.style.opacity = 100;	
+
+	socket = new WebSocket('ws://' + window.location.hostname + ':8081');	
 
 	socket.onmessage = function (res){
 		data = JSON.parse(res.data);
@@ -298,9 +303,6 @@ after_load = function() {
 	socket.onerror = function () {
 		document.write("Aucune reponse du serveur");
 	}
-
-	right_panel.resizeScreen();
-	document.body.style.opacity = 100;
 }
 </script>
 
