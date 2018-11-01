@@ -1,3 +1,10 @@
 #keyboard {
+	width: 100vw;
+	height: 40vh;
+	height: calc(var(--vh, 1vh) * 40);
+	background-color: yellow;
+}
 
+#keyboard.hidden {
+	display: none;
 }
