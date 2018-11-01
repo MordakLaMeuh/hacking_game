@@ -9,12 +9,12 @@
 				"cat filename : display content of file"
 			],
 			[
-				"cd",
-				"cd directory : change directory"
-			],
-			[
 				"ls",
 				"ls : list all files on the current folder"
+			],
+			[
+				"cd",
+				"cd directory : change directory. Type \"cd ..\" to go back to parent directory"
 			],
 			[
 				"pwd",
@@ -31,10 +31,12 @@
 				"help"
 			],
 			[
-				"ssh"
+				"ssh",
+				"ssh : connect to another computer"
 			],
 			[
-				"exit"
+				"exit",
+				"exit : exit ssh session"
 			]
 		],
 		"social": [
@@ -156,13 +158,13 @@
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
 			["ls", "ls : list all files on the current folder"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
-			["ssh"],
-			["exit"]
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -223,14 +225,14 @@
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder"],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
 			["help"],
-			["ssh"],
-			["exit"]
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -245,14 +247,14 @@
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder"],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
 			["help"],
-			["ssh"],
-			["exit"]
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[]
@@ -266,14 +268,14 @@
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
 			["help"],
-			["ssh"],
-			["exit"]
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -288,14 +290,14 @@
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
 			["help"],
-			["ssh"],
-			["exit"]
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -308,14 +310,14 @@
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
 			["help"],
-			["ssh"],
-			["exit"]
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -451,10 +453,12 @@
 				"help"
 			],
 			[
-				"ssh"
+				"ssh",
+				"ssh : connect to another computer"
 			],
 			[
-				"exit"
+				"exit",
+				"exit", "exit : exit ssh session"
 			]
 		],
 		"social": [
@@ -497,14 +501,14 @@
     "cmdList":
     [
       ["cat","cat filename : display content of file"],
-      ["cd", "cd directory : change directory"],
+	  ["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
       ["ls", "ls : list all files on the current folder"],
       ["pwd", "pwd : print name of current directory"],
       ["rot", "rot : replaces all letters of a string with the Xth letter after it"],
       ["roll"],
       ["help"],
-      ["ssh"],
-      ["exit"]
+	  ["ssh", "ssh : connect to another computer"],
+	  ["exit", "exit : exit ssh session"]
     ],
     "social":
     [
@@ -519,7 +523,7 @@
       ],
       [
         "cd",
-        "cd directory : change directory"
+		"cd directory : change directory. Type \"cd ..\" to go back to parent directory"
       ],
       [
         "ls",
@@ -540,10 +544,12 @@
         "help"
       ],
       [
-        "ssh"
-      ],
-      [
-        "exit"
+		  "ssh",
+		  "ssh : connect to another computer"
+	  ],
+	  [
+		  "exit",
+		  "exit", "exit : exit ssh session"
       ]
     ],
     "social": [
@@ -566,4 +572,3 @@
     ]
   }
 ]
-
