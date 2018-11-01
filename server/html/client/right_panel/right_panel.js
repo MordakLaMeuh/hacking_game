@@ -158,4 +158,31 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
 	};
+
+	this.resizeElement = function(newHeight)
+	{
+		if (isMobile())
+		{
+			if (active_screen == active_screen_enum.tty)
+			{
+				tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
+				tty.scrollTop += 10000;
+				displayCursor_cb(true);
+			}
+			else
+			{
+				console.log("active_screen_enum.right_panel");
+				var tabcontent = document.getElementsByClassName("tabcontent");
+				for (var i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
+				}
+			}
+		}
+		else
+		{
+			for (var i = 0; i < tabUl.children.length; i++) {
+				tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
+			}
+		}
+	}
 }

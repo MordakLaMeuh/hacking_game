@@ -270,9 +270,9 @@ after_load = function() {
 	window.onbeforeunload = blur_all_input;
 
 	right_panel.resizeScreen();
-	document.body.style.opacity = 100;	
+	document.body.style.opacity = 100;
 
-	socket = new WebSocket('ws://' + window.location.hostname + ':8081');	
+	socket = new WebSocket('ws://' + window.location.hostname + ':8081');
 
 	socket.onmessage = function (res){
 		data = JSON.parse(res.data);
@@ -302,6 +302,15 @@ after_load = function() {
 
 	socket.onerror = function () {
 		tty.write("Aucune reponse du serveur");
+	}
+
+	window.addEventListener("message", receiveMessage, false);
+
+	function receiveMessage(event)
+	{
+ 		// if (event.origin !== "http://example.org:8080")
+		// 	return;
+		right_panel.resizeElement(event.data);
 	}
 }
 </script>
