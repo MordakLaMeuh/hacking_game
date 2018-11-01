@@ -1,6 +1,6 @@
 'use strict';
 
-var TTY = function() {
+var TTY = function(keyboard) {
 
 	var isMobile = function() {
 		if (navigator.userAgent.match(/Android/i)
@@ -418,6 +418,10 @@ var TTY = function() {
 
 	if(isMobile() == true) {
 		console.log("Mobile TTY");
+
+		tty.addEventListener("mousedown", function(e){
+			keyboard.open();
+		}, false);
 
 		var __tty = document.querySelector("#js_tty");
 		var input = document.createElement("input");

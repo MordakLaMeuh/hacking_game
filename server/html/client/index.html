@@ -265,13 +265,13 @@ blur_all_input = function()
 }
 
 after_load = function() {
-	var tty = new TTY();
+	var keyboard = new KEYBOARD();
+	var tty = new TTY(keyboard);
 	var right_panel = new RIGHT_PANEL(tty.displayCursor);
 	var social = new SOCIAL(right_panel.notif_button_cb);
 	var diary = new DIARY(right_panel.notif_button_cb);
-	var browser = new BROWSER(tty.key_cb);
-	var mail = new MAIL(tty.key_cb);
-	var keybord = new KEYBOARD();
+	var browser = new BROWSER(tty.key_cb, keyboard);
+	var mail = new MAIL(tty.key_cb, keyboard);
 
 	window.onresize = right_panel.resizeElements;
 	window.onbeforeunload = blur_all_input;
