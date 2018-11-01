@@ -269,7 +269,7 @@
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
@@ -291,7 +291,7 @@
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
@@ -311,7 +311,7 @@
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : displau hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a string with the Xth letter after it"],
 			["roll"],
