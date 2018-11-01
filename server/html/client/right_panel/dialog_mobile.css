@@ -30,8 +30,8 @@
     /* height:40vh; */
 	/* height: calc(var(--vh, 1vh) * 40); */
     overflow: auto;
-
-	flex:auto;
+	height: 76vh;
+	height: calc(var(--vh, 1vh) * 76);
 }
 
 .messenger ul li{
