@@ -137,52 +137,58 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
 	}
 
-	this.resizeScreen = function()
+	/*
+	 * On smartphone, need to resize TTY or Right Panel Field depending when we are
+	 */
+	var resizeMobileAreas = function(newHeight)
 	{
-		console.log("resize routines");
-		if (isMobile()) {
-				let newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
-				if (active_screen == active_screen_enum.tty) {
-					tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
-					tty.scrollTop += 10000;
-					displayCursor_cb(true);
-				} else {
-					console.log("active_screen_enum.right_panel");
-					var tabcontent = document.getElementsByClassName("tabcontent");
-					for (var i = 0; i < tabcontent.length; i++) {
-						tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
-					}
-				}
+		if (active_screen == active_screen_enum.tty) {
+			console.log("active_screen_enum.tty state");
+			tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
+			tty.scrollTop += 10000;
+			displayCursor_cb(true);
+		} else {
+			console.log("active_screen_enum.right_panel state");
+			var tabcontent = document.getElementsByClassName("tabcontent");
+			for (var i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
+			}
 		}
+	}
+
+	/*
+	 * Make button like circle
+	 */
+	var resizeButtons = function()
+	{
 		for (var i = 0; i < tabUl.children.length; i++) {
 			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
 		}
-	};
+	}
 
-	this.resizeElement = function(newHeight)
+	/*
+	 * Natural method to resize elements
+	 */
+
+	this.resizeElements = function()
 	{
-		if (isMobile())
-		{
-			if (active_screen == active_screen_enum.tty)
-			{
-				tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
-				tty.scrollTop += 10000;
-				displayCursor_cb(true);
-			}
-			else
-			{
-				console.log("active_screen_enum.right_panel");
-				var tabcontent = document.getElementsByClassName("tabcontent");
-				for (var i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
-				}
-			}
+		console.log("resizeElements");
+		if (isMobile()) {
+			let newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
+			resizeMobileAreas(newHeight);
 		}
-		else
-		{
-			for (var i = 0; i < tabUl.children.length; i++) {
-				tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
-			}
+		resizeButtons();
+	}
+
+	/*
+	 * Iframe Method to resize elements, newHeight is sended by host website
+	 */
+	this.resizeElementsWithHeight = function(newHeight)
+	{
+		console.log("resizeElementsWithHeight");
+		if (isMobile()) {
+			resizeMobileAreas(newHeight);
 		}
+		resizeButtons();
 	}
 }

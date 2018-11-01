@@ -273,10 +273,10 @@ after_load = function() {
 	var mail = new MAIL(tty.key_cb);
 	var keybord = new KEYBOARD();
 
-	window.onresize = right_panel.resizeScreen;
+	window.onresize = right_panel.resizeElements;
 	window.onbeforeunload = blur_all_input;
 
-	right_panel.resizeScreen();
+	right_panel.resizeElements();
 	document.body.style.opacity = 100;
 
 	socket = new WebSocket('ws://' + window.location.hostname + ':8081');
@@ -317,7 +317,7 @@ after_load = function() {
 	{
  		// if (event.origin !== "http://example.org:8080")
 		// 	return;
-		right_panel.resizeElement(event.data);
+		right_panel.resizeElementsWithHeight(event.data);
 	}
 }
 </script>
