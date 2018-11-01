@@ -79,6 +79,7 @@
 		                                  supported by Chrome and Opera */
 		}
 	</style>
+	<link rel='stylesheet' href='keyboard/keyboard.css' type='text/css' media='all'>
 
 	<script type="text/javascript">
 	{
@@ -235,6 +236,9 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 </div>
 
+<div id="keyboard">
+</div>
+
 <script type="text/javascript">
 
 var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"
@@ -247,6 +251,7 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script src="right_panel/diary.js"></script>
 <script src="right_panel/browser.js"></script>
 <script src="right_panel/mail.js"></script>
+<script src="keyboard/keyboard.js"></script>
 
 <script>
 var socket;
@@ -265,6 +270,7 @@ after_load = function() {
 	var diary = new DIARY(right_panel.notif_button_cb);
 	var browser = new BROWSER(tty.key_cb);
 	var mail = new MAIL(tty.key_cb);
+	var keybord = new KEYBOARD();
 
 	window.onresize = right_panel.resizeScreen;
 	window.onbeforeunload = blur_all_input;
