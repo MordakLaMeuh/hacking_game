@@ -147,19 +147,6 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<script type="text/javascript">
-
-/*
- * First we get the viewport height and we multiple it by 1% to get a value for a vh unit
- */
-let vh = window.innerHeight * 0.01;
-/*
- * Then we set the value in the --vh custom property to the root of the document
- */
-document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-</script>
-
 <body class="noselect" onload="after_load()" style="opacity: 0">
 
 <div id="right_panel">
@@ -240,12 +227,6 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 </div>
 
-<script type="text/javascript">
-
-var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"
-
-</script>
-
 <script src="tty/tty.js"></script>
 <script src="right_panel/right_panel.js"></script>
 <script src="right_panel/social.js"></script>
@@ -255,6 +236,18 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script src="keyboard/keyboard.js"></script>
 
 <script>
+var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"
+
+/*
+ * First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+ */
+let vh = window.innerHeight * 0.01;
+/*
+ * Then we set the value in the --vh custom property to the root of the document
+ */
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+
 var socket;
 
 after_load = function() {
