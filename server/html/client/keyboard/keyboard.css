@@ -2,7 +2,7 @@
 	width: 100vw;
 	height: 40vh;
 	height: calc(var(--vh, 1vh) * 40);
-	background-color: yellow;
+	background-color: #262626;
 }
 
 #keyboard.hidden {
@@ -26,5 +26,7 @@
 	height: calc(var(--vh, 1vh) * 8);
 	text-align: center;
 	vertical-align: middle;
-	border: 2px solid #0099CC;
+	border: 1px solid #0099CC;
+	color: #4c80a3;
+	font-family: "Exo 2", Arial, sans-serif;
 }
