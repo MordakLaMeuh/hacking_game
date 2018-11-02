@@ -257,13 +257,6 @@ var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "m
 <script>
 var socket;
 
-blur_all_input = function()
-{
-	var elmt = document.getElementsByTagName("input");
-	for (let i = 0; i < elmt.length; i++)
-		elmt[i].blur();
-}
-
 after_load = function() {
 	var keyboard = new KEYBOARD();
 	var tty = new TTY(keyboard);
@@ -274,9 +267,8 @@ after_load = function() {
 	var mail = new MAIL(tty.key_cb, keyboard);
 
 	window.onresize = right_panel.resizeElements;
-	window.onbeforeunload = blur_all_input;
-
 	right_panel.resizeElements();
+
 	document.body.style.opacity = 100;
 
 	socket = new WebSocket('ws://' + window.location.hostname + ':8081');
