@@ -131,11 +131,7 @@ var TTY = function(keyboard) {
 		else
 			inputDiv.innerHTML = inputString;
 
-		if (isMobile() == true) {
-			tty.insertBefore(inputDiv, tty.lastChild);
-		} else {
-			tty.appendChild(inputDiv);
-		}
+		tty.appendChild(inputDiv);
 
 		tty.scrollTop += 10000;
 		putCursor(visibleCursorPosition);
@@ -150,12 +146,7 @@ var TTY = function(keyboard) {
 		var outputDiv = document.createElement('div');
 		outputDiv.innerHTML = content;
 
-		if (isMobile() == true) {
-			tty.insertBefore(outputDiv, tty.lastChild);
-		} else {
-			tty.appendChild(outputDiv);
-		}
-
+		tty.appendChild(outputDiv);
 		tty.scrollTop += 10000;
 	}
 
@@ -166,11 +157,7 @@ var TTY = function(keyboard) {
 		else
 			inputDiv.innerHTML = inputString;
 
-		if (isMobile() == true) {
-			tty.insertBefore(inputDiv, tty.lastChild);
-		} else {
-			tty.appendChild(inputDiv);
-		}
+		tty.appendChild(inputDiv);
 
 		tty.scrollTop += 10000;
 	}
@@ -419,26 +406,21 @@ var TTY = function(keyboard) {
 	if(isMobile() == true) {
 		console.log("Mobile TTY");
 
+		var isKeyboardActive = false;
+
 		tty.addEventListener("mousedown", function(e){
-			keyboard.open();
+			if (isKeyboardActive == true) {
+				tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
+				tty.scrollTop += 10000;
+				keyboard.close();
+				isKeyboardActive = false;
+				return;
+			}
+			tty.style.height =  "calc(var(--vh, 1vh) * " + 50 + ")";
+			tty.scrollTop += 10000;
+			keyboard.open(updateCharString);
+			isKeyboardActive = true;
 		}, false);
-
-		var __tty = document.querySelector("#js_tty");
-		var input = document.createElement("input");
-		input.setAttribute("type", "text");
-		input.id = "tty_input";
-		input.style.height = 0;
-		input.style.width = 1;
-		input.style.border = 0;
-		input.style.color = "#ffffff";
-		input.autocapitalize = "none";
-		// input.spellcheck = "false";
-		__tty.appendChild(input);
-
-		__tty.onclick = function() {
-			input.focus();
-			input.setSelectionRange(input.value.length, input.value.length);
-		}
 
 		window.addEventListener("resize", function() {
 			console.log("resize");
@@ -446,32 +428,6 @@ var TTY = function(keyboard) {
 			setLetterField();
 			putCursor(visibleCursorPosition);
 		});
-
-		var old_len = 0;
-
-		input.onkeyup = function(e) {
-			if (e.key == "Enter") {
-				if (block_key == true)
-					return;
-
-				updateCharString("Enter");
-			}
-		}
-
-		input.oninput = function(e) {
-			if (block_key == true)
-				return;
-
-			var len_diff = this.value.length - old_len;
-			old_len = this.value.length;
-
-			if (len_diff > 0) {
-				var c = this.value[this.value.length - 1];
-				updateCharString(c);
-			} else if (len_diff < 0) {
-				updateCharString("Backspace");
-			}
-		}
 	} else {
 		console.log("Browser TTY");
 

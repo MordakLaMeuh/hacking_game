@@ -8,3 +8,23 @@
 #keyboard.hidden {
 	display: none;
 }
+
+#keyboard table {
+	width: 100%;
+	height: 100%;
+}
+
+#keyboard table tr {
+	width: 100%;
+	height: 8vh;
+	height: calc(var(--vh, 1vh) * 8);
+}
+
+#keyboard table tr td {
+	width: 5%;
+	height: 8vh;
+	height: calc(var(--vh, 1vh) * 8);
+	text-align: center;
+	vertical-align: middle;
+	border: 2px solid #0099CC;
+}
