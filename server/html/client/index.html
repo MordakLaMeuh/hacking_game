@@ -303,14 +303,11 @@ after_load = function() {
 		tty.write("Aucune reponse du serveur");
 	}
 
-	window.addEventListener("message", receiveMessage, false);
-
-	function receiveMessage(event)
-	{
+	window.addEventListener("message", function(e) {
  		// if (event.origin !== "http://example.org:8080")
-		// 	return;
-		right_panel.resizeElementsWithHeight(event.data);
-	}
+		//	return;
+		right_panel.resizeElementsWithHeight(e.data);
+	}, false);
 }
 </script>
 
