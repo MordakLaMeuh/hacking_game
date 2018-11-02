@@ -30,3 +30,7 @@
 	color: #4c80a3;
 	font-family: "Exo 2", Arial, sans-serif;
 }
+
+#keyboard table.hidden {
+	display: none;
+}
