@@ -43,10 +43,6 @@ var KEYBOARD = function() {
 				throwInput(this.custom);
 			});
 
-			layout[3][0].addEventListener("mousedown", function()
-			{
-				console.log("banane");
-			});
 
 			td.appendChild(text);
 			td.setAttribute("colspan", cell[1]);
