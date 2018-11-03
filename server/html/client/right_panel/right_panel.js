@@ -173,7 +173,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	var resizeButtons = function()
 	{
 		for (var i = 0; i < tabUl.children.length; i++) {
-			tabUl.children[i].style.height = tabUl.children[i].offsetWidth + "px";
+			tabUl.children[i].style.width = tabUl.children[i].offsetHeight + "px";
 		}
 	}
 

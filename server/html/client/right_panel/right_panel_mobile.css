@@ -1,6 +1,6 @@
 #right_panel {
 	height: 10vh;
-	height: calc(var(--vh, 1vh) * 10);
+	height: calc(var(--vh, 1vh) * 90);
 	width: 100vw;
 	position:absolute;
 	top : 10vh;
