@@ -89,6 +89,7 @@
 		var link4 = document.createElement("link");
 		var link5 = document.createElement("link");
 		var link6 = document.createElement("link");
+		var link7 = document.createElement("link");
 
 		if (navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
@@ -104,6 +105,8 @@
 			link4.href = "right_panel/diary_mobile.css";
 			link5.href = "right_panel/mail_mobile.css";
 			link6.href = "tty/tty_mobile.css";
+			link7.href = "tab_mobile.css";
+
 		} else {
 			console.log("BROWSER CSS VERSION");
 			link.href = "right_panel/right_panel.css";
@@ -112,6 +115,7 @@
 			link4.href = "right_panel/diary.css";
 			link5.href = "right_panel/mail.css";
 			link6.href = "tty/tty.css";
+			link7.href = "tab.css";
 		}
 		link.rel = "stylesheet";
 		link2.rel = "stylesheet";
@@ -119,6 +123,7 @@
 		link4.rel = "stylesheet";
 		link5.rel = "stylesheet";
 		link6.rel = "stylesheet";
+		link7.rel = "stylesheet";
 
 		link.media = "all";
 		link2.media = "all";
@@ -126,6 +131,7 @@
 		link4.media = "all";
 		link5.media = "all";
 		link6.media = "all";
+		link7.media = "all";
 
 		link.type = "text/css";
 		link2.type = "text/css";
@@ -133,6 +139,8 @@
 		link4.type = "text/css";
 		link5.type = "text/css";
 		link6.type = "text/css";
+		link7.type = "text/css";
+
 
 		var head = document.getElementsByTagName("head");
 		head[0].appendChild(link);
@@ -141,6 +149,8 @@
 		head[0].appendChild(link4);
 		head[0].appendChild(link5);
 		head[0].appendChild(link6);
+		head[0].appendChild(link7);
+
 	}
 	</script>
 
@@ -162,16 +172,21 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 <body class="noselect" onload="after_load()" style="opacity: 0">
 
+<div id="js_tty">
+
+</div>
+
+<div class="tab" id="tab">
+	<ul id="tabUl">
+		<li id="mail_btn" class="tablinks"><a href="#" ><i class="material-icons">email</i></a></li>
+		<li id="browser_btn" class="tablinks"><a href="#" ><i class="material-icons">language</i></a></li>
+		<li id="social_btn" class="tablinks"><a href="#" ><i class="material-icons">contact_phone</i></a></li>
+		<li id="diary_btn" class="tablinks"><a href="#" ><i class="material-icons">event_note</i></a></li>
+		<li id="tty_btn" class="tablinks"><a href="#" ><i class="material-icons">grade</i></a></li>
+	</ul>
+</div>
 <div id="right_panel">
-	<div class="tab" id="tab">
-		<ul id="tabUl">
-			<li id="mail_btn" class="tablinks"><a href="#" ><i class="material-icons">email</i></a></li>
-			<li id="browser_btn" class="tablinks"><a href="#" ><i class="material-icons">language</i></a></li>
-			<li id="social_btn" class="tablinks"><a href="#" ><i class="material-icons">contact_phone</i></a></li>
-			<li id="diary_btn" class="tablinks"><a href="#" ><i class="material-icons">event_note</i></a></li>
-			<li id="tty_btn" class="tablinks"><a href="#" ><i class="material-icons">grade</i></a></li>
-		</ul>
-	</div>
+
 
 	<div id="mail" class="tabcontent">
 
@@ -230,10 +245,6 @@ document.documentElement.style.setProperty('--vh', `${vh}px`);
 		<div class="futurepanel_body" id="diary_body">
 		</div>
 	</div>
-</div>
-
-<div id="js_tty">
-
 </div>
 
 <div id="keyboard" class="hidden">
