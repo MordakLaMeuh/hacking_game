@@ -1,84 +1,16 @@
-#right_panel {
-	height: 90vh;
-	height: calc(var(--vh, 1vh) * 90);
-	width: 100vw;
-	position:absolute;
-	top : 10vh;
-	top : calc(var(--vh, 1vh) * 10);
-
-	display: none;
-	flex-direction: column;
-	background-color: #262626;
-}
 /*
 /* Style the tab */
 .tab {
-	/* overflow: hidden;
-	background-color: #f1f1f1; */
-
-	/* background-color: #262626; */
+	position: absolute;
+	top: 0;
+	width: 100vw;
 	height: 10vh;
 	height: calc(var(--vh, 1vh) * 10);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba(120, 200, 255, 0.1);
+	background-color: #2E363C;
 }
-
-/* Style the tab content */
-.tabcontent {
-	float:right;
-	width: 100vw;
-	height: 90vh;
-	height: calc(var(--vh, 1vh) * 90);
-	display: none;
-	border: none;
-}
-
-#contacts_list
-{
-	display: flex;
-	flex-direction: column;
-}
-
-.contact
-{
-	display: flex;
-	margin-top: 3%;
-	cursor: pointer;
-}
-
-.contact:hover
-{
-	opacity: .5;
-}
-
-.contact_name
-{
-	margin-left: 4%;
-	margin-right: 4%;
-	width: 100%;
-	display: flex;
-	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
-}
-
-.contact_name p
-{
-	font-size: 20px;
-	width: 100%;
-	margin: auto;
-	margin-left: 4%;
-	font: normal 100 20px/1.5em "Exo 2", Arial, sans-serif;
-}
-
-.contact img
-{
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
-}
-
-
 
 .tab ul
 {
@@ -102,6 +34,7 @@
 
 .tab ul li a
 {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
