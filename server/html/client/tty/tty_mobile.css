@@ -2,9 +2,6 @@
 	height:90vh;
 	height: calc(var(--vh, 1vh) * 90);
 	width: 100vw;
-	position: absolute;
-	top : 10vh;
-	top : calc(var(--vh, 1vh) * 10);
 	color: #78C8FF;
 	background:#000000;
 	font-family: monospace;

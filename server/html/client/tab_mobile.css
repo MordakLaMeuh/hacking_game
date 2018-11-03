@@ -1,8 +1,8 @@
 /*
 /* Style the tab */
 .tab {
-	position: absolute;
-	top: 0;
+	/* position: absolute;
+	top: 0; */
 	width: 100vw;
 	height: 10vh;
 	height: calc(var(--vh, 1vh) * 10);

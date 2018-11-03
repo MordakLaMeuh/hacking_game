@@ -2,9 +2,6 @@
 	height: 90vh;
 	height: calc(var(--vh, 1vh) * 90);
 	width: 100vw;
-	position:absolute;
-	top : 10vh;
-	top : calc(var(--vh, 1vh) * 10);
 
 	display: none;
 	flex-direction: column;
