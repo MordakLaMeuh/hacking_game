@@ -87,9 +87,6 @@ var TTY = function(keyboard) {
 		}
 		tty.removeChild(tty.lastChild);
 
-		if (isChrome) {
-			LETTERSIZE = CHAR_WIDTH;
-		}
 		console.log("nb letter per line: ", NBLETTERPERLINE);
 	}
 	setLetterField();
