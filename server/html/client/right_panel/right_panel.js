@@ -13,6 +13,19 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 
 	console.log("origin height: " + originalHeight);
 
+	var switchScreen = function(target)
+	{
+		if (target == js_tty)
+		{
+			right_panel.style.display = "none";
+			js_tty.style.display = "";
+		}
+		else
+		{
+			right_panel.style.display = "block";
+			js_tty.style.display = "none";
+		}
+	}
 	var isMobile = function() {
 		if (navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
@@ -48,7 +61,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		console.log("On right panel");
 
 		if (isMobile())
-			right_panel.style.height = "calc(var(--vh, 1vh) * " + 100 + ")";
+			switchScreen(right_panel);
 
 		hideContent();
 
@@ -81,10 +94,8 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 
 	if (isMobile()) {
 		tty_btn.addEventListener("mousedown", function () {
-			right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
+			switchScreen(js_tty);
 			console.log("back to TTY");
-			tty.style.height =  "calc(var(--vh, 1vh) * " + (100 - TABBARHEIGHT) + ")";
-			hideContent();
 			active_screen = active_screen_enum.tty;
 			displayCursor_cb(true);
 		});
@@ -134,7 +145,7 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 	} else {
 		active_screen = active_screen_enum.tty;
 		hideContent();
-		right_panel.style.height =  "calc(var(--vh, 1vh) * " + TABBARHEIGHT + ")";
+		switchScreen(js_tty);
 	}
 
 	/*
