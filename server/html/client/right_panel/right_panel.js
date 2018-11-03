@@ -1,6 +1,6 @@
 'use strict';
 
-var RIGHT_PANEL = function(displayCursor_cb) {
+var RIGHT_PANEL = function(switchScreen_cb) {
 	var originalHeight = window.innerHeight;
 	var right_panel = document.getElementById("right_panel");
 	var tty = document.getElementById("js_tty");
@@ -13,19 +13,6 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 
 	console.log("origin height: " + originalHeight);
 
-	var switchScreen = function(target)
-	{
-		if (target == js_tty)
-		{
-			right_panel.style.display = "none";
-			js_tty.style.display = "";
-		}
-		else
-		{
-			right_panel.style.display = "block";
-			js_tty.style.display = "none";
-		}
-	}
 	var isMobile = function() {
 		if (navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
@@ -50,18 +37,11 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		}
 	}
 
-	var inhibitTtyCursor = function() {
-		if (isMobile()) {
-			active_screen = active_screen_enum.right_panel;
-			displayCursor_cb(false);
-		}
-	}
-
 	function changeScreen(button, target) {
 		console.log("On right panel");
 
 		if (isMobile())
-			switchScreen(right_panel);
+			switchScreen_cb(right_panel);
 
 		hideContent();
 
@@ -72,8 +52,6 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		console.log(button);
 
 		button.classList.remove("notif");
-
-		inhibitTtyCursor();
 	}
 
 	mail_btn.addEventListener("mousedown", function (){
@@ -94,10 +72,8 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 
 	if (isMobile()) {
 		tty_btn.addEventListener("mousedown", function () {
-			switchScreen(js_tty);
+			switchScreen_cb(js_tty);
 			console.log("back to TTY");
-			active_screen = active_screen_enum.tty;
-			displayCursor_cb(true);
 		});
 	}
 
@@ -133,73 +109,8 @@ var RIGHT_PANEL = function(displayCursor_cb) {
 		}
 	}
 
-	const active_screen_enum = {
-		"tty": 0,
-		"right_panel": 1
-	};
-	var active_screen;
-
-	if (!isMobile()) {
-		active_screen = active_screen_enum.right_panel;
+	if (!isMobile())
 		changeScreen(diary_btn, "diary");
-	} else {
-		active_screen = active_screen_enum.tty;
-		hideContent();
-		switchScreen(js_tty);
-	}
-
-	/*
-	 * On smartphone, need to resize TTY or Right Panel Field depending when we are
-	 */
-	var resizeMobileAreas = function(newHeight)
-	{
-		if (active_screen == active_screen_enum.tty) {
-			console.log("active_screen_enum.tty state");
-			tty.style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT) + ")";
-			tty.scrollTop += 10000;
-			displayCursor_cb(true);
-		} else {
-			console.log("active_screen_enum.right_panel state");
-			var tabcontent = document.getElementsByClassName("tabcontent");
-			for (var i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.height =  "calc(var(--vh, 1vh) * " + (newHeight - TABBARHEIGHT)+ ")";
-			}
-		}
-	}
-
-	/*
-	 * Make button like circle
-	 */
-	var resizeButtons = function()
-	{
-		for (var i = 0; i < tabUl.children.length; i++) {
-			tabUl.children[i].style.width = tabUl.children[i].offsetHeight + "px";
-		}
-	}
-
-	/*
-	 * Natural method to resize elements
-	 */
-
-	this.resizeElements = function()
-	{
-		console.log("resizeElements");
-		if (isMobile()) {
-			let newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
-			resizeMobileAreas(newHeight);
-		}
-		resizeButtons();
-	}
-
-	/*
-	 * Iframe Method to resize elements, newHeight is sended by host website
-	 */
-	this.resizeElementsWithHeight = function(newHeight)
-	{
-		console.log("resizeElementsWithHeight");
-		if (isMobile()) {
-			resizeMobileAreas(newHeight);
-		}
-		resizeButtons();
-	}
+	else
+		switchScreen_cb(js_tty);
 }

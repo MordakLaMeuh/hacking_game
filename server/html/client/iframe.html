@@ -66,14 +66,6 @@ let vh = window.innerHeight * 0.01;
  * Then we set the value in the --vh custom property to the root of the document
  */
 document.documentElement.style.setProperty('--vh', `${vh}px`);
-var originalHeight = window.innerHeight;
-
-window.onresize = function()
-{
-	var iframe = document.getElementById("iframe");
-	var newHeight = Math.trunc(window.innerHeight * 100 / originalHeight);
-	iframe.contentWindow.postMessage([newHeight], iframe.src);
-}
 </script>
 </body>
 </html>

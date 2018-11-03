@@ -245,6 +245,8 @@
 <script src="right_panel/browser.js"></script>
 <script src="right_panel/mail.js"></script>
 <script src="keyboard/keyboard.js"></script>
+<script src="screenControler.js"></script>
+
 
 <script>
 var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"
@@ -264,14 +266,15 @@ var socket;
 after_load = function() {
 	var keyboard = new KEYBOARD();
 	var tty = new TTY(keyboard);
-	var right_panel = new RIGHT_PANEL(tty.displayCursor);
+	var screen_controler = new SCREEN_CONTROLER(tty.displayCursor);
+	var right_panel = new RIGHT_PANEL(screen_controler.switchScreen);
 	var social = new SOCIAL(right_panel.notif_button_cb);
 	var diary = new DIARY(right_panel.notif_button_cb);
 	var browser = new BROWSER(tty.key_cb, keyboard);
 	var mail = new MAIL(tty.key_cb, keyboard);
 
-	window.onresize = right_panel.resizeElements;
-	right_panel.resizeElements();
+	window.onresize = screen_controler.resizeButtons();
+	screen_controler.resizeButtons();
 
 	document.body.style.opacity = 100;
 
@@ -306,12 +309,6 @@ after_load = function() {
 	socket.onerror = function () {
 		tty.write("Aucune reponse du serveur");
 	}
-
-	window.addEventListener("message", function(e) {
- 		// if (event.origin !== "http://example.org:8080")
-		//	return;
-		right_panel.resizeElementsWithHeight(e.data);
-	}, false);
 }
 </script>
 
