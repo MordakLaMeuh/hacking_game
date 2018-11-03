@@ -73,12 +73,23 @@ var TTY = function(keyboard) {
 
 	var setLetterField = function()
 	{
-		NBLETTERPERLINE = tty.offsetWidth / LETTERSIZE;
+		/*
+		 * Simulation of caracter insersion until a new line is required
+		 */
+		let divTest = document.createElement("div");
+		tty.appendChild(divTest);
+		divTest.innerHTML = "x";
+		NBLETTERPERLINE = 0;
+		let originalHeight = divTest.offsetHeight;
+		while (divTest.offsetHeight == originalHeight) {
+			divTest.innerHTML += "x";
+			NBLETTERPERLINE += 1;
+		}
+		tty.removeChild(tty.lastChild);
+
 		if (isChrome) {
 			LETTERSIZE = CHAR_WIDTH;
 		}
-		NBLETTERPERLINE = Math.trunc(NBLETTERPERLINE);
-
 		console.log("nb letter per line: ", NBLETTERPERLINE);
 	}
 	setLetterField();
@@ -104,8 +115,8 @@ var TTY = function(keyboard) {
 		 */
 		div_origin_y += tty.scrollHeight - tty.clientHeight - tty.scrollTop;
 
-		var x_pixel = position % Math.trunc(div_width / LETTERSIZE) * LETTERSIZE;
-		var y_pixel = Math.trunc(position / Math.trunc(div_width / LETTERSIZE)) * CHAR_HEIGHT;
+		var x_pixel = position % NBLETTERPERLINE * LETTERSIZE;
+		var y_pixel = Math.trunc(position / NBLETTERPERLINE) * CHAR_HEIGHT;
 
 		cursor.style.left = div_origin_x + x_pixel + "px";
 		cursor.style.top = div_origin_y + y_pixel + "px";
