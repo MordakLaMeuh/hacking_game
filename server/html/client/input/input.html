@@ -141,9 +141,8 @@
 
 	<link rel='stylesheet' href='keyboard/keyboard.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='custom_input/custom_input.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='cursor/cursor.css' type='text/css' media='all'>
 </head>
-
-
 
 <body>
 
@@ -169,12 +168,15 @@
 
 <script src="keyboard/keyboard.js"></script>
 <script src="custom_input/custom_input.js"></script>
+<script src="cursor/cursor.js"></script>
 
 <script>
 var keyboard = new KEYBOARD();
+var cursor = new CURSOR();
 
 var action_left = function(self, str) {
 	keyboard.close();
+	cursor.activeCursor(false);
 	field.style.height = "100vh";
 
 	if (str.trim().length != 0) {
@@ -185,6 +187,7 @@ var action_left = function(self, str) {
 
 var action_right = function(self, str) {
 	keyboard.close();
+	cursor.activeCursor(false);
 	field.style.height = "100vh";
 
 	if (input_2.getContent().trim().length != 0 && input_3.getContent().trim().length != 0) {
@@ -195,17 +198,19 @@ var action_right = function(self, str) {
 	}
 }
 
-var input_1 = new CUSTOM_INPUT(document.getElementById("inputTest_1"), action_left);
-var input_2 = new CUSTOM_INPUT(document.getElementById("inputTest_2"), action_right);
-var input_3 = new CUSTOM_INPUT(document.getElementById("inputTest_3"), action_right);
+var input_1 = new CUSTOM_INPUT(document.getElementById("inputTest_1"), action_left, cursor);
+var input_2 = new CUSTOM_INPUT(document.getElementById("inputTest_2"), action_right, cursor);
+var input_3 = new CUSTOM_INPUT(document.getElementById("inputTest_3"), action_right, cursor);
 
 field.addEventListener("mousedown", function(e) {
 	field.style.height = "100vh";
 	keyboard.close();
+	cursor.activeCursor(false);
 }, false);
 
 inputTest_1.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
+	input_1.focus();
 	keyboard.open(input_1.write);
 	e.stopPropagation();
 }, false);
@@ -217,12 +222,14 @@ button_left.addEventListener("mousedown", function(e){
 
 inputTest_2.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
+	input_2.focus();
 	keyboard.open(input_2.write);
 	e.stopPropagation();
 }, false);
 
 inputTest_3.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
+	input_3.focus();
 	keyboard.open(input_3.write);
 	e.stopPropagation();
 }, false);

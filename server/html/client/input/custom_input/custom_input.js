@@ -1,8 +1,10 @@
 'use strict';
 
-var CUSTOM_INPUT = function(_div, action_cb) {
+var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	var div = _div;
 	div.classList.add("custom_input");
+
+	var cursor = _cursor;
 
 	var innerDiv = document.createElement("div");
 	div.appendChild(innerDiv);
@@ -17,8 +19,10 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 	const space_expr = "&nbsp;";
 	const space_regex = /&nbsp;/g;
 
+	var CHAR_HEIGHT = 0;
+	var CHAR_WIDTH = 0;
 	var NBLETTER = 0;
-	var setNbLetter = function() {
+	function setNbLetter() {
 		/*
 		 * Simulation of caracter insersion until field is completely filled
 		 */
@@ -32,6 +36,10 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 		do {
 			NBLETTER += 1;
 			spanDiv.innerHTML += "x";
+			if (NBLETTER == 1) {
+				CHAR_WIDTH = spanDiv.offsetWidth;
+				CHAR_HEIGHT = spanDiv.offsetHeight;
+			}
 			console.log(spanDiv.offsetWidth);
 		} while (spanDiv.offsetWidth <= originalWidth);
 		NBLETTER -= 1;
@@ -44,6 +52,18 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 		var part1 = str.substring(0, char_pos);
 		var part2 = str.substring(char_pos + len, str.length);
 		return part1 + part2;
+	}
+
+	function putCursor(position) {
+		var div_origin_y = innerDiv.getBoundingClientRect().top;
+		var div_origin_x = innerDiv.offsetLeft;
+
+		var x_pixel = position % NBLETTER * CHAR_WIDTH;
+		var y_pixel = 0;
+
+		cursor.setCursorPosition(div_origin_x + x_pixel, div_origin_y + y_pixel);
+
+		console.log("new visible cur position: " + position);
 	}
 
 	var cursorPosition = 0;
@@ -71,16 +91,18 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 
 			spanDiv.innerHTML = content;
 
-//			putCursor(visibleCursorPosition);
+			putCursor(visibleCursorPosition);
 		}
 
 		switch (s) {
 		case "Backspace":
 			if (cursorPosition != 0) {
-				var idx = content.substring(0, cursorPosition).lastIndexOf(space_expr);
-				var len;
-				if (cursorPosition - idx == space_expr.length)
+				let idx = content.substring(0, cursorPosition).lastIndexOf(space_expr);
+				let len;
+				if (cursorPosition - idx == space_expr.length && idx != -1) {
+					console.log("specialCase");
 					len = space_expr.length;
+				}
 				else
 					len = 1;
 				cursorPosition -= len;
@@ -91,7 +113,7 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 				content = removeCharacters(content, cursorPosition, len);
 
 				spanDiv.innerHTML = content;
-//				putCursor(visibleCursorPosition);
+				putCursor(visibleCursorPosition);
 			}
 			break;
 		case "ArrowRight":
@@ -103,19 +125,19 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 					cursorPosition += 1;
 
 				visibleCursorPosition += 1;
-//				putCursor(visibleCursorPosition);
+				putCursor(visibleCursorPosition);
 			}
 			break;
 		case "ArrowLeft":
 			if (cursorPosition != 0) {
 				let idx = content.substring(0, cursorPosition).lastIndexOf(space_expr);
-				if (cursorPosition - idx == space_expr.length)
+				if (cursorPosition - idx == space_expr.length && idx != -1)
 					cursorPosition -= space_expr.length;
 				else
 					cursorPosition -= 1;
 
 				visibleCursorPosition -= 1;
-//				putCursor(visibleCursorPosition);
+				putCursor(visibleCursorPosition);
 			}
 			break;
 		case "Enter":
@@ -125,6 +147,17 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 			break;
 		}
 		console.log("write");
+	}
+
+	this.focus = function() {
+		cursor.activeCursor(true);
+		console.log(CHAR_WIDTH + " " + CHAR_HEIGHT)
+		cursor.setCursorDim(CHAR_WIDTH, CHAR_HEIGHT);
+		putCursor(visibleCursorPosition);
+	}
+
+	this.blur = function() {
+		cursor.activeCursor(false);
 	}
 
 	this.forceEnter = function() {
