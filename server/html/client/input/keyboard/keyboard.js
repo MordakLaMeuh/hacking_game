@@ -3,7 +3,7 @@
 var KEYBOARD = function() {
 	var keyboardDiv = document.getElementById("keyboard");
 
-	var target;
+	var target = undefined;
 	this.open = function(targetField) {
 		console.log("open Keyboard");
 		target = targetField;
@@ -18,6 +18,7 @@ var KEYBOARD = function() {
 	this.close = function() {
 		console.log("close Keyboard");
 		keyboardDiv.classList.add("hidden");
+		target = undefined;
 	}
 
 	var throwInput = function(value) {
@@ -80,4 +81,28 @@ var KEYBOARD = function() {
 		keyboardDiv.appendChild(table);
 	});
 	console.log(layout);
+
+	/*
+	 * Binding of natural keyboard
+	 */
+	document.addEventListener("keydown", function(event) {
+		if (target === undefined) {
+			console.log("undefined target");
+			return;
+		}
+		let key = event.key;
+		/*
+		 * Prevent the quick search feature on Firefox triggered by /
+		 */
+		if (key == "/") {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+
+		if (key == "Backspace") {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+		throwInput(key);
+	});
 }
