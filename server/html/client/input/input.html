@@ -90,16 +90,52 @@
 		height: 100vh;
 		color: white;
 	}
+	#left {
+		width: 50%;
+		height: 100%;
+		float: left;
+		background-color: blue;
+	}
+	#right {
+		width: 50%;
+		height: 100%;
+		float: right;
+		background-color: yellow;
+		color: black;
+	}
 
-	#inputTest {
-		width: 20%;
+	.inputClass {
+		width: 50%;
 		height: 5vh;
 		background-color: black;
 		border: solid red 2px;
-
-		position: relative;
-		left: 10vw;
-		top: 10vh;
+		margin: 10px;
+	}
+	.button {
+		background-color: white;
+		color: black;
+		width: 20%;
+		height: 3vh;
+		padding: 5px;
+		text-align: center;
+		font-size: 3vh;
+		cursor: pointer;
+		margin: 10px;
+		border: solid black 3px;
+		border-radius: 10px;
+	}
+	.result {
+		background-color: white;
+		width: 80%;
+		height: 10vh;
+		margin: 10px;
+		border: solid black 3px;
+		border-radius: 10px;
+		color: black;
+		padding: 5px;
+	}
+	span {
+		display: inline-block;
 	}
 	</style>
 
@@ -112,7 +148,19 @@
 <body>
 
 <div id="field">
-<div id="inputTest"></div>
+	<div id="left">
+		<div id="inputTest_1" class="inputClass"></div>
+		<div id="button_left" class="button">Validate</div>
+		Result is on below:
+		<div id="result_left" class="result"></div>
+	</div>
+	<div id="right">
+		<div id="inputTest_2" class="inputClass"></div>
+		<div id="inputTest_3" class="inputClass"></div>
+		<div id="button_right" class="button">Validate</div>
+		Result is on below:
+		<div id="result_right" class="result"></div>
+	</div>
 </div>
 
 <div id="keyboard" class="hidden">
@@ -125,25 +173,59 @@
 <script>
 var keyboard = new KEYBOARD();
 
-var action = function(self, str) {
+var action_left = function(self, str) {
 	keyboard.close();
+	field.style.height = "100vh";
 	self.fflushContent();
-	console.log("new string received: " + str);
+	console.log("new left string received: " + str);
+	result_left.innerHTML = str;
 }
 
-var input = new CUSTOM_INPUT(document.getElementById("inputTest"), action);
+var action_right = function(self, str) {
+	keyboard.close();
+	field.style.height = "100vh";
+}
+
+var input_1 = new CUSTOM_INPUT(document.getElementById("inputTest_1"), action_left);
+var input_2 = new CUSTOM_INPUT(document.getElementById("inputTest_2"), action_right);
+var input_3 = new CUSTOM_INPUT(document.getElementById("inputTest_3"), action_right);
 
 field.addEventListener("mousedown", function(e) {
 	field.style.height = "100vh";
 	keyboard.close();
 }, false);
 
-inputTest.addEventListener("mousedown", function(e){
+inputTest_1.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
-	keyboard.open(input.write);
+	keyboard.open(input_1.write);
 	e.stopPropagation();
-}, false); 
+}, false);
 
+button_left.addEventListener("mousedown", function(e){
+	action_left(input_1, input_1.getContent());
+	e.stopPropagation();
+}, false);
+
+inputTest_2.addEventListener("mousedown", function(e){
+	field.style.height = "60vh";
+	keyboard.open(input_2.write);
+	e.stopPropagation();
+}, false);
+
+inputTest_3.addEventListener("mousedown", function(e){
+	field.style.height = "60vh";
+	keyboard.open(input_3.write);
+	e.stopPropagation();
+}, false);
+
+button_right.addEventListener("mousedown", function(e){
+	action_right();
+	let content = input_2.getContent() + " " + input_3.getContent();
+	input_2.fflushContent();
+	input_3.fflushContent();
+	result_right.innerHTML = content;
+	e.stopPropagation();
+}, false);
 
 </script>
 
