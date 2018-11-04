@@ -328,7 +328,7 @@ var TTY = function(keyboard) {
 				} else {
 					sequence = sequence_enum.auth_login;
 					createDiv("<br>");
-					createNewInputString(server_name + space_expr + "Login:" + space_expr);
+					createNewInputString("Login:" + space_expr);
 				}
 				break;
 			case sequence_enum.running:
@@ -350,7 +350,7 @@ var TTY = function(keyboard) {
 		}
 
 	var login;
-	var server_name = "hacking_game";
+	var server_name = "";
 	var ssh_login;
 
 	var process = function (outStr) {
@@ -412,7 +412,7 @@ var TTY = function(keyboard) {
 	}
 
 	historyIdx = 0;
-	createNewInputString(server_name + "&nbsp;login:" + space_expr);
+	createNewInputString("login:" + space_expr);
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
 
