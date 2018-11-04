@@ -13,6 +13,7 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 			break;
 		default:
 			content += s;
+			div.innerHTML = content;
 			break;
 		}
 		console.log("write");
