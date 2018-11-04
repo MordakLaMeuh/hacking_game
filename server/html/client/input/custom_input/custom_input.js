@@ -40,17 +40,88 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 	}
 	setNbLetter();
 
+	function removeCharacters(str, char_pos, len) {
+		var part1 = str.substring(0, char_pos);
+		var part2 = str.substring(char_pos + len, str.length);
+		return part1 + part2;
+	}
+
+	var cursorPosition = 0;
+	var visibleCursorPosition = 0;
+	var visibleStringLen = 0;
+
 	this.write = function(s) {
+		if (s.length == 1) {
+			var part1 = content.substring(0, cursorPosition);
+			console.log("part_1: '" + part1 + "'");
+
+			var part2 = content.substring(cursorPosition, content.length);
+			console.log("part_2: '" + part2 + "'");
+
+			if (s == " ") {
+				s = space_expr;
+				cursorPosition += space_expr.length;
+			} else {
+				cursorPosition += 1;
+			}
+			visibleCursorPosition += 1;
+			visibleStringLen += 1;
+
+			content = part1 + s + part2;
+
+			spanDiv.innerHTML = content;
+
+//			putCursor(visibleCursorPosition);
+		}
+
 		switch (s) {
+		case "Backspace":
+			if (cursorPosition != 0) {
+				var idx = content.substring(0, cursorPosition).lastIndexOf(space_expr);
+				var len;
+				if (cursorPosition - idx == space_expr.length)
+					len = space_expr.length;
+				else
+					len = 1;
+				cursorPosition -= len;
+
+				visibleCursorPosition -= 1;
+				visibleStringLen -= 1;
+
+				content = removeCharacters(content, cursorPosition, len);
+
+				spanDiv.innerHTML = content;
+//				putCursor(visibleCursorPosition);
+			}
+			break;
+		case "ArrowRight":
+			if (cursorPosition < content.length) {
+				let idx = content.substring(cursorPosition, content.length).indexOf(space_expr);
+				if (idx == 0)
+					cursorPosition += space_expr.length;
+				else
+					cursorPosition += 1;
+
+				visibleCursorPosition += 1;
+//				putCursor(visibleCursorPosition);
+			}
+			break;
+		case "ArrowLeft":
+			if (cursorPosition != 0) {
+				let idx = content.substring(0, cursorPosition).lastIndexOf(space_expr);
+				if (cursorPosition - idx == space_expr.length)
+					cursorPosition -= space_expr.length;
+				else
+					cursorPosition -= 1;
+
+				visibleCursorPosition -= 1;
+//				putCursor(visibleCursorPosition);
+			}
+			break;
 		case "Enter":
 			action_cb(self, content.replace(space_regex, " "));
 			break;
 		default:
-			if (s == " ") {
-				s = space_expr;
-			}
-			content += s;
-			spanDiv.innerHTML = content;
 			break;
 		}
 		console.log("write");
@@ -67,5 +138,9 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 	this.fflushContent = function() {
 		content = "";
 		spanDiv.innerHTML = content;
+
+		cursorPosition = 0;
+		visibleCursorPosition = 0;
+		visibleStringLen = 0;
 	}
 }
