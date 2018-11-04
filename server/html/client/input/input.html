@@ -176,14 +176,23 @@ var keyboard = new KEYBOARD();
 var action_left = function(self, str) {
 	keyboard.close();
 	field.style.height = "100vh";
-	self.fflushContent();
-	console.log("new left string received: " + str);
-	result_left.innerHTML = str;
+
+	if (str.trim().length != 0) {
+		self.fflushContent();
+		result_left.innerHTML = str;
+	}
 }
 
 var action_right = function(self, str) {
 	keyboard.close();
 	field.style.height = "100vh";
+
+	if (input_2.getContent().trim().length != 0 && input_3.getContent().trim().length != 0) {
+		let content = input_2.getContent() + " " + input_3.getContent();
+		input_2.fflushContent();
+		input_3.fflushContent();
+		result_right.innerHTML = content;
+	}
 }
 
 var input_1 = new CUSTOM_INPUT(document.getElementById("inputTest_1"), action_left);
@@ -220,10 +229,6 @@ inputTest_3.addEventListener("mousedown", function(e){
 
 button_right.addEventListener("mousedown", function(e){
 	action_right();
-	let content = input_2.getContent() + " " + input_3.getContent();
-	input_2.fflushContent();
-	input_3.fflushContent();
-	result_right.innerHTML = content;
 	e.stopPropagation();
 }, false);
 

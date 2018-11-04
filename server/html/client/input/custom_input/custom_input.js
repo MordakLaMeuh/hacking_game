@@ -14,12 +14,15 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 
 	var content = "";
 
+	const space_expr = "&nbsp;";
+	const space_regex = /&nbsp;/g;
+
 	var NBLETTER = 0;
 	var setNbLetter = function() {
 		/*
 		 * Simulation of caracter insersion until field is completely filled
 		 */
-		spanDiv.textContent = "";
+		spanDiv.innerHTML = "";
 		NBLETTER = 0;
 		let originalWidth = innerDiv.offsetWidth;
 		if (originalWidth == 0 || originalWidth === undefined) {
@@ -28,11 +31,11 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 		}
 		do {
 			NBLETTER += 1;
-			spanDiv.textContent += "x";
+			spanDiv.innerHTML += "x";
 			console.log(spanDiv.offsetWidth);
 		} while (spanDiv.offsetWidth <= originalWidth);
 		NBLETTER -= 1;
-		spanDiv.textContent = content;
+		spanDiv.innerHTML = content;
 		console.log("field can contain " + NBLETTER + " characters");
 	}
 	setNbLetter();
@@ -40,26 +43,29 @@ var CUSTOM_INPUT = function(_div, action_cb) {
 	this.write = function(s) {
 		switch (s) {
 		case "Enter":
-			action_cb(self, content);
+			action_cb(self, content.replace(space_regex, " "));
 			break;
 		default:
+			if (s == " ") {
+				s = space_expr;
+			}
 			content += s;
-			spanDiv.textContent = content;
+			spanDiv.innerHTML = content;
 			break;
 		}
 		console.log("write");
 	}
 
 	this.forceEnter = function() {
-		action_cb(self, content);
+		action_cb(self, content.replace(space_regex, " "));
 	}
 
 	this.getContent = function() {
-		return content;
+		return content.replace(space_regex, " ");
 	}
 
 	this.fflushContent = function() {
 		content = "";
-		spanDiv.textContent = content;
+		spanDiv.innerHTML = content;
 	}
 }
