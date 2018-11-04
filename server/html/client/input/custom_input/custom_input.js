@@ -19,9 +19,15 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	const space_expr = "&nbsp;";
 	const space_regex = /&nbsp;/g;
 
+	var visibleStringLen = 0;
+
 	var CHAR_HEIGHT = 0;
 	var CHAR_WIDTH = 0;
 	var NBLETTER = 0;
+
+	var cursorPosition;
+	var visibleCursorPosition;
+
 	function setNbLetter() {
 		/*
 		 * Simulation of caracter insersion until field is completely filled
@@ -49,34 +55,25 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	setNbLetter();
 
 	function removeCharacters(str, char_pos, len) {
-		var part1 = str.substring(0, char_pos);
-		var part2 = str.substring(char_pos + len, str.length);
+		let part1 = str.substring(0, char_pos);
+		let part2 = str.substring(char_pos + len, str.length);
 		return part1 + part2;
 	}
 
 	function putCursor(position) {
-		var div_origin_y = innerDiv.getBoundingClientRect().top;
-		var div_origin_x = innerDiv.offsetLeft;
+		let div_origin_y = innerDiv.getBoundingClientRect().top;
+		let div_origin_x = innerDiv.offsetLeft;
 
-		var x_pixel = position % NBLETTER * CHAR_WIDTH;
-		var y_pixel = 0;
+		let x_pixel = position % NBLETTER * CHAR_WIDTH;
+		let y_pixel = 0;
 
 		cursor.setCursorPosition(div_origin_x + x_pixel, div_origin_y + y_pixel);
-
-		console.log("new visible cur position: " + position);
 	}
-
-	var cursorPosition = 0;
-	var visibleCursorPosition = 0;
-	var visibleStringLen = 0;
 
 	this.write = function(s) {
 		if (s.length == 1) {
-			var part1 = content.substring(0, cursorPosition);
-			console.log("part_1: '" + part1 + "'");
-
-			var part2 = content.substring(cursorPosition, content.length);
-			console.log("part_2: '" + part2 + "'");
+			let part1 = content.substring(0, cursorPosition);
+			let part2 = content.substring(cursorPosition, content.length);
 
 			if (s == " ") {
 				s = space_expr;
@@ -99,12 +96,11 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 			if (cursorPosition != 0) {
 				let idx = content.substring(0, cursorPosition).lastIndexOf(space_expr);
 				let len;
-				if (cursorPosition - idx == space_expr.length && idx != -1) {
-					console.log("specialCase");
+				if (cursorPosition - idx == space_expr.length && idx != -1)
 					len = space_expr.length;
-				}
 				else
 					len = 1;
+
 				cursorPosition -= len;
 
 				visibleCursorPosition -= 1;
@@ -146,13 +142,34 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 		default:
 			break;
 		}
-		console.log("write");
 	}
 
-	this.focus = function() {
+	/*
+	 * The focus() function is done at a specified position pointed by mouse
+	 */
+	this.focus = function(x, y) {
 		cursor.activeCursor(true);
-		console.log(CHAR_WIDTH + " " + CHAR_HEIGHT)
 		cursor.setCursorDim(CHAR_WIDTH, CHAR_HEIGHT);
+
+		/*
+		 * First find Visible Cursor Position
+		 */
+		let originX = innerDiv.offsetLeft;
+		let offsetX = x - originX;
+		visibleCursorPosition = Math.trunc(offsetX / CHAR_WIDTH);
+		visibleCursorPosition = (visibleCursorPosition <= visibleStringLen) ? visibleCursorPosition : visibleStringLen;
+
+		/*
+		 * Now find the string cursor position, &nbsp; is exception.
+		 */
+		cursorPosition = 0;
+		for (let i = 0; i < visibleCursorPosition; i++) {
+			if (content.substring(cursorPosition, content.length).indexOf(space_expr) == 0)
+				cursorPosition += space_expr.length;
+			else
+				cursorPosition += 1;
+		}
+
 		putCursor(visibleCursorPosition);
 	}
 
@@ -172,8 +189,6 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 		content = "";
 		spanDiv.innerHTML = content;
 
-		cursorPosition = 0;
-		visibleCursorPosition = 0;
 		visibleStringLen = 0;
 	}
 }

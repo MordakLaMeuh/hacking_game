@@ -221,7 +221,7 @@ field.addEventListener("mousedown", function(e) {
 
 inputTest_1.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
-	input_1.focus();
+	input_1.focus(e.clientX, e.clientY);
 	keyboard.open(input_1.write);
 	e.stopPropagation();
 }, false);
@@ -233,14 +233,14 @@ button_left.addEventListener("mousedown", function(e){
 
 inputTest_2.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
-	input_2.focus();
+	input_2.focus(e.clientX, e.clientY);
 	keyboard.open(input_2.write);
 	e.stopPropagation();
 }, false);
 
 inputTest_3.addEventListener("mousedown", function(e){
 	field.style.height = "60vh";
-	input_3.focus();
+	input_3.focus(e.clientX, e.clientY);
 	keyboard.open(input_3.write);
 	e.stopPropagation();
 }, false);
