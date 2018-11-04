@@ -46,7 +46,6 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 				CHAR_WIDTH = spanDiv.offsetWidth;
 				CHAR_HEIGHT = spanDiv.offsetHeight;
 			}
-			console.log(spanDiv.offsetWidth);
 		} while (spanDiv.offsetWidth <= originalWidth);
 		NBLETTER -= 1;
 		spanDiv.innerHTML = content;
