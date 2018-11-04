@@ -1,10 +1,30 @@
 'use strict';
 
-var CUSTOM_INPUT = function(_div) {
+var CUSTOM_INPUT = function(_div, action_cb) {
 	var div = _div;
+	var self = this;
 
-	this.write = function(c) {
+	var content = "";
+
+	this.write = function(s) {
+		switch (s) {
+		case "Enter":
+			action_cb(self, content);
+			break;
+		default:
+			content += s;
+			break;
+		}
 		console.log("write");
 	}
+
+	this.forceEnter = function() {
+		action_cb(self, content);
+	}
+
+	this.fflushContent = function() {
+		content = "";
+	}
+
 	div.classList.add("custom_input");
 }

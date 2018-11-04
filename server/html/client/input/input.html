@@ -88,12 +88,14 @@
 	<style>
 	#field {
 		height: 100vh;
+		color: white;
 	}
 
 	#inputTest {
 		width: 20%;
 		height: 5vh;
 		background-color: yellow;
+		border: solid red 2px;
 
 		position: relative;
 		left: 10vw;
@@ -122,7 +124,14 @@
 
 <script>
 var keyboard = new KEYBOARD();
-var input = new CUSTOM_INPUT(document.getElementById("inputTest"));
+
+var action = function(self, str) {
+	keyboard.close();
+	self.fflushContent();
+	console.log("new string received: " + str);
+}
+
+var input = new CUSTOM_INPUT(document.getElementById("inputTest"), action);
 
 field.addEventListener("mousedown", function(e) {
 	field.style.height = "100vh";
