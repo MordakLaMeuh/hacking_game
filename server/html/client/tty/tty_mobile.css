@@ -8,6 +8,7 @@
 	overflow: scroll;
 	font-size: 20px;
 	word-wrap:break-word;
+	padding-top: 5px;
 }
 #cursor {
 	height: 24px;
