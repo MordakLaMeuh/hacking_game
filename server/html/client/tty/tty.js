@@ -81,6 +81,11 @@ var TTY = function(keyboard) {
 		divTest.innerHTML = "x";
 		NBLETTERPERLINE = 0;
 		let originalHeight = divTest.offsetHeight;
+		if (originalHeight == 0 || originalHeight === undefined) {
+			console.warn("Cannot measure offsetHeight");
+			tty.removeChild(tty.lastChild);
+			return;
+		}
 		while (divTest.offsetHeight == originalHeight) {
 			divTest.innerHTML += "x";
 			NBLETTERPERLINE += 1;
