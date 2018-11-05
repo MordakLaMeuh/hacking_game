@@ -41,8 +41,8 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 			NBLETTER += 1;
 			spanDiv.innerHTML += "x";
 			if (NBLETTER == 1) {
-				CHAR_WIDTH = spanDiv.offsetWidth;
-				CHAR_HEIGHT = spanDiv.offsetHeight;
+				CHAR_WIDTH = spanDiv.getBoundingClientRect().width;
+				CHAR_HEIGHT = spanDiv.getBoundingClientRect().height;
 			}
 		} while (spanDiv.offsetWidth <= originalWidth);
 		NBLETTER -= 1;
