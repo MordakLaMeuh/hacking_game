@@ -29,6 +29,8 @@
 	border: 1px solid #0099CC;
 	color: #4c80a3;
 	font-family: "Exo 2", Arial, sans-serif;
+	font-size: 3vh;
+	font-size: calc(var(--vh, 1vh) * 3);
 }
 
 #keyboard table.hidden {
