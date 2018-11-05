@@ -12,9 +12,8 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	var spanDiv = document.createElement("span");
 	innerDiv.appendChild(spanDiv);
 
-	var self = this;
-
 	var content = "";
+	var cursorPosition;
 
 	const nbsp_space_expr = "&nbsp;";
 	const common_space_regex = / /g;
@@ -22,8 +21,6 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	var CHAR_HEIGHT = 0;
 	var CHAR_WIDTH = 0;
 	var NBLETTER = 0;
-
-	var cursorPosition;
 
 	function setNbLetter() {
 		/*
@@ -100,7 +97,7 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 			}
 			break;
 		case "Enter":
-			action_cb(self, content);
+			action_cb(this, content);
 			break;
 		default:
 			break;
@@ -130,7 +127,7 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	}
 
 	this.forceEnter = function() {
-		action_cb(self, content);
+		action_cb(this, content);
 	}
 
 	this.getContent = function() {
