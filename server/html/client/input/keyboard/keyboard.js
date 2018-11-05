@@ -51,20 +51,6 @@ var KEYBOARD = function() {
 			[["⇧", 1, switchLayout],["Z", 1], ["X", 1], ["C", 1], ["V", 1], ["B", 1], ["N", 1], ["M", 1], ["<=", 2, "Backspace"]],
 			[["<-", 1, "ArrowLeft"], ["->", 1, "ArrowRight"], ["", 6, " "], ["↲", 2, "Enter"]]]];
 
-	function isMobile() {
-		if (navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/webOS/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	let evtDown = (isMobile() == true) ? "touchstart" : "mousedown";
 	let evtUp = (isMobile() == true) ? "touchend" : "mouseup";
 
