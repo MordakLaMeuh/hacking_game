@@ -4,6 +4,7 @@ var KEYBOARD = function() {
 	var keyboardDiv = document.getElementById("keyboard");
 
 	var target = undefined;
+
 	this.open = function(targetField) {
 		console.log("open Keyboard");
 		target = targetField;
@@ -22,11 +23,11 @@ var KEYBOARD = function() {
 		target = undefined;
 	}
 
-	var throwInput = function(value) {
+	function throwInput(value) {
 		target(value);
 	}
 
-	var switchLayout = function() {
+	function switchLayout() {
 		console.log("switch_layout");
 
 		let tables = keyboardDiv.getElementsByTagName("table");
