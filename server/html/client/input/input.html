@@ -182,6 +182,15 @@
 <script src="cursor/cursor.js"></script>
 
 <script>
+/*
+ * First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+ */
+let vh = window.innerHeight * 0.01;
+/*
+ * Then we set the value in the --vh custom property to the root of the document
+ */
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
 var keyboard = new KEYBOARD();
 var cursor = new CURSOR();
 
@@ -189,6 +198,7 @@ var action_left = function(self, str) {
 	keyboard.close();
 	cursor.activeCursor(false);
 	field.style.height = "100vh";
+	field.style.height = "calc(var(--vh, 1vh) * 100)";
 
 	if (str.trim().length != 0) {
 		self.fflushContent();
@@ -200,6 +210,7 @@ var action_right = function(self, str) {
 	keyboard.close();
 	cursor.activeCursor(false);
 	field.style.height = "100vh";
+	field.style.height = "calc(var(--vh, 1vh) * 100)";
 
 	if (input_2.getContent().trim().length != 0 && input_3.getContent().trim().length != 0) {
 		let content = input_2.getContent() + " " + input_3.getContent();
@@ -214,13 +225,13 @@ var input_2 = new CUSTOM_INPUT(document.getElementById("inputTest_2"), action_ri
 var input_3 = new CUSTOM_INPUT(document.getElementById("inputTest_3"), action_right, cursor);
 
 field.addEventListener("mousedown", function(e) {
-	field.style.height = "100vh";
+	field.style.height = "calc(var(--vh, 1vh) * 100)";
 	keyboard.close();
 	cursor.activeCursor(false);
 }, false);
 
 inputTest_1.addEventListener("mousedown", function(e){
-	field.style.height = "60vh";
+	field.style.height = "calc(var(--vh, 1vh) * 60)";
 	input_1.focus(e.clientX, e.clientY);
 	keyboard.open(input_1.write);
 	e.stopPropagation();
@@ -232,14 +243,14 @@ button_left.addEventListener("mousedown", function(e){
 }, false);
 
 inputTest_2.addEventListener("mousedown", function(e){
-	field.style.height = "60vh";
+	field.style.height = "calc(var(--vh, 1vh) * 60)";
 	input_2.focus(e.clientX, e.clientY);
 	keyboard.open(input_2.write);
 	e.stopPropagation();
 }, false);
 
 inputTest_3.addEventListener("mousedown", function(e){
-	field.style.height = "60vh";
+	field.style.height = "calc(var(--vh, 1vh) * 60)";
 	input_3.focus(e.clientX, e.clientY);
 	keyboard.open(input_3.write);
 	e.stopPropagation();
