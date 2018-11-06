@@ -33,11 +33,13 @@ var TTY = function(keyboard, cursor) {
 		}, false);
 	}
 
-	var block_key = false;
 	this.key_cb = function(val)
 	{
-		block_key = (val == true) ? false : true;
-		console.info("key cb");
+		if (val == true)
+			keyboard.open(updateCharString);
+		else
+			keyboard.close();
+		console.info("key_cb");
 	}
 
 	const nbsp_space_expr = "&nbsp;";
@@ -379,43 +381,17 @@ var TTY = function(keyboard, cursor) {
 			keyboard.open(updateCharString);
 			isKeyboardActive = true;
 		}, false);
-
-		window.addEventListener("resize", function() {
-			console.info("resize on tty, mobile");
-			tty.scrollTop += 10000;
-			setLetterField();
-			putCursor(cursorPosition);
-		});
 	} else {
 		console.info("Browser TTY");
 		cursor.activeCursor(true);
 
-		document.addEventListener("keydown", function(event) {
-			let key = event.key;
-
-			if (block_key == true)
-				return;
-
-			/*
-			 * Prevent the quick search feature on Firefox triggered by /
-			 */
-			if (key == "/") {
-				event.stopPropagation();
-				event.preventDefault();
-			}
-
-			if (key == "Backspace") {
-				event.stopPropagation();
-				event.preventDefault();
-			}
-
-			updateCharString(key);
-		});
-
-		window.addEventListener("resize", function() {
-			tty.scrollTop += 10000;
-			setLetterField();
-			putCursor(cursorPosition);
-		});
+		keyboard.open(updateCharString);
 	}
+
+	window.addEventListener("resize", function() {
+		console.warn("resize");
+		tty.scrollTop += 10000;
+		setLetterField();
+		putCursor(cursorPosition);
+	});
 }
