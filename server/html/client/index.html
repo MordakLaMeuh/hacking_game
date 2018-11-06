@@ -12,19 +12,24 @@
 
 	<script type="text/javascript">
 	{
+		var IS_MOBILE =
+			(navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i)) ?
+			true : false;
+
 		var linkArray = [];
 		var cssFilesArray = ["right_panel/right_panel", "right_panel/dialog",
 		"right_panel/browser", "right_panel/diary", "right_panel/mail", "tty/tty", "tab"];
+
 		var mobileSuffix = "";
-		if (navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/webOS/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)) {
+		if (IS_MOBILE == true)
 			mobileSuffix = "_mobile";
-		}
+
 		var head = document.getElementsByTagName("head");
 		for (var i = 0; i < cssFilesArray.length; i++)
 		{

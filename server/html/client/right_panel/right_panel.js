@@ -13,20 +13,6 @@ var RIGHT_PANEL = function(switchScreen_cb) {
 
 	console.log("origin height: " + originalHeight);
 
-	var isMobile = function() {
-		if (navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/webOS/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	var hideContent = function() {
 		/*
 		 * Get all elements with class="tabcontent" and hide them
@@ -40,7 +26,7 @@ var RIGHT_PANEL = function(switchScreen_cb) {
 	function changeScreen(button, target) {
 		console.log("On right panel");
 
-		if (isMobile())
+		if (IS_MOBILE == true)
 			switchScreen_cb(right_panel);
 
 		hideContent();
@@ -70,7 +56,7 @@ var RIGHT_PANEL = function(switchScreen_cb) {
 		changeScreen(this, "diary");
 	});
 
-	if (isMobile()) {
+	if (IS_MOBILE == true) {
 		tty_btn.addEventListener("mousedown", function () {
 			switchScreen_cb(js_tty);
 			console.log("back to TTY");
@@ -109,7 +95,7 @@ var RIGHT_PANEL = function(switchScreen_cb) {
 		}
 	}
 
-	if (!isMobile())
+	if (IS_MOBILE == false)
 		changeScreen(diary_btn, "diary");
 	else
 		switchScreen_cb(js_tty);

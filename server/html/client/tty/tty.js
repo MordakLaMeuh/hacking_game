@@ -1,21 +1,6 @@
 'use strict';
 
 var TTY = function(keyboard) {
-
-	var isMobile = function() {
-		if (navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/webOS/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
@@ -42,7 +27,7 @@ var TTY = function(keyboard) {
 	/*
 	 * Passive scroll on mobile
 	 */
-	if (isMobile() == true) {
+	if (IS_MOBILE == true) {
 		tty.addEventListener('scroll', function(e) {
 			putCursor(visibleCursorPosition);
 		}, false);
@@ -416,7 +401,7 @@ var TTY = function(keyboard) {
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
 
-	if(isMobile() == true) {
+	if(IS_MOBILE == true) {
 		console.log("Mobile TTY");
 
 		var isKeyboardActive = false;
