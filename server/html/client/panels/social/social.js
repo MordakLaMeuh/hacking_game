@@ -1,8 +1,6 @@
 'use strict';
 
 var SOCIAL = function(notif_button_cb) {
-	var self = this;
-
 	var socialDiv = document.getElementById("social");
 	var contactsListDiv = document.getElementById("contacts_list");
 	var currentNameDiv;
@@ -11,19 +9,7 @@ var SOCIAL = function(notif_button_cb) {
 	var currentMessengerDiv;
 	var currentZindex = 0;
 
-	this.addEntry = function(obj)
-	{
-		let div = document.getElementById(obj.name);
-		if (div == undefined) {
-			this.createMessenger(obj.name)
-		}
-		this.showName(obj.name);
-		this.addHim(obj.q);
-		this.showAnswer(obj.r);
-	}
-
-	this.createDialogBox = function(messengerDiv)
-	{
+	function createDialogBox(messengerDiv) {
 		currentNameDiv = document.createElement('div');
 		currentNameDiv.setAttribute("class", "contact_name");
 		messengerDiv.appendChild(currentNameDiv);
@@ -36,7 +22,7 @@ var SOCIAL = function(notif_button_cb) {
 		currentAnswersDiv.setAttribute("class", "answers");
 		messengerDiv.appendChild(currentAnswersDiv);
 
-		this.createBackButton();
+		createBackButton();
 
 		currentMessagesDiv.addEventListener(mousewheelevt, function (e) {
 			e = window.event || e; // old IE support
@@ -45,18 +31,16 @@ var SOCIAL = function(notif_button_cb) {
 		}, false);
 	}
 
-	this.createMessenger = function(idName)
-	{
+	function createMessenger(idName) {
 		currentMessengerDiv = document.createElement('div');
 		currentMessengerDiv.setAttribute("class", "messenger");
 		currentMessengerDiv.setAttribute("id", idName);
 		socialDiv.appendChild(currentMessengerDiv);
 		currentMessengerDiv.style.zIndex = currentZindex++;
-		this.createDialogBox(currentMessengerDiv);
+		createDialogBox(currentMessengerDiv);
 	}
 
-	this.addMe = function(str)
-	{
+	function addMe(str) {
 		let li = document.createElement('li');
 		li.appendChild(document.createTextNode(str));
 		li.setAttribute("class", "me");
@@ -64,8 +48,7 @@ var SOCIAL = function(notif_button_cb) {
 		currentMessagesDiv.scrollTop += 10000;
 	}
 
-	this.addHim = function(str)
-	{
+	function addHim(str) {
 		let li = document.createElement('li');
 		li.appendChild(document.createTextNode(str));
 		li.setAttribute("class", "him");
@@ -76,17 +59,14 @@ var SOCIAL = function(notif_button_cb) {
 	/*
 	 * Write name and create buttons according to received number
 	 */
-	this.showName = function(str)
-	{
+	function showName(str) {
 		currentNameDiv.innerHTML = str;
 	}
 
-	this.showAnswer = function(tab)
-	{
+	function showAnswer(tab) {
 		let i = 0;
 		i = tab.length - 1;
-		while (i >= 0)
-		{
+		while (i >= 0) {
 			let b = document.createElement('button');
 			b.addEventListener("mousedown", function () {
 				sendAnswer(this.z);
@@ -99,8 +79,7 @@ var SOCIAL = function(notif_button_cb) {
 		}
 	}
 
-	this.createBackButton = function()
-	{
+	function createBackButton() {
 		let b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
 			notif_button_cb("social", false, true);
@@ -127,10 +106,21 @@ var SOCIAL = function(notif_button_cb) {
 		let obj = new Object();
 		obj.r = clicked_id;
 		let classCollection = currentAnswersDiv.getElementsByClassName("btn");
-		self.addMe(classCollection[clicked_id].innerHTML);
+		addMe(classCollection[clicked_id].innerHTML);
 		obj.name = currentNameDiv.innerHTML;
 		socket.send(JSON.stringify({"social":obj}));
 		removeButton();
+	}
+
+	this.addEntry = function(obj)
+	{
+		let div = document.getElementById(obj.name);
+		if (div == undefined) {
+			createMessenger(obj.name)
+		}
+		showName(obj.name);
+		addHim(obj.q);
+		showAnswer(obj.r);
 	}
 
 	/*
