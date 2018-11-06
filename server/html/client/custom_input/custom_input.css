@@ -1,0 +1,7 @@
+.custom_input {
+	color: white;
+	padding: 3px;
+	font-size: 5vh;
+	font-size: calc(var(--vh, 1vh) * 5);
+	font-family: monospace;
+}
