@@ -23,8 +23,12 @@
 .tab ul li
 {
 	list-style: none;
-	width: 11%;
-	height: 60%;
+	/* width: 11%;
+	height: 60%; */
+	/*BUG Can't put % or vh/vw because resize is not trigger since iframe window
+	doesn't detect any resize. Event is triggered by parent.*/
+	width: 40px;
+	height: 40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
