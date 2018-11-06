@@ -18,8 +18,8 @@ var TTY = function(keyboard) {
 	 * Active mouse scroll on PC
 	 */
 	tty.addEventListener(mousewheelevt, function (e) {
-		var e = window.event || e; // old IE support
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+		e = window.event || e; // old IE support
+		let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		tty.scrollTop -= delta * 20;
 		putCursor(visibleCursorPosition);
 	}, false);
@@ -56,7 +56,7 @@ var TTY = function(keyboard) {
 	var LETTERSIZE = CHAR_WIDTH;
 	var NBLETTERPERLINE = 0;
 
-	var setLetterField = function()
+	function setLetterField()
 	{
 		/*
 		 * Simulation of caracter insersion until a new line is required
@@ -92,18 +92,18 @@ var TTY = function(keyboard) {
 	 */
 	var directory;
 
-	var putCursor = function (position) {
-		var div_origin_y = inputDiv.getBoundingClientRect().top;
-		var div_origin_x = inputDiv.offsetLeft;
-		var div_width = inputDiv.offsetWidth;
+	function putCursor(position) {
+		let div_origin_y = inputDiv.getBoundingClientRect().top;
+		let div_origin_x = inputDiv.offsetLeft;
+		let div_width = inputDiv.offsetWidth;
 
 		/*
 		 * Mitigation with innerHeight
 		 */
 		div_origin_y += tty.scrollHeight - tty.clientHeight - tty.scrollTop;
 
-		var x_pixel = position % NBLETTERPERLINE * LETTERSIZE;
-		var y_pixel = Math.trunc(position / NBLETTERPERLINE) * CHAR_HEIGHT;
+		let x_pixel = position % NBLETTERPERLINE * LETTERSIZE;
+		let y_pixel = Math.trunc(position / NBLETTERPERLINE) * CHAR_HEIGHT;
 
 		cursor.style.left = div_origin_x + x_pixel + "px";
 		cursor.style.top = div_origin_y + y_pixel + "px";
@@ -117,7 +117,7 @@ var TTY = function(keyboard) {
 		}
 	}
 
-	var createNewInputString = function (prompt, optionalStr) {
+	function createNewInputString(prompt, optionalStr) {
 		systemInputMsg = prompt;
 		inputString = systemInputMsg;
 		if (optionalStr)
@@ -146,15 +146,15 @@ var TTY = function(keyboard) {
 		createNewInputString(str);
 	}
 
-	var createDiv = function (content) {
-		var outputDiv = document.createElement('div');
+	function createDiv(content) {
+		let outputDiv = document.createElement('div');
 		outputDiv.innerHTML = content;
 
 		tty.appendChild(outputDiv);
 		tty.scrollTop += 10000;
 	}
 
-	var refreshInput = function (inputDiv, optionalStr) {
+	function refreshInput(inputDiv, optionalStr) {
 		tty.removeChild(inputDiv);
 		if (optionalStr)
 			inputDiv.innerHTML = inputString + optionalStr;
@@ -167,17 +167,17 @@ var TTY = function(keyboard) {
 	}
 
 	function removeCharacters(str, char_pos, len) {
-		var part1 = str.substring(0, char_pos);
-		var part2 = str.substring(char_pos + len, str.length);
+		let part1 = str.substring(0, char_pos);
+		let part2 = str.substring(char_pos + len, str.length);
 		return part1 + part2;
 	}
 
 	function updateCharString(key) {
 		if (key.length == 1) {
-			var part1 = inputString.substring(0, cursorPosition);
+			let part1 = inputString.substring(0, cursorPosition);
 			console.log("part_1: '" + part1 + "'");
 
-			var part2 = inputString.substring(cursorPosition, inputString.length);
+			let part2 = inputString.substring(cursorPosition, inputString.length);
 			console.log("part_2: '" + part2 + "'");
 
 			if (key == " ") {
@@ -205,8 +205,8 @@ var TTY = function(keyboard) {
 		switch (key) {
 			case "Backspace":
 				if (cursorPosition != systemInputMsg.length) {
-					var idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
-					var len;
+					let idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
+					let len;
 					if (cursorPosition - idx == space_expr.length)
 						len = space_expr.length;
 					else
@@ -236,7 +236,7 @@ var TTY = function(keyboard) {
 				break;
 			case "ArrowRight":
 				if (cursorPosition < inputString.length) {
-					var idx = inputString.substring(cursorPosition, inputString.length).indexOf(space_expr);
+					let idx = inputString.substring(cursorPosition, inputString.length).indexOf(space_expr);
 					if (idx == 0)
 						cursorPosition += space_expr.length;
 					else
@@ -250,7 +250,7 @@ var TTY = function(keyboard) {
 				break;
 			case "ArrowLeft":
 				if (cursorPosition != systemInputMsg.length) {
-					var idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
+					let idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
 					if (cursorPosition - idx == space_expr.length)
 						cursorPosition -= space_expr.length;
 					else
@@ -344,8 +344,8 @@ var TTY = function(keyboard) {
 	var server_name = "";
 	var ssh_login;
 
-	var process = function (outStr) {
-		var outStrPostProcessed = outStr.replace(space_regex, " ");
+	function process(outStr) {
+		let outStrPostProcessed = outStr.replace(space_regex, " ");
 
 		switch (sequence) {
 			case sequence_enum.auth_login:
@@ -410,7 +410,7 @@ var TTY = function(keyboard) {
 	if(IS_MOBILE == true) {
 		console.log("Mobile TTY");
 
-		var isKeyboardActive = false;
+		let isKeyboardActive = false;
 
 		tty.addEventListener("mousedown", function(e){
 			if (isKeyboardActive == true) {

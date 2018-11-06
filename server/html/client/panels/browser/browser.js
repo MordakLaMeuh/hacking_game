@@ -39,19 +39,19 @@ var BROWSER = function(tty_key_cb) {
 			else
 				input_url = dict[input_url];
 			showImginBrowser(input_url);
-		}});
+	}});
 
-			function showImginBrowser(str) {
+	function showImginBrowser(str) {
 		document.getElementById("bwr_img").remove();
-		var img = document.createElement('img');
+		let img = document.createElement('img');
 		img.setAttribute("src", str);
 		img.setAttribute("id", "bwr_img");
 		bwr_content.appendChild(img);
 	}
 
 	bwr_content.addEventListener(mousewheelevt, function (e) {
-		var e = window.event || e; // old IE support
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+		e = window.event || e; // old IE support
+		let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		bwr_content.scrollTop -= delta * 50;
 }, false);
 

@@ -13,7 +13,7 @@ var SOCIAL = function(notif_button_cb) {
 
 	this.addEntry = function(obj)
 	{
-		var div = document.getElementById(obj.name);
+		let div = document.getElementById(obj.name);
 		if (div == undefined) {
 			this.createMessenger(obj.name)
 		}
@@ -39,8 +39,8 @@ var SOCIAL = function(notif_button_cb) {
 		this.createBackButton();
 
 		currentMessagesDiv.addEventListener(mousewheelevt, function (e) {
-			var e = window.event || e; // old IE support
-			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+			e = window.event || e; // old IE support
+			let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 			currentMessagesDiv.scrollTop -= delta * 20;
 		}, false);
 	}
@@ -57,7 +57,7 @@ var SOCIAL = function(notif_button_cb) {
 
 	this.addMe = function(str)
 	{
-		var li = document.createElement('li');
+		let li = document.createElement('li');
 		li.appendChild(document.createTextNode(str));
 		li.setAttribute("class", "me");
 		currentMessagesDiv.appendChild(li);
@@ -66,7 +66,7 @@ var SOCIAL = function(notif_button_cb) {
 
 	this.addHim = function(str)
 	{
-		var li = document.createElement('li');
+		let li = document.createElement('li');
 		li.appendChild(document.createTextNode(str));
 		li.setAttribute("class", "him");
 		currentMessagesDiv.appendChild(li);
@@ -83,11 +83,11 @@ var SOCIAL = function(notif_button_cb) {
 
 	this.showAnswer = function(tab)
 	{
-		var i = 0;
+		let i = 0;
 		i = tab.length - 1;
 		while (i >= 0)
 		{
-			var b = document.createElement('button');
+			let b = document.createElement('button');
 			b.addEventListener("mousedown", function () {
 				sendAnswer(this.z);
 			});
@@ -101,7 +101,7 @@ var SOCIAL = function(notif_button_cb) {
 
 	this.createBackButton = function()
 	{
-		var b = document.createElement('button');
+		let b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
 			notif_button_cb("social", false, true);
 			contactsListDiv.style.zIndex = currentZindex++;
@@ -114,9 +114,8 @@ var SOCIAL = function(notif_button_cb) {
 	/*
 	 * remove all buttons and create new ones
 	 */
-	var removeButton = function()
-	{
-		var btns = currentMessengerDiv.getElementsByClassName('btn');
+	function removeButton() {
+		let btns = currentMessengerDiv.getElementsByClassName('btn');
 		while(btns[0])
 			btns[0].parentNode.removeChild(btns[0]);
 	}
@@ -124,11 +123,10 @@ var SOCIAL = function(notif_button_cb) {
 	/*
 	 * send answer to server
 	 */
-	var sendAnswer = function(clicked_id)
-	{
-		var obj = new Object();
+	function sendAnswer(clicked_id) {
+		let obj = new Object();
 		obj.r = clicked_id;
-		var classCollection = currentAnswersDiv.getElementsByClassName("btn");
+		let classCollection = currentAnswersDiv.getElementsByClassName("btn");
 		self.addMe(classCollection[clicked_id].innerHTML);
 		obj.name = currentNameDiv.innerHTML;
 		socket.send(JSON.stringify({"social":obj}));
@@ -140,21 +138,21 @@ var SOCIAL = function(notif_button_cb) {
 	 */
 	this.displayContacts = function(contactsArray)
 	{
-		for (var i = 0; i < contactsArray.length; i++) {
+		for (let i = 0; i < contactsArray.length; i++) {
 			(function () {
 				/*
 				 * Create a new contact div
 				 */
-				var contact = document.createElement('div');
+				let contact = document.createElement('div');
 				contact.className = "contact";
 
 				/*
 				 * Add EventListener to contact div to send contact name to the server
 				 */
-				var obj = new Object();
+				let obj = new Object();
 				obj.name = contactsArray[i];
 				contact.addEventListener("mousedown", function (){
-					var div = document.getElementById(obj.name);
+					let div = document.getElementById(obj.name);
 					/*
 					 * Test of messenger div already exist
 					 */
@@ -173,7 +171,7 @@ var SOCIAL = function(notif_button_cb) {
 				/*
 				 * Create a new img
 				 */
-				var img = document.createElement('img');
+				let img = document.createElement('img');
 				img.src = "/medias/contact.svg";
 				img.alt = "contact_picture";
 				img.style.backgroundColor = "#57D1FA";
@@ -181,13 +179,13 @@ var SOCIAL = function(notif_button_cb) {
 				/*
 				 * Create a new contact_name div
 				 */
-				var contact_name = document.createElement('div');
+				let contact_name = document.createElement('div');
 				contact_name.className = "contact_name";
 
 				/*
 				 * Create a new paragraph
 				 */
-				var paragraph = document.createElement('p');
+				let paragraph = document.createElement('p');
 				paragraph.textContent = contactsArray[i];
 
 				/*

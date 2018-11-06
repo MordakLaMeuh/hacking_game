@@ -3,6 +3,7 @@
 var MAIL = function(tty_key_cb)
 {
 	var self = this;
+
 	this.mailObj;
 	var onFolder = false;
 
@@ -11,10 +12,10 @@ var MAIL = function(tty_key_cb)
 	 */
 	(function()
 	{
-		var signInBtn = document.getElementById("signInBtn");
-		var loginBtn = document.getElementById("loginBtn");
-		var backBtn = document.getElementById("backBtn");
-		var loginForm = document.getElementById("loginForm");
+		let signInBtn = document.getElementById("signInBtn");
+		let loginBtn = document.getElementById("loginBtn");
+		let backBtn = document.getElementById("backBtn");
+		let loginForm = document.getElementById("loginForm");
 
 
 		signInBtn.addEventListener("mousedown", function(){
@@ -53,10 +54,10 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.displayFolder = function(mail)
 	{
-		if (!onFolder)
+		if (onFolder == false)
 		{
 			onFolder = true;
-			var mailMessagesUl = document.getElementById("mail_messages");
+			let mailMessagesUl = document.getElementById("mail_messages");
 			console.log("on efface");
 			this.changeMailHeader(onFolder);
 			this.removeMailList(mailMessagesUl);
@@ -69,28 +70,25 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.displayMailList = function(mail, mailMessagesUl)
 	{
-		for (var i = 0; i < mail.content.length; i++)
+		for (let i = 0; i < mail.content.length; i++)
 		{
-			var func = function(i)
+			function func(i)
 			{
-				var mailLiContainer = document.createElement("li");
-				var mailUlContainer = document.createElement("ul");
+				let mailLiContainer = document.createElement("li");
+				let mailUlContainer = document.createElement("ul");
 
-				var senderLi = document.createElement("li");
-				var receiverLi = document.createElement("li");
-				var titleLi = document.createElement("li");
+				let senderLi = document.createElement("li");
+				let receiverLi = document.createElement("li");
+				let titleLi = document.createElement("li");
 
 				senderLi.className = "from";
 				receiverLi.className = "to";
 				titleLi.className = "title";
 
-				if (mail.content[i].sender == 1)
-				{
+				if (mail.content[i].sender == 1) {
 					senderLi.innerHTML = mail.name;
 					receiverLi.innerHTML = mail.content[i].from_to;
-				}
-				else
-				{
+				} else {
 					senderLi.innerHTML = mail.content[i].from_to;
 					receiverLi.innerHTML = mail.name;
 				}
@@ -103,8 +101,7 @@ var MAIL = function(tty_key_cb)
 				mailLiContainer.appendChild(mailUlContainer);
 				mailMessagesUl.appendChild(mailLiContainer);
 
-				if (!mail.content[i].read)
-				{
+				if (!mail.content[i].read) {
 					mailLiContainer.style.fontWeight = "bold";
 					mailLiContainer.style.backgroundColor = "rgba(120, 200, 255, 0.2)";
 				}
@@ -122,8 +119,7 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.removeMailList = function(mailList)
 	{
-		while (mailList.firstChild)
-		{
+		while (mailList.firstChild) {
 			mailList.removeChild(mailList.firstChild);
 		}
 	}
@@ -133,27 +129,23 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.changeMailHeader = function(onFolder)
 	{
-		var mailInfoBarUl = document.getElementById("mail_info_bar");
+		let mailInfoBarUl = document.getElementById("mail_info_bar");
 
-		for (var i = 0; i < mailInfoBarUl.children.length; i++)
-		{
-			if (!onFolder)
+		for (let i = 0; i < mailInfoBarUl.children.length; i++) {
+			if (!onFolder) {
 				mailInfoBarUl.children[i].style.display = "none";
-			else
-			{
-				if (i < 3)
+			} else {
+				if (i < 3) {
 					mailInfoBarUl.children[i].style.display = "flex";
-				else
-				{
+				} else {
 					mailInfoBarUl.removeChild(mailInfoBarUl.children[i]);
 					i--;
 				}
 			}
 		}
-		var backBtn = document.getElementById("backBtn");
+		let backBtn = document.getElementById("backBtn");
 		if (!onFolder)
 			backBtn.style.display = "flex";
-
 		else
 			backBtn.style.display = "none";
 	}
@@ -166,20 +158,17 @@ var MAIL = function(tty_key_cb)
 		onFolder = false;
 		mail.content[index].read = true;
 		this.removeMailList(mailList);
-		var mailInfoBarUl = document.getElementById("mail_info_bar");
+		let mailInfoBarUl = document.getElementById("mail_info_bar");
 		this.changeMailHeader(onFolder);
-		var from = document.createElement("li");
-		var to = document.createElement("li");
-		var title = document.createElement("li");
-		var mailContent = document.createElement("p");
+		let from = document.createElement("li");
+		let to = document.createElement("li");
+		let title = document.createElement("li");
+		let mailContent = document.createElement("p");
 
-		if (mail.content[index].sender == 1)
-		{
+		if (mail.content[index].sender == 1) {
 			from.innerHTML = "From: " + mail.name;
 			to.innerHTML = "To: " +  mail.content[index].from_to;
-		}
-		else
-		{
+		} else {
 			from.innerHTML = "From: " + mail.content[index].from_to;
 			to.innerHTML = "To: " + mail.name;
 		}
@@ -191,7 +180,7 @@ var MAIL = function(tty_key_cb)
 		mailInfoBarUl.appendChild(title);
 		mailList.appendChild(mailContent);
 
-		var obj = new Object();
+		let obj = new Object();
 		obj.name = mail.name;
 		obj.index = index;
 		socket.send(JSON.stringify({"mail": obj}));
@@ -202,15 +191,12 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.displayMailHeaderAndBody = function(display)
 	{
-		var mailHeaderDiv = document.getElementById("mail_header");
-		var mailBodyDiv = document.getElementById("mail_body");
-		if (!display)
-		{
+		let mailHeaderDiv = document.getElementById("mail_header");
+		let mailBodyDiv = document.getElementById("mail_body");
+		if (display == false) {
 			mailHeaderDiv.style.display = "none";
 			mailBodyDiv.style.display = "none";
-		}
-		else
-		{
+		} else {
 			mailHeaderDiv.style.display = "flex";
 			mailBodyDiv.style.display = "flex";
 		}
@@ -221,8 +207,8 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.displayErrorForm = function(display)
 	{
-		var errorForm = document.getElementById("errorForm");
-		if (!display)
+		let errorForm = document.getElementById("errorForm");
+		if (display == false)
 			errorForm.style.display = "none";
 		else
 			errorForm.style.display = "flex";
@@ -233,8 +219,8 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.displayLoginForm = function(display)
 	{
-		var loginForm = document.getElementById("loginForm");
-		if (display)
+		let loginForm = document.getElementById("loginForm");
+		if (display == true)
 			loginForm.style.display = "block";
 		else
 			loginForm.style.display = "none";
@@ -256,7 +242,7 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.sendLoginData = function()
 	{
-		var obj = new Object();
+		let obj = new Object();
 		obj.name = document.getElementById("loginInput").value;;
 		obj.password = document.getElementById("passwordInput").value;;
 		socket.send(JSON.stringify({"mail": obj}));
@@ -270,10 +256,9 @@ var MAIL = function(tty_key_cb)
 	 */
 	this.login = function(mail)
 	{
-		if (mail.content)
-		{
+		if (mail.content) {
 			this.mailObj = mail;
-			var mailName = document.getElementById("mailName");
+			let mailName = document.getElementById("mailName");
 			if (mail.name == "root")
 				mailName.innerHTML = "Your Mail";
 			else
@@ -282,8 +267,8 @@ var MAIL = function(tty_key_cb)
 			this.displayLoginForm(false);
 			this.displayMailHeaderAndBody(true);
 			this.displayFolder(mail);
-		}
-		else
+		} else {
 			this.displayErrorForm(true);
+		}
 	}
 }
