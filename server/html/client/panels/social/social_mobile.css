@@ -1,4 +1,51 @@
 
+#contacts_list
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.contact
+{
+	display: flex;
+	margin-top: 3%;
+	cursor: pointer;
+}
+
+.contact:hover
+{
+	opacity: .5;
+}
+
+.contact_name
+{
+	margin-left: 4%;
+	margin-right: 4%;
+	width: 100%;
+	display: flex;
+	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
+    text-align: center;
+    font-size: 1.2em;
+	color: #78C8FF;
+    font-family: Verdana, sans-serif;
+}
+
+.contact_name p
+{
+	font-size: 20px;
+	width: 100%;
+	margin: auto;
+	margin-left: 4%;
+	font: normal 100 20px/1.5em "Exo 2", Arial, sans-serif;
+}
+
+.contact img
+{
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+}
+
 /* Messenger-like style */
 
 .messenger {
@@ -12,15 +59,6 @@
 
 	display: flex;
 	flex-direction: column;
-
-
-}
-
-.contact_name {
-    text-align: center;
-    font-size: 1.2em;
-	color: #78C8FF;
-    font-family: Verdana, sans-serif;
 }
 
 .messenger ul{
