@@ -1,4 +1,4 @@
-#right_panel {
+#panels {
 	height: 90vh;
 	height: calc(var(--vh, 1vh) * 90);
 	width: 100vw;
@@ -9,7 +9,7 @@
 }
 
 /* Style the tab content */
-.tabcontent {
+#panels .tabcontent {
 	float:right;
 	width: 100vw;
 	height: 90vh;

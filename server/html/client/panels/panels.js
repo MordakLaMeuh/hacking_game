@@ -1,7 +1,7 @@
 'use strict';
 
-var RIGHT_PANEL = function(switchScreen_cb) {
-	var right_panel = document.getElementById("right_panel");
+var PANELS = function(switchScreen_cb) {
+	var panels = document.getElementById("panels");
 
 	var hideContent = function() {
 		/*
@@ -17,7 +17,7 @@ var RIGHT_PANEL = function(switchScreen_cb) {
 		console.log("On right panel");
 
 		if (IS_MOBILE == true)
-			switchScreen_cb(right_panel);
+			switchScreen_cb(panels);
 
 		hideContent();
 

@@ -1,23 +1,18 @@
 'use strict';
 
 var SCREEN_CONTROLER = function(displayCursor_cb) {
-
-	var right_panel = document.getElementById("right_panel");
-	var tty = document.getElementById("js_tty");
-	var tabUl = document.getElementById("tabUl");
-
 	this.switchScreen = function(target)
 	{
 		if (target == js_tty)
 		{
-			right_panel.style.display = "none";
+			panels.style.display = "none";
 			js_tty.style.display = "";
 			displayCursor_cb(true);
 
 		}
 		else
 		{
-			right_panel.style.display = "block";
+			panels.style.display = "block";
 			js_tty.style.display = "none";
 			displayCursor_cb(false);
 		}

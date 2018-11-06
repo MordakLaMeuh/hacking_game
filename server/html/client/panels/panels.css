@@ -1,4 +1,4 @@
-#right_panel {
+#panels {
 	height:90vh;
 	width:30vw;
 	float:right;
@@ -10,9 +10,8 @@
 	background-color: #262626;
 }
 
-
 /* Style the tab content */
-.tabcontent {
+#panels .tabcontent {
 	float:right;
 	width: 30vw;
 	height: 90vh;
