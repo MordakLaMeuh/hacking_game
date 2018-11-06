@@ -351,7 +351,7 @@ var TTY = function(keyboard, cursor) {
 	 */
 	cursor.setCursorDim(CHAR_WIDTH, CHAR_HEIGHT);
 
-	this.displayCursor = function(actif) {
+	this.display = function(actif) {
 			if (actif == true) {
 				putCursor(cursorPosition);
 				cursor.activeCursor(true);

@@ -154,12 +154,15 @@ var socket;
 after_load = function() {
 	var keyboard = new KEYBOARD();
 	var cursor = new CURSOR();
+
 	var tty = new TTY(keyboard, cursor);
-	var UI_controler = new UI_CONTROLER(tty.displayCursor);
+	var UI_controler = new UI_CONTROLER(tty.display);
+
+	var browser = new BROWSER(keyboard, cursor, tty.key_cb);
+	var mail = new MAIL(keyboard, cursor, tty.key_cb);
+
 	var social = new SOCIAL(UI_controler.notif_button_cb);
 	var diary = new DIARY(UI_controler.notif_button_cb);
-	var browser = new BROWSER(tty.key_cb, keyboard);
-	var mail = new MAIL(tty.key_cb, keyboard);
 
 	window.onresize = UI_controler.resizeButtons();
 	UI_controler.resizeButtons();

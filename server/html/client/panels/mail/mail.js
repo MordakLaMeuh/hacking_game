@@ -1,6 +1,6 @@
 'use strict';
 
-var MAIL = function(tty_key_cb)
+var MAIL = function(keyboard, cursor, tty_key_cb)
 {
 	var self = this;
 

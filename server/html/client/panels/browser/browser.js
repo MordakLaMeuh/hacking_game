@@ -1,6 +1,6 @@
 'use strict';
 
-var BROWSER = function(tty_key_cb) {
+var BROWSER = function(keyboard, cursor, tty_key_cb) {
 	var self = this;
 
 	var go_btn = document.getElementById("go_btn");

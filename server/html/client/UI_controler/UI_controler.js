@@ -1,6 +1,6 @@
 'use strict';
 
-var UI_CONTROLER = function(displayCursor_cb) {
+var UI_CONTROLER = function(tty_display_cb) {
 	/*
 	 * Make button like circle
 	 */
@@ -53,12 +53,12 @@ var UI_CONTROLER = function(displayCursor_cb) {
 		if (target == js_tty) {
 			panels.style.display = "none";
 			js_tty.style.display = "";
-			displayCursor_cb(true);
+			tty_display_cb(true);
 
 		} else {
 			panels.style.display = "block";
 			js_tty.style.display = "none";
-			displayCursor_cb(false);
+			tty_display_cb(false);
 		}
 	}
 
