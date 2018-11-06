@@ -1,17 +1,7 @@
 'use strict';
 
 var RIGHT_PANEL = function(switchScreen_cb) {
-	var originalHeight = window.innerHeight;
 	var right_panel = document.getElementById("right_panel");
-	var tty = document.getElementById("js_tty");
-	var mail = document.getElementById("mail");
-	var browser = document.getElementById("browser");
-	var social = document.getElementById("phone");
-	var diary = document.getElementById("diary");
-	var tabUl = document.getElementById("tabUl");
-	var TABBARHEIGHT = 10;
-
-	console.log("origin height: " + originalHeight);
 
 	var hideContent = function() {
 		/*

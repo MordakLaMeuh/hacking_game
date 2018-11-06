@@ -6,7 +6,6 @@ var SCREEN_CONTROLER = function(displayCursor_cb) {
 	var tty = document.getElementById("js_tty");
 	var tabUl = document.getElementById("tabUl");
 
-
 	this.switchScreen = function(target)
 	{
 		if (target == js_tty)
