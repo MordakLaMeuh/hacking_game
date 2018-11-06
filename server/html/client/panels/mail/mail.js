@@ -7,47 +7,67 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	this.mailObj;
 	var onFolder = false;
 
+	if (IS_MOBILE == false) {
+		login_form_mail.innerHTML += `<form id='loginForm'>
+		<p id='errorForm'>Invalid login or password</p>
+		<div class='input-container'>
+		<input id= 'loginInput' class='input-field' type='text' placeholder='Login' spellcheck='false' autocapitalize='none' autocomplete='off' autocorrect='off' />
+		</div>
+		<div class='input-container'>
+		<input id='passwordInput' class='input-field' type='text' placeholder='Password' spellcheck='false' autocapitalize='none' autocomplete='off' autocorrect='off' />
+		</div>
+		<button id='loginBtn' class='btn' type='button'>Login</button>
+		</form>`;
+
+		/*
+		 * Self invoked function to add listener
+		 */
+		(function()
+		{
+			let signInBtn = document.getElementById("signInBtn");
+			let loginBtn = document.getElementById("loginBtn");
+			let loginForm = document.getElementById("loginForm");
+
+			signInBtn.addEventListener("mousedown", function(){
+				signOut()
+			});
+			loginBtn.addEventListener("mousedown", function(){
+				sendLoginData();
+			});
+
+			loginForm.addEventListener("keyup", function(event) {
+				event.preventDefault();
+				if (event.key === "Enter") {
+					sendLoginData();
+				}});
+		}());
+
+		document.getElementById("loginInput").addEventListener("focus", function() {
+			tty_key_cb(0);
+		}, true);
+		document.getElementById("loginInput").addEventListener("blur", function() {
+			tty_key_cb(1);
+		}, true);
+
+		document.getElementById("passwordInput").addEventListener("focus", function() {
+			tty_key_cb(0);
+		}, true);
+		document.getElementById("passwordInput").addEventListener("blur", function() {
+			tty_key_cb(1);
+		}, true);
+	} else {
+
+	}
 	/*
 	 * Self invoked function to add listener
 	 */
 	(function()
 	{
-		let signInBtn = document.getElementById("signInBtn");
-		let loginBtn = document.getElementById("loginBtn");
 		let backBtn = document.getElementById("backBtn");
-		let loginForm = document.getElementById("loginForm");
-
-
-		signInBtn.addEventListener("mousedown", function(){
-			signOut()
-		});
-		loginBtn.addEventListener("mousedown", function(){
-			sendLoginData();
-		});
-
-		loginForm.addEventListener("keyup", function(event) {
-			event.preventDefault();
-			if (event.key === "Enter") {
-				sendLoginData();
-			}});
 
 		backBtn.addEventListener("mousedown", function(){
 			displayFolder()});
 	}());
-
-	document.getElementById("loginInput").addEventListener("focus", function() {
-		tty_key_cb(0);
-	}, true);
-	document.getElementById("loginInput").addEventListener("blur", function() {
-		tty_key_cb(1);
-	}, true);
-
-	document.getElementById("passwordInput").addEventListener("focus", function() {
-		tty_key_cb(0);
-	}, true);
-	document.getElementById("passwordInput").addEventListener("blur", function() {
-		tty_key_cb(1);
-	}, true);
 
 	/*
 	 * Check mail data received from server to allow or deny login

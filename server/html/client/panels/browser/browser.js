@@ -3,9 +3,45 @@
 var BROWSER = function(keyboard, cursor, tty_key_cb) {
 	var self = this;
 
-	var go_btn = document.getElementById("go_btn");
+	if (IS_MOBILE == false) {
+		browser_url_bar.innerHTML +=
+		`<input id='url' type='text' onfocus=\"this.value=''\" spellcheck='false' autocorrect='off' autocapitalize='none' autocomplete='off' name='url' value='enter your URL' />
+		<input id='go_btn' type='submit' value='Go' />`;
+
+		var form = document.getElementById("url");
+		var go_btn = document.getElementById("go_btn");
+
+		go_btn.addEventListener("mousedown", function () {
+			let input_url = form.value;
+			if (!(input_url in dict))
+				input_url = "medias/404.png";
+			else
+				input_url = dict[input_url];
+			showImginBrowser(input_url);
+		});
+
+		form.addEventListener("focus", function() {
+			tty_key_cb(0);
+		}, true);
+		form.addEventListener("blur", function() {
+			tty_key_cb(1);
+		}, true);
+
+		form.addEventListener("keyup", function(event) {
+			event.preventDefault();
+			if (event.key === "Enter") {
+				let input_url = form.value;
+				if (!(input_url in dict))
+					input_url = "medias/404.png";
+				else
+					input_url = dict[input_url];
+				showImginBrowser(input_url);
+		}});
+	} else {
+
+	}
+
 	var bwr_content = document.getElementById("browser-container");
-	var form = document.getElementById("url");
 
 	/* Create key-value pairs with the url and matching img */
 	var dict = new Object();
@@ -13,33 +49,6 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 	dict["www.ours.com"] = "medias/ours.png";
 	dict["www.molang.com"] = "medias/macaron.jpg";
 	dict["www.big.com"] = "medias/big.png";
-
-	go_btn.addEventListener("mousedown", function () {
-		let input_url = form.value;
-		if (!(input_url in dict))
-			input_url = "medias/404.png";
-		else
-			input_url = dict[input_url];
-		showImginBrowser(input_url);
-	});
-
-	form.addEventListener("focus", function() {
-		tty_key_cb(0);
-	}, true);
-	form.addEventListener("blur", function() {
-		tty_key_cb(1);
-	}, true);
-
-	form.addEventListener("keyup", function(event) {
-		event.preventDefault();
-		if (event.key === "Enter") {
-			let input_url = form.value;
-			if (!(input_url in dict))
-				input_url = "medias/404.png";
-			else
-				input_url = dict[input_url];
-			showImginBrowser(input_url);
-	}});
 
 	function showImginBrowser(str) {
 		document.getElementById("bwr_img").remove();
