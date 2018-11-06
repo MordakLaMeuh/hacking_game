@@ -102,10 +102,13 @@ var TTY = function(keyboard, cursor) {
 		cursor.setCursorPosition(div_origin_x + x_pixel, div_origin_y + y_pixel);
 
 		if (IS_MOBILE) {
-			if (div_origin_y + y_pixel > tty.getBoundingClientRect().bottom)
+			let offset = tty.getBoundingClientRect().bottom - div_origin_y + y_pixel;
+			if (offset < 0) {
 				cursor.activeCursor(false);
-			else
+			} else {
+				cursor.setCursorDim(CHAR_WIDTH, (offset < CHAR_HEIGHT) ? offset : CHAR_HEIGHT);
 				cursor.activeCursor(true);
+			}
 		}
 	}
 
