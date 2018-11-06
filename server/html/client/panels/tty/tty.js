@@ -1,6 +1,6 @@
 'use strict';
 
-var TTY = function(keyboard) {
+var TTY = function(keyboard, cursor) {
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
@@ -21,7 +21,7 @@ var TTY = function(keyboard) {
 		e = window.event || e; // old IE support
 		let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		tty.scrollTop -= delta * 20;
-		putCursor(visibleCursorPosition);
+		putCursor(cursorPosition);
 	}, false);
 
 	/*
@@ -29,7 +29,7 @@ var TTY = function(keyboard) {
 	 */
 	if (IS_MOBILE == true) {
 		tty.addEventListener('scroll', function(e) {
-			putCursor(visibleCursorPosition);
+			putCursor(cursorPosition);
 		}, false);
 	}
 
@@ -99,14 +99,13 @@ var TTY = function(keyboard) {
 		let x_pixel = position % NBLETTERPERLINE * LETTERSIZE;
 		let y_pixel = Math.trunc(position / NBLETTERPERLINE) * CHAR_HEIGHT;
 
-		cursor.style.left = div_origin_x + x_pixel + "px";
-		cursor.style.top = div_origin_y + y_pixel + "px";
+		cursor.setCursorPosition(div_origin_x + x_pixel, div_origin_y + y_pixel);
 
 		if (IS_MOBILE) {
 			if (div_origin_y + y_pixel > tty.getBoundingClientRect().bottom)
-				cursor.style.display = "none";
+				cursor.activeCursor(false);
 			else
-				cursor.style.display = "";
+				cursor.activeCursor(true);
 		}
 	}
 
@@ -345,24 +344,19 @@ var TTY = function(keyboard) {
 	 * Calculate from font-size 20px.
 	 * DIV width must be multiple of 12
 	 */
-	var cursor = document.createElement('canvas');
-	cursor.id = "cursor";
-	cursor.style.height = CHAR_HEIGHT + "px";
-	cursor.style.width = CHAR_WIDTH + "px";
+	cursor.setCursorDim(CHAR_WIDTH, CHAR_HEIGHT);
 
 	this.displayCursor = function(actif) {
 			if (actif == true) {
 				putCursor(cursorPosition);
-				cursor.style.display = "block";
+				cursor.activeCursor(true);
 			} else {
-				cursor.style.display = "none";
+				cursor.activeCursor(false);
 			}
 	}
 
 	historyIdx = 0;
 	createNewInputString("login: ");
-	cursor.getContext('2d');
-	document.body.appendChild(cursor);
 
 	if(IS_MOBILE == true) {
 		console.info("Mobile TTY");
@@ -391,6 +385,7 @@ var TTY = function(keyboard) {
 		});
 	} else {
 		console.info("Browser TTY");
+		cursor.activeCursor(true);
 
 		document.addEventListener("keydown", function(event) {
 			let key = event.key;

@@ -9,6 +9,7 @@
 	<link rel="shortcut icon" href="medias/ours.png">
 	<link rel='stylesheet' href='index.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='keyboard/keyboard.css' type='text/css' media='all'>
+	<link rel='stylesheet' href='cursor/cursor.css' type='text/css' media='all'>
 
 	<script type="text/javascript">
 	{
@@ -129,6 +130,7 @@
 <script src="panels/browser/browser.js"></script>
 <script src="panels/mail/mail.js"></script>
 <script src="keyboard/keyboard.js"></script>
+<script src="cursor/cursor.js"></script>
 <script src="UI_controler/UI_controler.js"></script>
 
 
@@ -149,7 +151,8 @@ var socket;
 
 after_load = function() {
 	var keyboard = new KEYBOARD();
-	var tty = new TTY(keyboard);
+	var cursor = new CURSOR();
+	var tty = new TTY(keyboard, cursor);
 	var UI_controler = new UI_CONTROLER(tty.displayCursor);
 	var social = new SOCIAL(UI_controler.notif_button_cb);
 	var diary = new DIARY(UI_controler.notif_button_cb);
