@@ -11,7 +11,7 @@ var TTY = function(keyboard) {
 	divTest.appendChild(innerTest);
 	var CHAR_HEIGHT = divTest.offsetHeight;
 	var CHAR_WIDTH = innerTest.offsetWidth;
-	console.log("height: " + CHAR_HEIGHT + " width: " + CHAR_WIDTH);
+	console.info("height: " + CHAR_HEIGHT + " width: " + CHAR_WIDTH);
 	tty.removeChild(tty.firstChild);
 
 	/*
@@ -37,11 +37,11 @@ var TTY = function(keyboard) {
 	this.key_cb = function(val)
 	{
 		block_key = (val == true) ? false : true;
-		console.log("key cb");
+		console.info("key cb");
 	}
 
-	const space_expr = "&nbsp;";
-	const space_regex = /&nbsp;/g;
+	const nbsp_space_expr = "&nbsp;";
+	const common_space_regex = / /g;
 
 	var inputHistory = new Array();
 	var historyIdx;
@@ -77,15 +77,9 @@ var TTY = function(keyboard) {
 		}
 		tty.removeChild(tty.lastChild);
 
-		console.log("nb letter per line: ", NBLETTERPERLINE);
+		console.info("nb letter per line: ", NBLETTERPERLINE);
 	}
 	setLetterField();
-
-	/*
-	 * visible len and cursor position, avoid exeption of &nbsp;
-	 */
-	var visibleCursorPosition;
-	var visibleStringLen;
 
 	/*
 	 * current directory, utilized by prompt
@@ -108,7 +102,6 @@ var TTY = function(keyboard) {
 		cursor.style.left = div_origin_x + x_pixel + "px";
 		cursor.style.top = div_origin_y + y_pixel + "px";
 
-		console.log("new visible cur position: " + position);
 		if (IS_MOBILE) {
 			if (div_origin_y + y_pixel > tty.getBoundingClientRect().bottom)
 				cursor.style.display = "none";
@@ -125,20 +118,19 @@ var TTY = function(keyboard) {
 		cursorPosition = inputString.length;
 		inputDiv = document.createElement('div');
 
-		visibleCursorPosition = inputString.replace(space_regex, " ").length;
-		visibleStringLen = visibleCursorPosition;
-
-		if ((visibleStringLen % NBLETTERPERLINE == 0) &&
-			(visibleCursorPosition % NBLETTERPERLINE == 0) &&
-			visibleStringLen == visibleCursorPosition)
-			inputDiv.innerHTML = inputString + space_expr;
-		else
-			inputDiv.innerHTML = inputString;
-
+		if ((inputString.length % NBLETTERPERLINE == 0) &&
+			(cursorPosition % NBLETTERPERLINE == 0) &&
+			inputString.length == cursorPosition) {
+			let tmp = inputString + " ";
+			inputDiv.innerHTML = tmp.replace(common_space_regex, nbsp_space_expr);
+		} else {
+			inputDiv.innerHTML = inputString.replace(common_space_regex, nbsp_space_expr);
+		}
 		tty.appendChild(inputDiv);
 
 		tty.scrollTop += 10000;
-		putCursor(visibleCursorPosition);
+
+		putCursor(cursorPosition);
 	}
 
 	this.write = function(str)
@@ -156,11 +148,12 @@ var TTY = function(keyboard) {
 
 	function refreshInput(inputDiv, optionalStr) {
 		tty.removeChild(inputDiv);
-		if (optionalStr)
-			inputDiv.innerHTML = inputString + optionalStr;
-		else
-			inputDiv.innerHTML = inputString;
-
+		if (optionalStr) {
+			let tmp = inputString + optionalStr;
+			inputDiv.innerHTML = tmp.replace(common_space_regex, nbsp_space_expr);
+		} else {
+			inputDiv.innerHTML = inputString.replace(common_space_regex, nbsp_space_expr);
+		}
 		tty.appendChild(inputDiv);
 
 		tty.scrollTop += 10000;
@@ -175,29 +168,19 @@ var TTY = function(keyboard) {
 	function updateCharString(key) {
 		if (key.length == 1) {
 			let part1 = inputString.substring(0, cursorPosition);
-			console.log("part_1: '" + part1 + "'");
-
 			let part2 = inputString.substring(cursorPosition, inputString.length);
-			console.log("part_2: '" + part2 + "'");
 
-			if (key == " ") {
-				key = space_expr;
-				cursorPosition += space_expr.length;
-			} else {
-				cursorPosition += 1;
-			}
-			visibleCursorPosition += 1;
-			visibleStringLen += 1;
-
+			cursorPosition += 1;
 			inputString = part1 + key + part2;
 
-			if ((visibleStringLen % NBLETTERPERLINE == 0) &&
-				(visibleCursorPosition % NBLETTERPERLINE == 0) &&
-				visibleStringLen == visibleCursorPosition)
-				refreshInput(inputDiv, space_expr);
-			else
-				refreshInput(inputDiv);
-			putCursor(visibleCursorPosition);
+			if ((inputString.length % NBLETTERPERLINE == 0) &&
+					(cursorPosition % NBLETTERPERLINE == 0) &&
+					inputString.length == cursorPosition)
+					refreshInput(inputDiv, " ");
+				else
+					refreshInput(inputDiv);
+
+			putCursor(cursorPosition);
 
 			historyIdx = inputHistory.length;
 		}
@@ -205,26 +188,18 @@ var TTY = function(keyboard) {
 		switch (key) {
 			case "Backspace":
 				if (cursorPosition != systemInputMsg.length) {
-					let idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
-					let len;
-					if (cursorPosition - idx == space_expr.length)
-						len = space_expr.length;
-					else
-						len = 1;
-					cursorPosition -= len;
+					cursorPosition -= 1;
 
-					visibleCursorPosition -= 1;
-					visibleStringLen -= 1;
+					inputString = removeCharacters(inputString, cursorPosition, 1);
 
-					inputString = removeCharacters(inputString, cursorPosition, len);
-
-					if ((visibleStringLen % NBLETTERPERLINE == 0) &&
-						(visibleCursorPosition % NBLETTERPERLINE == 0) &&
-						visibleStringLen == visibleCursorPosition)
-						refreshInput(inputDiv, space_expr);
+					if ((inputString.length % NBLETTERPERLINE == 0) &&
+						(cursorPosition % NBLETTERPERLINE == 0) &&
+						inputString.length == cursorPosition)
+						refreshInput(inputDiv, " ");
 					else
 						refreshInput(inputDiv);
-					putCursor(visibleCursorPosition);
+
+					putCursor(cursorPosition);
 
 					historyIdx = inputHistory.length;
 				} else {
@@ -236,28 +211,18 @@ var TTY = function(keyboard) {
 				break;
 			case "ArrowRight":
 				if (cursorPosition < inputString.length) {
-					let idx = inputString.substring(cursorPosition, inputString.length).indexOf(space_expr);
-					if (idx == 0)
-						cursorPosition += space_expr.length;
-					else
-						cursorPosition += 1;
+					cursorPosition += 1;
 
-					visibleCursorPosition += 1;
-					putCursor(visibleCursorPosition);
+					putCursor(cursorPosition);
 
 					historyIdx = inputHistory.length;
 				}
 				break;
 			case "ArrowLeft":
 				if (cursorPosition != systemInputMsg.length) {
-					let idx = inputString.substring(0, cursorPosition).lastIndexOf(space_expr);
-					if (cursorPosition - idx == space_expr.length)
-						cursorPosition -= space_expr.length;
-					else
-						cursorPosition -= 1;
+					cursorPosition -= 1;
 
-					visibleCursorPosition -= 1;
-					putCursor(visibleCursorPosition);
+					putCursor(cursorPosition);
 
 					historyIdx = inputHistory.length;
 				}
@@ -268,9 +233,7 @@ var TTY = function(keyboard) {
 				if (historyIdx != 0) {
 					tty.removeChild(inputDiv);
 					historyIdx -= 1;
-					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr, inputHistory[historyIdx]);
-
-					console.log("new history index: ", historyIdx);
+					createNewInputString(login + "@" + server_name + ":" + directory + "# ", inputHistory[historyIdx]);
 				}
 
 				break;
@@ -280,16 +243,12 @@ var TTY = function(keyboard) {
 				if (historyIdx != inputHistory.length) {
 					tty.removeChild(inputDiv);
 					historyIdx += 1;
-					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr, inputHistory[historyIdx]);
-
-					console.log("new history index: ", historyIdx);
+					createNewInputString(login + "@" + server_name + ":" + directory + "# ", inputHistory[historyIdx]);
 				}
 				break;
 			default:
 				break;
 		}
-
-		console.log("key: " + key + " position: " + cursorPosition + " realLen: " + visibleStringLen);
 	};
 
 	const sequence_enum = {
@@ -315,24 +274,24 @@ var TTY = function(keyboard) {
 					createDiv("<br>");
 					createDiv("Welcome to " + server_name + " Mr " + login);
 					createDiv("<br>");
-					createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr);
+					createNewInputString(login + "@" + server_name + ":" + directory + "# ");
 				} else {
 					sequence = sequence_enum.auth_login;
 					createDiv("<br>");
-					createNewInputString("Login:" + space_expr);
+					createNewInputString("Login: ");
 				}
 				break;
 			case sequence_enum.running:
 				if (data.auth_ssh == 1) {
 					sequence = sequence_enum.auth_login_ssh;
-					createNewInputString("SSH login:" + space_expr);
+					createNewInputString("SSH login: ");
 					break;
 				}
 				if (data.string)
 					createDiv(data.string);
 
 				historyIdx = inputHistory.length;
-				createNewInputString(login + "@" + server_name + ":" + directory + "#" + space_expr);
+				createNewInputString(login + "@" + server_name + ":" + directory + "# ");
 				break;
 			default:
 				console.warn("Unknown sequence");
@@ -345,19 +304,17 @@ var TTY = function(keyboard) {
 	var ssh_login;
 
 	function process(outStr) {
-		let outStrPostProcessed = outStr.replace(space_regex, " ");
-
 		switch (sequence) {
 			case sequence_enum.auth_login:
-				login = outStrPostProcessed;
+				login = outStr;
 				sequence = sequence_enum.auth_password;
-				createNewInputString("Password:" + space_expr);
+				createNewInputString("Password: ");
 				break;
 			case sequence_enum.auth_password:
-				socket.send(JSON.stringify({"login": login, "password": outStrPostProcessed}));
+				socket.send(JSON.stringify({"login": login, "password": outStr}));
 				break;
 			case sequence_enum.running:
-				if (outStrPostProcessed.trim().length == 0) {
+				if (outStr.trim().length == 0) {
 					historyIdx = inputHistory.length;
 					createNewInputString(systemInputMsg);
 					return;
@@ -367,15 +324,15 @@ var TTY = function(keyboard) {
 					inputHistory[inputHistory.length - 1] != outStr)
 					inputHistory.push(outStr);
 
-				socket.send(JSON.stringify({"command": outStrPostProcessed}));
+				socket.send(JSON.stringify({"command": outStr}));
 				break;
 			case sequence_enum.auth_login_ssh:
-				ssh_login = outStrPostProcessed;
+				ssh_login = outStr;
 				sequence = sequence_enum.auth_password_ssh;
-				createNewInputString("Password:" + space_expr);
+				createNewInputString("Password: ");
 				break;
 			case sequence_enum.auth_password_ssh:
-				socket.send(JSON.stringify({"login":ssh_login, "password":outStrPostProcessed}));
+				socket.send(JSON.stringify({"login":ssh_login, "password":outStr}));
 				sequence = sequence_enum.running;
 				break;
 			default:
@@ -395,7 +352,7 @@ var TTY = function(keyboard) {
 
 	this.displayCursor = function(actif) {
 			if (actif == true) {
-				putCursor(visibleCursorPosition);
+				putCursor(cursorPosition);
 				cursor.style.display = "block";
 			} else {
 				cursor.style.display = "none";
@@ -403,12 +360,12 @@ var TTY = function(keyboard) {
 	}
 
 	historyIdx = 0;
-	createNewInputString("login:" + space_expr);
+	createNewInputString("login: ");
 	cursor.getContext('2d');
 	document.body.appendChild(cursor);
 
 	if(IS_MOBILE == true) {
-		console.log("Mobile TTY");
+		console.info("Mobile TTY");
 
 		let isKeyboardActive = false;
 
@@ -427,13 +384,13 @@ var TTY = function(keyboard) {
 		}, false);
 
 		window.addEventListener("resize", function() {
-			console.log("resize");
+			console.info("resize on tty, mobile");
 			tty.scrollTop += 10000;
 			setLetterField();
-			putCursor(visibleCursorPosition);
+			putCursor(cursorPosition);
 		});
 	} else {
-		console.log("Browser TTY");
+		console.info("Browser TTY");
 
 		document.addEventListener("keydown", function(event) {
 			let key = event.key;
@@ -460,7 +417,7 @@ var TTY = function(keyboard) {
 		window.addEventListener("resize", function() {
 			tty.scrollTop += 10000;
 			setLetterField();
-			putCursor(visibleCursorPosition);
+			putCursor(cursorPosition);
 		});
 	}
 }
