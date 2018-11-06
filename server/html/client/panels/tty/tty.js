@@ -109,8 +109,7 @@ var TTY = function(keyboard) {
 		cursor.style.top = div_origin_y + y_pixel + "px";
 
 		console.log("new visible cur position: " + position);
-		if (isMobile())
-		{
+		if (IS_MOBILE) {
 			if (div_origin_y + y_pixel > tty.getBoundingClientRect().bottom)
 				cursor.style.display = "none";
 			else
