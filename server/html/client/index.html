@@ -7,90 +7,15 @@
 	<meta name="description" content="hacking_game">
 	<meta name="author" content="team_banane">
 	<link rel="shortcut icon" href="medias/ours.png">
-	<style type="text/css">
-		*	{
-			padding: 0px;
-			margin: 0px;
-		}
-		body 	{
-			display: block;
-			background:#FFFFFF;
-			height:100vh;
-			width: 100vw;
-			position: fixed;
-			transition: 0.25s;
-		}
-		/* http://meyerweb.com/eric/tools/css/reset/
-		   v2.0 | 20110126
-		   License: none (public domain)
-		*/
-
-		html, body, div, span, applet, object, iframe,
-		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-		a, abbr, acronym, address, big, cite, code,
-		del, dfn, em, img, ins, kbd, q, s, samp,
-		small, strike, strong, sub, sup, tt, var,
-		b, u, i, center,
-		dl, dt, dd, ol, ul, li,
-		fieldset, form, label, legend,
-		table, caption, tbody, tfoot, thead, tr, th, td,
-		article, aside, canvas, details, embed,
-		figure, figcaption, footer, header, hgroup,
-		menu, nav, output, ruby, section, summary,
-		time, mark, audio, video {
-			margin: 0;
-			padding: 0;
-			border: 0;
-			font-size: 100%;
-			font: inherit;
-			vertical-align: baseline;
-		}
-		/* HTML5 display-role reset for older browsers */
-		article, aside, details, figcaption, figure,
-		footer, header, hgroup, menu, nav, section {
-			display: block;
-		}
-		body {
-			line-height: 1;
-		}
-		ol, ul {
-			list-style: none;
-		}
-		blockquote, q {
-			quotes: none;
-		}
-		blockquote:before, blockquote:after,
-		q:before, q:after {
-			content: '';
-			content: none;
-		}
-		table {
-			border-collapse: collapse;
-			border-spacing: 0;
-		}
-
-		.noselect {
-		  -webkit-touch-callout: none; /* iOS Safari */
-		    -webkit-user-select: none; /* Safari */
-		     -khtml-user-select: none; /* Konqueror HTML */
-		       -moz-user-select: none; /* Firefox */
-		        -ms-user-select: none; /* Internet Explorer/Edge */
-		            user-select: none; /* Non-prefixed version, currently
-		                                  supported by Chrome and Opera */
-		}
-	</style>
+	<link rel='stylesheet' href='reset_css.css' type='text/css' media='all'>
 	<link rel='stylesheet' href='keyboard/keyboard.css' type='text/css' media='all'>
 
 	<script type="text/javascript">
 	{
-		var link = document.createElement("link");
-		var link2 = document.createElement("link");
-		var link3 = document.createElement("link");
-		var link4 = document.createElement("link");
-		var link5 = document.createElement("link");
-		var link6 = document.createElement("link");
-		var link7 = document.createElement("link");
-
+		var linkArray = [];
+		var cssFilesArray = ["right_panel/right_panel", "right_panel/dialog",
+		"right_panel/browser", "right_panel/diary", "right_panel/mail", "tty/tty", "tab"];
+		var mobileSuffix = "";
 		if (navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
 		|| navigator.userAgent.match(/iPhone/i)
@@ -98,59 +23,18 @@
 		|| navigator.userAgent.match(/iPod/i)
 		|| navigator.userAgent.match(/BlackBerry/i)
 		|| navigator.userAgent.match(/Windows Phone/i)) {
-			console.log("MOBILE CSS VERSION");
-			link.href = "right_panel/right_panel_mobile.css";
-			link2.href = "right_panel/dialog_mobile.css";
-			link3.href = "right_panel/browser_mobile.css";
-			link4.href = "right_panel/diary_mobile.css";
-			link5.href = "right_panel/mail_mobile.css";
-			link6.href = "tty/tty_mobile.css";
-			link7.href = "tab_mobile.css";
-
-		} else {
-			console.log("BROWSER CSS VERSION");
-			link.href = "right_panel/right_panel.css";
-			link2.href = "right_panel/dialog.css";
-			link3.href = "right_panel/browser.css";
-			link4.href = "right_panel/diary.css";
-			link5.href = "right_panel/mail.css";
-			link6.href = "tty/tty.css";
-			link7.href = "tab.css";
+			mobileSuffix = "_mobile";
 		}
-		link.rel = "stylesheet";
-		link2.rel = "stylesheet";
-		link3.rel = "stylesheet";
-		link4.rel = "stylesheet";
-		link5.rel = "stylesheet";
-		link6.rel = "stylesheet";
-		link7.rel = "stylesheet";
-
-		link.media = "all";
-		link2.media = "all";
-		link3.media = "all";
-		link4.media = "all";
-		link5.media = "all";
-		link6.media = "all";
-		link7.media = "all";
-
-		link.type = "text/css";
-		link2.type = "text/css";
-		link3.type = "text/css";
-		link4.type = "text/css";
-		link5.type = "text/css";
-		link6.type = "text/css";
-		link7.type = "text/css";
-
-
 		var head = document.getElementsByTagName("head");
-		head[0].appendChild(link);
-		head[0].appendChild(link2);
-		head[0].appendChild(link3);
-		head[0].appendChild(link4);
-		head[0].appendChild(link5);
-		head[0].appendChild(link6);
-		head[0].appendChild(link7);
-
+		for (var i = 0; i < cssFilesArray.length; i++)
+		{
+			linkArray.push(document.createElement("link"));
+			linkArray[i].href = cssFilesArray[i] + mobileSuffix + ".css";
+			linkArray[i].rel = "stylesheet";
+			linkArray[i].media = "all";
+			linkArray[i].type = "text/css";
+			head[0].appendChild(linkArray[i]);
+		}
 	}
 	</script>
 
