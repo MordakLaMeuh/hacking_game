@@ -19,20 +19,20 @@ var MAIL = function(tty_key_cb)
 
 
 		signInBtn.addEventListener("mousedown", function(){
-			self.signOut()
+			signOut()
 		});
 		loginBtn.addEventListener("mousedown", function(){
-			self.sendLoginData();
+			sendLoginData();
 		});
 
 		loginForm.addEventListener("keyup", function(event) {
 			event.preventDefault();
 			if (event.key === "Enter") {
-				self.sendLoginData();
+				sendLoginData();
 			}});
 
 		backBtn.addEventListener("mousedown", function(){
-			self.displayFolder()});
+			displayFolder()});
 	}());
 
 	document.getElementById("loginInput").addEventListener("focus", function() {
@@ -50,30 +50,45 @@ var MAIL = function(tty_key_cb)
 	}, true);
 
 	/*
+	 * Check mail data received from server to allow or deny login
+	 */
+	this.login = function(mail) {
+		if (mail.content) {
+			this.mailObj = mail;
+			let mailName = document.getElementById("mailName");
+			if (mail.name == "root")
+				mailName.innerHTML = "Your Mail";
+			else
+				mailName.innerHTML = mail.name;
+
+			displayLoginForm(false);
+			displayMailHeaderAndBody(true);
+			displayFolder(mail);
+		} else {
+			displayErrorForm(true);
+		}
+	}
+
+	/*
 	 * Display clicked email folder by displaying all the mails of the folder
 	 */
-	this.displayFolder = function(mail)
-	{
-		if (onFolder == false)
-		{
+	function displayFolder(mail) {
+		if (onFolder == false) {
 			onFolder = true;
 			let mailMessagesUl = document.getElementById("mail_messages");
 			console.log("on efface");
-			this.changeMailHeader(onFolder);
-			this.removeMailList(mailMessagesUl);
-			this.displayMailList(this.mailObj, mailMessagesUl);
+			changeMailHeader(onFolder);
+			removeMailList(mailMessagesUl);
+			displayMailList(self.mailObj, mailMessagesUl);
 		}
 	}
 
 	/*
 	 * Display all the mail of a folder
 	 */
-	this.displayMailList = function(mail, mailMessagesUl)
-	{
-		for (let i = 0; i < mail.content.length; i++)
-		{
-			function func(i)
-			{
+	function displayMailList(mail, mailMessagesUl) {
+		for (let i = 0; i < mail.content.length; i++) {
+			function func(i) {
 				let mailLiContainer = document.createElement("li");
 				let mailUlContainer = document.createElement("ul");
 
@@ -107,7 +122,7 @@ var MAIL = function(tty_key_cb)
 				}
 
 				mailLiContainer.addEventListener("mousedown", function(){
-					self.displayMailContent(mailMessagesUl, mail, i);
+					displayMailContent(mailMessagesUl, mail, i);
 				});
 			};
 			func(i);
@@ -117,8 +132,7 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Remove all the mails of a folder
 	 */
-	this.removeMailList = function(mailList)
-	{
+	function removeMailList(mailList) {
 		while (mailList.firstChild) {
 			mailList.removeChild(mailList.firstChild);
 		}
@@ -127,8 +141,7 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Change mail header to fit to the current display (mail list or mail content)
 	 */
-	this.changeMailHeader = function(onFolder)
-	{
+	function changeMailHeader(onFolder) {
 		let mailInfoBarUl = document.getElementById("mail_info_bar");
 
 		for (let i = 0; i < mailInfoBarUl.children.length; i++) {
@@ -153,13 +166,12 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Display content of the clicked mail
 	 */
-	this.displayMailContent = function(mailList, mail, index)
-	{
+	function displayMailContent(mailList, mail, index) {
 		onFolder = false;
 		mail.content[index].read = true;
-		this.removeMailList(mailList);
+		removeMailList(mailList);
 		let mailInfoBarUl = document.getElementById("mail_info_bar");
-		this.changeMailHeader(onFolder);
+		changeMailHeader(onFolder);
 		let from = document.createElement("li");
 		let to = document.createElement("li");
 		let title = document.createElement("li");
@@ -189,8 +201,7 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Display or hide mail_header and mail_body
 	 */
-	this.displayMailHeaderAndBody = function(display)
-	{
+	function displayMailHeaderAndBody(display) {
 		let mailHeaderDiv = document.getElementById("mail_header");
 		let mailBodyDiv = document.getElementById("mail_body");
 		if (display == false) {
@@ -205,8 +216,7 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Display or hide error login message
 	 */
-	this.displayErrorForm = function(display)
-	{
+	function displayErrorForm(display) {
 		let errorForm = document.getElementById("errorForm");
 		if (display == false)
 			errorForm.style.display = "none";
@@ -217,8 +227,7 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Display or hide login form
 	 */
-	this.displayLoginForm = function(display)
-	{
+	function displayLoginForm(display) {
 		let loginForm = document.getElementById("loginForm");
 		if (display == true)
 			loginForm.style.display = "block";
@@ -229,19 +238,17 @@ var MAIL = function(tty_key_cb)
 	/*
 	 * Sign out from mail and display login form
 	 */
-	this.signOut = function()
-	{
+	function signOut() {
 		onFolder = false;
-		this.displayMailHeaderAndBody(false);
-		this.displayErrorForm(false);
-		this.displayLoginForm(true);
+		displayMailHeaderAndBody(false);
+		displayErrorForm(false);
+		displayLoginForm(true);
 	}
 
 	/*
 	 * Send login data to server
 	 */
-	this.sendLoginData = function()
-	{
+	function sendLoginData() {
 		let obj = new Object();
 		obj.name = document.getElementById("loginInput").value;;
 		obj.password = document.getElementById("passwordInput").value;;
@@ -249,26 +256,5 @@ var MAIL = function(tty_key_cb)
 		console.log(obj.name);
 		console.log(obj.password);
 		console.log("On envoie");
-	}
-
-	/*
-	 * Check mail data received from server to allow or deny login
-	 */
-	this.login = function(mail)
-	{
-		if (mail.content) {
-			this.mailObj = mail;
-			let mailName = document.getElementById("mailName");
-			if (mail.name == "root")
-				mailName.innerHTML = "Your Mail";
-			else
-				mailName.innerHTML = mail.name;
-
-			this.displayLoginForm(false);
-			this.displayMailHeaderAndBody(true);
-			this.displayFolder(mail);
-		} else {
-			this.displayErrorForm(true);
-		}
 	}
 }
