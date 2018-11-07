@@ -318,7 +318,7 @@
 			[
 				{
 					"q":"Sarah speaking.",
-					"r":["Hello, I am Cathy Phelps.", "Hello, I am Francisco Gomez.", "Hello, you remember me ? I am Herbert Rowland."],
+					"r":["Hello, I am Cathy Phelps from Sales", "Hello, I am Francisco Gomez from Tech support.", "Hello, you remember me ? I am Herbert Rowland the intern."],
 					"i":["1", "2", "3"]
 				},
 				{
@@ -353,7 +353,7 @@
 				},
 				{
 					"q":"What can I do for you ?",
-					"r":["I am from Technical Support. We are trying to solve a network problem. Have you heard on anyone in your team experiencing issues lately ?", "I am from the IT team. I am concerned amd I'd like you to run a few tests."],
+					"r":["We are trying to solve a network problem. Is your team experiencing issues lately ?", "I am from the IT team. I am concerned amd I'd like you to run a few tests."],
 					"i":["12", "12"]
 				},
 				{
@@ -367,7 +367,7 @@
 					"i":["13", "13"]
 				},
 				{
-					"q":"You lost your access ? Try asking the IT team. Sorry, but I don't have time for this.",
+					"q":"You lost your access ? Try asking the own supervisor. Sorry, but I don't have time for this.",
 					"r":[],
 					"i":["0"]
 				},
@@ -378,7 +378,7 @@
 				},
 				{
 					"q":"Everything is OK here.",
-					"r":["I know that there will be a power outage in a few days. Last month, we lost a lot of data because of the same situation. I want to check a few things with you."],
+					"r":["I know that there will be a power outage soon. Last month, we lost data because of the same situation. I want to check a few things with you."],
 					"i":["14"]
 				},
 				{
@@ -388,7 +388,7 @@
 				},
 				{
 					"q":"Yes sure but why don't you ask Nigel or Victor from the IT team ?",
-					"r":["I met Kurt on his way to Boston. I told him I'll handle the situation myself since I know the problem better than you guys.", "I don't really trust them. I am leaving for holidays tonight and I'd like to get it over with as soon as possible."],
+					"r":["I met Kurt on his way to Boston. I told him I'll handle the situation myself since I already know the problem.", "I don't really trust them. I am leaving for holidays tonight and I'd like to get it over with today."],
 					"i":["15", "15"]
 				},
 				{
@@ -458,7 +458,7 @@
 						"i": ["1"]
 					},
 					{
-						"q": "Now that you got access, I'll send you a program to infiltrate all the computers on the network. It will take me a while, so take your time to look around.",
+						"q": "Ok, take your time to look around.",
 						"r": ["Why are we hacking this company ?", "What should I look for ?"],
 						"i": ["2", "3"]
 					},
@@ -468,7 +468,7 @@
                       "i": ["3"]
                     },
                     {
-                      "q": "Try finding hints and get access to sensitive information from the boss. They are cautious so the files can be encrypted. If you have trouble, try getting back to your computer. I shared something that can help you.",
+                      "q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
                       "r": []
                     }
 				]
