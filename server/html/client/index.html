@@ -166,7 +166,10 @@ after_load = function() {
 	var UI_controler = new UI_CONTROLER(tty.display, browser, mail, tty);
 
 	var social = new SOCIAL(UI_controler.notif_button_cb);
+	UI_controler.addSocialObj(social);
+
 	var diary = new DIARY(UI_controler.notif_button_cb);
+	UI_controler.addDiaryObj(diary);
 
 	window.onresize = UI_controler.resizeButtons();
 	UI_controler.resizeButtons();

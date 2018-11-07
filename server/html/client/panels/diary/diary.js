@@ -24,4 +24,8 @@ var DIARY = function(notif_button_cb) {
 
 		notif_button_cb("diary", true, false);
 	}
+
+	this.active = function() {
+		diaryBodyDiv.scrollTop += diaryBodyDiv.scrollHeight;
+	}
 }

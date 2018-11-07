@@ -134,7 +134,24 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 
 	diary_btn.addEventListener("mousedown", function () {
 		changeScreen(this, "diary");
+		diary.active();
 	});
+
+	/*
+	 * Post Add diary object method
+	 */
+	var diary = undefined;
+	this.addDiaryObj = function(_diary) {
+		diary = _diary;
+	}
+
+	/*
+	 * Post Add social object method
+	 */
+	var social = undefined;
+	this.addSocialObj = function(_social) {
+		social = _social;
+	}
 
 	if (IS_MOBILE == true) {
 		tty_btn.addEventListener("mousedown", function () {
