@@ -423,11 +423,11 @@
 			],
 			[
 				"cd",
-				"cd directory : change directory"
+				"cd directory : change directory. Type \"cd ..\" to go back to parent directory"
 			],
 			[
 				"ls",
-				"ls : list all files on the current folder. Option -a : displau hidden files."
+				"ls : list all files on the current folder. Option -a : display hidden files."
 			],
 			[
 				"pwd",
