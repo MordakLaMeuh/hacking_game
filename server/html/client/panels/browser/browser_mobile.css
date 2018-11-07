@@ -17,8 +17,9 @@
 }
 
 #browser_url_bar #go_btn {
-	width: 20%;
+	width: 15%;
 	margin-left: 2%;
+	padding: 3px;
 }
 
 #browser #browser-navigation-bar {

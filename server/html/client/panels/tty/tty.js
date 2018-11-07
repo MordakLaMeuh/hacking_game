@@ -368,6 +368,18 @@ var TTY = function(keyboard, cursor) {
 
 		let isKeyboardActive = false;
 
+		this.setActive = function() {
+		}
+
+		this.setInactive = function() {
+			if (isKeyboardActive == true) {
+				tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
+				tty.scrollTop += 10000;
+				keyboard.close();
+				isKeyboardActive = false;
+			}
+		}
+
 		tty.addEventListener("mousedown", function(e){
 			if (isKeyboardActive == true) {
 				tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";

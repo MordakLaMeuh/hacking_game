@@ -1,8 +1,8 @@
 #panels {
 	height: 90vh;
 	height: calc(var(--vh, 1vh) * 90);
-	width: 100vw;
 
+	width: 100vw;
 	display: none;
 	flex-direction: column;
 	background-color: #262626;
@@ -19,34 +19,26 @@
 }
 
 .custom_input_text {
-	font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
 	background-color: rgba(120, 200, 255, 0.1);
 	border: 1px solid rgba(120, 200, 255, 0.2);
 	color: rgb(120, 200, 255, 0.8);
 	height: 5vh;
 	height: calc(var(--vh, 1vh) * 5);
-	box-sizing: border-box;
-	padding: 0 .8em;
-	letter-spacing: .06em;
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 	font-size: 4vh;
 	font-size: calc(var(--vh, 1vh) * 4);
 	font-family: monospace;
 }
 
 .custom_input_submit {
-	font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
 	background-color: rgba(120, 200, 255, 0.3);
 	border: 1px solid rgba(120, 200, 255, 0.2);
 	color: rgb(120, 200, 255);
 	height: 5vh;
 	height: calc(var(--vh, 1vh) * 5);
-	box-sizing: border-box;
-	padding: 0 .8em;
-	letter-spacing: .06em;
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 	text-align: center;
 	font-size: 4vh;
 	font-size: calc(var(--vh, 1vh) * 4);

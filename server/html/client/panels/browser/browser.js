@@ -41,6 +41,53 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		browser_url_bar.innerHTML +=
 		`<div id="url" class="custom_input_text"></div>
 		<div id="go_btn" class="custom_input_submit">GO</div>`
+
+		function closeKeyboard() {
+			panels.style.height = "calc(var(--vh, 1vh) * 90)";
+			browser.style.height = "calc(var(--vh, 1vh) * 90)";
+			keyboard.close();
+			cursor.activeCursor(false);
+		}
+
+		function action(self, str) {
+			console.info("validation custom_input browser");
+			closeKeyboard();
+			if (str.trim().length != 0) {
+				let input_url = str;
+				if (!(input_url in dict))
+					input_url = "medias/404.png";
+				else
+					input_url = dict[input_url];
+				showImginBrowser(input_url);
+			}
+		}
+
+		let input = new CUSTOM_INPUT(url, action, cursor);
+
+		this.setActive = function() {
+			input.calibrate();
+		}
+
+		this.setInactive = function() {
+			closeKeyboard();
+		}
+
+		browser.addEventListener("mousedown", function(e) {
+			closeKeyboard();
+		}, false);
+
+		url.addEventListener("mousedown", function(e){
+			panels.style.height = "calc(var(--vh, 1vh) * 50)";
+			browser.style.height = "calc(var(--vh, 1vh) * 50)";
+			input.focus(e.clientX, e.clientY);
+			keyboard.open(input.write);
+			e.stopPropagation();
+		}, false);
+
+		document.getElementById("go_btn").addEventListener("mousedown", function(e){
+			action(input, input.getContent());
+			e.stopPropagation();
+		}, false);
 	}
 
 	var bwr_content = document.getElementById("browser-container");

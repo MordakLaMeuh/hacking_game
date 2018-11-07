@@ -160,10 +160,10 @@ after_load = function() {
 	var cursor = new CURSOR();
 
 	var tty = new TTY(keyboard, cursor);
-	var UI_controler = new UI_CONTROLER(tty.display);
-
 	var browser = new BROWSER(keyboard, cursor, tty.key_cb);
 	var mail = new MAIL(keyboard, cursor, tty.key_cb);
+
+	var UI_controler = new UI_CONTROLER(tty.display, browser, mail, tty);
 
 	var social = new SOCIAL(UI_controler.notif_button_cb);
 	var diary = new DIARY(UI_controler.notif_button_cb);

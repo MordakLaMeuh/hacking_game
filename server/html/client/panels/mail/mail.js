@@ -57,11 +57,18 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		}, true);
 	} else {
 		login_form_mail.innerHTML +=
-			`<form>
+			`<form id="loginForm">
+			 <p id='errorForm'>Invalid login or password</p>
 			 <div id="loginInput" class="custom_input_text input-field"></div>
 			 <div id="passwordInput" class="custom_input_text input-field"></div>
 			 <button id='loginBtn' class='btn' type='button'>Login</button>
 			 </form>`;
+
+		this.setActive = function() {
+		}
+
+		this.setInactive = function() {
+		}
 	}
 	/*
 	 * Self invoked function to add listener

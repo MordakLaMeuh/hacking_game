@@ -1,6 +1,6 @@
 'use strict';
 
-var UI_CONTROLER = function(tty_display_cb) {
+var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 	/*
 	 * Make button like circle
 	 */
@@ -46,10 +46,28 @@ var UI_CONTROLER = function(tty_display_cb) {
 		}
 	}
 
+	var lastScreen = undefined;
+
 	/*
 	 * Global switch screen on mobile
 	 */
 	function switchScreen(target) {
+
+		switch (lastScreen) {
+		case "browser":
+			browser.setInactive();
+			break;
+		case "mail":
+			mail.setInactive();
+			break;
+		case "tty":
+			tty.setInactive();
+			break;
+		default:
+			console.warn("unknown last screen");
+			break;
+		}
+
 		if (target == js_tty) {
 			panels.style.display = "none";
 			js_tty.style.display = "";
@@ -65,8 +83,9 @@ var UI_CONTROLER = function(tty_display_cb) {
 	function changeScreen(button, target) {
 		console.log("On right panel");
 
-		if (IS_MOBILE == true)
+		if (IS_MOBILE == true) {
 			switchScreen(panels);
+		}
 
 		/*
 		 * Get all elements with class="tabcontent" and hide them
@@ -90,10 +109,18 @@ var UI_CONTROLER = function(tty_display_cb) {
 	 */
 	mail_btn.addEventListener("mousedown", function (){
 		changeScreen(this, "mail");
+		if (IS_MOBILE == true) {
+			mail.setActive();
+			lastScreen = "mail";
+		}
 	});
 
 	browser_btn.addEventListener("mousedown", function () {
 		changeScreen(this, "browser");
+		if (IS_MOBILE == true) {
+			browser.setActive();
+			lastScreen = "browser";
+		}
 	});
 
 	social_btn.addEventListener("mousedown", function (){
@@ -107,6 +134,7 @@ var UI_CONTROLER = function(tty_display_cb) {
 	if (IS_MOBILE == true) {
 		tty_btn.addEventListener("mousedown", function () {
 			switchScreen(js_tty);
+			lastScreen = "tty";
 			console.log("back to TTY");
 		});
 	}

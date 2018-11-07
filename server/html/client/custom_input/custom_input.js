@@ -49,7 +49,10 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 		spanDiv.innerHTML = content;
 		console.log("field can contain " + NBLETTER + " characters");
 	}
-	setNbLetter();
+
+	this.calibrate = function() {
+		setNbLetter();
+	}
 
 	function removeCharacters(str, char_pos, len) {
 		let part1 = str.substring(0, char_pos);
