@@ -101,6 +101,7 @@
 .answers{
     position:absolute;
     bottom:0;
+	margin-bottom: 1px;
 }
 
 .answers button{

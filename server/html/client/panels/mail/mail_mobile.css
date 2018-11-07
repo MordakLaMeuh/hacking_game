@@ -51,6 +51,7 @@
 #mail_info_bar li, #mail_messages ul li
 {
 	margin-left: 5%;
+	overflow: hidden;
 }
 
 #mail_info_bar li:nth-child(1), #mail_info_bar li:nth-child(2), .from, .to

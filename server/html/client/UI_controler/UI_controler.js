@@ -3,6 +3,8 @@
 var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 	/*
 	 * Make button like circle
+	 * BUG Resize is not trigger since iframe window doesn't detect any resize. Event
+	 * is triggered by parent.
 	 */
 	this.resizeButtons = function()
 	{
