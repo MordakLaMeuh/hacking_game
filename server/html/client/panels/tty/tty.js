@@ -372,12 +372,10 @@ var TTY = function(keyboard, cursor) {
 		}
 
 		this.setInactive = function() {
-			if (isKeyboardActive == true) {
-				tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
-				tty.scrollTop += 10000;
-				keyboard.close();
-				isKeyboardActive = false;
-			}
+			tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
+			tty.scrollTop += 10000;
+			keyboard.close();
+			isKeyboardActive = false;
 		}
 
 		tty.addEventListener("mousedown", function(e){
