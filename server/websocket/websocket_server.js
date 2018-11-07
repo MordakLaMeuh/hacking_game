@@ -6,9 +6,9 @@ var port = 8081;
 
 var math = require('math');
 var termfunc = require('./term_func.js');
-var social = require('./social.js');
 var lvlValidation = require('./lvl_validation.js');
 
+var Social = require('./social.js');
 /*
  * Opening socket websocket server
  */
@@ -78,7 +78,7 @@ ws.on('connection', function (client, req)
 	var cmdList = lvlData[curLvl].cmdList;
 	var winningCondition = lvlData[curLvl].winningCondition;
 
-	social.constructor();
+	var social = new Social();
 
 	send(client, JSON.stringify({
 		"socialContacts":social.addEntries(lvlData[curLvl].social)
@@ -116,9 +116,6 @@ ws.on('connection', function (client, req)
 					"socialContacts": social.addEntries(lvlData[curLvl].social)}));
 			} else {
 				console.log("GAME FINISHED !");
-				// var obj = new Object();
-				// obj.string = "Congratulations, you win !";
-				// send(client, JSON.stringify({"tty": obj}));
 				send(client, JSON.stringify({
 					"diary": ["Congratulations", "you win. The End...?"]}));
 			}

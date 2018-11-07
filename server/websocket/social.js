@@ -1,14 +1,15 @@
-module.exports =
-{
-constructor: function()
-{
+
+
+var method = Social.prototype;
+
+function Social() {
 	this.social = new Array();
-},
+}
 
 /*
  * Add new social entries and return new png name with exchange feature
  */
-addEntries: function(obj)
+method.addEntries = function(obj)
 {
 	var output = new Array();
 
@@ -26,9 +27,9 @@ addEntries: function(obj)
 		}
 	 }
 	return output;
-},
+}
 
-sendMail: function(obj) {
+method.sendMail = function(obj) {
 
 	for (var i = 0; i < this.social.length; i++) {
 		console.log(obj.name.localeCompare(this.social[i].name));
@@ -42,16 +43,16 @@ sendMail: function(obj) {
 		}
 	}
 	return undefined;
-},
+}
 
-markAsRead: function(obj, victory_cb) {
+method.markAsRead = function(obj, victory_cb) {
+
 	var output = new Object();
 
 	for (var i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
 			obj.index >= 0 && obj.index < this.social[i].mail.length) {
 			console.log(this.social[i].mail[obj.index].read);
-			// this.social[i].mail[obj.index].read = true;
 			if (this.social[i].mail[obj.index].s && this.social[i].mail[obj.index].read === false){
 				output.s = this.social[i].mail[obj.index].s;
 				if (this.social[i].mail[obj.index].w && this.social[i].mail[obj.index].read === false)
@@ -63,9 +64,9 @@ markAsRead: function(obj, victory_cb) {
 		}
 	}
 	return output;
-},
+}
 
-getDialogSeq: function(obj, victory_cb)
+method.getDialogSeq = function(obj, victory_cb)
 {
 	var output = new Object();
 	console.log(obj);
@@ -123,4 +124,6 @@ getDialogSeq: function(obj, victory_cb)
 	console.log(output);
 	return output;
 }
-}
+
+module.exports = Social;
+
