@@ -440,6 +440,10 @@
 				"help"
 			],
 			[
+			  "rot",
+			  "rot : replaces all letters of a word with the n-th letter after it"
+			],
+			[
 				"ssh",
 				"ssh : connect to another computer"
 			],
@@ -515,7 +519,7 @@
       ],
       [
         "ls",
-        "ls : list all files on the current folder. Option -a : displau hidden files."
+        "ls : list all files on the current folder. Option -a : display hidden files."
       ],
       [
         "pwd",
