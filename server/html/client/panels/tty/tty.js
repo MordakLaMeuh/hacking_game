@@ -132,7 +132,7 @@ var TTY = function(keyboard, cursor) {
 		}
 		tty.appendChild(inputDiv);
 
-		tty.scrollTop += 10000;
+		tty.scrollTop += tty.scrollHeight;
 
 		putCursor(cursorPosition);
 	}
@@ -147,7 +147,7 @@ var TTY = function(keyboard, cursor) {
 		outputDiv.innerHTML = content;
 
 		tty.appendChild(outputDiv);
-		tty.scrollTop += 10000;
+		tty.scrollTop += tty.scrollHeight;
 	}
 
 	function refreshInput(inputDiv, optionalStr) {
@@ -160,7 +160,7 @@ var TTY = function(keyboard, cursor) {
 		}
 		tty.appendChild(inputDiv);
 
-		tty.scrollTop += 10000;
+		tty.scrollTop += tty.scrollHeight;
 	}
 
 	function removeCharacters(str, char_pos, len) {
@@ -376,7 +376,7 @@ var TTY = function(keyboard, cursor) {
 		 */
 		this.setInactive = function() {
 			tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
-			tty.scrollTop += 10000;
+			tty.scrollTop += tty.scrollHeight;
 			keyboard.close();
 			isKeyboardActive = false;
 		}
@@ -384,13 +384,13 @@ var TTY = function(keyboard, cursor) {
 		tty.addEventListener("mousedown", function(e){
 			if (isKeyboardActive == true) {
 				tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
-				tty.scrollTop += 10000;
+				tty.scrollTop += tty.scrollHeight;
 				keyboard.close();
 				isKeyboardActive = false;
 				return;
 			}
 			tty.style.height =  "calc(var(--vh, 1vh) * " + 50 + ")";
-			tty.scrollTop += 10000;
+			tty.scrollTop += tty.scrollHeight;
 			keyboard.open(updateCharString);
 			isKeyboardActive = true;
 		}, false);
@@ -403,7 +403,7 @@ var TTY = function(keyboard, cursor) {
 
 	window.addEventListener("resize", function() {
 		console.warn("resize");
-		tty.scrollTop += 10000;
+		tty.scrollTop += tty.scrollHeight;
 		setLetterField();
 		putCursor(cursorPosition);
 	});
