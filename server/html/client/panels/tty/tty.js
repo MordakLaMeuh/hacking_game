@@ -58,11 +58,18 @@ var TTY = function(keyboard, cursor) {
 	var LETTERSIZE = CHAR_WIDTH;
 	var NBLETTERPERLINE = 0;
 
+	/*
+	 * Indicate if setLetterField calculus was good (sometimes it make mistakes after resize)
+	 */
+	var tty_broken = false;
+
 	function setLetterField()
 	{
 		/*
 		 * Simulation of caracter insersion until a new line is required
 		 */
+		tty_broken = true;
+
 		let divTest = document.createElement("div");
 		tty.appendChild(divTest);
 		divTest.innerHTML = "x";
@@ -80,6 +87,8 @@ var TTY = function(keyboard, cursor) {
 		tty.removeChild(tty.lastChild);
 
 		console.info("nb letter per line: ", NBLETTERPERLINE);
+
+		tty_broken = false;
 	}
 	setLetterField();
 
@@ -170,6 +179,14 @@ var TTY = function(keyboard, cursor) {
 	}
 
 	function updateCharString(key) {
+		/*
+		 * Retry calcul if ttty dimension acquisition is broked
+		 */
+		if (tty_broken == true) {
+			setLetterField();
+			putCursor(cursorPosition);
+		}
+
 		if (key.length == 1) {
 			let part1 = inputString.substring(0, cursorPosition);
 			let part2 = inputString.substring(cursorPosition, inputString.length);
