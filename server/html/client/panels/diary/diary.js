@@ -20,7 +20,7 @@ var DIARY = function(notif_button_cb) {
 		let p = document.createElement("p");
 		p.textContent = content;
 		diaryBodyDiv.appendChild(p);
-		diaryBodyDiv.scrollTop += 10000;
+		diaryBodyDiv.scrollTop += diaryBodyDiv.scrollHeight;
 
 		notif_button_cb("diary", true, false);
 	}

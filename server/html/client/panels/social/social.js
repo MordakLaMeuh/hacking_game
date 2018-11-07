@@ -45,7 +45,7 @@ var SOCIAL = function(notif_button_cb) {
 		li.appendChild(document.createTextNode(str));
 		li.setAttribute("class", "me");
 		currentMessagesDiv.appendChild(li);
-		currentMessagesDiv.scrollTop += 10000;
+		currentMessagesDiv.scrollTop += currentMessagesDiv.scrollHeight;
 	}
 
 	function addHim(str) {
@@ -53,7 +53,7 @@ var SOCIAL = function(notif_button_cb) {
 		li.appendChild(document.createTextNode(str));
 		li.setAttribute("class", "him");
 		currentMessagesDiv.appendChild(li);
-		currentMessagesDiv.scrollTop += 10000;
+		currentMessagesDiv.scrollTop += currentMessagesDiv.scrollHeight;
 	}
 
 	/*
