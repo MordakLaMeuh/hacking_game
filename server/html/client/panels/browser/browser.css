@@ -42,32 +42,6 @@
 
 #browser i:nth-child(3):hover {background-color: rgb(10, 225, 10)}
 
-input[type="text"] {
-    font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
-    background-color: rgba(120, 200, 255, 0.1);
-    border: 1px solid rgba(120, 200, 255, 0.2);
-    color: rgb(120, 200, 255, 0.8);
-    height: 2.4em;
-    box-sizing: border-box;
-    padding: 0 .8em;
-    letter-spacing: .06em;
-    width: 70%;
-}
-
-input[type="submit"]
-{
-    font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
-    background-color: rgba(120, 200, 255, 0.3);
-    border: 1px solid rgba(120, 200, 255, 0.2);
-    color: rgb(120, 200, 255);
-    height: 2.4em;
-    box-sizing: border-box;
-    padding: 0 .8em;
-    letter-spacing: .06em;
-    width: 20%;
-    margin-left: 5%;
-}
-
 #browser-container {
 	height: 80%;
 	width: 100%;
