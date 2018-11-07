@@ -1,6 +1,6 @@
 'use strict';
 
-var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
+var CUSTOM_INPUT = function(_div, action_cb, _cursor, intro_msg) {
 	var div = _div;
 	div.classList.add("custom_input");
 
@@ -52,6 +52,9 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 
 	this.calibrate = function() {
 		setNbLetter();
+		if (justInitialized == true) {
+			spanDiv.innerHTML = intro_msg.substring(0, NBLETTER).replace(common_space_regex, nbsp_space_expr);
+		}
 	}
 
 	function removeCharacters(str, char_pos, len) {
@@ -136,6 +139,10 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 	 * The focus() function is done at a specified position pointed by mouse
 	 */
 	this.focus = function(x, y) {
+		if (justInitialized == true) {
+			this.fflushContent();
+			justInitialized = false;
+		}
 		cursor.activeCursor(true);
 		cursor.setCursorDim(CHAR_WIDTH, CHAR_HEIGHT);
 
@@ -170,4 +177,6 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor) {
 		shiftRight = 0;
 		spanDiv.innerHTML = content;
 	}
+
+	var justInitialized = true;
 }

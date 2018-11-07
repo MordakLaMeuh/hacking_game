@@ -46,6 +46,9 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		`<div id="url" class="custom_input_text"></div>
 		<div id="go_btn" class="custom_input_submit">GO</div>`
 
+		var form = document.getElementById("url");
+		var go_btn = document.getElementById("go_btn");
+
 		function closeKeyboard() {
 			panels.style.height = "calc(var(--vh, 1vh) * 90)";
 			browser.style.height = "calc(var(--vh, 1vh) * 90)";
@@ -64,7 +67,7 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 			}
 		}
 
-		let input = new CUSTOM_INPUT(url, action, cursor);
+		let input = new CUSTOM_INPUT(url, action, cursor, "Put URL here");
 
 		/*
 		 * When switching to browser panel
@@ -90,7 +93,7 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		/*
 		 * Input url field handler
 		 */
-		url.addEventListener("mousedown", function(e){
+		form.addEventListener("mousedown", function(e){
 			panels.style.height = "calc(var(--vh, 1vh) * 50)";
 			browser.style.height = "calc(var(--vh, 1vh) * 50)";
 			input.focus(e.clientX, e.clientY);
@@ -101,7 +104,7 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		/*
 		 * Enter button handler
 		 */
-		document.getElementById("go_btn").addEventListener("mousedown", function(e){
+		go_btn.addEventListener("mousedown", function(e){
 			action(input, input.getContent());
 			e.stopPropagation();
 		}, false);
