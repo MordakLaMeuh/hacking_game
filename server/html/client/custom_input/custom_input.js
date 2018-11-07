@@ -57,6 +57,10 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor, intro_msg) {
 		}
 	}
 
+	this.resetInitialization = function() {
+		justInitialized = true;
+	}
+
 	function removeCharacters(str, char_pos, len) {
 		let part1 = str.substring(0, char_pos);
 		let part2 = str.substring(char_pos + len, str.length);

@@ -63,10 +63,10 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		 */
 		login_form_mail.innerHTML +=
 			`<form id="loginForm">
-			 <p id='errorForm'>Invalid login or password</p>
 			 <div id="loginInput" class="custom_input_text input-field"></div>
 			 <div id="passwordInput" class="custom_input_text input-field"></div>
 			 <button id='loginBtn' class='btn' type='button'>Login</button>
+			 <p id='errorForm'>Invalid login or password</p>
 			 </form>`;
 
 		let loginBtn = document.getElementById("loginBtn");
@@ -88,6 +88,8 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 				sendLoginData(input_login.getContent(), input_password.getContent());
 				input_login.fflushContent();
 				input_password.fflushContent();
+				input_login.resetInitialization();
+				input_password.resetInitialization();
 			}
 		}
 
