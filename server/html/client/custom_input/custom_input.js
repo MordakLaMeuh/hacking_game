@@ -46,7 +46,7 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor, intro_msg) {
 			}
 		} while (spanDiv.offsetWidth <= originalWidth);
 		NBLETTER -= 1;
-		spanDiv.innerHTML = content.substring(0, NBLETTER).replace(common_space_regex, nbsp_space_expr);
+		spanDiv.innerHTML = content.substring(shiftRight, shiftRight + NBLETTER).replace(common_space_regex, nbsp_space_expr);
 		console.log("field can contain " + NBLETTER + " characters");
 	}
 
