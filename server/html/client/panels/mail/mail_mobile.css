@@ -68,7 +68,7 @@
 
 #mail_messages > li
 {
-	height: 5%;
+	height: 10%;
 	min-height: 30px;
 
 	border-bottom: 1px solid rgba(120, 200, 255, 0.4);
