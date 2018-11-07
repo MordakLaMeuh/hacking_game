@@ -24,10 +24,10 @@
 	width: 100%;
 	display: flex;
 	border-bottom: 1px solid rgba(120, 200, 255, 0.2);
-    text-align: center;
-    font-size: 1.2em;
+	text-align: center;
+	font-size: 1.2em;
 	color: #78C8FF;
-    font-family: Verdana, sans-serif;
+	font-family: Verdana, sans-serif;
 }
 
 .contact_name p
@@ -57,60 +57,60 @@
 }
 
 .messenger ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    height:70vh;
-    overflow: hidden;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height:70vh;
+	overflow: hidden;
 }
 
 .messenger ul li{
-    display:inline-block;
-    clear: both;
-    padding: 20px;
-    border-radius: 30px;
-    margin-bottom: 2px;
-    font-family: Helvetica, Arial, sans-serif;
+	display:inline-block;
+	clear: both;
+	padding: 20px;
+	border-radius: 30px;
+	margin-bottom: 2px;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 .him{
-    background: black;
-    float: left;
+	background: black;
+	float: left;
 	color: #78C8FF;
 }
 
 .me{
-    float: right;
-    background: #78C8FF;
-    color: black;
+	float: right;
+	background: #78C8FF;
+	color: black;
 }
 
 .him + .me{
-    border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .me + .me{
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .me:last-of-type {
-    border-bottom-right-radius: 30px;
+	border-bottom-right-radius: 30px;
 }
 
 .answers{
-    position:absolute;
-    bottom:0;
+	position:absolute;
+	bottom:0;
 	margin-bottom: 1px;
 }
 
 .answers button{
 	border-radius: 1em;
 	border: 1px solid rgba(120, 200, 255, 1.0);
-    background-color: rgba(0,0,0,0.7);
-    bottom: 0;
-    width: 30vw;
-    font-size: 1em;
-    color: #78C8FF;
-    background: black;
+	background-color: rgba(0,0,0,0.7);
+	bottom: 0;
+	width: 30vw;
+	font-size: 1em;
+	color: #78C8FF;
+	background: black;
 }
