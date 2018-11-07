@@ -371,6 +371,9 @@ var TTY = function(keyboard, cursor) {
 		this.setActive = function() {
 		}
 
+		/*
+		 * Triggered when lefting tty
+		 */
 		this.setInactive = function() {
 			tty.style.height =  "calc(var(--vh, 1vh) * " + 90 + ")";
 			tty.scrollTop += 10000;

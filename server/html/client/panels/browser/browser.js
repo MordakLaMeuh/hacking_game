@@ -3,7 +3,18 @@
 var BROWSER = function(keyboard, cursor, tty_key_cb) {
 	var self = this;
 
+	function findPage(url) {
+		if (!(url in dict))
+			url = "medias/404.png";
+		else
+			url = dict[url];
+		showImginBrowser(url);
+	}
+
 	if (IS_MOBILE == false) {
+		/*
+		 * OLD Browser code is on below
+		 */
 		browser_url_bar.innerHTML +=
 		`<input id='url' type='text' onfocus=\"this.value=''\" spellcheck='false' autocorrect='off' autocapitalize='none' autocomplete='off' name='url' value='enter your URL' />
 		<input id='go_btn' type='submit' value='Go' />`;
@@ -12,12 +23,7 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		var go_btn = document.getElementById("go_btn");
 
 		go_btn.addEventListener("mousedown", function () {
-			let input_url = form.value;
-			if (!(input_url in dict))
-				input_url = "medias/404.png";
-			else
-				input_url = dict[input_url];
-			showImginBrowser(input_url);
+			findPage(form.value);
 		});
 
 		form.addEventListener("focus", function() {
@@ -30,14 +36,12 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		form.addEventListener("keyup", function(event) {
 			event.preventDefault();
 			if (event.key === "Enter") {
-				let input_url = form.value;
-				if (!(input_url in dict))
-					input_url = "medias/404.png";
-				else
-					input_url = dict[input_url];
-				showImginBrowser(input_url);
+				findPage(form.value);
 		}});
 	} else {
+		/*
+		 * MOBILE custom_input code is on below
+		 */
 		browser_url_bar.innerHTML +=
 		`<div id="url" class="custom_input_text"></div>
 		<div id="go_btn" class="custom_input_submit">GO</div>`
@@ -49,33 +53,43 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 			cursor.activeCursor(false);
 		}
 
+		/*
+		 * Custom input action button and enter
+		 */
 		function action(self, str) {
 			console.info("validation custom_input browser");
 			closeKeyboard();
 			if (str.trim().length != 0) {
-				let input_url = str;
-				if (!(input_url in dict))
-					input_url = "medias/404.png";
-				else
-					input_url = dict[input_url];
-				showImginBrowser(input_url);
+				findPage(str);
 			}
 		}
 
 		let input = new CUSTOM_INPUT(url, action, cursor);
 
+		/*
+		 * When switching to browser panel
+		 */
 		this.setActive = function() {
 			input.calibrate();
 		}
 
+		/*
+		 * When lefting browser panel
+		 */
 		this.setInactive = function() {
 			closeKeyboard();
 		}
 
+		/*
+		 * Default area handler
+		 */
 		browser.addEventListener("mousedown", function(e) {
 			closeKeyboard();
 		}, false);
 
+		/*
+		 * Input url field handler
+		 */
 		url.addEventListener("mousedown", function(e){
 			panels.style.height = "calc(var(--vh, 1vh) * 50)";
 			browser.style.height = "calc(var(--vh, 1vh) * 50)";
@@ -84,6 +98,9 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 			e.stopPropagation();
 		}, false);
 
+		/*
+		 * Enter button handler
+		 */
 		document.getElementById("go_btn").addEventListener("mousedown", function(e){
 			action(input, input.getContent());
 			e.stopPropagation();

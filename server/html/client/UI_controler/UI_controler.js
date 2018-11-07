@@ -55,6 +55,9 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 	 */
 	function switchScreen(target) {
 
+		/*
+		 * Disable current panel
+		 */
 		switch (lastScreen) {
 		case "browser":
 			browser.setInactive();
@@ -147,6 +150,8 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 	 */
 	if (IS_MOBILE == false)
 		changeScreen(diary_btn, "diary");
-	else
+	else {
 		switchScreen(js_tty);
+		lastScreen = "tty";
+	}
 }
