@@ -11,6 +11,16 @@
     border-right: 1px solid rgba(120, 200, 255, 0.2);
 }
 
+#browser_url_bar #url {
+	width: 70%;
+	margin-left: 2%;
+}
+
+#browser_url_bar #go_btn {
+	width: 20%;
+	margin-left: 2%;
+}
+
 #browser #browser-navigation-bar {
 	display: block;
 	box-sizing: border-box;

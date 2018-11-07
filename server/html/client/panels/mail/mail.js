@@ -56,7 +56,12 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 			tty_key_cb(1);
 		}, true);
 	} else {
-
+		login_form_mail.innerHTML +=
+			`<form>
+			 <div id="loginInput" class="custom_input_text input-field"></div>
+			 <div id="passwordInput" class="custom_input_text input-field"></div>
+			 <button id='loginBtn' class='btn' type='button'>Login</button>
+			 </form>`;
 	}
 	/*
 	 * Self invoked function to add listener

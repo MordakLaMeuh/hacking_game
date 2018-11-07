@@ -85,21 +85,8 @@
 	align-items: center;
 }
 
-#mail form
-{
-	width: 75%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10%;
-}
-
-#mail form p
-{
-	color: red;
-	font-size: 20px;
-	display: none;
-}
 /* Style the input container */
+
 .input-container {
   display: flex;
   width: 100%;
@@ -115,20 +102,33 @@
   text-align: center;
 }
 
+
 /* Style the input fields */
 #mail .input-field {
   width: 100%;
-  padding: 10px;
   outline: none;
   border: none;
-  font-size: 20px;
   background-color: rgba(120, 200, 255, 0.1);
   color: #4c80a3;
-  height: 100%;
 }
 
 .input-field:focus {
   border: 2px solid #4c80a3;
+}
+
+#mail form
+{
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+}
+
+#mail form p
+{
+	color: red;
+	font-size: 20px;
+	display: none;
 }
 
 /* Set a style for the submit button */
@@ -145,4 +145,12 @@
 
 #mail form .btn:hover {
   opacity: 1;
+}
+
+#mail form #loginInput {
+	margin-bottom: 5%;
+}
+
+#mail form #passwordInput {
+	margin-bottom: 10%;
 }

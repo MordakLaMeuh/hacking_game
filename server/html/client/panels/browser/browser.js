@@ -38,7 +38,9 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 				showImginBrowser(input_url);
 		}});
 	} else {
-
+		browser_url_bar.innerHTML +=
+		`<div id="url" class="custom_input_text"></div>
+		<div id="go_btn" class="custom_input_submit">GO</div>`
 	}
 
 	var bwr_content = document.getElementById("browser-container");
