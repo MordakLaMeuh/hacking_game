@@ -44,3 +44,17 @@
 	font-size: calc(var(--vh, 1vh) * 4);
 	font-family: monospace;
 }
+
+input[type="submit"]
+{
+    font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
+    background-color: rgba(120, 200, 255, 0.3);
+    border: 1px solid rgba(120, 200, 255, 0.2);
+    color: rgb(120, 200, 255);
+    height: 2.4em;
+    box-sizing: border-box;
+    padding: 0 .8em;
+    letter-spacing: .06em;
+    width: 20%;
+    margin-left: 5%;
+}

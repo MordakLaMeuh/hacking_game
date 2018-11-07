@@ -24,13 +24,9 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		 */
 		(function()
 		{
-			let signInBtn = document.getElementById("signInBtn");
 			let loginBtn = document.getElementById("loginBtn");
 			let loginForm = document.getElementById("loginForm");
 
-			signInBtn.addEventListener("mousedown", function(){
-				signOut()
-			});
 			loginBtn.addEventListener("mousedown", function(){
 				sendLoginData();
 			});
@@ -75,10 +71,15 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	 */
 	(function()
 	{
+		let signOutBtn = document.getElementById("signOutBtn");
 		let backBtn = document.getElementById("backBtn");
 
 		backBtn.addEventListener("mousedown", function(){
-			displayFolder()});
+			displayFolder();
+		});
+		signOutBtn.addEventListener("mousedown", function(){
+			signOut()
+		});
 	}());
 
 	/*
@@ -261,6 +262,7 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	 */
 	function displayLoginForm(display) {
 		let loginForm = document.getElementById("loginForm");
+		console.log("loginForm");
 		if (display == true)
 			loginForm.style.display = "block";
 		else
