@@ -8,6 +8,9 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	var onFolder = false;
 
 	if (IS_MOBILE == false) {
+		/*
+		 * OLD Browser code is on below
+		 */
 		login_form_mail.innerHTML += `<form id='loginForm'>
 		<p id='errorForm'>Invalid login or password</p>
 		<div class='input-container'>
@@ -28,16 +31,19 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 			let loginForm = document.getElementById("loginForm");
 
 			loginBtn.addEventListener("mousedown", function(){
-				sendLoginData();
+				sendLoginData(document.getElementById("loginInput").value, document.getElementById("passwordInput").value);
 			});
 
 			loginForm.addEventListener("keyup", function(event) {
 				event.preventDefault();
 				if (event.key === "Enter") {
-					sendLoginData();
+					sendLoginData(document.getElementById("loginInput").value, document.getElementById("passwordInput").value);
 				}});
 		}());
 
+		/*
+		 * Disable key registering on tty when filling input field
+		 */
 		document.getElementById("loginInput").addEventListener("focus", function() {
 			tty_key_cb(0);
 		}, true);
@@ -52,6 +58,9 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 			tty_key_cb(1);
 		}, true);
 	} else {
+		/*
+		 * MOBILE custom_input code is on below
+		 */
 		login_form_mail.innerHTML +=
 			`<form id="loginForm">
 			 <p id='errorForm'>Invalid login or password</p>
@@ -60,11 +69,84 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 			 <button id='loginBtn' class='btn' type='button'>Login</button>
 			 </form>`;
 
-		this.setActive = function() {
+		let loginBtn = document.getElementById("loginBtn");
+
+		function closeKeyboard() {
+			panels.style.height = "calc(var(--vh, 1vh) * 90)";
+			mail.style.height = "calc(var(--vh, 1vh) * 90)";
+			keyboard.close();
+			cursor.activeCursor(false);
 		}
 
-		this.setInactive = function() {
+		/*
+		 * Custom input action button and enter
+		 */
+		function action(self, str) {
+			console.info("validation custom_input mail");
+			closeKeyboard();
+			if (input_login.getContent().trim().length != 0 && input_password.getContent().trim().length != 0) {
+				sendLoginData(input_login.getContent(), input_password.getContent());
+				input_login.fflushContent();
+				input_password.fflushContent();
+			}
 		}
+
+		let input_login = new CUSTOM_INPUT(loginInput, action, cursor, "Login");
+		let input_password = new CUSTOM_INPUT(passwordInput, action, cursor, "Password");
+
+		/*
+		 * When switching to mail panel login screen
+		 */
+		this.setActive = function() {
+			input_login.calibrate();
+			input_password.calibrate();
+		}
+
+		/*
+		 * When lefting mail panel
+		 */
+		this.setInactive = function() {
+			closeKeyboard();
+		}
+
+		/*
+		 * Default area handler
+		 */
+		mail.addEventListener("mousedown", function(e) {
+			closeKeyboard();
+		}, false);
+
+		function reduceScreen() {
+			panels.style.height = "calc(var(--vh, 1vh) * 50)";
+			mail.style.height = "calc(var(--vh, 1vh) * 50)";
+		}
+		/*
+		 * Login field handler
+		 */
+		loginInput.addEventListener("mousedown", function(e){
+			reduceScreen();
+			input_login.focus(e.clientX, e.clientY);
+			keyboard.open(input_login.write);
+			e.stopPropagation();
+		}, false);
+
+		/*
+		 * Password field handler
+		 */
+		passwordInput.addEventListener("mousedown", function(e){
+			reduceScreen();
+			input_password.focus(e.clientX, e.clientY);
+			keyboard.open(input_password.write);
+			e.stopPropagation();
+		}, false);
+
+		/*
+		 * Enter button handler
+		 */
+		loginBtn.addEventListener("mousedown", function(e){
+			action(null, null);
+			e.stopPropagation();
+		}, false);
 	}
 	/*
 	 * Self invoked function to add listener
@@ -109,7 +191,6 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		if (onFolder == false) {
 			onFolder = true;
 			let mailMessagesUl = document.getElementById("mail_messages");
-			console.log("on efface");
 			changeMailHeader(onFolder);
 			removeMailList(mailMessagesUl);
 			displayMailList(self.mailObj, mailMessagesUl);
@@ -262,11 +343,17 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	 */
 	function displayLoginForm(display) {
 		let loginForm = document.getElementById("loginForm");
-		console.log("loginForm");
-		if (display == true)
+		if (display == true) {
 			loginForm.style.display = "block";
-		else
+			/*
+			 * After switching to login area, calibrate custom input fields
+			 */
+			if (IS_MOBILE) {
+				self.setActive();
+			}
+		} else {
 			loginForm.style.display = "none";
+		}
 	}
 
 	/*
@@ -282,13 +369,11 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	/*
 	 * Send login data to server
 	 */
-	function sendLoginData() {
+	function sendLoginData(name, password) {
 		let obj = new Object();
-		obj.name = document.getElementById("loginInput").value;;
-		obj.password = document.getElementById("passwordInput").value;;
+		obj.name = name;
+		obj.password = password;
+		console.log(obj);
 		socket.send(JSON.stringify({"mail": obj}));
-		console.log(obj.name);
-		console.log(obj.password);
-		console.log("On envoie");
 	}
 }

@@ -26,6 +26,9 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 			findPage(form.value);
 		});
 
+		/*
+		 * Disable key registering on tty when filling input field
+		 */
 		form.addEventListener("focus", function() {
 			tty_key_cb(0);
 		}, true);
