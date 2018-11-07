@@ -413,8 +413,8 @@
 	},
 	{
 		"winningCondition": [
-			"cat roster.txt",
-			"/Notes"
+			"cat .password.txt",
+			"/.Private"
 		],
 		"cmdList": [
 			[
@@ -496,7 +496,7 @@
 	  ["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
       ["ls", "ls : list all files on the current folder"],
       ["pwd", "pwd : print name of current directory"],
-      ["rot", "rot : replaces all letters of a string with the Xth letter after it"],
+      ["rot", "rot : replaces all letters of a word with the n-th letter after it"],
       ["roll"],
       ["help"],
 	  ["ssh", "ssh : connect to another computer"],
