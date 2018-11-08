@@ -192,53 +192,51 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	function displayFolder(mail) {
 		if (onFolder == false) {
 			onFolder = true;
-			let mailMessagesUl = document.getElementById("mail_messages");
-			changeMailHeader(onFolder);
-			removeMailList(mailMessagesUl);
-			displayMailList(self.mailObj, mailMessagesUl);
+			let mailMessagesDiv = document.getElementById("mail_messages");
+			changeMailHeader(onFolder, null, null, null);
+			removeMailList(mailMessagesDiv);
+			displayMailList(self.mailObj, mailMessagesDiv);
 		}
 	}
 
 	/*
 	 * Display all the mail of a folder
 	 */
-	function displayMailList(mail, mailMessagesUl) {
+	function displayMailList(mail, mailMessagesDiv) {
 		for (let i = 0; i < mail.content.length; i++) {
 			function func(i) {
-				let mailLiContainer = document.createElement("li");
-				let mailUlContainer = document.createElement("ul");
+				let mailDivContainer = document.createElement("div");
 
-				let senderLi = document.createElement("li");
-				let receiverLi = document.createElement("li");
-				let titleLi = document.createElement("li");
+				let senderP = document.createElement("p");
+				let receiverP = document.createElement("p");
+				let titleP = document.createElement("p");
 
-				senderLi.className = "from";
-				receiverLi.className = "to";
-				titleLi.className = "title";
+				senderP.className = "from";
+				receiverP.className = "to";
+				titleP.className = "title";
 
 				if (mail.content[i].sender == 1) {
-					senderLi.innerHTML = mail.name;
-					receiverLi.innerHTML = mail.content[i].from_to;
+					senderP.innerHTML = "From : " + mail.name;
+					receiverP.innerHTML = "To : " + mail.content[i].from_to;
 				} else {
-					senderLi.innerHTML = mail.content[i].from_to;
-					receiverLi.innerHTML = mail.name;
+					senderP.innerHTML = "From : " + mail.content[i].from_to;
+					receiverP.innerHTML = "To : " + mail.name;
 				}
-				titleLi.innerHTML = mail.content[i].title;
+				titleP.innerHTML = mail.content[i].title;
 
-				mailUlContainer.appendChild(senderLi);
-				mailUlContainer.appendChild(receiverLi);
-				mailUlContainer.appendChild(titleLi);
+				mailDivContainer.appendChild(senderP);
+				mailDivContainer.appendChild(receiverP);
+				mailDivContainer.appendChild(titleP);
 
-				mailLiContainer.appendChild(mailUlContainer);
-				mailMessagesUl.appendChild(mailLiContainer);
+				mailMessagesDiv.appendChild(mailDivContainer);
 
 				if (!mail.content[i].read) {
-					mailLiContainer.style.fontWeight = "bold";
-					mailLiContainer.style.backgroundColor = "rgba(120, 200, 255, 0.2)";
+					mailDivContainer.style.fontWeight = "bold";
+					mailDivContainer.style.backgroundColor = "rgba(120, 200, 255, 0.2)";
 				}
 
-				mailLiContainer.addEventListener("mousedown", function(){
-					displayMailContent(mailMessagesUl, mail, i);
+				mailDivContainer.addEventListener("mousedown", function(){
+					displayMailContent(mailMessagesDiv, mail, i);
 				});
 			};
 			func(i);
@@ -257,26 +255,43 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	/*
 	 * Change mail header to fit to the current display (mail list or mail content)
 	 */
-	function changeMailHeader(onFolder) {
-		let mailInfoBarUl = document.getElementById("mail_info_bar");
+	function changeMailHeader(onFolder, fromContent, toContent, titleContent) {
+		let mailInfoBarDiv = document.getElementById("mail_info_bar");
 
-		for (let i = 0; i < mailInfoBarUl.children.length; i++) {
-			if (!onFolder) {
-				mailInfoBarUl.children[i].style.display = "none";
-			} else {
-				if (i < 3) {
-					mailInfoBarUl.children[i].style.display = "flex";
-				} else {
-					mailInfoBarUl.removeChild(mailInfoBarUl.children[i]);
-					i--;
-				}
-			}
-		}
 		let backBtn = document.getElementById("backBtn");
-		if (!onFolder)
-			backBtn.style.display = "flex";
-		else
+
+		if (onFolder)
+		{
+			let exchangeInfoDiv = document.getElementById("exchangeInfo");
+			while (mailInfoBarDiv.children.length > 1) {
+				mailInfoBarDiv.removeChild(mailInfoBarDiv.lastChild);
+			}
+			while (exchangeInfoDiv.firstChild)
+			{
+				exchangeInfoDiv.removeChild(exchangeInfoDiv.firstChild);
+			}
+			mailInfoBarDiv.style.display = "none";
 			backBtn.style.display = "none";
+		}
+		else
+		{
+			mailInfoBarDiv.style.display = "";
+
+			let exchangeInfoDiv = document.getElementById("exchangeInfo")
+			let from = document.createElement("p");
+			let to = document.createElement("p");
+			let title = document.createElement("p");
+
+			from.innerHTML = "From: " + fromContent;
+			to.innerHTML = "To: " +  toContent;
+			title.innerHTML = titleContent;
+
+			exchangeInfoDiv.appendChild(from);
+			exchangeInfoDiv.appendChild(to);
+			mailInfoBarDiv.appendChild(exchangeInfoDiv);
+			mailInfoBarDiv.appendChild(title);
+			backBtn.style.display = "flex";
+		}
 	}
 
 	/*
@@ -286,28 +301,17 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		onFolder = false;
 		mail.content[index].read = true;
 		removeMailList(mailList);
-		let mailInfoBarUl = document.getElementById("mail_info_bar");
-		changeMailHeader(onFolder);
-		let from = document.createElement("li");
-		let to = document.createElement("li");
-		let title = document.createElement("li");
+
 		let mailContent = document.createElement("p");
 
 		if (mail.content[index].sender == 1) {
-			from.innerHTML = "From: " + mail.name;
-			to.innerHTML = "To: " +  mail.content[index].from_to;
+			changeMailHeader(onFolder, mail.name, mail.content[index].from_to, mail.content[index].title);
 		} else {
-			from.innerHTML = "From: " + mail.content[index].from_to;
-			to.innerHTML = "To: " + mail.name;
+			changeMailHeader(onFolder, mail.content[index].from_to, mail.name, mail.content[index].title);
 		}
-		title.innerHTML = mail.content[index].title;
 		mailContent.innerHTML = mail.content[index].text;
 
-		mailInfoBarUl.appendChild(from);
-		mailInfoBarUl.appendChild(to);
-		mailInfoBarUl.appendChild(title);
 		mailList.appendChild(mailContent);
-
 		let obj = new Object();
 		obj.name = mail.name;
 		obj.index = index;
