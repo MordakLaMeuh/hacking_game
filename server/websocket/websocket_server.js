@@ -5,10 +5,10 @@ var WebSocketServer = require("ws").Server;
 var port = 8081;
 
 var math = require('math');
-var termfunc = require('./term_func.js');
-var lvlValidation = require('./lvl_validation.js');
+var termfunc = require('./modules/term_func.js');
+var lvlValidation = require('./modules/lvl_validation.js');
 
-var Social = require('./social.js');
+var Social = require('./modules/social.js');
 /*
  * Opening socket websocket server
  */
@@ -40,21 +40,21 @@ ws.on('connection', function (client, req)
 	var ssh_request = false;
 	var ssh_active = false;
 
-	var files = termfunc.createFileSystem("tutoVFS.csv");
+	var files = termfunc.createFileSystem("worlds/tuto/ssh/tutoVFS.csv");
 	if (files === undefined) {
 		send(client, JSON.stringify({"error": "Internal server error"}));
 		client.close();
 		return;
 	}
 
-	var zeroSSH = termfunc.createFileSystem("molang.csv");
+	var zeroSSH = termfunc.createFileSystem("worlds/tuto/ssh/molang.csv");
 	if (zeroSSH === undefined) {
 		send(client, JSON.stringify({"error": "Internal server error"}));
 		client.close();
 		return;
 	}
 
-	var bigSSH = termfunc.createFileSystem("big.csv");
+	var bigSSH = termfunc.createFileSystem("worlds/tuto/ssh/big.csv");
 	if (bigSSH === undefined) {
 		send(client, JSON.stringify({"error": "Internal server error"}));
 		client.close();
@@ -67,7 +67,7 @@ ws.on('connection', function (client, req)
 	var curDir = root;
 	var originCurDir; // for ssh
 
-	var lvlData = lvlValidation.getLvlData("./tuto.json");
+	var lvlData = lvlValidation.getLvlData("worlds/tuto/tuto.json");
 	if (lvlData === undefined) {
 		send(client, JSON.stringify({"error": "critical Internal server error"}));
 		client.close();
