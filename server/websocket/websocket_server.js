@@ -131,7 +131,10 @@ ws.on('connection', function (client, req)
 			if (json_msg.mail.password !== undefined) {
 				send(client, JSON.stringify({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}}));
 			} if (json_msg.mail.index !== undefined) {
-				send(client, JSON.stringify({"mail": social.markAsRead(json_msg.mail, victoryRoutine)}));
+				let obj = social.markAsRead(json_msg.mail, victoryRoutine);
+				if (obj != null) {
+					send(client, JSON.stringify({"diary": obj}));
+				}
 			}
 			return;
 		}

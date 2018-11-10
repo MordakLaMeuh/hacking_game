@@ -47,14 +47,14 @@ method.sendMail = function(obj) {
 
 method.markAsRead = function(obj, victory_cb) {
 
-	var output = new Object();
+	let output = null;
 
 	for (var i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
 			obj.index >= 0 && obj.index < this.social[i].mail.length) {
 			console.log(this.social[i].mail[obj.index].read);
 			if (this.social[i].mail[obj.index].s && this.social[i].mail[obj.index].read === false){
-				output.s = this.social[i].mail[obj.index].s;
+				output = this.social[i].mail[obj.index].s;
 				if (this.social[i].mail[obj.index].w && this.social[i].mail[obj.index].read === false)
 					victory_cb();
 				this.social[i].mail[obj.index].read = true;
@@ -126,4 +126,3 @@ method.getDialogSeq = function(obj, victory_cb)
 }
 
 module.exports = Social;
-

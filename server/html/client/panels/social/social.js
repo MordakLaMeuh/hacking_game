@@ -1,6 +1,6 @@
 'use strict';
 
-var SOCIAL = function(notif_button_cb) {
+var SOCIAL = function(notif_button_cb, socket) {
 	var socialDiv = document.getElementById("social");
 	var contactsListDiv = document.getElementById("contacts_list");
 	var currentNameDiv;
@@ -112,7 +112,7 @@ var SOCIAL = function(notif_button_cb) {
 		removeButton();
 	}
 
-	this.addEntry = function(obj)
+	function addEntry(obj)
 	{
 		let div = document.getElementById(obj.name);
 		if (div == undefined) {
@@ -126,7 +126,7 @@ var SOCIAL = function(notif_button_cb) {
 	/*
 	 * Get contacts_list div (container for all the contacts)
 	 */
-	this.displayContacts = function(contactsArray)
+	function displayContacts(contactsArray)
 	{
 		for (let i = 0; i < contactsArray.length; i++) {
 			(function () {
@@ -190,4 +190,7 @@ var SOCIAL = function(notif_button_cb) {
 			}());
 		}
 	}
+
+	socket.register(["socialContacts"], displayContacts);
+	socket.register(["social"], addEntry);
 }

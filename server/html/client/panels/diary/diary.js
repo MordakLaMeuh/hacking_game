@@ -1,6 +1,6 @@
 'use strict';
 
-var DIARY = function(notif_button_cb) {
+var DIARY = function(notif_button_cb, socket) {
 	var self = this;
 
 	var diaryBodyDiv = document.getElementById("diary_body");
@@ -11,8 +11,11 @@ var DIARY = function(notif_button_cb) {
 		diaryBodyDiv.scrollTop -= delta * 20;
 	}, false);
 
-	this.addEntry = function(title, content)
+	function addEntry(data)
 	{
+		let title = data[0];
+		let content = data[1];
+
 		let h3 = document.createElement("h3");
 		h3.classList.add("heading");
 		h3.textContent = title;
@@ -28,4 +31,7 @@ var DIARY = function(notif_button_cb) {
 	this.active = function() {
 		diaryBodyDiv.scrollTop += diaryBodyDiv.scrollHeight;
 	}
+
+	socket.register(["social", "s"], addEntry);
+	socket.register(["diary"], addEntry);
 }

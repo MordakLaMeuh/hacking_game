@@ -1,6 +1,6 @@
 'use strict';
 
-var TTY = function(keyboard, cursor) {
+var TTY = function(keyboard, cursor, socket) {
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
@@ -281,7 +281,7 @@ var TTY = function(keyboard, cursor) {
 	}
 	var sequence = sequence_enum.auth_login;
 
-	this.onmessage = function(data) {
+	function onmessage(data) {
 		if (data.directory)
 			directory = data.directory;
 		if (data.login)
@@ -424,4 +424,6 @@ var TTY = function(keyboard, cursor) {
 		setLetterField();
 		putCursor(cursorPosition);
 	});
+
+	socket.register(["tty"], onmessage);
 }

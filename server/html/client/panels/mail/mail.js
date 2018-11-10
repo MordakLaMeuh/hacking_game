@@ -1,6 +1,6 @@
 'use strict';
 
-var MAIL = function(keyboard, cursor, tty_key_cb)
+var MAIL = function(keyboard, cursor, tty_key_cb, socket)
 {
 	var self = this;
 
@@ -169,9 +169,9 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 	/*
 	 * Check mail data received from server to allow or deny login
 	 */
-	this.login = function(mail) {
+	function login(mail) {
 		if (mail.content) {
-			this.mailObj = mail;
+			self.mailObj = mail;
 			let mailName = document.getElementById("mailName");
 			if (mail.name == "root")
 				mailName.innerHTML = "Your Mail";
@@ -378,4 +378,6 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		console.log(obj);
 		socket.send(JSON.stringify({"mail": obj}));
 	}
+
+	socket.register(["mail"], login);
 }
