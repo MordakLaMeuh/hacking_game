@@ -108,8 +108,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 		let classCollection = currentAnswersDiv.getElementsByClassName("btn");
 		addMe(classCollection[clicked_id].innerHTML);
 		obj.name = currentNameDiv.innerHTML;
-		socket.send(JSON.stringify({"social":obj}));
 		removeButton();
+		socket.send(JSON.stringify({"social":obj}));
 	}
 
 	function addEntry(obj)
