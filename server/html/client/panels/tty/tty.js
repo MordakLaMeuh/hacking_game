@@ -4,16 +4,6 @@ var TTY = function(keyboard, cursor) {
 	var tty = document.getElementById("js_tty");
 	tty.innerHTML = "";
 
-	var divTest = document.createElement("div");
-	tty.appendChild(divTest);
-	var innerTest = document.createElement("X");
-	innerTest.innerHTML = "b";
-	divTest.appendChild(innerTest);
-	var CHAR_HEIGHT = divTest.offsetHeight;
-	var CHAR_WIDTH = innerTest.offsetWidth;
-	console.info("height: " + CHAR_HEIGHT + " width: " + CHAR_WIDTH);
-	tty.removeChild(tty.firstChild);
-
 	/*
 	 * Active mouse scroll on PC
 	 */
@@ -55,8 +45,14 @@ var TTY = function(keyboard, cursor) {
 
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
 
-	var LETTERSIZE = CHAR_WIDTH;
+	var CURSOR_WIDTH;
+	var CHAR_HEIGHT;
 	var NBLETTERPERLINE = 0;
+
+	/*
+	 * For each cursor position, this array contain assoiated X position in px
+	 */
+	var cursor_associate_array;
 
 	/*
 	 * Indicate if setLetterField calculus was good (sometimes it make mistakes after resize)
@@ -70,11 +66,15 @@ var TTY = function(keyboard, cursor) {
 		 */
 		tty_broken = true;
 
+		/*
+		 * First determine the number of letter a line can contain
+		 */
 		let divTest = document.createElement("div");
 		tty.appendChild(divTest);
 		divTest.innerHTML = "x";
 		NBLETTERPERLINE = 0;
 		let originalHeight = divTest.offsetHeight;
+		CHAR_HEIGHT = originalHeight;
 		if (originalHeight == 0 || originalHeight === undefined) {
 			console.warn("Cannot measure offsetHeight");
 			tty.removeChild(tty.lastChild);
@@ -86,7 +86,29 @@ var TTY = function(keyboard, cursor) {
 		}
 		tty.removeChild(tty.lastChild);
 
+		/*
+		 * Now, determine each cursor position
+		 */
+		cursor_associate_array = new Array(NBLETTERPERLINE);
+
+		let divTest_b = document.createElement("div");
+		tty.appendChild(divTest_b);
+		var innerTest_b = document.createElement("X");
+		innerTest_b.innerHTML = "";
+		divTest_b.appendChild(innerTest_b);
+
+		for (let i = 0; i < NBLETTERPERLINE; i++) {
+			cursor_associate_array[i] = innerTest_b.offsetWidth;
+			innerTest_b.innerHTML += "X";
+			if (i == 0) {
+				CURSOR_WIDTH = innerTest_b.offsetWidth;
+			}
+		}
+
+		tty.removeChild(tty.lastChild);
+
 		console.info("nb letter per line: ", NBLETTERPERLINE);
+		console.info("Char height: " + CHAR_HEIGHT);
 
 		tty_broken = false;
 	}
@@ -107,7 +129,7 @@ var TTY = function(keyboard, cursor) {
 		 */
 		div_origin_y += tty.scrollHeight - tty.clientHeight - tty.scrollTop;
 
-		let x_pixel = position % NBLETTERPERLINE * LETTERSIZE;
+		let x_pixel = cursor_associate_array[position % NBLETTERPERLINE];
 		let y_pixel = Math.trunc(position / NBLETTERPERLINE) * CHAR_HEIGHT;
 
 		cursor.setCursorPosition(div_origin_x + x_pixel, div_origin_y + y_pixel);
@@ -117,7 +139,7 @@ var TTY = function(keyboard, cursor) {
 			if (offset < 0) {
 				cursor.activeCursor(false);
 			} else {
-				cursor.setCursorDim(CHAR_WIDTH, (offset < CHAR_HEIGHT) ? offset : CHAR_HEIGHT);
+				cursor.setCursorDim(CURSOR_WIDTH, (offset < CHAR_HEIGHT) ? offset : CHAR_HEIGHT);
 				cursor.activeCursor(true);
 			}
 		}
@@ -366,7 +388,7 @@ var TTY = function(keyboard, cursor) {
 	 * Calculate from font-size 20px.
 	 * DIV width must be multiple of 12
 	 */
-	cursor.setCursorDim(CHAR_WIDTH, CHAR_HEIGHT);
+	cursor.setCursorDim(CURSOR_WIDTH, CHAR_HEIGHT);
 
 	this.display = function(actif) {
 			if (actif == true) {
