@@ -16,7 +16,7 @@
 	justify-content: space-around;
 	align-items: center;
 	border-bottom: 1px solid #4c80a3;
-	
+
 }
 /* #mail_header p
 {
@@ -74,6 +74,7 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	overflow: auto;
 }
 
 #mail_messages > div
