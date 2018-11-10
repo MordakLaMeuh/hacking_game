@@ -9,21 +9,21 @@ function Termfunc() {
  * Rot any nmmber : string rot(nb, str)
  */
 method.str_rot = function(num, str) {
-	var alphabet = "abcdefghijklmnopqrstuvwxyz";
-	var newStr = "";
+	let alphabet = "abcdefghijklmnopqrstuvwxyz";
+	let newStr = "";
 	num = num % 26;
-	for (var i = 0; i < str.length; i++) {
-		var char = str[i],
+	for (let i = 0; i < str.length; i++) {
+		let char = str[i],
 		isUpper = (char === char.toUpperCase()) ? true : false;
 
 		char = char.toLowerCase();
 
 		if (alphabet.indexOf(char) > -1) {
-			var newIndex = alphabet.indexOf(char) + num;
+			let newIndex = alphabet.indexOf(char) + num;
 			if(newIndex < alphabet.length) {
 				isUpper ? newStr += alphabet[newIndex].toUpperCase() : newStr += alphabet[newIndex];
 			} else {
-				var shiftedIndex = -(alphabet.length - newIndex);
+				let shiftedIndex = -(alphabet.length - newIndex);
 				isUpper ? newStr += alphabet[shiftedIndex].toUpperCase() : newStr += alphabet[shiftedIndex];
 			}
 		} else {
@@ -48,20 +48,11 @@ method.filterInt = function(value) {
  */
 method.createFileSystem = function(file)
 {
-/*
-	const fs = require('fs');
-	try {
-		var data = fs.readFileSync(file, 'utf8');
-	} catch(error) {
-		console.log('Error:', error.stack);
-		return undefined;
-	}
-*/
-	var lines = file.split('\n');
+	let lines = file.split('\n');
 	let files = [];
-	for (var i = 1; i < lines.length; ++i)
+	for (let i = 1; i < lines.length; ++i)
 	{
-		var words = lines[i].split(',');
+		let words = lines[i].split(',');
 		if (words.length == 4)
 			files.push(new File(words[0], words[1], words[2], words[3], files, this));
 	}
@@ -75,13 +66,14 @@ method.cd = function(root, curDir, args)
 {
 	if (args.length != 1)
 		return ([curDir, "Usage : cd PATH"]);
-	var path = args[0].replace(/\/+/g, '/'), i = 0;
+	let path = args[0].replace(/\/+/g, '/'), i = 0;
+	let tmpDir;
 	if (path.charAt(0) == '/') {
-		var tmpDir = root;
+		tmpDir = root;
 		if (path.length == 1)
 			++i;
 	} else {
-		var tmpDir = curDir;
+		tmpDir = curDir;
 	}
 	path = path.replace(/^\/+|\/+$/gm,'');
 	path = path.split('/')
@@ -125,8 +117,8 @@ method.ls = function(curDir, args)
  */
 method.help = function(cmdList)
 {
-	var str = "";
-	for (var i = 0; i < cmdList.length; i++) {
+	let str = "";
+	for (let i = 0; i < cmdList.length; i++) {
 		if (cmdList[i].length == 2) {
 			str += cmdList[i][1];
 			if (i + 1 < cmdList.length)
@@ -156,7 +148,7 @@ method.cat = function(curDir, args)
  */
 method.pwd = function(curDir)
 {
-	var pwd = curDir.name;
+	let pwd = curDir.name;
 	while (curDir.parent)
 	{
 		if (curDir.parent.name == "/")
@@ -173,7 +165,7 @@ method.pwd = function(curDir)
  */
 method.getFile = function(files, name)
 {
-	for (var i = 0; i < files.length; ++i)
+	for (let i = 0; i < files.length; ++i)
 	{
 		if (files[i].name == name)
 			return files[i];
@@ -188,7 +180,7 @@ method.updateFileSystem = function(files, updateFiles)
 		console.log("RETURN");
 		return files;
 	}
-	for (var i = 0; i < updateFiles.length; i++)
+	for (let i = 0; i < updateFiles.length; i++)
 	{
 		if (updateFiles[i][0] == "A")
 			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files);
@@ -219,8 +211,8 @@ var File = function(name, parent, isDir, content, files, termfunc)
  */
 function getLsContent(children, args, hidden)
 {
-	var i = 0;
-	var str = "";
+	let i = 0;
+	let str = "";
 
 	while (i < children.length)
 	{
@@ -244,12 +236,12 @@ function getLsContent(children, args, hidden)
 
 function delFile(name, files)
 {
-	var file = termfunc.getFile(files, name);
+	let file = termfunc.getFile(files, name);
 	if (file)
 	{
 		if (file.parent)
 		{
-			var index = file.parent.children.indexOf(file);
+			let index = file.parent.children.indexOf(file);
 			if (index != -1)
 				file.parent.children.splice(index, 1);
 		}
@@ -269,13 +261,13 @@ function addFile(fileInfo, files)
 
 function moveFile(fileInfo, files)
 {
-	var file = termfunc.getFile(files, fileInfo[0]);
-	var parent = termfunc.getFile(files, fileInfo[1]);
+	let file = termfunc.getFile(files, fileInfo[0]);
+	let parent = termfunc.getFile(files, fileInfo[1]);
 	if (file)
 	{
 		if (file.parent)
 		{
-			var index = file.parent.children.indexOf(file);
+			let index = file.parent.children.indexOf(file);
 			if (index != -1)
 				file.parent.children.splice(index, 1);
 		}

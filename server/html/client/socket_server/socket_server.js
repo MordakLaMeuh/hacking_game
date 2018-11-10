@@ -42,7 +42,7 @@ var SOCKET_SERVER = function() {
 	}
 
 	this.post = function(str) {
-		console.log("post");
+		console.info("server received:");
 		console.log(str);
 
 		console.log("incoming message: " + str);
@@ -74,7 +74,6 @@ var SOCKET_SERVER = function() {
 				send(JSON.stringify({
 					"diary": ["Congratulations", "you win. The End...?"]}));
 			}
-			return ;
 		}
 
 		if (json_msg.social !== undefined) {
@@ -198,7 +197,7 @@ var SOCKET_SERVER = function() {
 			output = termfunc.cat(curDir, input.slice(1, input.length));
 			break;
 		case "roll":
-			let nbr = Math.floor((math.random() * 6 )) + 1;
+			let nbr = Math.floor((Math.random() * 6 )) + 1;
 			output = "You throw a six faces dice and you get a " + nbr;
 			break;
 		case "cd":
@@ -270,7 +269,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/ssh/tutoVFS.csv");
 		files = termfunc.createFileSystem(file);
 		if (files === undefined) {
-			send(client, JSON.stringify({"error": "Internal server error"}));
+			send(JSON.stringify({"error": "Internal server error"}));
 			client.close();
 			return;
 		}
@@ -278,7 +277,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/ssh/molang.csv");
 		zeroSSH = termfunc.createFileSystem(file);
 		if (zeroSSH === undefined) {
-			send(client, JSON.stringify({"error": "Internal server error"}));
+			send(JSON.stringify({"error": "Internal server error"}));
 			client.close();
 			return;
 		}
@@ -286,7 +285,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/ssh/big.csv");
 		bigSSH = termfunc.createFileSystem(file);
 		if (bigSSH === undefined) {
-			send(client, JSON.stringify({"error": "Internal server error"}));
+			send(JSON.stringify({"error": "Internal server error"}));
 			client.close();
 			return;
 		}
@@ -313,6 +312,8 @@ var SOCKET_SERVER = function() {
 	}
 
 	function send(content) {
+		console.info("server sending:");
+		console.log(content);
 		client_callback(content);
 	}
 

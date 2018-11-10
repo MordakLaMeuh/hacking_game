@@ -26,8 +26,6 @@ var SOCKET_CLIENT = function(socket_server) {
 
     this.onmessage = function(res) {
 		let data = JSON.parse(res);
-        console.log(data);
-
         dispatch(data);
     }
 

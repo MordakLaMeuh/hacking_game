@@ -11,17 +11,17 @@ function Social() {
  */
 method.addEntries = function(obj)
 {
-	var output = new Array();
+	let output = new Array();
 
-	for (var i = 0; i < obj.length; i++) {
+	for (let i = 0; i < obj.length; i++) {
 		this.social.push(obj[i]);
-		var n = this.social.length - 1;
+		let n = this.social.length - 1;
 		if (this.social[n].exchange !== undefined)
 			output.push(this.social[n].name);
 		this.social[n].active = false;
 		this.social[n].idx = 0;
 		if (this.social[n].mail !== undefined) {
-			for (var j = 0; j < this.social[n].mail.length; j++) {
+			for (let j = 0; j < this.social[n].mail.length; j++) {
 				this.social[n].mail[j].read = false;
 			}
 		}
@@ -31,7 +31,7 @@ method.addEntries = function(obj)
 
 method.sendMail = function(obj) {
 
-	for (var i = 0; i < this.social.length; i++) {
+	for (let i = 0; i < this.social.length; i++) {
 		console.log(obj.name.localeCompare(this.social[i].name));
 		if (this.social[i].name.toUpperCase() == obj.name.toUpperCase()
 			&& this.social[i].password !== undefined
@@ -49,7 +49,7 @@ method.markAsRead = function(obj, victory_cb) {
 
 	let output = null;
 
-	for (var i = 0; i < this.social.length; i++) {
+	for (let i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
 			obj.index >= 0 && obj.index < this.social[i].mail.length) {
 			console.log(this.social[i].mail[obj.index].read);
@@ -58,7 +58,6 @@ method.markAsRead = function(obj, victory_cb) {
 				if (this.social[i].mail[obj.index].w && this.social[i].mail[obj.index].read === false)
 					victory_cb();
 				this.social[i].mail[obj.index].read = true;
-
 			}
 			break;
 		}
@@ -68,14 +67,14 @@ method.markAsRead = function(obj, victory_cb) {
 
 method.getDialogSeq = function(obj, victory_cb)
 {
-	var output = new Object();
+	let output = new Object();
 	console.log(obj);
 
 	if (obj.name === undefined) {
 		console.warn("undefined name field")
 		return;
 	}
-	var i = 0;
+	let i = 0;
 	for (i = 0; i < this.social.length; i++) {
 		if (this.social[i].name == obj.name) {
 			output.name = obj.name;
@@ -89,7 +88,7 @@ method.getDialogSeq = function(obj, victory_cb)
 				}
 				this.social[i].active = true;
 			} else {
-				var newIdx;
+				let newIdx;
 				if (obj.r !== undefined) {
 					if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
 						console.warn("bad index: " + obj.r);

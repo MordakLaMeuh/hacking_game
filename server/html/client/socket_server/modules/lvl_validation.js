@@ -9,15 +9,6 @@ function Lvl_validation() {
  */
 method.getLvlData = function(levelFile)
 {
-/*
-	const fs = require('fs');
-	try {
-		var lvlData = fs.readFileSync(levelFile, 'utf8');
-	} catch(error) {
-		console.log('Error:', error.stack);
-		return undefined;
-	}
-*/
 	return JSON.parse(levelFile);
 }
 
@@ -27,7 +18,7 @@ method.getLvlData = function(levelFile)
 method.checkCommand = function(cmdList, usrCmd)
 {
 	return true; // TODO
-	for (var i = 0; i < cmdList.length; i++) {
+	for (let i = 0; i < cmdList.length; i++) {
 		if (cmdList[i][0] == usrCmd)
 			return true;
 	}
@@ -39,7 +30,7 @@ method.checkCommand = function(cmdList, usrCmd)
  */
 method.checkVictory = function(winningCondition, usrCondition)
 {
-	for (var i = 0; i < winningCondition.length; i++) {
+	for (let i = 0; i < winningCondition.length; i++) {
 		if (winningCondition[i] != usrCondition[i])
 			return false;
 	}

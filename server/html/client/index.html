@@ -170,8 +170,8 @@ after_load = function() {
 
 	var UI_controler = new UI_CONTROLER(tty.display, browser, mail, tty);
 
-	var social = new SOCIAL(UI_controler.notif_button_cb, socket_client);
-	UI_controler.addSocialObj(social);
+	var social_client = new SOCIAL(UI_controler.notif_button_cb, socket_client);
+	UI_controler.addSocialObj(social_client);
 
 	var diary = new DIARY(UI_controler.notif_button_cb, socket_client);
 	UI_controler.addDiaryObj(diary);
