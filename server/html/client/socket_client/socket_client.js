@@ -1,6 +1,6 @@
 'use strict';
 
-var SOCKET_CLIENT = function() {
+var SOCKET_CLIENT = function(socket_server) {
     console.info("socket_client constructor");
 
     var socket;
@@ -24,24 +24,11 @@ var SOCKET_CLIENT = function() {
         });
     }
 
-    this.connect = function(url) {
-        console.info("socket_client connect(" + url + ")");
+    this.onmessage = function(res) {
+		let data = JSON.parse(res);
+        console.log(data);
 
-        socket = new WebSocket(url);
-
-        socket.onmessage = function(res) {
-    		let data = JSON.parse(res.data);
-            console.log(data);
-
-            dispatch(data);
-        }
-
-        socket.onerror = function() {
-    		console.warn("Aucune reponse du serveur");
-    	}
-
-        console.info("socket client_list:");
-        console.info(client_list);
+        dispatch(data);
     }
 
     this.register = function(arrString, cb) {
@@ -54,6 +41,6 @@ var SOCKET_CLIENT = function() {
     }
 
     this.send = function(content) {
-        socket.send(content);
+        socket_server.post(content);
     }
 }

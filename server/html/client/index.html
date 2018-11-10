@@ -140,6 +140,10 @@
 <script src="UI_controler/UI_controler.js"></script>
 <script src="socket_client/socket_client.js"></script>
 
+<script src="socket_server/socket_server.js"></script>
+<script src="socket_server/modules/social.js"></script>
+<script src="socket_server/modules/lvl_validation.js"></script>
+<script src="socket_server/modules/term_func.js"></script>
 
 <script>
 var mousewheelevt=(/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"
@@ -154,7 +158,9 @@ let vh = window.innerHeight * 0.01;
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 after_load = function() {
-	var socket_client = new(SOCKET_CLIENT);
+	var socket_server = new SOCKET_SERVER();
+	var socket_client = new SOCKET_CLIENT(socket_server);
+
 	var keyboard = new KEYBOARD();
 	var cursor = new CURSOR();
 
@@ -175,7 +181,7 @@ after_load = function() {
 
 	document.body.style.opacity = 100;
 
-	socket_client.connect('ws://' + window.location.hostname + ':8081');
+	socket_server.bind(socket_client.onmessage);
 }
 </script>
 
