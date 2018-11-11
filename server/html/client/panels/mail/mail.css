@@ -77,6 +77,11 @@
 	overflow: auto;
 }
 
+#mail_messages::-webkit-scrollbar
+{
+	display: none;
+}
+
 #mail_messages > div
 {
 	padding-bottom: 5px;
