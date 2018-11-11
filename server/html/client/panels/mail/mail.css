@@ -16,17 +16,28 @@
 	justify-content: space-around;
 	align-items: center;
 	border-bottom: 1px solid #4c80a3;
-
 }
-/* #mail_header p
-{
-	margin-left: 20%;
-}
-#mail_header input
-{
-	margin-right: 5%;
 
-} */
+.box_mail_header
+{
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 5px;
+}
+
+#backBtn, #signOutBtn
+{
+	border: 1px solid #547692;
+	padding: 5px;
+	color: #72C5F9;
+	background-color: #436277;
+}
+
+#backBtn:hover, #signOutBtn:hover
+{
+	cursor: pointer;
+}
 
 #mail_body
 {
