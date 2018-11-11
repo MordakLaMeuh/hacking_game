@@ -162,7 +162,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 				 * Create a new img
 				 */
 				let img = document.createElement('img');
-				img.src = "/medias/contact.svg";
+				img.src = "medias/contact.svg";
 				img.alt = "contact_picture";
 				img.style.backgroundColor = "#57D1FA";
 
