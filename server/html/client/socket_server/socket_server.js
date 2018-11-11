@@ -88,31 +88,25 @@ var SOCKET_SERVER = function() {
 			return ;
 		}
 
+		function load_ssh_session(tree, directory, login, serverName) {
+			root = termfunc.getFile(zeroSSH, directory);
+			originCurDir = curDir;
+			curDir = root;
+			ssh_active = true;
+			let obj = new Object();
+			obj.string = "SSH Connexion successful.";
+			obj.directory = directory;
+			obj.login = login;
+			obj.server = serverName;
+			send({"tty": obj});
+		}
+
 		if (ssh_request == true) {
 			ssh_request = false;
 			if (json_msg.login == "zero" && json_msg.password == "12122000") {
-				root = termfunc.getFile(zeroSSH, "/");
-				originCurDir = curDir;
-				curDir = root;
-				ssh_active = true;
-				let obj = new Object();
-				obj.string = "SSH Connexion successful.";
-				obj.directory = "/";
-				obj.login = "zero";
-				obj.server = "12122000";
-				send({"tty": obj});
-			}
-			else if (json_msg.login == "big" && json_msg.password == "1947") {
-				root = termfunc.getFile(bigSSH, "/");
-				originCurDir = curDir;
-				curDir = root;
-				ssh_active = true;
-				let obj = new Object();
-				obj.string = "SSH Connexion successful.";
-				obj.directory = "/";
-				obj.login = "big";
-				obj.server = "1947";
-				send({"tty": obj});
+				load_ssh_session(zeroSSH, "/", "zero", "toto");
+			} else if (json_msg.login == "big" && json_msg.password == "1947") {
+				load_ssh_session(bigSSH, "/", "big", "bigCorp");
 			} else {
 				let obj = new Object();
 				obj.string = "SSH Connexion failed.";
