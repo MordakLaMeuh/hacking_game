@@ -33,7 +33,7 @@
 	align-items: center;
 }
 
-.tab ul li a
+.tab ul li z
 {
 	position: relative;
 	display: flex;
@@ -51,7 +51,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-.tab ul li a:before
+.tab ul li z:before
 {
 	content: '';
 	position: absolute;
@@ -65,12 +65,12 @@
 	z-index: -1;
 }
 
-.tab ul li a:hover::before
+.tab ul li z:hover::before
 {
 	transform: scale(1.1);
 	box-shadow: 0 0 15px #ffee10;
 }
-.tab ul li a:hover
+.tab ul li z:hover
 {
 	color: #ffee10;
 	box-shadow: 0 0 15px #ffee10;
