@@ -183,7 +183,7 @@ method.updateFileSystem = function(files, updateFiles)
 	for (let i = 0; i < updateFiles.length; i++)
 	{
 		if (updateFiles[i][0] == "A")
-			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files);
+			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files, this);
 		else if (updateFiles[i][0] == "D")
 			files = delFile(updateFiles[i][1], files);
 		else if (updateFiles[i][0] == "M")
@@ -253,9 +253,9 @@ function delFile(name, files)
 	return files;
 }
 
-function addFile(fileInfo, files)
+function addFile(fileInfo, files, termfunc)
 {
-	files.push(new File(fileInfo[0], fileInfo[1], fileInfo[2], fileInfo[3], files));
+	files.push(new File(fileInfo[0], fileInfo[1], fileInfo[2], fileInfo[3], files, termfunc));
 	return files;
 }
 
