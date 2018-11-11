@@ -32,7 +32,6 @@ method.addEntries = function(obj)
 method.sendMail = function(obj) {
 
 	for (let i = 0; i < this.social.length; i++) {
-		console.log(obj.name.localeCompare(this.social[i].name));
 		if (this.social[i].name.toUpperCase() == obj.name.toUpperCase()
 			&& this.social[i].password !== undefined
 			&& this.social[i].password == obj.password
@@ -51,7 +50,6 @@ method.markAsRead = function(obj, victory_cb) {
 	for (let i = 0; i < this.social.length; i++) {
 		if (obj.name != undefined && this.social[i].name == obj.name &&
 			obj.index >= 0 && obj.index < this.social[i].mail.length) {
-			console.log(this.social[i].mail[obj.index].read);
 			if (this.social[i].mail[obj.index].s && this.social[i].mail[obj.index].read === false){
 				output = this.social[i].mail[obj.index].s;
 				if (this.social[i].mail[obj.index].w && this.social[i].mail[obj.index].read === false)

@@ -3,6 +3,8 @@
 var KEYBOARD = function() {
 	var keyboardDiv = document.getElementById("keyboard");
 
+	console.info("Keyboard constructor called: registering layout");
+
 	var target = undefined;
 
 	this.open = function(targetField) {
@@ -137,7 +139,6 @@ var KEYBOARD = function() {
 				td.appendChild(text);
 				td.setAttribute("colspan", cell[1]);
 				tr.appendChild(td);
-				console.log(cell);
 			});
 			table.appendChild(tr);
 		});
@@ -154,7 +155,6 @@ var KEYBOARD = function() {
 			return;
 		}
 		let key = event.key;
-		console.log(key);
 		/*
 		 * Prevent the quick search feature on Firefox triggered by /
 		 */
@@ -170,4 +170,3 @@ var KEYBOARD = function() {
 		throwInput(key);
 	});
 }
-

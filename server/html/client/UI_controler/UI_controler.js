@@ -104,8 +104,6 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 		 * Show the current tab, and add an "active" class to the button that opened the tab
 		 */
 		document.getElementById(target).style.display = "block";
-		console.log(button);
-
 		button.classList.remove("notif");
 	}
 
