@@ -50,8 +50,7 @@ method.createFileSystem = function(file)
 {
 	let lines = file.split('\n');
 	let files = [];
-	for (let i = 1; i < lines.length; ++i)
-	{
+	for (let i = 1; i < lines.length; ++i) {
 		let words = lines[i].split(',');
 		if (words.length == 4)
 			files.push(new File(words[0], words[1], words[2], words[3], files, this));
@@ -77,15 +76,11 @@ method.cd = function(root, curDir, args)
 	}
 	path = path.replace(/^\/+|\/+$/gm,'');
 	path = path.split('/')
-	while (i < path.length)
-	{
-		if (path[i] == "..")
-		{
+	while (i < path.length) {
+		if (path[i] == "..") {
 			if (tmpDir.parent)
 				tmpDir = tmpDir.parent;
-		}
-		else if (path[i] != ".")
-		{
+		} else if (path[i] != ".") {
 			tmpDir = this.getFile(tmpDir.children, path[i]);
 			if (tmpDir == null)
 				return ([null, "cd: " + args[0] + ": No such file or directory"]);
@@ -149,8 +144,8 @@ method.cat = function(curDir, args)
 method.pwd = function(curDir)
 {
 	let pwd = curDir.name;
-	while (curDir.parent)
-	{
+
+	while (curDir.parent) {
 		if (curDir.parent.name == "/")
 			pwd = curDir.parent.name + pwd;
 		else
@@ -165,8 +160,7 @@ method.pwd = function(curDir)
  */
 method.getFile = function(files, name)
 {
-	for (let i = 0; i < files.length; ++i)
-	{
+	for (let i = 0; i < files.length; ++i) {
 		if (files[i].name == name)
 			return files[i];
 	}
@@ -175,13 +169,10 @@ method.getFile = function(files, name)
 
 method.updateFileSystem = function(files, updateFiles)
 {
-	if (!updateFiles)
-	{
-		console.log("RETURN");
+	if (!updateFiles) {
 		return files;
 	}
-	for (let i = 0; i < updateFiles.length; i++)
-	{
+	for (let i = 0; i < updateFiles.length; i++) {
 		if (updateFiles[i][0] == "A")
 			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files, this);
 		else if (updateFiles[i][0] == "D")
@@ -214,10 +205,8 @@ function getLsContent(children, args, hidden)
 	let i = 0;
 	let str = "";
 
-	while (i < children.length)
-	{
-		if (children[i].name[0] != "." || hidden == true)
-		{
+	while (i < children.length) {
+		if (children[i].name[0] != "." || hidden == true) {
 			if (children[i].name[0] == ".")
 				str += "<span class='red'>" + children[i].name + "</span>";
 			else if (children[i].isDir == true)
@@ -227,9 +216,9 @@ function getLsContent(children, args, hidden)
 			i++;
 			if (i < children.length)
 				str += "<br>";
-		}
-		else
+		} else {
 			++i;
+		}
 	}
 	return str;
 }
@@ -237,10 +226,8 @@ function getLsContent(children, args, hidden)
 function delFile(name, files)
 {
 	let file = termfunc.getFile(files, name);
-	if (file)
-	{
-		if (file.parent)
-		{
+	if (file) {
+		if (file.parent) {
 			let index = file.parent.children.indexOf(file);
 			if (index != -1)
 				file.parent.children.splice(index, 1);
@@ -263,10 +250,8 @@ function moveFile(fileInfo, files)
 {
 	let file = termfunc.getFile(files, fileInfo[0]);
 	let parent = termfunc.getFile(files, fileInfo[1]);
-	if (file)
-	{
-		if (file.parent)
-		{
+	if (file) {
+		if (file.parent) {
 			let index = file.parent.children.indexOf(file);
 			if (index != -1)
 				file.parent.children.splice(index, 1);

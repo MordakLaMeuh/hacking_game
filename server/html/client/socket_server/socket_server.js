@@ -3,72 +3,53 @@
 var SOCKET_SERVER = function() {
 	var client_callback;
 
-	var curLvl;
+	var currentLevel;				// (int) Current Level of the player
 
-	var logged;
-	var ssh_request;
-	var ssh_active;
+	var lvlData;					// (JSON) Contain all the world data
 
-	var files;
-	var zeroSSH;
-	var bigSSH;
-	var lvlData;
+	var logged;						// (bool) The player is logged or not
+	var ssh_request;				// (bool) A SSH request in on pending
+	var ssh_active;					// (bool) A SSH section is open
 
-	var root;
-	var curDir;
-	var originCurDir;
+	var files;						// (obj) Contain the base directory tree
+	var zeroSSH;					// (obj) Contain the zeroSSH directory tree
+	var bigSSH;						// (obj) Contain the bigSSH direcotry tree
 
-	var cmdList;
-	var winningCondition;
+	var root;						// (obj) Contain the current root
+	var curDir;						// (obj) Contain the current directory
+	var originCurDir;				// (obj) Old current directory (for ssh exit)
 
-	function getFile(filename) {
-		let output;
+	var cmdList;					// (obj) List of available commands
+	var winningCondition;			// (obj) Winning Condition
 
-		function getFileContent(filename) {
-			let xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					cb(this.responseText);
-				}
-			}
-			xhttp.open("GET", filename, false);
-			xhttp.send();
-		};
-		function cb(content) {
-			output = content;
-		}
-		getFileContent(filename, cb);
-		return output;
-	}
-
+	/*
+	 * Triggered when the server reveived a message
+	 */
 	this.post = function(str) {
 		console.info("server received:");
-		console.log(str);
 
-		console.log("incoming message: " + str);
 		let json_msg;
 		try {
 			json_msg = JSON.parse(str);
 		} catch (e) {
-			console.log("not a JSON");
+			console.warn("not a JSON");
 			send(JSON.stringify({"error": "bad json"}));
-			client.close();
 			return ;
 		}
 		console.log(json_msg);
 
 		function victoryRoutine(title)
 		{
-			curLvl++;
-			if (curLvl < lvlData.length)
+			currentLevel++;
+			if (currentLevel < lvlData.length)
 			{
-				termfunc.updateFileSystem(files, lvlData[curLvl].updateFiles);
-				cmdList = lvlData[curLvl].cmdList;
-				winningCondition = lvlData[curLvl].winningCondition;
+				termfunc.updateFileSystem(files, lvlData[currentLevel].updateFiles);
+				cmdList = lvlData[currentLevel].cmdList;
+				winningCondition = lvlData[currentLevel].winningCondition;
 				console.log("NEW LEVEL LOADED");
 				send(JSON.stringify({
-					"diary": ["Congratulations", "you reach level " + (curLvl + 1) + " now."],
-					"socialContacts": social.addEntries(lvlData[curLvl].social)}));
+					"diary": ["Congratulations", "you reach level " + (currentLevel + 1) + " now."],
+					"socialContacts": social.addEntries(lvlData[currentLevel].social)}));
 			} else {
 				console.log("GAME FINISHED !");
 				send(JSON.stringify({
@@ -170,8 +151,7 @@ var SOCKET_SERVER = function() {
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
 
-		if (lvlValidation.checkCommand(cmdList, input[0]) == false)
-		{
+		if (lvlValidation.checkCommand(cmdList, input[0]) == false) {
 			let obj = new Object();
 			obj.string = "unknown command !";
 			send(JSON.stringify({"tty": obj}));
@@ -256,6 +236,9 @@ var SOCKET_SERVER = function() {
 		}));
 	}
 
+	/*
+	 * When client is ready, initialize a connexion with the server
+	 */
 	this.bind = function(_client_callback) {
 		console.info("binding server");
 		client_callback = _client_callback;
@@ -264,8 +247,27 @@ var SOCKET_SERVER = function() {
 		ssh_request = false;
 		ssh_active = false;
 
-		let file;
+		function getFile(filename) {
+			let output;
 
+			function getFileContent(filename) {
+				let xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						cb(this.responseText);
+					}
+				}
+				xhttp.open("GET", filename, false);
+				xhttp.send();
+			};
+			function cb(content) {
+				output = content;
+			}
+			getFileContent(filename, cb);
+			return output;
+		}
+
+		let file;
 		file = getFile("socket_server/worlds/tuto/ssh/tutoVFS.csv");
 		files = termfunc.createFileSystem(file);
 		if (files === undefined) {
@@ -292,7 +294,7 @@ var SOCKET_SERVER = function() {
 
 		root = termfunc.getFile(files, "/");
 		curDir = root;
-		originCurDir; // for ssh
+		originCurDir = curDir; // for ssh
 
 		file = getFile("socket_server/worlds/tuto/tuto.json");
 		lvlData = lvlValidation.getLvlData(file);
@@ -301,16 +303,19 @@ var SOCKET_SERVER = function() {
 			return;
 		}
 
-		curLvl = 0;
-		cmdList = lvlData[curLvl].cmdList;
-		winningCondition = lvlData[curLvl].winningCondition;
+		currentLevel = 0;
+		cmdList = lvlData[currentLevel].cmdList;
+		winningCondition = lvlData[currentLevel].winningCondition;
 
 		send(JSON.stringify({
-			"socialContacts":social.addEntries(lvlData[curLvl].social)
+			"socialContacts":social.addEntries(lvlData[currentLevel].social)
 		}));
 		console.log(social);
 	}
 
+	/*
+	 * Send message to client method
+	 */
 	function send(content) {
 		console.info("server sending:");
 		console.log(content);
