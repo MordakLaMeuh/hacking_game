@@ -48,7 +48,9 @@ var SOCKET_SERVER = function() {
 		}
 
 		if (json_msg.social !== undefined) {
-			send({"social": social.getDialogSeq(json_msg.social, victoryRoutine)});
+			let obj = social.getDialogSeq(json_msg.social, victoryRoutine);
+			if (obj !== undefined)
+				send({"social": obj});
 			return;
 		}
 

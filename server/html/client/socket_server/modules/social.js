@@ -71,7 +71,7 @@ method.getDialogSeq = function(obj, victory_cb)
 
 	if (obj.name === undefined) {
 		console.warn("undefined name field")
-		return;
+		return undefined;
 	}
 	let i = 0;
 	for (i = 0; i < this.social.length; i++) {
@@ -91,7 +91,7 @@ method.getDialogSeq = function(obj, victory_cb)
 				if (obj.r !== undefined) {
 					if (obj.r < 0 || obj.r >= this.social[i].exchange[this.social[i].idx].r.length) {
 						console.warn("bad index: " + obj.r);
-						return;
+						return undefined;
 					}
 					newIdx = this.social[i].exchange[this.social[i].idx].i[obj.r];
 				} else {
@@ -100,7 +100,7 @@ method.getDialogSeq = function(obj, victory_cb)
 						newIdx = this.social[i].exchange[this.social[i].idx].i[0];
 					} else {
 						console.log("already activated");
-						return;
+						return undefined;
 					}
 				}
 				this.social[i].idx = newIdx;
@@ -117,7 +117,7 @@ method.getDialogSeq = function(obj, victory_cb)
 	}
 	if (i == this.social.length) {
 		console.warn("unknown name: " + obj.name);
-		return;
+		return undefined;
 	}
 	console.log(output);
 	return output;
