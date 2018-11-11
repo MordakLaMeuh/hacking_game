@@ -38,10 +38,9 @@ method.sendMail = function(obj) {
 			&& this.social[i].password == obj.password
 			&& this.social[i].mail !== undefined) {
 			return this.social[i].mail;
-		} else {
-			console.warn("Cannot access mailbox for " + this.social[i].name);
 		}
 	}
+	console.log("Cannot access mailbox for " + obj.name);
 	return undefined;
 }
 

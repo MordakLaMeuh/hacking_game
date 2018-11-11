@@ -25,17 +25,8 @@ var SOCKET_SERVER = function() {
 	/*
 	 * Triggered when the server reveived a message
 	 */
-	this.post = function(str) {
+	this.post = function(json_msg) {
 		console.info("server received:");
-
-		let json_msg;
-		try {
-			json_msg = JSON.parse(str);
-		} catch (e) {
-			console.warn("not a JSON");
-			send(JSON.stringify({"error": "bad json"}));
-			return ;
-		}
 		console.log(json_msg);
 
 		function victoryRoutine(title)
@@ -47,28 +38,27 @@ var SOCKET_SERVER = function() {
 				cmdList = lvlData[currentLevel].cmdList;
 				winningCondition = lvlData[currentLevel].winningCondition;
 				console.log("NEW LEVEL LOADED");
-				send(JSON.stringify({
+				send({
 					"diary": ["Congratulations", "you reach level " + (currentLevel + 1) + " now."],
-					"socialContacts": social.addEntries(lvlData[currentLevel].social)}));
+					"socialContacts": social.addEntries(lvlData[currentLevel].social)});
 			} else {
 				console.log("GAME FINISHED !");
-				send(JSON.stringify({
-					"diary": ["Congratulations", "you win. The End...?"]}));
+				send({"diary": ["Congratulations", "you win. The End...?"]});
 			}
 		}
 
 		if (json_msg.social !== undefined) {
-			send(JSON.stringify({"social": social.getDialogSeq(json_msg.social, victoryRoutine)}));
+			send({"social": social.getDialogSeq(json_msg.social, victoryRoutine)});
 			return;
 		}
 
 		if (json_msg.mail !== undefined) {
 			if (json_msg.mail.password !== undefined) {
-				send(JSON.stringify({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}}));
-			} if (json_msg.mail.index !== undefined) {
+				send({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}});
+			} else if (json_msg.mail.index !== undefined) {
 				let obj = social.markAsRead(json_msg.mail, victoryRoutine);
 				if (obj != null) {
-					send(JSON.stringify({"diary": obj}));
+					send({"diary": obj});
 				}
 			}
 			return;
@@ -85,15 +75,15 @@ var SOCKET_SERVER = function() {
 				obj_mail.name = "root";
 				obj_mail.password = "root";
 				obj_mail.content = social.sendMail(obj_mail);
-				send(JSON.stringify({
+				send({
 					"tty": obj,
 					"mail": obj_mail
-				}));
+				});
 				logged = true;
 			} else {
 				let obj = new Object();
 				obj.auth = 0;
-				send(JSON.stringify({"tty": obj}));
+				send({"tty": obj});
 			}
 			return ;
 		}
@@ -110,9 +100,7 @@ var SOCKET_SERVER = function() {
 				obj.directory = "/";
 				obj.login = "zero";
 				obj.server = "12122000";
-				send(JSON.stringify({
-					"tty": obj
-				}));
+				send({"tty": obj});
 			}
 			else if (json_msg.login == "big" && json_msg.password == "1947") {
 				root = termfunc.getFile(bigSSH, "/");
@@ -124,20 +112,18 @@ var SOCKET_SERVER = function() {
 				obj.directory = "/";
 				obj.login = "big";
 				obj.server = "1947";
-				send(JSON.stringify({
-					"tty": obj
-				}));
+				send({"tty": obj});
 			} else {
 				let obj = new Object();
 				obj.string = "SSH Connexion failed.";
-				send(JSON.stringify({"tty": obj}));
+				send({"tty": obj});
 			}
 			return;
 		}
 
 		if (json_msg.command === undefined) {
 			console.log("JSON: no command field");
-			send(JSON.stringify({"error": "Internal server error"}));
+			send({"error": "Internal server error"});
 			return ;
 		}
 
@@ -154,7 +140,7 @@ var SOCKET_SERVER = function() {
 		if (lvlValidation.checkCommand(cmdList, input[0]) == false) {
 			let obj = new Object();
 			obj.string = "unknown command !";
-			send(JSON.stringify({"tty": obj}));
+			send({"tty": obj});
 			return ;
 		}
 
@@ -198,7 +184,7 @@ var SOCKET_SERVER = function() {
 				break;
 			}
 			ssh_request = true;
-			send(JSON.stringify({"tty": {"auth_ssh": "1"}}));
+			send({"tty": {"auth_ssh": "1"}});
 			return;
 			break;
 		case "exit":
@@ -212,9 +198,7 @@ var SOCKET_SERVER = function() {
 					obj.directory = termfunc.pwd(curDir);
 					obj.login = "root";
 					obj.server = "home";
-					send(JSON.stringify({
-						"tty": obj
-					}));
+					send({"tty": obj});
 					return;
 			} else {
 					output = "No SSH connexion active.";
@@ -231,9 +215,7 @@ var SOCKET_SERVER = function() {
 		let obj = new Object();
 		obj.string = (output) ? output : undefined;
 		obj.directory = (newDirectory) ? newDirectory : undefined;
-		send(JSON.stringify({
-			"tty": obj
-		}));
+		send({"tty": obj});
 	}
 
 	/*
@@ -271,7 +253,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/ssh/tutoVFS.csv");
 		files = termfunc.createFileSystem(file);
 		if (files === undefined) {
-			send(JSON.stringify({"error": "Internal server error"}));
+			send({"error": "Internal server error"});
 			client.close();
 			return;
 		}
@@ -279,7 +261,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/ssh/molang.csv");
 		zeroSSH = termfunc.createFileSystem(file);
 		if (zeroSSH === undefined) {
-			send(JSON.stringify({"error": "Internal server error"}));
+			send({"error": "Internal server error"});
 			client.close();
 			return;
 		}
@@ -287,7 +269,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/ssh/big.csv");
 		bigSSH = termfunc.createFileSystem(file);
 		if (bigSSH === undefined) {
-			send(JSON.stringify({"error": "Internal server error"}));
+			send({"error": "Internal server error"});
 			client.close();
 			return;
 		}
@@ -299,7 +281,7 @@ var SOCKET_SERVER = function() {
 		file = getFile("socket_server/worlds/tuto/tuto.json");
 		lvlData = lvlValidation.getLvlData(file);
 		if (lvlData === undefined) {
-			send(JSON.stringify({"error": "critical Internal server error"}));
+			send({"error": "critical Internal server error"});
 			return;
 		}
 
@@ -307,9 +289,7 @@ var SOCKET_SERVER = function() {
 		cmdList = lvlData[currentLevel].cmdList;
 		winningCondition = lvlData[currentLevel].winningCondition;
 
-		send(JSON.stringify({
-			"socialContacts":social.addEntries(lvlData[currentLevel].social)
-		}));
+		send({"socialContacts":social.addEntries(lvlData[currentLevel].social)});
 		console.log(social);
 	}
 

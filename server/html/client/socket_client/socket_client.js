@@ -25,8 +25,7 @@ var SOCKET_CLIENT = function(socket_server) {
     }
 
     this.onmessage = function(res) {
-		let data = JSON.parse(res);
-        dispatch(data);
+        dispatch(res);
     }
 
     this.register = function(arrString, cb) {

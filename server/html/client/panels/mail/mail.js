@@ -311,7 +311,7 @@ var MAIL = function(keyboard, cursor, tty_key_cb, socket)
 		let obj = new Object();
 		obj.name = mail.name;
 		obj.index = index;
-		socket.send(JSON.stringify({"mail": obj}));
+		socket.send({"mail": obj});
 	}
 
 	/*
@@ -376,7 +376,7 @@ var MAIL = function(keyboard, cursor, tty_key_cb, socket)
 		obj.name = name;
 		obj.password = password;
 		console.log(obj);
-		socket.send(JSON.stringify({"mail": obj}));
+		socket.send({"mail": obj});
 	}
 
 	socket.register(["mail"], login);

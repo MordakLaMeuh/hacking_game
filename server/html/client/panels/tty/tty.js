@@ -332,7 +332,7 @@ var TTY = function(keyboard, cursor, socket) {
 				createNewInputString("Password: ");
 				break;
 			case sequence_enum.auth_password:
-				socket.send(JSON.stringify({"login": login, "password": outStr}));
+				socket.send({"login": login, "password": outStr});
 				break;
 			case sequence_enum.running:
 				if (outStr.trim().length == 0) {
@@ -345,7 +345,7 @@ var TTY = function(keyboard, cursor, socket) {
 					inputHistory[inputHistory.length - 1] != outStr)
 					inputHistory.push(outStr);
 
-				socket.send(JSON.stringify({"command": outStr}));
+				socket.send({"command": outStr});
 				break;
 			case sequence_enum.auth_login_ssh:
 				ssh_login = outStr;
@@ -354,7 +354,7 @@ var TTY = function(keyboard, cursor, socket) {
 				break;
 			case sequence_enum.auth_password_ssh:
 				sequence = sequence_enum.running;
-				socket.send(JSON.stringify({"login":ssh_login, "password":outStr}));
+				socket.send({"login":ssh_login, "password":outStr});
 				break;
 			default:
 				console.warn("Unknown sequence");

@@ -109,7 +109,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 		addMe(classCollection[clicked_id].innerHTML);
 		obj.name = currentNameDiv.innerHTML;
 		removeButton();
-		socket.send(JSON.stringify({"social":obj}));
+		socket.send({"social":obj});
 	}
 
 	function addEntry(obj)
@@ -147,14 +147,14 @@ var SOCIAL = function(notif_button_cb, socket) {
 					 * Test of messenger div already exist
 					 */
 					if (div == undefined) {
-						socket.send(JSON.stringify({"social": obj}));
+						socket.send({"social": obj});
 					} else {
 						div.style.zIndex = currentZindex++;
 						currentMessengerDiv = div;
 						currentNameDiv = currentMessengerDiv.getElementsByClassName("contact_name")[0];
 						currentMessagesDiv = currentMessengerDiv.getElementsByClassName("messages")[0];
 						currentAnswersDiv = currentMessengerDiv.getElementsByClassName("answers")[0];
-						socket.send(JSON.stringify({"social": obj}));
+						socket.send({"social": obj});
 					}
 				});
 
