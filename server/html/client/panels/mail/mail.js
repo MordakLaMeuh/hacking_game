@@ -29,6 +29,7 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 		{
 			let loginBtn = document.getElementById("loginBtn");
 			let loginForm = document.getElementById("loginForm");
+			let mailMessagesDiv = document.getElementById("mail_messages");
 
 			loginBtn.addEventListener("mousedown", function(){
 				sendLoginData(document.getElementById("loginInput").value, document.getElementById("passwordInput").value);
@@ -39,6 +40,15 @@ var MAIL = function(keyboard, cursor, tty_key_cb)
 				if (event.key === "Enter") {
 					sendLoginData(document.getElementById("loginInput").value, document.getElementById("passwordInput").value);
 				}});
+
+			/*
+			 * Active mouse scroll on PC
+			 */
+			mailMessagesDiv.addEventListener(mousewheelevt, function (e) {
+				e = window.event || e; // old IE support
+				let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+				mailMessagesDiv.scrollTop -= delta * 20;
+			}, false);
 		}());
 
 		/*
