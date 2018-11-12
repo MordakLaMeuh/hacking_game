@@ -91,7 +91,7 @@ var SOCKET_SERVER = function() {
 		}
 
 		function load_ssh_session(tree, directory, login, serverName) {
-			root = termfunc.getFile(zeroSSH, directory);
+			root = termfunc.getFile(tree, directory);
 			originCurDir = curDir;
 			curDir = root;
 			ssh_active = true;
