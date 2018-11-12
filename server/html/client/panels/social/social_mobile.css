@@ -10,6 +10,8 @@
 	display: flex;
 	margin-top: 3%;
 	cursor: pointer;
+	outline: 0;
+	-webkit-tap-highlight-color: transparent;
 }
 
 .contact:hover
