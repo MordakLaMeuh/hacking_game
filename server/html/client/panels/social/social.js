@@ -77,6 +77,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 			currentAnswersDiv.insertAdjacentElement('afterbegin', b);
 			i--;
 		}
+		currentMessagesDiv.scrollTop += currentMessagesDiv.scrollHeight;
 	}
 
 	function createBackButton() {

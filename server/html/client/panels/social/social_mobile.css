@@ -55,8 +55,6 @@
 	height: calc(var(--vh, 1vh) * 90);
 	/* background-color: #262626; */
 	background-color: rgb(46, 55, 60);
-
-
 	display: flex;
 	flex-direction: column;
 }
@@ -65,11 +63,8 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	/* height:40vh; */
-	/* height: calc(var(--vh, 1vh) * 40); */
 	overflow: auto;
-	height: 76vh;
-	height: calc(var(--vh, 1vh) * 76);
+	flex: 1;
 }
 
 .messenger ul li{
@@ -107,15 +102,7 @@
 }
 
 .answers{
-	/* position:absolute;
-	bottom:0; */
-
-	height: 20vh;
-	height: calc(var(--vh, 1vh) * 20);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	margin-bottom: 1px;
+	margin-bottom: 2px;
 }
 
 .answers button{
@@ -124,14 +111,7 @@
 	background-color: rgba(0,0,0,0.7);
 	bottom: 0;
 	width: 100vw;
-	font-size: 0.8em;
 	color: #78C8FF;
 	background: black;
-
-	height: 100%;
-	max-height: 50px;
-}
-.answers button:last-child
-{
-	max-height: 30px;
+	padding: 5px;
 }
