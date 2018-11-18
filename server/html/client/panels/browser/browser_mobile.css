@@ -11,15 +11,27 @@
 	border-right: 1px solid rgba(120, 200, 255, 0.2);
 }
 
+#browser_url_bar
+{
+	display: flex;
+	justify-content: space-between;
+}
+
 #browser_url_bar #url {
 	width: 70%;
 	margin-left: 2%;
 }
 
 #browser_url_bar #go_btn {
+	margin-right: 5%;
+	font-size: 20px;
+	border: 1px solid #547692;
 	width: 15%;
-	margin-left: 2%;
-	padding: 3px;
+	color: #72C5F9;
+	background-color: #436277;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #browser #browser-navigation-bar {
