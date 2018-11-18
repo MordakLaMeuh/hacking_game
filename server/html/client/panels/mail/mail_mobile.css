@@ -18,6 +18,26 @@
 	border-bottom: 1px solid #4c80a3;
 }
 
+.box_mail_header
+{
+	flex: 1;
+	display: flex;
+	justify-content: center;
+}
+
+#backBtn, #signOutBtn
+{
+	border: 1px solid #547692;
+	padding: 5px;
+	color: #72C5F9;
+	background-color: #436277;
+}
+
+#backBtn:hover, #signOutBtn:hover
+{
+	cursor: pointer;
+}
+
 #mail_body
 {
 	display: none;

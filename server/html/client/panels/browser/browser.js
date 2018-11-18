@@ -47,7 +47,7 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		 */
 		browser_url_bar.innerHTML +=
 		`<div id="url" class="custom_input_text"></div>
-		<input id="go_btn" type="submit" value='Go' />`
+		<div id="go_btn" >Go</div>`
 
 		var form = document.getElementById("url");
 		var go_btn = document.getElementById("go_btn");
