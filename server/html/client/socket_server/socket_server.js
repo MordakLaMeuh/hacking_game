@@ -40,7 +40,7 @@ var SOCKET_SERVER = function() {
 				console.log("NEW LEVEL LOADED");
 				send({
 					"diary": ["Congratulations", "you reach level " + (currentLevel + 1) + " now."],
-					"socialContacts": social.addEntries(lvlData[currentLevel].social)});
+					"socialContacts": social.addEntries(lvlData[currentLevel].social, send)});
 			} else {
 				console.log("GAME FINISHED !");
 				send({"diary": ["Congratulations", "you win. The End...?"]});
@@ -293,7 +293,7 @@ var SOCKET_SERVER = function() {
 		cmdList = lvlData[currentLevel].cmdList;
 		winningCondition = lvlData[currentLevel].winningCondition;
 
-		send({"socialContacts":social.addEntries(lvlData[currentLevel].social)});
+		send({"socialContacts":social.addEntries(lvlData[currentLevel].social, send)});
 		console.log(social);
 	}
 

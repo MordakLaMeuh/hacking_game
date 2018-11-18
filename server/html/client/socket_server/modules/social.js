@@ -9,23 +9,68 @@ function Social() {
 /*
  * Add new social entries and return new png name with exchange feature
  */
-method.addEntries = function(obj)
+method.addEntries = function(obj, sendCb)
 {
 	let output = new Array();
+	let self = this;
 
-	for (let i = 0; i < obj.length; i++) {
-		this.social.push(obj[i]);
-		let n = this.social.length - 1;
-		if (this.social[n].exchange !== undefined)
-			output.push(this.social[n].name);
-		this.social[n].active = false;
-		this.social[n].idx = 0;
-		if (this.social[n].mail !== undefined) {
-			for (let j = 0; j < this.social[n].mail.length; j++) {
-				this.social[n].mail[j].read = false;
+	obj.forEach(function(newContact) {
+		let isAlreadyKnew = false;
+		/*
+		 * Check is contact already exist
+		 */
+		self.social.forEach(function(contact) {
+			if (newContact.name == contact.name) {
+				isAlreadyKnew = true;
+				console.log("same name founded: " + newContact.name);
+				/*
+				 * Search for new dialog sequence and if, replace it
+				 */
+				if (newContact.exchange !== undefined) {
+					console.log("new dialog definition");
+					contact.exchange = newContact.exchange;
+					contact.active = false;
+					contact.idx = 0;
+					/*
+					 * Inform social panel about changes
+					 */
+					output.push(contact.name);
+				}
+				/*
+				 * Search for new emails
+				 */
+				if (newContact.mail !== undefined) {
+					newContact.mail.forEach(function(email) {
+						console.log("new mail !");
+						email.read = false;
+						contact.mail.push(email);
+						/*
+						 * Inform mail panel about changes
+						 */
+						sendCb({"mail" : {"name": contact.name, "content": email}});
+					});
+				}
+			}
+		});
+		if (isAlreadyKnew == false) {
+			/*
+			 * Routines for a new contact
+			 */
+			self.social.push(newContact);
+			let contact = (self.social[self.social.length - 1]);
+
+			if (contact.exchange !== undefined)
+				output.push(contact.name);
+			contact.active = false;
+			contact.idx = 0;
+
+			if (contact.mail !== undefined) {
+				contact.mail.forEach(function(email) {
+					email.read = false;
+				});
 			}
 		}
-	 }
+	 });
 	return output;
 }
 
