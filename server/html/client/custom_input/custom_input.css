@@ -5,3 +5,8 @@
 	font-size: calc(var(--vh, 1vh) * 5);
 	font-family: monospace;
 }
+
+.custom_input span
+{
+	vertical-align: middle;
+}
