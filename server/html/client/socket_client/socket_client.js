@@ -1,6 +1,6 @@
 'use strict';
 
-var SOCKET_CLIENT = function(socket_server) {
+var SOCKET_CLIENT = function(socket_server_post_cb) {
     console.info("socket_client constructor");
 
     var socket;
@@ -38,6 +38,6 @@ var SOCKET_CLIENT = function(socket_server) {
     }
 
     this.send = function(content) {
-        socket_server.post(content);
+        socket_server_post_cb(content);
     }
 }
