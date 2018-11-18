@@ -17,7 +17,6 @@ method.getLvlData = function(levelFile)
  */
 method.checkCommand = function(cmdList, usrCmd)
 {
-	return true; // TODO
 	for (let i = 0; i < cmdList.length; i++) {
 		if (cmdList[i][0] == usrCmd)
 			return true;
