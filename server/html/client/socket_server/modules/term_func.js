@@ -185,7 +185,7 @@ method.updateFileSystem = function(files, updateFiles)
 
 method.hint = function(hintData)
 {
-	if (hintData)
+	if (hintData !== undefined)
 		return (hintData);
 	else
 		return ("No hint available.");
