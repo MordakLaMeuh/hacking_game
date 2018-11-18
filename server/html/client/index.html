@@ -24,16 +24,16 @@
 			|| navigator.userAgent.match(/Windows Phone/i)) ?
 			true : false;
 
-		var linkArray = [];
-		var cssFilesArray = ["panels/panels", "panels/social/social",
+		let linkArray = [];
+		let cssFilesArray = ["panels/panels", "panels/social/social",
 		"panels/browser/browser", "panels/diary/diary", "panels/mail/mail", "panels/tty/tty", "UI_controler/UI_controler"];
 
-		var mobileSuffix = "";
+		let mobileSuffix = "";
 		if (IS_MOBILE == true)
 			mobileSuffix = "_mobile";
 
-		var head = document.getElementsByTagName("head");
-		for (var i = 0; i < cssFilesArray.length; i++)
+		let head = document.getElementsByTagName("head");
+		for (let i = 0; i < cssFilesArray.length; i++)
 		{
 			linkArray.push(document.createElement("link"));
 			linkArray[i].href = cssFilesArray[i] + mobileSuffix + ".css";
@@ -79,7 +79,7 @@
 				</div>
 		</div>
 		<div id="login_form_mail">
-			<!-- Generated in mail.js for Desktop version
+			<!-- Generated in mail.js for Desktop and Mobile version
 			<form id="loginForm">
 				<p id="errorForm">Invalid login or password</p>
 				<div class="input-container">
@@ -99,7 +99,7 @@
 			<i></i><i></i><i></i>
 		</div>
 		<div id="browser_url_bar" class="url-bar">
-		<!-- Generated in browser.js for Desktop version
+		<!-- Generated in browser.js for Desktop and Mobile version
 			<input id="url" type="text" onfocus="this.value=''" spellcheck="false" autocorrect="off" autocapitalize="none" autocomplete="off" name="url" value="enter your URL" />
 			<input id="go_btn" type="submit" value="Go" />
 		-->
