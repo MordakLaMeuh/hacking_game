@@ -44,6 +44,11 @@ var SOCKET_SERVER = function() {
 			} else {
 				console.log("GAME FINISHED !");
 				send({"diary": ["Congratulations", "you win. The End...?"]});
+				try {
+					parent.postMessage("gameOver:1:100","*");
+				} catch (e) {
+					console.info("unable to post victory message via iframe: " + e);
+				}
 			}
 		}
 
