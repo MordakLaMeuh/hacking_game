@@ -191,6 +191,13 @@ method.hint = function(hintData)
 		return ("No hint available.");
 }
 
+method.goal = function(goalData)
+{
+	if (goalData !== undefined)
+		return (goalData);
+	else
+		return ("No goal available.");
+}
 /*
  * Constructor File
  */
