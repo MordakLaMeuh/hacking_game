@@ -183,6 +183,14 @@ method.updateFileSystem = function(files, updateFiles)
 	return files;
 }
 
+method.hint = function(hintData)
+{
+	if (hintData)
+		return (hintData);
+	else
+		return ("No hint available.");
+}
+
 /*
  * Constructor File
  */

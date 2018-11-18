@@ -174,6 +174,9 @@ var SOCKET_SERVER = function() {
 		case "pwd":
 			output = termfunc.pwd(curDir);
 			break;
+		case "hint":
+			output = termfunc.hint(lvlData[currentLevel].hint);
+			break;
 		case "ssh":
 			if (ssh_active == true) {
 				output = "Already in ssh.";
