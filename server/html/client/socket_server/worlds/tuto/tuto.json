@@ -128,6 +128,7 @@
 			},
 			{
 				"name": "Admin",
+				"password": "Admin",
 				"exchange":
 				[
 					{
@@ -145,6 +146,17 @@
 					{
 						"q":"Good luck.",
 						"r":[]
+					}
+				],
+				"mail":
+				[
+					{
+						"sender": "1",
+						"from_to": "Little Company",
+						"title": "Last notice",
+						"text": "We asked you before but you said no.<br/>I don't care about the animals, we need the forest to be cleared by next month for our new building.<br/>We are not paying you for arguing with my decisions so shut up and do your work.<br/>",
+						"s": ["Finally...", "You got proof of Big Company evil doings."],
+						"w":"1"
 					}
 				]
 			}
@@ -168,6 +180,41 @@
 		],
 		"social":
 		[
+			{
+				"name": "Admin",
+				"mail":
+				[
+					{
+						"sender": "1",
+						"from_to": "Admin",
+						"title": "Last Admin",
+						"text": "Wait, i am dying<br/>",
+						"s": ["Admin hints", "You got a new admin mail"]
+					}
+				],
+				"exchange":
+				[
+					{
+						"q": "Hello Mr. Hacker, I heard you made a big discovery. Something interesting on the BIG server ?",
+						"r": ["I am still looking."],
+						"i": ["1"]
+					},
+					{
+						"q": "Ok, take your time to look around.",
+						"r": ["Why are we hacking this company ?", "What should I look for ?"],
+						"i": ["2", "3"]
+					},
+					{
+						"q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
+						"r": ["Ok, let's do this."],
+						"i": ["3"]
+					},
+					{
+						"q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
+						"r": []
+					}
+				]
+			},
 			{
 				"name": "Zero",
 				"exchange":
@@ -460,13 +507,13 @@
 						"i": ["2", "3"]
 					},
 					{
-					  "q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
-					  "r": ["Ok, let's do this."],
-					  "i": ["3"]
+						"q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
+						"r": ["Ok, let's do this."],
+						"i": ["3"]
 					},
 					{
-					  "q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
-					  "r": []
+						"q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
+						"r": []
 					}
 				]
 			}
