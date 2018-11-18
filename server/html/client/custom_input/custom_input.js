@@ -13,6 +13,7 @@ var CUSTOM_INPUT = function(_div, action_cb, _cursor, intro_msg) {
 
 	var spanDiv = document.createElement("span");
 	innerDiv.appendChild(spanDiv);
+	spanDiv.style.verticalAlign = "middle";
 
 	var content = "";
 	var cursorPosition;
