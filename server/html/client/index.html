@@ -163,24 +163,28 @@ after_load = function() {
 	var keyboard = new KEYBOARD();
 	var cursor = new CURSOR();
 
+	var UI_controler = new UI_CONTROLER();
+
 	var tty = new TTY(keyboard, cursor, socket_client);
 	var browser = new BROWSER(keyboard, cursor, tty.key_cb);
 	var mail = new MAIL(keyboard, cursor, tty.key_cb, socket_client);
-
-	var UI_controler = new UI_CONTROLER(tty.display, browser, mail, tty);
-
 	var social_client = new SOCIAL(UI_controler.notif_button_cb, socket_client);
-	UI_controler.addSocialObj(social_client);
-
 	var diary = new DIARY(UI_controler.notif_button_cb, socket_client);
+
+	UI_controler.addTtyObj(tty);
+	UI_controler.addBrowserObj(browser);
+	UI_controler.addMailObj(mail);
+	UI_controler.addSocialObj(social_client);
 	UI_controler.addDiaryObj(diary);
+
+	UI_controler.run();
 
 	window.onresize = UI_controler.resizeButtons();
 	UI_controler.resizeButtons();
 
-	document.body.style.opacity = 100;
-
 	socket_server.bind(socket_client.onmessage);
+
+	document.body.style.opacity = 100;
 }
 </script>
 

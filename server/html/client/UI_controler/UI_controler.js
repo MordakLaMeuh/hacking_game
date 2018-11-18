@@ -1,6 +1,6 @@
 'use strict';
 
-var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
+var UI_CONTROLER = function() {
 	/*
 	 * Make button like circle
 	 * BUG Resize is not trigger since iframe window doesn't detect any resize. Event
@@ -76,12 +76,12 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 		if (target == js_tty) {
 			panels.style.display = "none";
 			js_tty.style.display = "";
-			tty_display_cb(true);
+			tty.display(true);
 
 		} else {
 			panels.style.display = "block";
 			js_tty.style.display = "none";
-			tty_display_cb(false);
+			tty.display(false);
 		}
 	}
 
@@ -107,33 +107,77 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 		button.classList.remove("notif");
 	}
 
+	this.run = function() {
+		/*
+		 * UI_controler button binding
+		 */
+		mail_btn.addEventListener("mousedown", function (){
+			changeScreen(this, "mail");
+			if (IS_MOBILE == true) {
+				mail.setActive();
+				lastScreen = "mail";
+			}
+		});
+
+		browser_btn.addEventListener("mousedown", function () {
+			changeScreen(this, "browser");
+			if (IS_MOBILE == true) {
+				browser.setActive();
+				lastScreen = "browser";
+			}
+		});
+
+		social_btn.addEventListener("mousedown", function (){
+			changeScreen(this, "social");
+		});
+
+		diary_btn.addEventListener("mousedown", function () {
+			changeScreen(this, "diary");
+			diary.active();
+		});
+
+		if (IS_MOBILE == true) {
+			tty_btn.addEventListener("mousedown", function () {
+				switchScreen(js_tty);
+				lastScreen = "tty";
+				console.log("back to TTY");
+			});
+		}
+
+		/*
+		 * On desktop, default panel is diary, tty is always visible.
+		 * On mobile, the default panel is tty
+		 */
+		if (IS_MOBILE == false)
+			changeScreen(diary_btn, "diary");
+		else {
+			switchScreen(js_tty);
+			lastScreen = "tty";
+		}
+	}
 	/*
-	 * UI_controler button binding
+	 * Post Add tty object method
 	 */
-	mail_btn.addEventListener("mousedown", function (){
-		changeScreen(this, "mail");
-		if (IS_MOBILE == true) {
-			mail.setActive();
-			lastScreen = "mail";
-		}
-	});
+	var tty = undefined;
+	this.addTtyObj = function(_tty) {
+		tty = _tty;
+	}
 
-	browser_btn.addEventListener("mousedown", function () {
-		changeScreen(this, "browser");
-		if (IS_MOBILE == true) {
-			browser.setActive();
-			lastScreen = "browser";
-		}
-	});
+	/*
+	 * Post Add mail object method
+	 */
+	var mail = undefined;
+	this.addMailObj = function(_mail) {
+		mail = _mail;
+	}
 
-	social_btn.addEventListener("mousedown", function (){
-		changeScreen(this, "social");
-	});
-
-	diary_btn.addEventListener("mousedown", function () {
-		changeScreen(this, "diary");
-		diary.active();
-	});
+	/*
+	 * Post Add browser object method
+	 */
+	var browser = undefined;
+	this.addBrowserObj = function(_browser) {
+		browser = _browser;
+	}
 
 	/*
 	 * Post Add diary object method
@@ -149,24 +193,5 @@ var UI_CONTROLER = function(tty_display_cb, browser, mail, tty) {
 	var social = undefined;
 	this.addSocialObj = function(_social) {
 		social = _social;
-	}
-
-	if (IS_MOBILE == true) {
-		tty_btn.addEventListener("mousedown", function () {
-			switchScreen(js_tty);
-			lastScreen = "tty";
-			console.log("back to TTY");
-		});
-	}
-
-	/*
-	 * On desktop, default panel is diary, tty is always visible.
-	 * On mobile, the default panel is tty
-	 */
-	if (IS_MOBILE == false)
-		changeScreen(diary_btn, "diary");
-	else {
-		switchScreen(js_tty);
-		lastScreen = "tty";
 	}
 }
