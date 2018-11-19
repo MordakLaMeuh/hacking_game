@@ -116,7 +116,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 
 	var blockEntryCountdown = 0;		// Special variable, initialize a countDown for blocking a entry
 	var waitingForAnswer = false;		// Indicate if we are waiting for an PNJ answer
-	var contactList = new Array();		// List of all contacts {name, messengerDiv}
+	var contactList = new Array();		// List of all contacts {name, messengerDiv, paragraph}
 	var currentDialog = "";				// Inform if a dialog sequence with someone is active
 
 	/*
@@ -174,7 +174,6 @@ var SOCIAL = function(notif_button_cb, socket) {
 					/*
 					 * test if on a current dialog
 					 */
-					let paragraphID = document.getElementById(contactsArray[i] + "ParagraphID");
 					if (currentDialog == name) {
 						/*
 						 * check if social victory, in this case, we are on 'waiting for answer' state
@@ -186,8 +185,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 							/*
 							 * In case of active dialog but not a social victory; just remove old answers
 							 */
-							if (paragraphID !== undefined)
-								paragraphID.classList.add("notifSocial");
+							contact.paragraph.classList.add("notifSocial");
 							removeButton(contact.messengerDiv);
 						}
 						socket.send({"social": {"name" : name}});
@@ -195,8 +193,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 						/*
 						 * In case of non active dialog; just remove old answers
 						 */
-						if (paragraphID !== undefined)
-							paragraphID.classList.add("notifSocial");
+						contact.paragraph.classList.add("notifSocial");
 						removeButton(contact.messengerDiv);
 					}
 					notif_button_cb("social", true, true);
@@ -219,17 +216,17 @@ var SOCIAL = function(notif_button_cb, socket) {
 					obj.name = contactsArray[i];
 
 					/*
-					 * Register new contact name
-					 */
-					contactList.push(obj);
-
-					/*
 					 * Add EventListener to contact div to send contact name to the server
 					 */
 					contact.addEventListener("mousedown", function (){
 						let div = document.getElementById(obj.name);
 						currentDialog = obj.name;
-						contact.lastChild.firstChild.classList.remove("notifSocial");
+
+						contactList.forEach(function(contact) {
+							if (contact.name == currentDialog)
+								contact.paragraph.classList.remove("notifSocial");
+						});
+
 						notif_button_cb("social", false, true);
 						/*
 						 * Test of messenger div already exist
@@ -267,7 +264,12 @@ var SOCIAL = function(notif_button_cb, socket) {
 					let paragraph = document.createElement('p');
 					paragraph.textContent = contactsArray[i];
 					paragraph.classList.add("notifSocial");
-					paragraph.id = contactsArray[i] + "ParagraphID";
+
+					obj.paragraph = paragraph;
+					/*
+					 * Register new contact name
+					 */
+					contactList.push(obj);
 					/*
 					 * Append all these new elements to their parents div
 					 */
