@@ -111,8 +111,8 @@ var SOCKET_SERVER = function() {
 
 		if (ssh_request == true) {
 			ssh_request = false;
-			if (json_msg.login == "zero" && json_msg.password == "12122000") {
-				load_ssh_session(zeroSSH, "/", "zero", "toto");
+			if (json_msg.login == "42" && json_msg.password == "norminet") {
+				load_ssh_session(zeroSSH, "/", "student", "42");
 			} else if (json_msg.login == "big" && json_msg.password == "1947") {
 				load_ssh_session(bigSSH, "/", "big", "bigCorp");
 			} else {
@@ -255,7 +255,7 @@ var SOCKET_SERVER = function() {
 		}
 
 		let file;
-		file = getFile("socket_server/worlds/tuto/ssh/tutoVFS.csv");
+		file = getFile("socket_server/worlds/final/ssh/tutoVFS.csv");
 		files = termfunc.createFileSystem(file);
 		if (files === undefined) {
 			send({"error": "Internal server error"});
@@ -263,7 +263,7 @@ var SOCKET_SERVER = function() {
 			return;
 		}
 
-		file = getFile("socket_server/worlds/tuto/ssh/molang.csv");
+		file = getFile("socket_server/worlds/final/ssh/molang.csv");
 		zeroSSH = termfunc.createFileSystem(file);
 		if (zeroSSH === undefined) {
 			send({"error": "Internal server error"});
@@ -271,7 +271,7 @@ var SOCKET_SERVER = function() {
 			return;
 		}
 
-		file = getFile("socket_server/worlds/tuto/ssh/big.csv");
+		file = getFile("socket_server/worlds/final/ssh/big.csv");
 		bigSSH = termfunc.createFileSystem(file);
 		if (bigSSH === undefined) {
 			send({"error": "Internal server error"});
@@ -283,7 +283,7 @@ var SOCKET_SERVER = function() {
 		curDir = root;
 		originCurDir = curDir; // for ssh
 
-		file = getFile("socket_server/worlds/tuto/tuto.json");
+		file = getFile("socket_server/worlds/final/tuto.json");
 		lvlData = lvlValidation.getLvlData(file);
 		if (lvlData === undefined) {
 			send({"error": "critical Internal server error"});
