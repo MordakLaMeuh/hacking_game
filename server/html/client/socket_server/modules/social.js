@@ -47,7 +47,7 @@ method.addEntries = function(obj, sendCb)
 						/*
 						 * Inform mail panel about changes
 						 */
-						sendCb({"mail" : {"name": contact.name, "content": email}});
+//						sendCb({"mail" : {"name": contact.name, "content": email}});
 					});
 				}
 			}

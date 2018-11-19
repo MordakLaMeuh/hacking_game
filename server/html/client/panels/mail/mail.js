@@ -176,21 +176,36 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		});
 	}());
 
-	var volontaryLogin = false;	// true when a explicit identification process were triggered
+	var volontaryLogin = false;			// true when a explicit identification process were triggered
+	var currentSession = new Object();	// information about current opened session
+	currentSession.login = undefined;
 	/*
 	 * Check mail data received from server to allow or deny login
 	 */
 	function login(mail) {
 		if (mail.content) {
+
+			/*
+			 * Check if session was volontary launched
+			 */
 			if (volontaryLogin == false) {
 				notif_button_cb("mail", true, true);
 			}
+
+			/*
+			 * Destroy all old DOM structures is in loged state
+			 */
+			if (currentSession.login !== undefined) {
+				onFolder = false;
+			}
+
+			currentSession.login = mail.name;
 			self.mailObj = mail;
 			let mailName = document.getElementById("mailName");
-			if (mail.name == "root")
+			if (currentSession.login == "root")
 				mailName.innerHTML = "Your Mail";
 			else
-				mailName.innerHTML = mail.name;
+				mailName.innerHTML = currentSession.login;
 
 			displayLoginForm(false);
 			displayMailHeaderAndBody(true);
@@ -385,6 +400,8 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		displayMailHeaderAndBody(false);
 		displayErrorForm(false);
 		displayLoginForm(true);
+
+		currentSession.login = undefined;
 	}
 
 	/*
