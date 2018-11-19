@@ -1,6 +1,6 @@
 //#name,parentName,isDirectory,content
 
-var molang =
+var ft =
 [
     ["/", null, true, null],
     ["Tests", "/", true, null],

@@ -234,13 +234,13 @@ var SOCKET_SERVER = function() {
 		ssh_request = false;
 		ssh_active = false;
 
-		files = termfunc.createFileSystem(tutoVFS);
+		files = termfunc.createFileSystem(home);
 		if (files === undefined) {
 			send({"error": "Internal server error"});
 			return;
 		}
 
-		zeroSSH = termfunc.createFileSystem(molang);
+		zeroSSH = termfunc.createFileSystem(ft);
 		if (zeroSSH === undefined) {
 			send({"error": "Internal server error"});
 			return;

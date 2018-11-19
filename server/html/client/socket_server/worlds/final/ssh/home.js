@@ -1,6 +1,6 @@
 // #name,parentName,isDirectory,content
 
-var tutoVFS =
+var home =
 [
     ["/", null, true, null],
     ["readme.txt", "/", false, "Important : Folders' names begin with an uppercase. Hidden files and folders' names begin with a dot."],
