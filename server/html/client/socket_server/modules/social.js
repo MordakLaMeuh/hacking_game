@@ -74,7 +74,7 @@ method.addEntries = function(obj, sendCb)
 method.sendMail = function(obj) {
 
 	for (let i = 0; i < this.social.length; i++) {
-		if (this.social[i].name.toUpperCase() == obj.name.toUpperCase()
+		if (this.social[i].name == obj.name
 			&& this.social[i].password !== undefined
 			&& this.social[i].password == obj.password
 			&& this.social[i].mail !== undefined) {
