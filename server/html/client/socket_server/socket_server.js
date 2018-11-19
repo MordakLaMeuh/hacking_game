@@ -183,7 +183,18 @@ var SOCKET_SERVER = function() {
 		case "hint":
 			output = termfunc.hint(lvlData[currentLevel].hint);
 			break;
-		case "ssh":
+		case "whois": {
+			if (input[1] == "5.5.5.5")
+				output = "Name : BIG <br/> Type : Company <br/> Location : North America";
+			else if (input[1] == "9.80.45.122")
+				output = "Name : Jones <br/> Type : Individual <br/> Location : Brazil";
+			else if (input[1] == "23.123.54.92")
+				output = "Name : Ramirez <br/> Type : Individual <br/> Location : Germany";
+			else
+				output = "No result found."
+			break;
+		}
+			case "ssh":
 			if (ssh_active == true) {
 				output = "Already in ssh.";
 				break;

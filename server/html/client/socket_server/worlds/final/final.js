@@ -17,7 +17,8 @@ var world =
 			["help"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit : exit ssh session"],
-			["hint"]
+			["hint"],
+			["whois"]
 		],
 		"social":
 		[
@@ -188,8 +189,8 @@ var world =
 	{
 		"winningCondition":
 		[""],
-		"goal": "Display files in current directory.",
-		"hint": "Type ls in terminal",
+		"goal": "Find information about Mac Aron's location.",
+		"hint": "Try using whois in your terminal",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -202,13 +203,46 @@ var world =
 			["exit", "exit : exit ssh session"]
 		],
 		"social":
-		[]
+		[
+			{
+			"name": "Marvin",
+			"password": "toto",
+			"exchange":
+				[
+					{
+						"q":"Did you see that ? He even beat you. This guy is awesome... What do you think ?",
+						"r":["He's a genius", "He's a cheater"],
+						"i":["1", "1"]
+					},
+					{
+						"q":"Well, maybe you're right, You know what an ip is, right ?",
+						"r": ["A what ?", "Yeah, sure"],
+						"i":["2", "3"]
+					},
+					{
+						"q":"No worries. I let you some doc on your PC. Everything you need is explained in there.",
+						"r":[]
+					},
+					{
+						"q":"Ok, then you can exit ssh and go back to your desktop. I left you some explanations there.",
+						"r": []
+					}
+				]
+		}
+		],
+		"updateFiles":
+			[
+				["A", "rot", "Programs", false, "Cannot open rot. Try using rot"],
+				["A", "Doc", "/", true, null],
+				["A", "ip.txt", "Doc", false, "An IP address, or simply an \"IP,\" is a unique address that identifies a device on the Internet or a local network. An IP address consist of four sets of numbers from 0 to 255, separated by three dots."],
+				["A", "whois.txt", "Doc", false, "whois is a command that is used to find the details of a domain name or an IP address. Example : whois 8.8.8.8"]
+			]
 	},
 	{
 		"winningCondition":
 		[
-			"cat .password.txt",
-			"/.Private"
+			"whois 5.5.5.5",
+			""
 		],
 		"cmdList":
 		[
