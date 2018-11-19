@@ -271,20 +271,21 @@ var SOCKET_SERVER = function() {
 			return;
 		}
 
-		file = getFile("socket_server/worlds/tuto/ssh/big.csv");
-		bigSSH = termfunc.createFileSystem(file);
+//		file = getFile("socket_server/worlds/tuto/ssh/big.csv");
+		bigSSH = termfunc.createFileSystem_2(big);
 		if (bigSSH === undefined) {
 			send({"error": "Internal server error"});
-			client.close();
+//			client.close();
 			return;
 		}
+
+		console.log(bigSSH);
 
 		root = termfunc.getFile(files, "/");
 		curDir = root;
 		originCurDir = curDir; // for ssh
 
-		file = getFile("socket_server/worlds/tuto/tuto.json");
-		lvlData = lvlValidation.getLvlData(file);
+		lvlData = world;
 		if (lvlData === undefined) {
 			send({"error": "critical Internal server error"});
 			return;

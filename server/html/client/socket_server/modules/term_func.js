@@ -59,6 +59,22 @@ method.createFileSystem = function(file)
 }
 
 /*
+ * Function createFileSystem
+ */
+method.createFileSystem_2 = function(file)
+{
+	let files = [];
+	file.forEach(function(entry) {
+		if (entry.length == 4)
+			files.push(new File(entry[0], entry[1], entry[2], entry[3], files, this));
+		else {
+			console.warn("unexpected error while parsing csv");
+		}
+	});
+	return files;
+}
+
+/*
  * Function cd
  */
 method.cd = function(root, curDir, args)
