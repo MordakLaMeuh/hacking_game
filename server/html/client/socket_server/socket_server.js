@@ -61,7 +61,7 @@ var SOCKET_SERVER = function() {
 
 		if (json_msg.mail !== undefined) {
 			if (json_msg.mail.password !== undefined) {
-				send({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail)}});
+				send({"mail" : {"name": json_msg.mail.name, "content": social.sendMail(json_msg.mail), "update":false}});
 			} else if (json_msg.mail.index !== undefined) {
 				let obj = social.markAsRead(json_msg.mail, victoryRoutine);
 				if (obj != null) {
@@ -82,6 +82,7 @@ var SOCKET_SERVER = function() {
 				obj_mail.name = "root";
 				obj_mail.password = "root";
 				obj_mail.content = social.sendMail(obj_mail);
+				obj_mail.update = false;
 				send({
 					"tty": obj,
 					"mail": obj_mail

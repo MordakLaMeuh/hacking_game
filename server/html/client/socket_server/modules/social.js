@@ -22,12 +22,10 @@ method.addEntries = function(obj, sendCb)
 		self.social.forEach(function(contact) {
 			if (newContact.name == contact.name) {
 				isAlreadyKnew = true;
-				console.log("same name founded: " + newContact.name);
 				/*
 				 * Search for new dialog sequence and if, replace it
 				 */
 				if (newContact.exchange !== undefined) {
-					console.log("new dialog definition");
 					contact.exchange = newContact.exchange;
 					contact.active = false;
 					contact.idx = 0;
@@ -41,13 +39,12 @@ method.addEntries = function(obj, sendCb)
 				 */
 				if (newContact.mail !== undefined) {
 					newContact.mail.forEach(function(email) {
-						console.log("new mail !");
 						email.read = false;
 						contact.mail.push(email);
 						/*
 						 * Inform mail panel about changes
 						 */
-//						sendCb({"mail" : {"name": contact.name, "content": email}});
+						sendCb({"mail" : {"name": contact.name, "content": [email], "update": true}});
 					});
 				}
 			}

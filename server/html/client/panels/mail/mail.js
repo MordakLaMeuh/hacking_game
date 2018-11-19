@@ -3,9 +3,12 @@
 var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 {
 	var self = this;
+	var volontaryLogin = false;			// true when a explicit identification process were triggered
 
-	this.mailObj;
-	var onFolder = false;
+	var currentSession = new Object();	// information about current opened session
+	currentSession.login = "";
+	currentSession.mail = new Array();
+	currentSession.onFolder = false;
 
 	if (IS_MOBILE == false) {
 		/*
@@ -32,10 +35,12 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 			let mailMessagesDiv = document.getElementById("mail_messages");
 
 			loginBtn.addEventListener("mousedown", function(){
+				notif_button_cb("mail", false, true);
 				sendLoginData(document.getElementById("loginInput").value, document.getElementById("passwordInput").value);
 			});
 
 			loginForm.addEventListener("keyup", function(event) {
+				notif_button_cb("mail", false, true);
 				event.preventDefault();
 				if (event.key === "Enter") {
 					sendLoginData(document.getElementById("loginInput").value, document.getElementById("passwordInput").value);
@@ -45,6 +50,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 			 * Active mouse scroll on PC
 			 */
 			mailMessagesDiv.addEventListener(mousewheelevt, function (e) {
+				notif_button_cb("mail", false, true);
 				e = window.event || e; // old IE support
 				let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 				mailMessagesDiv.scrollTop -= delta * 20;
@@ -55,16 +61,20 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		 * Disable key registering on tty when filling input field
 		 */
 		document.getElementById("loginInput").addEventListener("focus", function() {
+			notif_button_cb("mail", false, true);
 			tty_key_cb(0);
 		}, true);
 		document.getElementById("loginInput").addEventListener("blur", function() {
+			notif_button_cb("mail", false, true);
 			tty_key_cb(1);
 		}, true);
 
 		document.getElementById("passwordInput").addEventListener("focus", function() {
+			notif_button_cb("mail", false, true);
 			tty_key_cb(0);
 		}, true);
 		document.getElementById("passwordInput").addEventListener("blur", function() {
+			notif_button_cb("mail", false, true);
 			tty_key_cb(1);
 		}, true);
 	} else {
@@ -125,6 +135,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		 * Default area handler
 		 */
 		mail.addEventListener("mousedown", function(e) {
+			notif_button_cb("mail", false, true);
 			closeKeyboard();
 		}, false);
 
@@ -136,6 +147,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		 * Login field handler
 		 */
 		loginInput.addEventListener("mousedown", function(e){
+			notif_button_cb("mail", false, true);
 			reduceScreen();
 			input_login.focus(e.clientX, e.clientY);
 			keyboard.open(input_login.write);
@@ -146,6 +158,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		 * Password field handler
 		 */
 		passwordInput.addEventListener("mousedown", function(e){
+			notif_button_cb("mail", false, true);
 			reduceScreen();
 			input_password.focus(e.clientX, e.clientY);
 			keyboard.open(input_password.write);
@@ -156,6 +169,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		 * Enter button handler
 		 */
 		loginBtn.addEventListener("mousedown", function(e){
+			notif_button_cb("mail", false, true);
 			action(null, null);
 			e.stopPropagation();
 		}, false);
@@ -169,38 +183,65 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		let backBtn = document.getElementById("backBtn");
 
 		backBtn.addEventListener("mousedown", function(){
+			notif_button_cb("mail", false, true);
 			displayFolder();
 		});
 		signOutBtn.addEventListener("mousedown", function(){
+			notif_button_cb("mail", false, true);
 			signOut()
 		});
 	}());
 
-	var volontaryLogin = false;			// true when a explicit identification process were triggered
-	var currentSession = new Object();	// information about current opened session
-	currentSession.login = undefined;
 	/*
 	 * Check mail data received from server to allow or deny login
 	 */
 	function login(mail) {
 		if (mail.content) {
+			/*
+			 * Test if it is an update and if the mail concerned the current session
+			 */
+			if (mail.update == true) {
+				if (currentSession.login == mail.name) {
+					mail.content.forEach(function(email) {
+						currentSession.mail.push(email);
+					});
+					/*
+					 * Dislay new mails if on folder
+					 */
+					if (currentSession.onFolder == true)
+						displayFolder();
+
+					notif_button_cb("mail", true, true);
+				} else {
+					/*
+					 * we are not concern by this mail updating
+					 */
+				}
+				return;
+			}
 
 			/*
 			 * Check if session was volontary launched
 			 */
 			if (volontaryLogin == false) {
+				/*
+				 * Check if we are already logged
+				 */
+				if (currentSession.login != "")  {
+					return ;	// Don't do anything
+				}
+				/*
+				 * In case of new unvolontary identification
+				 */
 				notif_button_cb("mail", true, true);
 			}
 
-			/*
-			 * Destroy all old DOM structures is in loged state
-			 */
-			if (currentSession.login !== undefined) {
-				onFolder = false;
-			}
+			currentSession.onFolder = true;
 
+			/*
+			 * Create all old DOM structures is in logged state
+			 */
 			currentSession.login = mail.name;
-			self.mailObj = mail;
 			let mailName = document.getElementById("mailName");
 			if (currentSession.login == "root")
 				mailName.innerHTML = "Your Mail";
@@ -209,7 +250,12 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 
 			displayLoginForm(false);
 			displayMailHeaderAndBody(true);
-			displayFolder(mail);
+
+			mail.content.forEach(function(email) {
+				currentSession.mail.push(email);
+			});
+
+			displayFolder();
 		} else {
 			displayErrorForm(true);
 		}
@@ -219,21 +265,18 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 	/*
 	 * Display clicked email folder by displaying all the mails of the folder
 	 */
-	function displayFolder(mail) {
-		if (onFolder == false) {
-			onFolder = true;
-			let mailMessagesDiv = document.getElementById("mail_messages");
-			changeMailHeader(onFolder, null, null, null);
-			removeMailList(mailMessagesDiv);
-			displayMailList(self.mailObj, mailMessagesDiv);
-		}
+	function displayFolder() {
+		let mailMessagesDiv = document.getElementById("mail_messages");
+		changeMailHeader(true, null, null, null);
+		removeMailList(mailMessagesDiv);
+		displayMailList(mailMessagesDiv);
 	}
 
 	/*
 	 * Display all the mail of a folder
 	 */
-	function displayMailList(mail, mailMessagesDiv) {
-		for (let i = 0; i < mail.content.length; i++) {
+	function displayMailList(mailMessagesDiv) {
+		for (let i = 0; i < currentSession.mail.length; i++) {
 			function func(i) {
 				let mailDivContainer = document.createElement("div");
 
@@ -245,14 +288,14 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 				receiverP.className = "to";
 				titleP.className = "title";
 
-				if (mail.content[i].sender == 1) {
-					senderP.innerHTML = "From : " + mail.name;
-					receiverP.innerHTML = "To : " + mail.content[i].from_to;
+				if (currentSession.mail[i].sender == 1) {
+					senderP.innerHTML = "From : " + currentSession.login;
+					receiverP.innerHTML = "To : " + currentSession.mail[i].from_to;
 				} else {
-					senderP.innerHTML = "From : " + mail.content[i].from_to;
-					receiverP.innerHTML = "To : " + mail.name;
+					senderP.innerHTML = "From : " + currentSession.mail[i].from_to;
+					receiverP.innerHTML = "To : " + currentSession.login;
 				}
-				titleP.innerHTML = mail.content[i].title;
+				titleP.innerHTML = currentSession.mail[i].title;
 
 				mailDivContainer.appendChild(senderP);
 				mailDivContainer.appendChild(receiverP);
@@ -260,13 +303,14 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 
 				mailMessagesDiv.appendChild(mailDivContainer);
 
-				if (!mail.content[i].read) {
+				if (!currentSession.mail[i].read) {
 					mailDivContainer.style.fontWeight = "bold";
 					mailDivContainer.style.backgroundColor = "rgba(120, 200, 255, 0.2)";
 				}
 
 				mailDivContainer.addEventListener("mousedown", function(){
-					displayMailContent(mailMessagesDiv, mail, i);
+					notif_button_cb("mail", false, true);
+					displayMailContent(mailMessagesDiv, i);
 				});
 			};
 			func(i);
@@ -327,23 +371,31 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 	/*
 	 * Display content of the clicked mail
 	 */
-	function displayMailContent(mailList, mail, index) {
-		onFolder = false;
-		mail.content[index].read = true;
+	function displayMailContent(mailList, index) {
+		currentSession.onFolder = false;
+		currentSession.mail[index].read = true;
 		removeMailList(mailList);
 
 		let mailContent = document.createElement("p");
 
-		if (mail.content[index].sender == 1) {
-			changeMailHeader(onFolder, mail.name, mail.content[index].from_to, mail.content[index].title);
+		if (currentSession.mail[index].sender == 1) {
+			changeMailHeader(
+				currentSession.onFolder,
+				currentSession.login,
+				currentSession.mail[index].from_to,
+				currentSession.mail[index].title);
 		} else {
-			changeMailHeader(onFolder, mail.content[index].from_to, mail.name, mail.content[index].title);
+			changeMailHeader(
+				currentSession.onFolder,
+				currentSession.mail[index].from_to,
+				currentSession.login,
+				currentSession.mail[index].title);
 		}
-		mailContent.innerHTML = mail.content[index].text;
+		mailContent.innerHTML = currentSession.mail[index].text;
 
 		mailList.appendChild(mailContent);
 		let obj = new Object();
-		obj.name = mail.name;
+		obj.name = currentSession.login;
 		obj.index = index;
 		socket.send({"mail": obj});
 	}
@@ -396,12 +448,14 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 	 * Sign out from mail and display login form
 	 */
 	function signOut() {
-		onFolder = false;
+		currentSession.onFolder = false;
+
 		displayMailHeaderAndBody(false);
 		displayErrorForm(false);
 		displayLoginForm(true);
 
-		currentSession.login = undefined;
+		currentSession.login = "";
+		currentSession.mail = new Array();
 	}
 
 	/*
@@ -413,6 +467,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 		obj.password = password;
 		console.log(obj);
 		volontaryLogin = true;
+
 		socket.send({"mail": obj});
 	}
 
