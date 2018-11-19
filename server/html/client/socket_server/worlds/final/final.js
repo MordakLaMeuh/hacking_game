@@ -57,7 +57,34 @@ var world =
 						"r":[]
 					}
 				]
-			}
+			},
+			{
+				"name": "john@mail.com",
+				"password": "12121980",
+				"mail":
+					[
+						{
+							"sender": "0",
+							"from_to": "Lewis",
+							"title": "Schedule",
+							"text": "Hello",
+							"w":"1",
+							"s": ["INFO", "You learnt valuable information about the BIG company."]
+						},
+						{
+							"sender": "0",
+							"from_to": "Lewis",
+							"title": "Schedule",
+							"text": "Hello"
+						},
+						{
+							"sender": "0",
+							"from_to": "Lewis",
+							"title": "Schedule",
+							"text": "Hello"
+						}
+					]
+		}
 		]
 	},
 	{
@@ -188,7 +215,7 @@ var world =
 	},
 	{
 		"winningCondition":
-		[""],
+		["whois 5.5.5.5"],
 		"goal": "Find information about Mac Aron's location.",
 		"hint": "Try using whois in your terminal",
 		"cmdList":
@@ -200,7 +227,8 @@ var world =
 			["roll"],
 			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"]
+			["exit", "exit : exit ssh session"],
+			["whois", "whois ipaddress : give info on a ip address"]
 		],
 		"social":
 		[
@@ -240,10 +268,10 @@ var world =
 	},
 	{
 		"winningCondition":
-		[
-			"whois 5.5.5.5",
-			""
-		],
+		[""],
+		"goal": "Access to BIG's CEO e-mail.",
+		"hint": "Try looking at his facebook page to gather some hints",
+		"social": [],
 		"cmdList":
 		[
 			[
@@ -279,45 +307,17 @@ var world =
 			[
 				"exit",
 				"exit", "exit : exit ssh session"
+			],
+			[
+				"whois",
+				"whois ipaddress : give info on a ip address"
 			]
-		],
-		"social":
-		[
-			{
-				"name": "Seven",
-				"exchange":
-				[
-					{
-						"q": "Hello Mr. Hacker, I heard you made a big discovery. Something interesting on the BIG server ?",
-						"r": ["I am still looking."],
-						"i": ["1"]
-					},
-					{
-						"q": "Ok, take your time to look around.",
-						"r": ["Why are we hacking this company ?", "What should I look for ?"],
-						"i": ["2", "3"]
-					},
-					{
-						"q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
-						"r": ["Ok, let's do this."],
-						"i": ["3"]
-					},
-					{
-						"q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
-						"r": []
-					}
-				]
-			}
-		],
-		"updateFiles":
-		[
-			["A", "rot", "Programs", "false", "Cannot open rot. Try using rot"],
-			["A", "Doc", "/", "true", "null"],
-			["A", "rot.txt", "Doc", "false", "Rotate (or rot) is a simple letter substitution cipher that replaces a letter with the n-th letter after it, in the alphabet.<br/> Example : rot 1 abc = bcd<br/>"]
 		]
 	},
 	{
 		"winningCondition": [""],
+		"goal": "Access to BIG's CEO e-mail.",
+		"hint": "Try looking at his facebook page to gather some hints",
 		"cmdList":
 		[
 			[
