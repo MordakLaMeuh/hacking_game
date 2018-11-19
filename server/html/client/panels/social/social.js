@@ -4,7 +4,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 	var socialDiv = document.getElementById("social");
 	var contactsListDiv = document.getElementById("contacts_list");
 	var currentNameDiv;
-	var currentMessagesDiv;
+	var currentMessagesDiv = undefined;
 	var currentAnswersDiv;
 	var currentMessengerDiv;
 	var currentZindex = 0;
@@ -38,6 +38,16 @@ var SOCIAL = function(notif_button_cb, socket) {
 		socialDiv.appendChild(currentMessengerDiv);
 		currentMessengerDiv.style.zIndex = currentZindex++;
 		createDialogBox(currentMessengerDiv);
+
+		/*
+		 * Associate currentMessengerDiv to name
+		 */
+		for (let i = 0; i < contactList.length; i++) {
+			if (contactList[i].name == idName) {
+				contactList[i].messengerDiv = currentMessengerDiv;
+				break;
+			}
+		}
 	}
 
 	function addMe(str) {
@@ -83,6 +93,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 	function createBackButton() {
 		let b = document.createElement('button');
 		b.addEventListener("mousedown", function () {
+			currentDialog = "";
 			notif_button_cb("social", false, true);
 			contactsListDiv.style.zIndex = currentZindex++;
 		});
@@ -94,11 +105,19 @@ var SOCIAL = function(notif_button_cb, socket) {
 	/*
 	 * remove all buttons and create new ones
 	 */
-	function removeButton() {
-		let btns = currentMessengerDiv.getElementsByClassName('btn');
+	function removeButton(div) {
+		if (div === undefined)
+			return;
+
+		let btns = div.getElementsByClassName('btn');
 		while(btns[0])
 			btns[0].parentNode.removeChild(btns[0]);
 	}
+
+	var blockEntryCountdown = 0;		// Special variable, initialize a countDown for blocking a entry
+	var waitingForAnswer = false;		// Indicate if we are waiting for an PNJ answer
+	var contactList = new Array();		// List of all contacts {name, messengerDiv}
+	var currentDialog = "";				// Inform if a dialog sequence with someone is active
 
 	/*
 	 * send answer to server
@@ -109,12 +128,24 @@ var SOCIAL = function(notif_button_cb, socket) {
 		let classCollection = currentAnswersDiv.getElementsByClassName("btn");
 		addMe(classCollection[clicked_id].innerHTML);
 		obj.name = currentNameDiv.innerHTML;
-		removeButton();
+		removeButton(currentMessengerDiv);
+		notif_button_cb("social", false, true);
+
+		waitingForAnswer = true;
+
 		socket.send({"social":obj});
 	}
 
 	function addEntry(obj)
 	{
+		waitingForAnswer = false;
+
+		if (blockEntryCountdown > 0) {
+			blockEntryCountdown -= 1;
+			if (blockEntryCountdown == 0) {
+				return;
+			}
+		}
 		let div = document.getElementById(obj.name);
 		if (div == undefined) {
 			createMessenger(obj.name)
@@ -130,66 +161,124 @@ var SOCIAL = function(notif_button_cb, socket) {
 	function displayContacts(contactsArray)
 	{
 		for (let i = 0; i < contactsArray.length; i++) {
-			(function () {
-				/*
-				 * Create a new contact div
-				 */
-				let contact = document.createElement('div');
-				contact.className = "contact";
+			let isAlreadyKnew = false;
 
+			contactList.forEach(function(contact) {
 				/*
-				 * Add EventListener to contact div to send contact name to the server
+				 * Check if contact already exist
 				 */
-				let obj = new Object();
-				obj.name = contactsArray[i];
-				contact.addEventListener("mousedown", function (){
-					let div = document.getElementById(obj.name);
+				let name = contact.name;
+
+				if (name == contactsArray[i]) {
+					isAlreadyKnew = true;
 					/*
-					 * Test of messenger div already exist
+					 * test if on a current dialog
 					 */
-					if (div == undefined) {
-						socket.send({"social": obj});
+					if (currentDialog == name) {
+						/*
+						 * check if social victory, in this case, we are on 'waiting for answer' state
+						 * so block the (next next) dialog sequence (become obsolete)
+						 */
+						if (waitingForAnswer == true) {
+							blockEntryCountdown = 2;
+						} else {
+							/*
+							 * In case of active dialog but not a social victory; just remove old answers
+							 */
+							removeButton(contact.messengerDiv);
+						}
+						socket.send({"social": {"name" : name}});
 					} else {
-						div.style.zIndex = currentZindex++;
-						currentMessengerDiv = div;
-						currentNameDiv = currentMessengerDiv.getElementsByClassName("contact_name")[0];
-						currentMessagesDiv = currentMessengerDiv.getElementsByClassName("messages")[0];
-						currentAnswersDiv = currentMessengerDiv.getElementsByClassName("answers")[0];
-						socket.send({"social": obj});
+						/*
+						 * In case of non active dialog; just remove old answers
+						 */
+						removeButton(contact.messengerDiv);
 					}
-				});
+					notif_button_cb("social", true, true);
+				}
+			});
 
-				/*
-				 * Create a new img
-				 */
-				let img = document.createElement('img');
-				img.src = "medias/contact.svg";
-				img.alt = "contact_picture";
-				img.style.backgroundColor = "#57D1FA";
+			/*
+			 * Add contact routine
+			 */
+			if (isAlreadyKnew == false) {
+				(function () {
+					/*
+					 * Create a new contact div
+					 */
+					let contact = document.createElement('div');
+					contact.className = "contact";
 
-				/*
-				 * Create a new contact_name div
-				 */
-				let contact_name = document.createElement('div');
-				contact_name.className = "contact_name";
+					let obj = new Object();
+					obj.name = contactsArray[i];
 
-				/*
-				 * Create a new paragraph
-				 */
-				let paragraph = document.createElement('p');
-				paragraph.textContent = contactsArray[i];
+					/*
+					 * Register new contact name
+					 */
+					contactList.push(obj);
 
-				/*
-				 * Append all these new elements to their parents div
-				 */
-				contact_name.appendChild(paragraph);
-				contact.appendChild(img);
-				contact.appendChild(contact_name);
-				contactsListDiv.appendChild(contact);
+					/*
+					 * Add EventListener to contact div to send contact name to the server
+					 */
+					contact.addEventListener("mousedown", function (){
+						let div = document.getElementById(obj.name);
 
-				notif_button_cb("social", true, true);
-			}());
+						currentDialog = obj.name;
+						notif_button_cb("social", false, true);
+						/*
+						 * Test of messenger div already exist
+						 */
+						if (div == undefined) {
+							socket.send({"social": obj});
+						} else {
+							div.style.zIndex = currentZindex++;
+							currentMessengerDiv = div;
+							currentNameDiv = currentMessengerDiv.getElementsByClassName("contact_name")[0];
+							currentMessagesDiv = currentMessengerDiv.getElementsByClassName("messages")[0];
+							currentAnswersDiv = currentMessengerDiv.getElementsByClassName("answers")[0];
+
+							socket.send({"social": obj});
+						}
+					});
+
+					/*
+					 * Create a new img
+					 */
+					let img = document.createElement('img');
+					img.src = "medias/contact.svg";
+					img.alt = "contact_picture";
+					img.style.backgroundColor = "#57D1FA";
+
+					/*
+					 * Create a new contact_name div
+					 */
+					let contact_name = document.createElement('div');
+					contact_name.className = "contact_name";
+
+					/*
+					 * Create a new paragraph
+					 */
+					let paragraph = document.createElement('p');
+					paragraph.textContent = contactsArray[i];
+
+					/*
+					 * Append all these new elements to their parents div
+					 */
+					contact_name.appendChild(paragraph);
+					contact.appendChild(img);
+					contact.appendChild(contact_name);
+					contactsListDiv.appendChild(contact);
+
+					notif_button_cb("social", true, true);
+				}());
+
+			}
 		}
+	}
+
+	this.active = function() {
+		if (currentMessagesDiv !== undefined)
+			currentMessagesDiv.scrollTop += currentMessagesDiv.scrollHeight;
 	}
 
 	socket.register(["socialContacts"], displayContacts);

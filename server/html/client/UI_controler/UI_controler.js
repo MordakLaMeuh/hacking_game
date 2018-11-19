@@ -129,6 +129,7 @@ var UI_CONTROLER = function() {
 
 		social_btn.addEventListener("mousedown", function (){
 			changeScreen(this, "social");
+			social.active();
 		});
 
 		diary_btn.addEventListener("mousedown", function () {
