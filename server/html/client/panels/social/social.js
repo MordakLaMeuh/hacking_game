@@ -174,6 +174,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 					/*
 					 * test if on a current dialog
 					 */
+					let ImgID = document.getElementById(contactsArray[i] + "ImgID");
 					if (currentDialog == name) {
 						/*
 						 * check if social victory, in this case, we are on 'waiting for answer' state
@@ -185,6 +186,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 							/*
 							 * In case of active dialog but not a social victory; just remove old answers
 							 */
+		 					if (ImgID !== undefined)
+		 						ImgID.classList.add("notifSocial");
 							removeButton(contact.messengerDiv);
 						}
 						socket.send({"social": {"name" : name}});
@@ -192,6 +195,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 						/*
 						 * In case of non active dialog; just remove old answers
 						 */
+						if (ImgID !== undefined)
+							ImgID.classList.add("notifSocial");
 						removeButton(contact.messengerDiv);
 					}
 					notif_button_cb("social", true, true);
@@ -202,6 +207,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 			 * Add contact routine
 			 */
 			if (isAlreadyKnew == false) {
+
 				(function () {
 					/*
 					 * Create a new contact div
@@ -222,8 +228,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 					 */
 					contact.addEventListener("mousedown", function (){
 						let div = document.getElementById(obj.name);
-
 						currentDialog = obj.name;
+						contact.firstChild.classList.remove("notifSocial");
 						notif_button_cb("social", false, true);
 						/*
 						 * Test of messenger div already exist
@@ -248,6 +254,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 					img.src = "medias/contact.svg";
 					img.alt = "contact_picture";
 					img.style.backgroundColor = "#57D1FA";
+					img.classList.add("notifSocial");
+					img.id = contactsArray[i] + "ImgID";
 
 					/*
 					 * Create a new contact_name div
