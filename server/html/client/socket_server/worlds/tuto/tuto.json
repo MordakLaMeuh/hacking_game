@@ -4,7 +4,8 @@
 		[
 			""
 		],
-		"hint": "find the white rabbit",
+		"hint": "Try talking with Admin",
+		"goal": "Log in.",
 		"cmdList":
 		[
 			[
@@ -36,6 +37,9 @@
 			[
 				"exit",
 				"exit : exit ssh session"
+			],
+			[
+				"hint"
 			]
 		],
 		"social":
@@ -50,79 +54,6 @@
 						"from_to": "Admin 42",
 						"title": "Welcome",
 						"text": "Welcome to 42 ! We hope you'll enjoy staying with us."
-					},
-					{
-						"sender": "0",
-						"from_to": "Netflux",
-						"title": "SUPER DISCOUNT !!",
-						"text": "Come back now and get a -30% discount !"
-					},
-					{
-						"sender": "0",
-						"from_to": "Zero",
-						"title": "Birthday Party",
-						"text": "You're invited to my 18th b-day party, Monday 12th of December at MY PLACE !<br/> I hope you'll be able make it ! <br/>PARTY ON ✿♥‿♥✿ "
-					},
-					{
-						"sender": "0",
-						"from_to": "Mom",
-						"title": "Need help",
-						"text": "Sweetheart, when are you coming home ? <br/>I need your help to fix my computer. <br/>Call me.<br/>Mom"
-					}
-				]
-			},
-			{
-				"name": "vyoung@big.com",
-				"password": "husky",
-				"mail":
-				[
-					{
-						"sender": "0",
-						"from_to": "Kurt Oliveira",
-						"title": "Schedule",
-						"text": "Victor, <br/>As I told you before, I am leaving for a two weeks seminar in Boston.<br/> I leave you in charge, so you are responsible for the server status during the day.<br/> Nigel will monitor it at night. <br/> Do NOT contact me unless it is very important.<br/>Regards.",
-						 "w":"1",
-						 "s": ["INFO", "You learnt valuable information about the BIG company."]
-					},
-					{
-						"sender": "1",
-						"from_to": "Nigel Blackwood",
-						"title": "More work",
-						"text": "I head you'll be in charge of the server at night. Good luck with that !<br/> I hate it when the boss leaves..."
-					},
-					{
-						"sender": "1",
-						"from_to": "Sarah Jones",
-						"title": "Walk",
-						"text": "Hello Sarah, I was thinking, since you also have a dog, we should walk them together, what do you think ?<br/> How about thursday ?<br/> Laddie would be thrilled to meet your little Buddy. Let me know,<br/>Victor"
-					},
-					{
-						"sender": "0",
-						"from_to": "Building Managment",
-						"title": "Power Outage",
-						"text": "There will be a power outage next week at 3 A.M in the east wing (building J).<br/>"
-					},
-					{
-						"sender": "1",
-						"from_to": "SuperEddy",
-						"title": "Recruitment",
-						"text": "Hi Eddy,<br/>Good luck for your job interview tomorrow<br/>My advice is to check out a few facts about the company beforehand.<br/>Read our official website www.big.com you'll get some numbers to suck on the HR<br/>Victor"
-					}
-
-				]
-			},
-			{
-				"name": "boss@big.com",
-				"password": "ibaalymsf",
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Little Company",
-						"title": "Last notice",
-						"text": "We asked you before but you said no.<br/>I don't care about the animals, we need the forest to be cleared by next month for our new building.<br/>We are not paying you for arguing with my decisions so shut up and do your work.<br/>",
-						"s": ["Finally...", "You got proof of Big Company evil doings."],
-						"w":"1"
 					}
 				]
 			},
@@ -199,6 +130,8 @@
 		[
 			"help"
 		],
+		"goal": "Display available commands in terminal.",
+		"hint": "Type 'help' in terminal to display available commands.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -208,7 +141,8 @@
 			["roll"],
 			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"]
+			["exit", "exit : exit ssh session"],
+			["hint"]
 		],
 		"social":
 		[
@@ -252,7 +186,7 @@
 				"exchange":
 				[
 					{
-						"q": "Hello Mr. Hacker, I heard you made a big discovery. Something interesting on the BIG server ?",
+						"q": "TOTO",
 						"r": ["I am still looking."],
 						"i": ["1"]
 					},
@@ -342,6 +276,8 @@
 		[
 			"ls"
 		],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -351,7 +287,8 @@
 			["roll"],
 			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"]
+			["exit", "exit : exit ssh session"],
+			["hint"]
 		],
 		"social":
 		[
