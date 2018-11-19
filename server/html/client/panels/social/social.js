@@ -174,7 +174,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 					/*
 					 * test if on a current dialog
 					 */
-					let ImgID = document.getElementById(contactsArray[i] + "ImgID");
+					let paragraphID = document.getElementById(contactsArray[i] + "ParagraphID");
 					if (currentDialog == name) {
 						/*
 						 * check if social victory, in this case, we are on 'waiting for answer' state
@@ -186,8 +186,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 							/*
 							 * In case of active dialog but not a social victory; just remove old answers
 							 */
-		 					if (ImgID !== undefined)
-		 						ImgID.classList.add("notifSocial");
+							if (paragraphID !== undefined)
+								paragraphID.classList.add("notifSocial");
 							removeButton(contact.messengerDiv);
 						}
 						socket.send({"social": {"name" : name}});
@@ -195,8 +195,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 						/*
 						 * In case of non active dialog; just remove old answers
 						 */
-						if (ImgID !== undefined)
-							ImgID.classList.add("notifSocial");
+						if (paragraphID !== undefined)
+							paragraphID.classList.add("notifSocial");
 						removeButton(contact.messengerDiv);
 					}
 					notif_button_cb("social", true, true);
@@ -229,7 +229,7 @@ var SOCIAL = function(notif_button_cb, socket) {
 					contact.addEventListener("mousedown", function (){
 						let div = document.getElementById(obj.name);
 						currentDialog = obj.name;
-						contact.firstChild.classList.remove("notifSocial");
+						contact.lastChild.firstChild.classList.remove("notifSocial");
 						notif_button_cb("social", false, true);
 						/*
 						 * Test of messenger div already exist
@@ -254,8 +254,6 @@ var SOCIAL = function(notif_button_cb, socket) {
 					img.src = "medias/contact.svg";
 					img.alt = "contact_picture";
 					img.style.backgroundColor = "#57D1FA";
-					img.classList.add("notifSocial");
-					img.id = contactsArray[i] + "ImgID";
 
 					/*
 					 * Create a new contact_name div
@@ -268,7 +266,8 @@ var SOCIAL = function(notif_button_cb, socket) {
 					 */
 					let paragraph = document.createElement('p');
 					paragraph.textContent = contactsArray[i];
-
+					paragraph.classList.add("notifSocial");
+					paragraph.id = contactsArray[i] + "ParagraphID";
 					/*
 					 * Append all these new elements to their parents div
 					 */
