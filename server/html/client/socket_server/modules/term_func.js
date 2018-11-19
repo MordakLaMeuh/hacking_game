@@ -48,13 +48,17 @@ method.filterInt = function(value) {
  */
 method.createFileSystem = function(file)
 {
-	let lines = file.split('\n');
+	let self = this;
 	let files = [];
-	for (let i = 1; i < lines.length; ++i) {
-		let words = lines[i].split(',');
-		if (words.length == 4)
-			files.push(new File(words[0], words[1], words[2], words[3], files, this));
-	}
+
+	file.forEach(function(entry) {
+		console.log(entry);
+		if (entry.length == 4)
+			files.push(new File(entry[0], entry[1], entry[2], entry[3], files, self));
+		else {
+			console.warn("unexpected error while parsing csv");
+		}
+	});
 	return files;
 }
 
@@ -198,10 +202,10 @@ var File = function(name, parent, isDir, content, files, termfunc)
 {
 	this.name = name;
 	this.parent = termfunc.getFile(files, parent);
-	isDir == "true" ? this.isDir = true : this.isDir = false;
-	content == "null" ? this.content = null : this.content = content;
+	isDir == true ? this.isDir = true : this.isDir = false;
+	content == null ? this.content = null : this.content = content;
 	this.children = [];
-	if (this.parent)
+	if (this.parent != null)
 		this.parent.children.push(this);
 }
 
