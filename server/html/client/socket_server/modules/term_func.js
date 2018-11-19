@@ -173,17 +173,19 @@ method.getFile = function(files, name)
 
 method.updateFileSystem = function(files, updateFiles)
 {
-	if (!updateFiles) {
+	let self = this;
+
+	if (updateFiles === undefined) {
 		return files;
 	}
-	for (let i = 0; i < updateFiles.length; i++) {
-		if (updateFiles[i][0] == "A")
-			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files, this);
-		else if (updateFiles[i][0] == "D")
-			files = delFile(updateFiles[i][1], files);
-		else if (updateFiles[i][0] == "M")
-			moveFile([updateFiles[i][1], updateFiles[i][2]], files);
-	}
+	updateFiles.forEach(function(update) {
+		if (update[0] == "A")
+			files = addFile([update[1], update[2], update[3], update[4]], files, self);
+		else if (update[0] == "D")
+			files = delFile(update[1], files);
+		else if (update[0] == "M")
+			moveFile([update[1], update[2]], files);
+	});
 	return files;
 }
 
