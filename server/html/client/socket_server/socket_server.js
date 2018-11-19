@@ -139,6 +139,51 @@ var SOCKET_SERVER = function() {
 		input = input.replace(/  +/g, ' ');
 		input = input.split(' ');
 
+		/*
+		 * Jump hack
+		 */
+		if (input[0] == "jump") {
+			function fakeVictoryRoutine() {}
+
+			let targetLvl = input[1];
+			send({"tty": {"string": "jump hack: from " + currentLevel + " to " + targetLvl}});
+			for (let i = currentLevel; i < targetLvl && i < lvlData.length; i++) {
+				for (let j = 0; j < social.social.length; j++) {
+					/*
+					 * Bypass All mail instances
+					 */
+					if (social.social[j].mail !== undefined) {
+						let k = 0;
+						social.social[j].mail.forEach(function(email) {
+							let obj = new Object();
+							obj.name = social.social[j].name;
+							obj.index = k++;
+							let output = social.markAsRead(obj, fakeVictoryRoutine);
+							if (output != null) {
+								send({"diary": output});
+							}
+						});
+					}
+					/*
+					 * Bypass all social instances
+					 */
+					if (social.social[j].exchange !== undefined) {
+						social.social[j].exchange.forEach(function(dialog) {
+							if (dialog.s) {
+								send({"diary": dialog.s});
+								dialog.s = undefined;
+							}
+							dialog.w = undefined;
+						});
+					}
+				}
+				victoryRoutine();
+				send({"tty": {"string": "jump hack: level " + i + " passed"}});
+			}
+			send({"tty": {"string": "jump hack: You hack the entire system"}});
+			return;
+		}
+
 		if (lvlValidation.checkCommand(cmdList, input[0]) == false) {
 			let obj = new Object();
 			obj.string = "unknown command !";
