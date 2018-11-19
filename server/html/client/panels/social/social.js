@@ -185,7 +185,6 @@ var SOCIAL = function(notif_button_cb, socket) {
 							/*
 							 * In case of active dialog but not a social victory; just remove old answers
 							 */
-							contact.paragraph.classList.add("notifSocial");
 							removeButton(contact.messengerDiv);
 						}
 						socket.send({"social": {"name" : name}});
