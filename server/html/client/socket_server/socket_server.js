@@ -234,48 +234,21 @@ var SOCKET_SERVER = function() {
 		ssh_request = false;
 		ssh_active = false;
 
-		function getFile(filename) {
-			let output;
-
-			function getFileContent(filename) {
-				let xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						cb(this.responseText);
-					}
-				}
-				xhttp.open("GET", filename, false);
-				xhttp.send();
-			};
-			function cb(content) {
-				output = content;
-			}
-			getFileContent(filename, cb);
-			return output;
-		}
-
-		let file;
-		file = getFile("socket_server/worlds/tuto/ssh/tutoVFS.csv");
-		files = termfunc.createFileSystem(file);
+		files = termfunc.createFileSystem(tutoVFS);
 		if (files === undefined) {
 			send({"error": "Internal server error"});
-			client.close();
 			return;
 		}
 
-		file = getFile("socket_server/worlds/tuto/ssh/molang.csv");
-		zeroSSH = termfunc.createFileSystem(file);
+		zeroSSH = termfunc.createFileSystem(molang);
 		if (zeroSSH === undefined) {
 			send({"error": "Internal server error"});
-			client.close();
 			return;
 		}
 
-		file = getFile("socket_server/worlds/tuto/ssh/big.csv");
-		bigSSH = termfunc.createFileSystem(file);
+		bigSSH = termfunc.createFileSystem(big);
 		if (bigSSH === undefined) {
 			send({"error": "Internal server error"});
-			client.close();
 			return;
 		}
 
@@ -283,8 +256,7 @@ var SOCKET_SERVER = function() {
 		curDir = root;
 		originCurDir = curDir; // for ssh
 
-		file = getFile("socket_server/worlds/tuto/tuto.json");
-		lvlData = lvlValidation.getLvlData(file);
+		lvlData = world;
 		if (lvlData === undefined) {
 			send({"error": "critical Internal server error"});
 			return;
