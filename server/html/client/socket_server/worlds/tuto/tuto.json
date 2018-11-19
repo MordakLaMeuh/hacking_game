@@ -8,39 +8,15 @@
 		"goal": "Log in.",
 		"cmdList":
 		[
-			[
-				"cat",
-				"cat filename : display content of file"
-			],
-			[
-				"ls",
-				"ls : list all files on the current folder"
-			],
-			[
-				"cd",
-				"cd directory : change directory. Type \"cd ..\" to go back to parent directory"
-			],
-			[
-				"pwd",
-				"pwd : print name of current directory"
-			],
-			[
-				"roll"
-			],
-			[
-				"help"
-			],
-			[
-				"ssh",
-				"ssh : connect to another computer"
-			],
-			[
-				"exit",
-				"exit : exit ssh session"
-			],
-			[
-				"hint"
-			]
+			["cat", "cat filename : display content of file"],
+			["ls", "ls : list all files on the current folder"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+			["pwd", "pwd : print name of current directory"],
+			["roll"],
+			["help"],
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"],
+			["hint"]
 		],
 		"social":
 		[
@@ -53,7 +29,7 @@
 						"sender": "0",
 						"from_to": "Admin 42",
 						"title": "Welcome",
-						"text": "Welcome to 42 ! We hope you'll enjoy staying with us."
+						"text": "Welcome to 42 ! We hope you'll enjoy staying with us. Are you born to hack ? Please visit our website for more info : www.42.fr"
 					}
 				]
 			},
@@ -68,58 +44,15 @@
 						"i":["1", "1"]
 					},
 					{
-						"q":"Once you're done, contact Zero, I heard she wants to talk to you.",
+						"q":"Talk to Marvin when you're done. he has something to tell you.",
 						"r": ["Okay, thank you"],
-						"i":["2", "2"],
+						"i":["2"],
 						"s": ["Credentials", "You can get access to your computer using root/root."],
 						"w": "1"
 					},
 					{
-						"q":"Good luck.",
+						"q":"Good luck !",
 						"r":[]
-					}
-				],
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Little Company",
-						"title": "Last notice",
-						"text": "We asked you before but you said no.<br/>I don't care about the animals, we need the forest to be cleared by next month for our new building.<br/>We are not paying you for arguing with my decisions so shut up and do your work.<br/>",
-						"s": ["Finally...", "You got proof of Big Company evil doings."],
-						"w":"1"
-					}
-				]
-			},
-			{
-				"name": "Bobo Le clown",
-				"password": "Bobo le clown",
-				"exchange":
-				[
-					{
-						"q":"Hey, it's been a long time. I changed your computer login and password to 'root'. Try to log in terminal.",
-						"r":["Got it", "What next ?"],
-						"i":["1", "1"]
-					},
-					{
-						"q":"Once you're done, contact Zero, I heard she wants to talk to you.",
-						"r": ["Okay, thank you"],
-						"i":["2", "2"]
-					},
-					{
-						"q":"Good luck.",
-						"r":[]
-					}
-				],
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Little Company",
-						"title": "Last notice",
-						"text": "We asked you before but you said no.<br/>I don't care about the animals, we need the forest to be cleared by next month for our new building.<br/>We are not paying you for arguing with my decisions so shut up and do your work.<br/>",
-						"s": ["Finally...", "You got proof of Big Company evil doings."],
-						"w":"1"
 					}
 				]
 			}
@@ -147,125 +80,23 @@
 		"social":
 		[
 			{
-				"name": "Admin",
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Admin",
-						"title": "Last Admin",
-						"text": "Wait, i am dying<br/>",
-						"s": ["Admin hints", "You got a new admin mail"]
-					}
-				],
+				"name": "Marvin",
+				"password": "toto",
 				"exchange":
 				[
 					{
-						"q": "Hello Mr. Hacker, I heard you made a big discovery. Something interesting on the BIG server ?",
-						"r": ["I am still looking."],
-						"i": ["1"]
+						"q":"Hey !",
+						"r":["Hi, you want to tell me something?", "I heard you want to talk to me."],
+						"i":["1", "1"]
 					},
 					{
-						"q": "Ok, take your time to look around.",
-						"r": ["Why are we hacking this company ?", "What should I look for ?"],
-						"i": ["2", "3"]
+						"q":"That's true but first, let's review the basics. The 'help' command display all available commands in terminal. Don't hesitate to use it when you're stuck.",
+						"r": ["Got it"],
+						"i":["2"]
 					},
 					{
-						"q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
-						"r": ["Ok, let's do this."],
-						"i": ["3"]
-					},
-					{
-						"q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
-						"r": []
-					}
-				]
-			},
-			{
-				"name": "Bobo Le clown",
-				"exchange":
-				[
-					{
-						"q": "TOTO",
-						"r": ["I am still looking."],
-						"i": ["1"]
-					},
-					{
-						"q": "Ok, take your time to look around.",
-						"r": ["Why are we hacking this company ?", "What should I look for ?"],
-						"i": ["2", "3"]
-					},
-					{
-						"q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
-						"r": ["Ok, let's do this."],
-						"i": ["3"]
-					},
-					{
-						"q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
-						"r": []
-					}
-				],
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Macaron",
-						"title": "Hello",
-						"text": "How are you Macaron ?"
-					}
-				]
-			},
-			{
-				"name": "Zero",
-				"exchange":
-				[
-					{
-						"q": "Helloooo (￣▼￣) !!",
-						"r":
-						[
-							"What's up ?",
-							"Who are you ?"
-						],
-						"i": ["1", "2"]
-					},
-					{
-						"q": "Got something to ask you... (〃ー〃)",
-						"r":
-						[
-							"What is it ?"
-						],
-						"i": ["3"]
-					},
-					{
-						"q": "Haha, good one. Like you'd forget your best friend ! (/ω＼)",
-						"r":
-						[
-							"You want to talk to me ?",
-							"Is something wrong ?"
-						],
-						"i": ["1", "1"]
-					},
-					{
-						"q": "I'm gonna give you a secret mission. I left a file just for you in your computer. Just open it.",
-						"r":
-						[
-							"How ?"
-						],
-						"i": ["4"]
-					},
-					{
-						"q": "Eaaasy ! Use 'help' in the terminal to see the available commands. Byyyye ! (⌒.－)＝★",
-						"r": []
-					}
-				],
-				"password": "12122000",
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Macaron",
-						"title": "Hello",
-						"text": "How are you Macaron ?"
+						"q":"Really ? Let's try it.",
+						"r":[]
 					}
 				]
 			}
@@ -293,36 +124,16 @@
 		"social":
 		[
 			{
-				"name": "Admin",
-				"mail":
-				[
-					{
-						"sender": "1",
-						"from_to": "Admin",
-						"title": "Ultimate Admin",
-						"text": "Wait, i am dying tooo<br/>",
-						"s": ["Admin hints", "You got a new admin mail"]
-					}
-				],
+				"name": "Marvin",
 				"exchange":
 				[
 					{
-						"q": "Meuuuuuuuuuh ! Hello Mr. Hacker, I heard you made a big discovery. Something interesting on the BIG server ?",
-						"r": ["I am still looking."],
+						"q": "Good ! One last thing : you can check your current goal in your Diary. If you're really stuck, type 'hint'. But don't overdo it !",
+						"r": ["I understand."],
 						"i": ["1"]
 					},
 					{
-						"q": "Ok, take your time to look around.",
-						"r": ["Why are we hacking this company ?", "What should I look for ?"],
-						"i": ["2", "3"]
-					},
-					{
-						"q": "We want to expose the BIG company for their evil doings. They are destroying forests and polluting oceans. Our plan is to lock their files and ask a big ransum that we will give to charities.",
-						"r": ["Ok, let's do this."],
-						"i": ["3"]
-					},
-					{
-						"q": "Try finding hints and get access to sensitive information from the boss. They are cautious people. When you are done, try getting back to your computer. I shared something that can help you.",
+						"q": "Ok, now you're all set. I received an e-mail from 42, I copied the content in a file in your computer. Just go and read it.",
 						"r": []
 					}
 				]
@@ -335,6 +146,8 @@
 			"cat mission.txt",
 			"/Missions"
 		],
+		"goal": "Locate and read Marvin's file.",
+		"hint": "Try using cat to read a file.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -352,9 +165,11 @@
 	{
 		"winningCondition":
 		[
-			"cat .hidden.txt",
-			"/.Secret"
+			"cat .macaron.txt",
+			"/.Students"
 		],
+		"goal": "Find information about the mysterious student.",
+		"hint": "Use the browser to gather information about 42.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -367,12 +182,13 @@
 			["exit", "exit : exit ssh session"]
 		],
 		"social":
-		[
-		]
+		[]
 	},
 	{
 		"winningCondition":
 		[""],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -385,105 +201,7 @@
 			["exit", "exit : exit ssh session"]
 		],
 		"social":
-		[
-			{
-			"name": "Sarah Jones",
-			"exchange":
-			[
-				{
-					"q":"Sarah speaking.",
-					"r":["Hello, I am Cathy Phelps from Sales", "Hello, I am Francisco Gomez from Tech support.", "Hello, you remember me ? I am Herbert Rowland the intern."],
-					"i":["1", "2", "3"]
-				},
-				{
-					"q":"Cathy ? I didn't recognized your voice, are you sick ?",
-					"r": ["Yes, I think my kid caught a cold and gave it to me", "Yeah I think I need holidays"],
-					"i":["4", "5"]
-				},
-				{
-					"q":"Francisco Gomez ?",
-					"r":["Yes, I am from the Mexico branch.", "Yes, I am from the London branch.", "Yes I am from the Seattle branch."],
-					"i":["6", "6", "7"]
-				},
-				{
-					"q":"Hi Herbert, what can I do for you ?",
-					"r":["I need your help to reset the server so I can get access.", "I'd like to take you on a date."],
-					"i":["8", "9"]
-				},
-				{
-					"q": "What ? But Cathy don't have kids. Stop your stupid pranks Nigel and get back to work !",
-					"r":[],
-					"i":["0"]
-				},
-				{
-					"q":"Me too. What can I do for you ?.",
-					"r":["I want to get access to the server.", "Do you know how I can get the server credentials ?"],
-					"i":["10", "10"]
-				},
-				{
-					"q":"We don't have any branches abroad. Who are you really ?",
-					"r":["Yes we do but it's a secret", "I made a mistake, I meant New York"],
-					"i":["11", "11"]
-				},
-				{
-					"q":"What can I do for you ?",
-					"r":["We are trying to solve a network problem. Is your team experiencing issues lately ?", "I am from the IT team. I am concerned amd I'd like you to run a few tests."],
-					"i":["12", "12"]
-				},
-				{
-					"q":"Why are you asking me this ? I am not in the IT team. I am calling your supervisor.",
-					"r":["Sorry, it was a silly joke. Geek humor.", "Please don't, I don't want to be fired.", "It was just a test to check if you understand our rules of security."],
-					"i":["13", "13", "13"]
-				},
-				{
-					"q":"Herbert, I am married. Have you not received the mail about sexual harassment ?",
-					"r":["Sorry, it was in my spam folder.", "I don't care, I like you anyway."],
-					"i":["13", "13"]
-				},
-				{
-					"q":"You lost your access ? Try asking the own supervisor. Sorry, but I don't have time for this.",
-					"r":[],
-					"i":["0"]
-				},
-				{
-					"q":"I am calling the security.",
-					"r":[],
-					"i":["0"]
-				},
-				{
-					"q":"Everything is OK here.",
-					"r":["I know that there will be a power outage soon. Last month, we lost data because of the same situation. I want to check a few things with you."],
-					"i":["14"]
-				},
-				{
-					"q":"Goodbye Herbert.",
-					"r":[],
-					"i":["0"]
-				},
-				{
-					"q":"Yes sure but why don't you ask Nigel or Victor from the IT team ?",
-					"r":["I met Kurt on his way to Boston. I told him I'll handle the situation myself since I already know the problem.", "I don't really trust them. I am leaving for holidays tonight and I'd like to get it over with today."],
-					"i":["15", "15"]
-				},
-				{
-					"q":"Very well, what do you need ?",
-					"r":["I know that your are busy, so send me the ssh credentials, and I'll fix everything for you guys."],
-					"i":["16"]
-				},
-				{
-					"q":"The login is big and the password is the date of the creation of the company.",
-					"r":["Ok, thank you for your time Mrs Jones. I'll take care of it."],
-					"i":["17"]
-				},
-				{
-					"q":"Thank you for taking care of this.",
-					"r":[],
-					"s":["You got BIG company access", " login:big/password:date of the creation of the company"],
-					"w":"1"
-				}
-			]
-			}
-		]
+		[]
 	},
 	{
 		"winningCondition":

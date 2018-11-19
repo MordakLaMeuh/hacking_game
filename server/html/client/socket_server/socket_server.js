@@ -111,8 +111,8 @@ var SOCKET_SERVER = function() {
 
 		if (ssh_request == true) {
 			ssh_request = false;
-			if (json_msg.login == "zero" && json_msg.password == "12122000") {
-				load_ssh_session(zeroSSH, "/", "zero", "toto");
+			if (json_msg.login == "42" && json_msg.password == "norminet") {
+				load_ssh_session(zeroSSH, "/", "student", "42");
 			} else if (json_msg.login == "big" && json_msg.password == "1947") {
 				load_ssh_session(bigSSH, "/", "big", "bigCorp");
 			} else {
