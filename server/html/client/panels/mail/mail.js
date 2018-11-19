@@ -1,6 +1,6 @@
 'use strict';
 
-var MAIL = function(keyboard, cursor, tty_key_cb, socket)
+var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 {
 	var self = this;
 
@@ -176,11 +176,15 @@ var MAIL = function(keyboard, cursor, tty_key_cb, socket)
 		});
 	}());
 
+	var volontaryLogin = false;	// true when a explicit identification process were triggered
 	/*
 	 * Check mail data received from server to allow or deny login
 	 */
 	function login(mail) {
 		if (mail.content) {
+			if (volontaryLogin == false) {
+				notif_button_cb("mail", true, true);
+			}
 			self.mailObj = mail;
 			let mailName = document.getElementById("mailName");
 			if (mail.name == "root")
@@ -194,6 +198,7 @@ var MAIL = function(keyboard, cursor, tty_key_cb, socket)
 		} else {
 			displayErrorForm(true);
 		}
+		volontaryLogin = false;
 	}
 
 	/*
@@ -390,6 +395,7 @@ var MAIL = function(keyboard, cursor, tty_key_cb, socket)
 		obj.name = name;
 		obj.password = password;
 		console.log(obj);
+		volontaryLogin = true;
 		socket.send({"mail": obj});
 	}
 

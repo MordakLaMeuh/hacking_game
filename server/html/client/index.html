@@ -169,7 +169,7 @@ after_load = function() {
 
 	var tty = new TTY(keyboard, cursor, socket_client);
 	var browser = new BROWSER(keyboard, cursor, tty.key_cb);
-	var mail = new MAIL(keyboard, cursor, tty.key_cb, socket_client);
+	var mail = new MAIL(UI_controler.notif_button_cb, keyboard, cursor, tty.key_cb, socket_client);
 	var social_client = new SOCIAL(UI_controler.notif_button_cb, socket_client);
 	var diary = new DIARY(UI_controler.notif_button_cb, socket_client);
 
