@@ -200,6 +200,14 @@ var SOCKET_SERVER = function() {
 			else
 				output = termfunc.str_rot(parseInt(input[1]), input[2]);
 			break;
+		case "rotify":
+			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
+				output = "Usage : rotify number file"
+			else if (parseInt(input[1]) <= 0)
+				output = "Number must be positive"
+			else
+				output = termfunc.rotify(parseInt(input[1]), input[2], curDir);
+			break;
 		case "ls":
 			output = termfunc.ls(curDir, input.slice(1, input.length));
 			break;

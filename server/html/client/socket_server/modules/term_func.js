@@ -33,6 +33,15 @@ method.str_rot = function(num, str) {
 	return newStr;
 }
 
+method.rotify = function(num, fileName, curDir)
+{
+	let file = this.getFile(curDir.children, fileName);
+	if (file == null)
+		return (fileName + " not found !");
+	else
+		return (this.str_rot(num, file.content));
+}
+
 /*
  * Filter int number before parseInt to avoid 42toto to be considered like 42
  */
