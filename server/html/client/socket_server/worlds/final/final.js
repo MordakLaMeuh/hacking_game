@@ -172,7 +172,7 @@ var world =
 			"/.Students"
 		],
 		"goal": "Find information about the mysterious student.",
-		"hint": "Use the browser to gather information about 42.",
+		"hint": "Use the browser to gather information about 42, then connect through ssh and look for hidden files.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -450,7 +450,8 @@ var world =
 							},
 							{
 								"q": "Very funny John ! I have work to do, bye !",
-								"r": []
+								"r": [],
+								"i":["0"]
 							},
 							{
 								"q": "Yeah sure. Before anything, could you confirm with us our client number ?",
@@ -470,8 +471,8 @@ var world =
 	{
 	"winningCondition":
 		[
-			"cat .macaron.txt",
-			"/.Students"
+			"cat article.txt",
+			"/Notes"
 		],
 	"goal": "Find information",
 	"hint": "Use the browser to gather information about 42.",
