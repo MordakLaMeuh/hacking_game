@@ -37,6 +37,7 @@
 #backBtn:hover, #signOutBtn:hover
 {
 	cursor: pointer;
+	opacity: 0.9;
 }
 
 #mail_body
@@ -98,7 +99,7 @@
 #mail_messages > div:hover
 {
 	cursor: pointer;
-	opacity: 1;
+	opacity: 0.9;
 }
 
 #mail form
