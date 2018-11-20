@@ -2,9 +2,7 @@ var world =
 [
 	{
 		"winningCondition":
-		[
-			""
-		],
+		[],
 		"hint": "Try talking with Admin",
 		"goal": "Log in.",
 		"cmdList":
@@ -253,10 +251,10 @@ var world =
 				"mail":
 					[
 						{
-							"sender": "0",
+							"sender": "1",
 							"from_to": "Lewis",
 							"title": "Schedule",
-							"text": "Hello"
+							"text": "Hi Lewis, as you know, I'll be on holidays next week, I leave everything to you and Johan :)"
 						},
 						{
 							"sender": "0",
@@ -267,10 +265,10 @@ var world =
 							"w":"1"
 						},
 						{
-							"sender": "1",
-							"from_to": "",
-							"title": "Schedule",
-							"text": "Hello"
+							"sender": "0",
+							"from_to": "Johan",
+							"title": "Problem",
+							"text": "I've been trying to get in contact with Macaron for the last two weeks.</br>It seems he's locked himself in. It's gonna take some time to reach him..."
 						}
 					]
 			},
@@ -511,13 +509,12 @@ var world =
 		"winningCondition":
 			[
 				"cat .macaron.txt",
-				"/.Students"
 			],
-		"goal": "Find information about the mysterious student.",
-		"hint": "Use the browser to gather information about 42.",
+		"goal": "Open the documents you received from Marvin.",
+		"hint": ".",
 		"cmdList":
 			[
-				["cat","cat filename : display content of file"],
+				["cat", "cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 				["pwd", "pwd : print name of current directory"],
@@ -527,6 +524,104 @@ var world =
 				["exit", "exit : exit ssh session"]
 			],
 		"social":
+			[
+				{
+					"name": "Marvin",
+					"exchange":
+						[
+
+							{
+								"q": "Sorry but... WHAAAAAAAAAAAAAAAAT ?",
+								"r": ["Yeah there's definitely something fishy...", "Maybe he came back from the dead to code. No wonders."],
+								"i": ["1","1"]
+							},
+							{
+								"q": "While you were busy, I peeked at Johan's computer and find some really interesting stuff. I put everything on your computer. Some files might be crypted though.",
+								"r": ["Any advice ?"],
+								"i": ["2","2"]
+							},
+							{
+								"q": "Ever heard of 'rot'?",
+								"r": ["Like... dead people ?", "Yup"],
+								"i": ["3","4"]
+							},
+							{
+								"q": "Haha, no. 'rot' is a cipher where each letter is replaced with a letter corresponding to a certain number of letters shifted up or down in the alphabet.",
+								"r": ["Sorry what ?", "I get it"],
+								"i": ["5","4"]
+							},
+							{
+								"q": "Good. I let you some doc on your computer in case you forget anyway. Good luck.",
+								"r": []
+							},
+							{
+								"q": "For example, a rot 1 would be that every letter is shifted by 1. A becomes B, B becomes C, etc. So what a rot 2 of abc would be ?",
+								"r": ["cde", "xyz"],
+								"i": ["4","6"]
+							},
+							{
+								"q": "Well no, it was 'cde'... I let you more doc on your computer. I think you need to read it.",
+								"r": []
+							}
+						]
+				}
+			],
+		"updateFiles":
+			[
+				["A", "rot", "Programs", false, "Cannot open rot. Try using rot"],
+				["A", "Marvin", "/", true, null],
+				["A", "rot.txt", "Doc", "false", "Rotate (or rot) is a simple letter substitution cipher that replaces a letter with the n-th letter after it, in the alphabet.<br/> Example : rot 1 abc = bcd<br/>"]
+				["A", "readme.txt", "Marvin", false, "I think I found a way to get to Macaron. You need to solve the puzzle of the other file and submit your answer with unlock."],
+				["A", "thirteen.txt", "Marvin", false, "pna lbh chg gjb naq gjb gbtrgure ?"]
+			]
+	},
+	{
+		"winningCondition":
+			[
+				"unlock four"
+			],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder"],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"],
+				["hint"]
+			],
+		"social":
 			[]
-	}
-]
+	},
+	{
+		"winningCondition":
+			[
+				"unlock "
+			],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder"],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"],
+				["hint"]
+			],
+		"social":
+			[],
+		"updateFiles":
+			[
+				["A", "five.txt", "Marvin", false, "ljwrfsnzr snhpjq zwfsnzr xzqkzw"]
+			]
+	},
+	
+	]
