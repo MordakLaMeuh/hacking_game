@@ -256,21 +256,42 @@ var world =
 							"sender": "0",
 							"from_to": "Lewis",
 							"title": "Schedule",
-							"text": "Hello",
-							"s": ["INFO", "You learnt valuable information about the BIG company."],
-							"w":"1"
+							"text": "Hello"
 						},
 						{
 							"sender": "0",
 							"from_to": "RepairCenter",
 							"title": "Your monthly invoice",
-							"text": "Your address : 49 Summer Street</br></br>Dear Customer,</br> Thank you for using our services. Please find enclosed our monthly invoice.</br> Any problem ? Please call our emergency number: 888-3490.<br/></br>RepairCenter Miami<br/>RepairCenter : All your needs for computer maintenance all over the US !"
+							"text": "Your address : 49 Summer Street</br></br>Dear Customer,</br> Thank you for using our services. Please find enclosed our monthly invoice.</br> Any problem ? Please call our emergency number: 888-3490.<br/></br>RepairCenter Miami<br/>RepairCenter : All your needs for computer maintenance all over the US !",
+							"s": ["INFO", "You learnt valuable information about the BIG company."],
+							"w":"1"
 						},
 						{
 							"sender": "1",
 							"from_to": "",
 							"title": "Schedule",
 							"text": "Hello"
+						}
+					]
+			},
+			{
+				"name": "Marvin",
+				"password": "toto",
+				"exchange":
+					[
+						{
+							"q": "Good job ! Listen, I found something.",
+							"r": ["Yeah ?"],
+							"i": ["1"]
+						},
+						{
+							"q": "I made some research about this company. The CEO's name is John Smith. His mail address is john@mail.com",
+							"r": ["Thank you"],
+							"i": ["2"]
+						},
+						{
+							"q": "Wait, there's more. Here is his social media profile : www.fb.com/john. Check it out.",
+							"r": []
 						}
 					]
 			}
@@ -291,9 +312,9 @@ var world =
 		]
 	},
 	{
-		"winningCondition": ["pwd"],
-		"goal": "toto",
-		"hint": "Try looking at his facebook page to gather some hints",
+		"winningCondition": [""],
+		"goal": "Get access to BIG SSH",
+		"hint": "Try speaking to RepairCenter to gain info on BIG.",
 		"cmdList":
 		[
 			["cat", "cat filename : display content of file"],
@@ -346,11 +367,14 @@ var world =
 					{
 						"q": "Ok, you got the address ?",
 						"r": ["445, Winter Lane", "49, Summer Street", "34, Spring Bld"],
-						"i": ["8", "7", "8"]
+						"i": ["8", "7", "8"],
+
 					},
 					{
 						"q": "Let's see.... The client number is #1520. Have a good day !",
 						"r": [],
+						"s": ["NOTE", "BIG client number : #1520"],
+						"w":"1",
 					},
 					{
 						"q": "Sorry, this address doesn't match any client in our database. I can't help you.",
@@ -358,13 +382,42 @@ var world =
 						"i": ["0"]
 					}
 				]
+			},
+			{
+				"name": "Big Company",
+				"exchange":
+					[
+						{
+							"q": "Big Company, Lewis speaking.",
+							"r": ["Hello, I am Ed from RepairCenter.", "Hello, I'm Donald Trump and I need your ssh access. National security matter."],
+							"i": ["1", "2"]
+						},
+						{
+							"q": "Is something wrong ?",
+							"r": ["We are just doing basic maintenance to give you a better service. I need access to your ssh to check something"],
+							"i": ["3"]
+						},
+						{
+							"q": "Very funny John ! I have work to do, bye !",
+							"r": []
+						},
+						{
+							"q": "Yeah sure. Before anything, could you confirm with us our client number ?",
+							"r": ["999 ?", 'Errr...777 ?', "Sorry, my dog ate my notebook"],
+							"i":["4","4","4"]
+						},
+						{
+							"q": "Without this number, I can't help you. Good bye.",
+							"r": []
+						}
+					]
 			}
 		]
 	},
 	{
-		"winningCondition": ["pwd"],
-		"goal": "toto",
-		"hint": "Try looking at his facebook page to gather some hints",
+		"winningCondition": [""],
+		"goal": "Get access to BIG ssh.",
+		"hint": "Speak to big's employee Lewis.",
 		"cmdList":
 			[
 				["cat", "cat filename : display content of file"],
@@ -381,55 +434,98 @@ var world =
 		"social":
 			[
 				{
-					"name": "RepairCenter Miami",
+					"name": "Big Company",
 					"exchange":
 						[
+
 							{
-								"q": "RepairCenter Miami, Robin speaking.",
-								"r": ["Hello, I'm your boss.", "Hello, my name is Taylor Green."],
+								"q": "Big Company, Lewis speaking.",
+								"r": ["Hello, I am Ed from RepairCenter.", "Hello, I'm Donald Trump and I need your ssh access. National security matter."],
 								"i": ["1", "2"]
 							},
 							{
-								"q": "What ? What are you talking about, my boss is right next to me. Stop your stupid pranks !",
-								"r": [],
-								"i":["0"]
+								"q": "Is something wrong ?",
+								"r": ["We are just doing basic maintenance to give you a better service. I need access to your ssh to check something"],
+								"i": ["3"]
 							},
 							{
-								"q": "Sorry, who are you ?",
-								"r": ["I'm from the invoice department at your New York Branch.", "I'm from the sales department at your London branch."],
-								"i": ["3", "4"]
+								"q": "Very funny John ! I have work to do, bye !",
+								"r": []
 							},
 							{
-								"q": "I see, What can I do for you ?",
-								"r": ["I cannot use my computer... I opened an e-mail attachment and everything crashed down."],
-								"i": ["5", "6"]
+								"q": "Yeah sure. Before anything, could you confirm with us our client number ?",
+								"r": ["Sure ! It's #1520."],
+								"i":["4"],
+								"s": ["NOTE", "BIG Client ssh login : big / password : 1947"],
+								"w":"1"
 							},
 							{
-								"q": "What ? We don't have any branches abroad. I'm calling the security.",
-								"r": [],
-								"i": ["0"]
-							},
-							{
-								"q": "Oh yeah, I understand... Same thing happened to me last month. How can I help you Taylor ?",
-								"r": ["Well I have a important woman on hold who ask information about a client. Name of the company is BIG"],
-								"i": ["6"]
-							},
-							{
-								"q": "Ok, you got the address ?",
-								"r": ["445, Winter Lane", "49, Summer Street", "34, Spring Bld"],
-								"i": ["8", "7", "8"]
-							},
-							{
-								"q": "Let's see.... The client number is #1520. Have a good day !",
-								"r": [],
-							},
-							{
-								"q": "Sorry, this address doesn't match any client in our database. I can't help you.",
-								"r": [],
-								"i": ["0"]
+								"q": "All good. The ssh login is big and the password is 1947. Keep up the good work.",
+								"r": []
 							}
 						]
 				}
 			]
+	},
+	{
+	"winningCondition":
+		[
+			"cat .macaron.txt",
+			"/.Students"
+		],
+	"goal": "Find information",
+	"hint": "Use the browser to gather information about 42.",
+	"cmdList":
+		[
+			["cat","cat filename : display content of file"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["pwd", "pwd : print name of current directory"],
+			["roll"],
+			["help"],
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit : exit ssh session"]
+		],
+	"social":
+		[
+			{
+			"name": "Unknown",
+			"exchange":
+				[
+
+					{
+						"q": "I know what you are doing. Stop it right now.",
+						"r": ["Who are you ?"],
+						"i": ["1"]
+					},
+					{
+						"q": "Mind your own business.",
+						"r": []
+					}
+				]
+		}
+		]
+	},
+	{
+		"winningCondition":
+			[
+				"cat .macaron.txt",
+				"/.Students"
+			],
+		"goal": "Find information about the mysterious student.",
+		"hint": "Use the browser to gather information about 42.",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"]
+			],
+		"social":
+			[]
 	}
 ]

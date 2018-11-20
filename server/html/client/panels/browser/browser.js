@@ -117,9 +117,9 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 
 	/* Create key-value pairs with the url and matching img */
 	var dict = new Object();
-	dict["www.fakebook.com/vyoung"] = "medias/victor.jpeg";
+	dict["www.42.fr"] = "medias/ft.png";
 	dict["www.ours.com"] = "medias/ours.png";
-	dict["www.molang.com"] = "medias/macaron.jpg";
+	dict["www.fb.com/john"] = "medias/facebook.png";
 	dict["www.big.com"] = "medias/big.png";
 
 	function showImginBrowser(str) {

@@ -373,7 +373,7 @@ var MAIL = function(notif_button_cb, keyboard, cursor, tty_key_cb, socket)
 	 */
 	function displayMailContent(mailList, index) {
 		currentSession.onFolder = false;
-		currentSession.mail[index].read = true;
+		// currentSession.mail[index].read = true;
 		removeMailList(mailList);
 
 		let mailContent = document.createElement("p");
