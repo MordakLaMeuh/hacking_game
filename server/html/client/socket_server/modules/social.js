@@ -68,7 +68,7 @@ method.addEntries = function(obj, sendCb)
 			}
 		}
 	 });
-	return output;
+	 return output;
 }
 
 method.sendMail = function(obj) {
@@ -86,21 +86,29 @@ method.sendMail = function(obj) {
 }
 
 method.markAsRead = function(obj, victory_cb) {
-
 	let output = null;
 
-	for (let i = 0; i < this.social.length; i++) {
-		if (obj.name != undefined && this.social[i].name == obj.name &&
-			obj.index >= 0 && obj.index < this.social[i].mail.length) {
-			if (this.social[i].mail[obj.index].s && this.social[i].mail[obj.index].read === false){
-				output = this.social[i].mail[obj.index].s;
-				if (this.social[i].mail[obj.index].w && this.social[i].mail[obj.index].read === false)
-					victory_cb();
-				this.social[i].mail[obj.index].read = true;
-			}
-			break;
-		}
+	if (obj.name === undefined) {
+		console.warn("undefined name");
+		return;
 	}
+
+	this.social.forEach(function(contact) {
+		if (obj.name == contact.name) {
+			let idx = obj.index;
+			if (idx >= 0 && idx < contact.mail.length) {
+				if (contact.mail[idx].read == false) {
+					if (contact.mail[idx].s !== undefined)
+						output = contact.mail[idx].s;
+					if (contact.mail[idx].w !== undefined)
+						victory_cb();
+				}
+				contact.mail[idx].read = true;
+			} else {
+				console.warn("unexpected mail index");
+			}
+		}
+	});
 	return output;
 }
 

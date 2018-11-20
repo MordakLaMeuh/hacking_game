@@ -67,6 +67,8 @@ var SOCKET_SERVER = function() {
 				if (obj != null) {
 					send({"diary": obj});
 				}
+			} else {
+				console.warn("unknown mail object");
 			}
 			return;
 		}
