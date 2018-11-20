@@ -57,34 +57,7 @@ var world =
 						"r":[]
 					}
 				]
-			},
-			{
-				"name": "john@mail.com",
-				"password": "12121980",
-				"mail":
-					[
-						{
-							"sender": "0",
-							"from_to": "Lewis",
-							"title": "Schedule",
-							"text": "Hello",
-							"w":"1",
-							"s": ["INFO", "You learnt valuable information about the BIG company."]
-						},
-						{
-							"sender": "0",
-							"from_to": "Lewis",
-							"title": "Schedule",
-							"text": "Hello"
-						},
-						{
-							"sender": "0",
-							"from_to": "Lewis",
-							"title": "Schedule",
-							"text": "Hello"
-						}
-					]
-		}
+			}
 		]
 	},
 	{
@@ -186,7 +159,8 @@ var world =
 			["roll"],
 			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"]
+			["exit", "exit : exit ssh session"],
+			["hint"]
 		],
 		"social":
 		[]
@@ -228,7 +202,8 @@ var world =
 			["help"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit : exit ssh session"],
-			["whois", "whois ipaddress : give info on a ip address"]
+			["whois", "whois ipaddress : give info on a ip address"],
+			["hint"]
 		],
 		"social":
 		[
@@ -271,109 +246,190 @@ var world =
 		[""],
 		"goal": "Access to BIG's CEO e-mail.",
 		"hint": "Try looking at his facebook page to gather some hints",
-		"social": [],
+		"social": [
+			{
+				"name": "john@mail.com",
+				"password": "12121980",
+				"mail":
+					[
+						{
+							"sender": "0",
+							"from_to": "Lewis",
+							"title": "Schedule",
+							"text": "Hello",
+							"s": ["INFO", "You learnt valuable information about the BIG company."],
+							"w":"1"
+						},
+						{
+							"sender": "0",
+							"from_to": "RepairCenter",
+							"title": "Your monthly invoice",
+							"text": "Your address : 49 Summer Street</br></br>Dear Customer,</br> Thank you for using our services. Please find enclosed our monthly invoice.</br> Any problem ? Please call our emergency number: 888-3490.<br/></br>RepairCenter Miami<br/>RepairCenter : All your needs for computer maintenance all over the US !"
+						},
+						{
+							"sender": "1",
+							"from_to": "",
+							"title": "Schedule",
+							"text": "Hello"
+						}
+					]
+			}
+		],
 		"cmdList":
 		[
-			[
-				"cat",
-				"cat filename : display content of file"
-			],
-			[
-				"cd",
-				"cd directory : change directory. Type \"cd ..\" to go back to parent directory"
-			],
-			[
-				"ls",
-				"ls : list all files on the current folder. Option -a : display hidden files."
-			],
-			[
-				"pwd",
-				"pwd : print name of current directory"
-			],
-			[
-				"roll"
-			],
-			[
-				"help"
-			],
-			[
-			  "rot",
-			  "rot : replaces all letters of a word with the n-th letter after it"
-			],
-			[
-				"ssh",
-				"ssh : connect to another computer"
-			],
-			[
-				"exit",
-				"exit", "exit : exit ssh session"
-			],
-			[
-				"whois",
-				"whois ipaddress : give info on a ip address"
-			]
+			["cat", "cat filename : display content of file"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["pwd", "pwd : print name of current directory"],
+			["roll"],
+			["help"],
+			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit", "exit : exit ssh session"],
+			["whois", "whois ipaddress : give info on a ip address"],
+			["hint"]
 		]
 	},
 	{
-		"winningCondition": [""],
-		"goal": "Access to BIG's CEO e-mail.",
+		"winningCondition": ["pwd"],
+		"goal": "toto",
 		"hint": "Try looking at his facebook page to gather some hints",
 		"cmdList":
 		[
-			[
-				"cat",
-				"cat filename : display content of file"
-			],
-			[
-				"cd",
-				"cd directory : change directory. Type \"cd ..\" to go back to parent directory"
-			],
-			[
-				"ls",
-				"ls : list all files on the current folder. Option -a : display hidden files."
-			],
-			[
-				"pwd",
-				"pwd : print name of current directory"
-			],
-			[
-				"rot",
-				"rot : replaces all letters of a word with the n-th letter after it"
-			],
-			[
-				"roll"
-			],
-			[
-				"help"
-			],
-			[
-				"ssh",
-				"ssh : connect to another computer"
-			],
-			[
-				"exit",
-				"exit", "exit : exit ssh session"
-			]
+			["cat", "cat filename : display content of file"],
+			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["pwd", "pwd : print name of current directory"],
+			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
+			["roll"],
+			["help"],
+			["ssh", "ssh : connect to another computer"],
+			["exit", "exit", "exit : exit ssh session"],
+			["hint"]
 		],
 		"social":
 		[
 			{
-				"name": "Twelve",
+				"name": "RepairCenter Miami",
 				"exchange":
 				[
 					{
-						"q": "Well done ! Send us all the proof as soon as possible, We are gonna lock their server and leak all the data to the newspapers.",
-						"r": ["It was easy", "Thank you it was really hard..."],
-						"s": ["GAME CLEAR !", "Congratulations, the animals are thankful !"],
-						"w":"1",
-						"i": ["1", "1"]
+						"q": "RepairCenter Miami, Robin speaking.",
+						"r": ["Hello, I'm your boss.", "Hello, my name is Taylor Green."],
+						"i": ["1", "2"]
 					},
 					{
-						"q": "You can take a break now. Thank you for your help :)",
-						"r": []
+						"q": "What ? What are you talking about, my boss is right next to me. Stop your stupid pranks !",
+						"r": [],
+						"i":["0"]
+					},
+					{
+						"q": "Sorry, who are you ?",
+						"r": ["I'm from the invoice department at your New York Branch.", "I'm from the sales department at your London branch."],
+						"i": ["3", "4"]
+					},
+					{
+						"q": "I see, What can I do for you ?",
+						"r": ["I cannot use my computer... I opened an e-mail attachment and everything crashed down."],
+						"i": ["5", "6"]
+					},
+					{
+						"q": "What ? We don't have any branches abroad. I'm calling the security.",
+						"r": [],
+						"i": ["0"]
+					},
+					{
+						"q": "Oh yeah, I understand... Same thing happened to me last month. How can I help you Taylor ?",
+						"r": ["Well I have a important woman on hold who ask information about a client. Name of the company is BIG"],
+						"i": ["6"]
+					},
+					{
+						"q": "Ok, you got the address ?",
+						"r": ["445, Winter Lane", "49, Summer Street", "34, Spring Bld"],
+						"i": ["8", "7", "8"]
+					},
+					{
+						"q": "Let's see.... The client number is #1520. Have a good day !",
+						"r": [],
+					},
+					{
+						"q": "Sorry, this address doesn't match any client in our database. I can't help you.",
+						"r": [],
+						"i": ["0"]
 					}
 				]
 			}
 		]
+	},
+	{
+		"winningCondition": ["pwd"],
+		"goal": "toto",
+		"hint": "Try looking at his facebook page to gather some hints",
+		"cmdList":
+			[
+				["cat", "cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+				["pwd", "pwd : print name of current directory"],
+				["rot", "rot : replaces all letters of a word with the n-th letter after it"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit", "exit : exit ssh session"],
+				["hint"]
+			],
+		"social":
+			[
+				{
+					"name": "RepairCenter Miami",
+					"exchange":
+						[
+							{
+								"q": "RepairCenter Miami, Robin speaking.",
+								"r": ["Hello, I'm your boss.", "Hello, my name is Taylor Green."],
+								"i": ["1", "2"]
+							},
+							{
+								"q": "What ? What are you talking about, my boss is right next to me. Stop your stupid pranks !",
+								"r": [],
+								"i":["0"]
+							},
+							{
+								"q": "Sorry, who are you ?",
+								"r": ["I'm from the invoice department at your New York Branch.", "I'm from the sales department at your London branch."],
+								"i": ["3", "4"]
+							},
+							{
+								"q": "I see, What can I do for you ?",
+								"r": ["I cannot use my computer... I opened an e-mail attachment and everything crashed down."],
+								"i": ["5", "6"]
+							},
+							{
+								"q": "What ? We don't have any branches abroad. I'm calling the security.",
+								"r": [],
+								"i": ["0"]
+							},
+							{
+								"q": "Oh yeah, I understand... Same thing happened to me last month. How can I help you Taylor ?",
+								"r": ["Well I have a important woman on hold who ask information about a client. Name of the company is BIG"],
+								"i": ["6"]
+							},
+							{
+								"q": "Ok, you got the address ?",
+								"r": ["445, Winter Lane", "49, Summer Street", "34, Spring Bld"],
+								"i": ["8", "7", "8"]
+							},
+							{
+								"q": "Let's see.... The client number is #1520. Have a good day !",
+								"r": [],
+							},
+							{
+								"q": "Sorry, this address doesn't match any client in our database. I can't help you.",
+								"r": [],
+								"i": ["0"]
+							}
+						]
+				}
+			]
 	}
 ]
