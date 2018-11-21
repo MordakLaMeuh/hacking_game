@@ -684,8 +684,8 @@ var world =
 			[
 				"cat note.txt"
 			],
-		"goal": "Display files in current directory.",
-		"hint": "Type ls in terminal",
+		"goal": "Discover the truth.",
+		"hint": "ssh to macaron",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -759,7 +759,7 @@ var world =
 							"q": "Oh I apologize ! Humans can be so moody !",
 							"r": ["Would you stop that ?"],
 							"i": ["6"],
-							"s": ["Thank you for playing !", ""],
+							"s": ["Thank you for playing !"],
 							"w":"1"
 						},
 						{
