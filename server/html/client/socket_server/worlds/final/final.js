@@ -311,7 +311,7 @@ var world =
 	},
 	{
 		"winningCondition": [""],
-		"goal": "Get access to BIG SSH",
+		"goal": "Gather information about BIG",
 		"hint": "Try speaking to RepairCenter to gain info on BIG.",
 		"cmdList":
 		[
@@ -470,7 +470,7 @@ var world =
 	"winningCondition":
 		[
 			"cat article.txt",
-			"/Notes"
+			"/.Private"
 		],
 	"goal": "Find information",
 	"hint": "Use the browser to gather information about 42.",
@@ -570,9 +570,10 @@ var world =
 			[
 				["A", "rot", "Programs", false, "Cannot open rot. Try using rot"],
 				["A", "Marvin", "/", true, null],
-				["A", "rot.txt", "Doc", "false", "Rotate (or rot) is a simple letter substitution cipher that replaces a letter with the n-th letter after it, in the alphabet.<br/> Example : rot 1 abc = bcd<br/>"]
-				["A", "readme.txt", "Marvin", false, "I think I found a way to get to Macaron. You need to solve the puzzle of the other file and submit your answer with unlock."],
-				["A", "thirteen.txt", "Marvin", false, "pna lbh chg gjb naq gjb gbtrgure ?"]
+				["A", "rot.txt", "Doc", "false", "Rotate (or rot) is a simple letter substitution cipher that replaces a letter with the n-th letter after it, in the alphabet.<br/> Example : rot 1 abc = bcd<br/>"],
+				["A", "readme.txt", "Marvin", false, "I think I found a way to get to Macaron. You need to solve the puzzle of the other file and submit your answer with unlock. It seems there are 3 locks."],
+				["A", "thirteen.txt", "Marvin", false, "pna lbh chg gjb naq gjb gbtrgure ?"],
+				["A", "password.txt", "Marvin", false, "_ _ _ _ _ _ _ _ "]
 			]
 	},
 	{
@@ -580,8 +581,8 @@ var world =
 			[
 				"unlock four"
 			],
-		"goal": "11",
-		"hint": "Type ls in terminal",
+		"goal": "Unlock the first lock of Macaron",
+		"hint": "Use rot",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -592,7 +593,9 @@ var world =
 				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"]
+				["hint"],
+				["rotify", "decipher a file"],
+				["unlock", "try to break current lock with a password"]
 			],
 		"social":
 			[]
@@ -614,19 +617,24 @@ var world =
 				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"]
+				["hint"],
+				["rotify", "decipher a file"],
+				["unlock", "try to break current lock with a password"]
 			],
 		"social":
 			[],
 		"updateFiles":
 			[
-				["A", "five.txt", "Marvin", false, "ljwrfsnzr snhpjq zwfsnzr xzqkzw"]
+				["D", "thirteen.txt"],
+				["A", "five.txt", "Marvin", false, "bzmhvidph idxfzg pmvidph npgapm"],
+				["D", "password.txt"],
+				["A", "password.txt", "Marvin", false, "_ n _ i _ _ t _"]
 			]
 	},
 	{
 		"winningCondition":
 			[
-				"unlock elite"
+				"unlock lane"
 			],
 		"goal": "Display files in current directory.",
 		"hint": "Type ls in terminal",
@@ -640,7 +648,8 @@ var world =
 				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"]
+				["hint"],
+				["unlock", "try to break current lock with a password"]
 			],
 		"social":
 			[
@@ -661,9 +670,13 @@ var world =
 						]
 				}
 			],
+
 		"updateFiles":
 			[
-				["A", "five.txt", "Marvin", false, "ljwrfsnzr snhpjq zwfsnzr xzqkzw"]
+				["D", "five.txt"],
+				["A", "way.txt", "Marvin", false, "please take only seconds"],
+				["D", "password.txt"],
+				["A", "password.txt", "Marvin", false, "i n _ i _ i t _"]
 			]
 	},
 	{
@@ -686,7 +699,12 @@ var world =
 				["hint"]
 			],
 		"social":
-			[]
+			[],
+		"updateFiles":
+			[
+				["D", "password.txt"],
+				["A", "password.txt", "Marvin", false, "i n f i n i t y"]
+			]
 	},
 	{
 		"winningCondition":
@@ -723,7 +741,7 @@ var world =
 							"i": ["2"]
 						},
 						{
-							"q": "Nothing. It was just entertaining for me. I an sure you can understand.",
+							"q": "Nothing. It was just entertaining for me. I wanted to be a part of it. I am sure you can understand.",
 							"r": ["Yes, sort of."],
 							"i": ["3"]
 						},

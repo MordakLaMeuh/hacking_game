@@ -33,6 +33,15 @@ method.str_rot = function(num, str) {
 	return newStr;
 }
 
+method.rotify = function(num, fileName, curDir)
+{
+	let file = this.getFile(curDir.children, fileName);
+	if (file == null)
+		return (fileName + " not found !");
+	else
+		return (this.str_rot(num, file.content));
+}
+
 /*
  * Filter int number before parseInt to avoid 42toto to be considered like 42
  */
@@ -168,6 +177,7 @@ method.getFile = function(files, name)
 		if (files[i].name == name)
 			return files[i];
 	}
+	console.warn("file not found");
 	return null;
 }
 
@@ -182,7 +192,7 @@ method.updateFileSystem = function(files, updateFiles)
 		if (update[0] == "A")
 			files = addFile([update[1], update[2], update[3], update[4]], files, self);
 		else if (update[0] == "D")
-			files = delFile(update[1], files);
+			files = delFile(update[1], files, self);
 		else if (update[0] == "M")
 			moveFile([update[1], update[2]], files);
 	});
@@ -237,7 +247,7 @@ function getLsContent(children, args, hidden)
 	return str;
 }
 
-function delFile(name, files)
+function delFile(name, files, termfunc)
 {
 	let file = termfunc.getFile(files, name);
 	if (file) {

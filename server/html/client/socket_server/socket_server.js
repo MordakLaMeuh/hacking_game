@@ -14,6 +14,7 @@ var SOCKET_SERVER = function() {
 	var files;						// (obj) Contain the base directory tree
 	var zeroSSH;					// (obj) Contain the zeroSSH directory tree
 	var bigSSH;						// (obj) Contain the bigSSH direcotry tree
+	var iaSSH;
 
 	var root;						// (obj) Contain the current root
 	var curDir;						// (obj) Contain the current directory
@@ -117,7 +118,11 @@ var SOCKET_SERVER = function() {
 				load_ssh_session(zeroSSH, "/", "student", "42");
 			} else if (json_msg.login == "big" && json_msg.password == "1947") {
 				load_ssh_session(bigSSH, "/", "big", "bigCorp");
-			} else {
+			}
+			else if (json_msg.login == "macaron" && json_msg.password == "infinity") {
+				load_ssh_session(iaSSH, "/", "guest", "macaron");
+			}
+			else {
 				let obj = new Object();
 				obj.string = "SSH Connexion failed.";
 				send({"tty": obj});
@@ -216,6 +221,8 @@ var SOCKET_SERVER = function() {
 			else if (input[1] == "four" && currentLevel == 11)
 				output = "password.txt updated";
 			else if (input[1] == "genius" && currentLevel == 12)
+				output = "password.txt updated";
+			else if (input[1] == "lane" && currentLevel == 13)
 				output = "password.txt updated";
 			break;
 		case "ls":
@@ -321,6 +328,12 @@ var SOCKET_SERVER = function() {
 		}
 
 		bigSSH = termfunc.createFileSystem(big);
+		if (bigSSH === undefined) {
+			send({"error": "Internal server error"});
+			return;
+		}
+
+		iaSSH = termfunc.createFileSystem(end);
 		if (bigSSH === undefined) {
 			send({"error": "Internal server error"});
 			return;

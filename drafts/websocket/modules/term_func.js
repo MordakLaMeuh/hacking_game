@@ -185,7 +185,7 @@ updateFileSystem: function(files, updateFiles)
 		if (updateFiles[i][0] == "A")
 			files = addFile([updateFiles[i][1], updateFiles[i][2], updateFiles[i][3], updateFiles[i][4]], files);
 		else if (updateFiles[i][0] == "D")
-			files = delFile(updateFiles[i][1], files);
+			files = delFile(update[1], files, self);
 		else if (updateFiles[i][0] == "M")
 			moveFile([updateFiles[i][1], updateFiles[i][2]], files);
 	}
@@ -236,7 +236,7 @@ function getLsContent(children, args, hidden)
 	return str;
 }
 
-function delFile(name, files)
+function delFile(name, files, termfunc)
 {
 	var file = termfunc.getFile(files, name);
 	if (file)
