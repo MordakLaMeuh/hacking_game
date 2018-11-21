@@ -8,7 +8,7 @@ var world =
 		"cmdList":
 		[
 			["cat", "cat filename : display content of file"],
-			["ls", "ls : list all files on the current folder"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
@@ -68,7 +68,7 @@ var world =
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
-			["ls", "ls : list all files on the current folder"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
@@ -113,7 +113,7 @@ var world =
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
@@ -152,7 +152,7 @@ var world =
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder"],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
@@ -175,7 +175,7 @@ var world =
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
@@ -194,7 +194,7 @@ var world =
 		[
 			["cat","cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
@@ -298,7 +298,7 @@ var world =
 		[
 			["cat", "cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
@@ -317,7 +317,7 @@ var world =
 		[
 			["cat", "cat filename : display content of file"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
 			["roll"],
@@ -420,7 +420,7 @@ var world =
 			[
 				["cat", "cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["rot", "rot : replaces all letters of a word with the n-th letter after it"],
 				["roll"],
@@ -478,7 +478,7 @@ var world =
 			[
 				["cat","cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
@@ -516,7 +516,7 @@ var world =
 			[
 				["cat", "cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
@@ -587,7 +587,7 @@ var world =
 			[
 				["cat","cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
@@ -611,7 +611,7 @@ var world =
 			[
 				["cat","cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
@@ -642,7 +642,7 @@ var world =
 			[
 				["cat","cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
@@ -690,7 +690,7 @@ var world =
 			[
 				["cat","cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
@@ -715,7 +715,7 @@ var world =
 			[
 				["cat","cat filename : display content of file"],
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-				["ls", "ls : list all files on the current folder"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
 				["roll"],
 				["help"],
