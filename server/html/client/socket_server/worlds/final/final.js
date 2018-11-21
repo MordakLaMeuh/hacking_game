@@ -547,7 +547,7 @@ var world =
 				"unlock four"
 			],
 		"goal": "Unlock the first lock.",
-		"hint": "Use rotify command.",
+		"hint": "Use rot command.",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
