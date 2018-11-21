@@ -122,3 +122,35 @@
 	background: black;
 	padding: 5px;
 }
+
+.notifSocial
+{
+	-webkit-animation: glowingSocial 1500ms infinite;
+	-moz-animation: glowingSocial 1500ms infinite;
+	-o-animation: glowingSocial 1500ms infinite;
+	animation: glowingSocial 1500ms infinite;
+}
+
+@-webkit-keyframes glowingSocial {
+	0% { -webkit-text-shadow: 0 0 3px #ffee10; }
+	50% { -webkit-text-shadow: 0 0 40px orange; }
+	100% { -webkit-text-shadow: 0 0 3px #ffee10; }
+}
+
+@-moz-keyframes glowingSocial {
+	0% { -moz-text-shadow: 0 0 3px #ffee10; }
+	50% { -moz-text-shadow: 0 0 40px orange; }
+	100% { -moz-text-shadow: 0 0 3px #ffee10; }
+}
+
+@-o-keyframes glowingSocial {
+	0% { text-shadow: 0 0 3px #ffee10; }
+	50% { text-shadow: 0 0 40px orange; }
+	100% { text-shadow: 0 0 3px #ffee10; }
+}
+
+@keyframes glowingSocial {
+	0% { text-shadow: 0 0 3px #ffee10; }
+	50% { text-shadow: 0 0 40px orange; }
+	100% { text-shadow: 0 0 3px #ffee10; }
+}
