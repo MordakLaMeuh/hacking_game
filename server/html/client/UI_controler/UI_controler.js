@@ -86,8 +86,6 @@ var UI_CONTROLER = function() {
 	}
 
 	function changeScreen(button, target) {
-		console.log("On right panel");
-
 		if (IS_MOBILE == true) {
 			switchScreen(panels);
 		}

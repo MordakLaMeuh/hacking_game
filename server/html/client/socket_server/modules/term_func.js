@@ -15,9 +15,7 @@ method.str_rot = function(num, str) {
 	for (let i = 0; i < str.length; i++) {
 		let char = str[i],
 		isUpper = (char === char.toUpperCase()) ? true : false;
-
 		char = char.toLowerCase();
-
 		if (alphabet.indexOf(char) > -1) {
 			let newIndex = alphabet.indexOf(char) + num;
 			if(newIndex < alphabet.length) {
@@ -61,7 +59,6 @@ method.createFileSystem = function(file)
 	let files = [];
 
 	file.forEach(function(entry) {
-		console.log(entry);
 		if (entry.length == 4)
 			files.push(new File(entry[0], entry[1], entry[2], entry[3], files, self));
 		else {

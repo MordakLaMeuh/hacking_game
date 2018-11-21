@@ -151,7 +151,6 @@ var KEYBOARD = function() {
 	 */
 	document.addEventListener("keydown", function(event) {
 		if (target === undefined) {
-			console.log("undefined target");
 			return;
 		}
 		let key = event.key;
