@@ -12,8 +12,7 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["pwd", "pwd : print name of current directory"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"],
-			["whois"]
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -298,8 +297,7 @@ var world =
 			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit", "exit : exit ssh session"],
-			["hint"]
+			["exit", "exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
