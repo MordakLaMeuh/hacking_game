@@ -67,10 +67,7 @@
 	flex: 1;
 
 }
-.messenger ul li:first-child
-{
-	margin-top: 5px;
-}
+
 .messenger ul li{
 	display:inline-block;
 	clear: both;
@@ -81,15 +78,15 @@
 }
 
 .him{
+	background: black;
 	float: left;
-	background: #78C8FF;
-	color: black;
+	color: #78C8FF;
 }
 
 .me{
 	float: right;
-	background: black;
-	color: #78C8FF;
+	background: #78C8FF;
+	color: black;
 }
 
 .him + .me{
