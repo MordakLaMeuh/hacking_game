@@ -508,7 +508,7 @@ var world =
 	{
 		"winningCondition":
 			[
-				"cat .macaron.txt",
+				"cat readme.txt",
 			],
 		"goal": "Open the documents you received from Marvin.",
 		"hint": ".",
