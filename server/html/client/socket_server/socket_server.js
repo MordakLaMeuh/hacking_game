@@ -194,11 +194,27 @@ var SOCKET_SERVER = function() {
 		switch (input[0]) {
 		case "rot":
 			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
-				output = "Usage : rot number word"
+				output = "Usage : rot number word";
 			else if (parseInt(input[1]) <= 0)
-				output = "Number must be positive"
+				output = "Number must be positive";
 			else
 				output = termfunc.str_rot(parseInt(input[1]), input[2]);
+			break;
+		case "rotify":
+			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
+				output = "Usage : rotify number file";
+			else if (parseInt(input[1]) <= 0)
+				output = "Number must be positive";
+			else
+				output = termfunc.rotify(parseInt(input[1]), input[2], curDir);
+			break;
+		case "unlock":
+			if (input[1] === undefined)
+				output = "Usage : unlock file";
+			else if (input[1] == "four" && currentLevel == 11)
+				output = "password.txt updated";
+			else if (input[1] == "genius" && currentLevel == 12)
+				output = "password.txt updated";
 			break;
 		case "ls":
 			output = termfunc.ls(curDir, input.slice(1, input.length));
