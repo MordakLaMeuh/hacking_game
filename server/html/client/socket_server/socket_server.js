@@ -219,15 +219,7 @@ var SOCKET_SERVER = function() {
 			switch (input[0]) {
 			case "rot":
 				if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
-					output = "Usage : rot number word";
-				else if (parseInt(input[1]) <= 0)
-					output = "Number must be positive";
-				else
-					output = termfunc.str_rot(parseInt(input[1]), input[2]);
-				break;
-			case "rotify":
-				if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
-					output = "Usage : rotify number file";
+					output = "Usage : rot number file";
 				else if (parseInt(input[1]) <= 0)
 					output = "Number must be positive";
 				else
