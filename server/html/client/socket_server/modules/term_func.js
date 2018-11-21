@@ -174,7 +174,6 @@ method.getFile = function(files, name)
 method.updateFileSystem = function(files, updateFiles)
 {
 	let self = this;
-
 	if (updateFiles === undefined) {
 		return files;
 	}
@@ -185,6 +184,8 @@ method.updateFileSystem = function(files, updateFiles)
 			files = delFile(update[1], files);
 		else if (update[0] == "M")
 			moveFile([update[1], update[2]], files);
+		else if (update[0] == "C")
+			changeFile([update[1], update[2]], files);
 	});
 	return files;
 }
@@ -258,6 +259,13 @@ function addFile(fileInfo, files, termfunc)
 {
 	files.push(new File(fileInfo[0], fileInfo[1], fileInfo[2], fileInfo[3], files, termfunc));
 	return files;
+}
+
+function changeFile(fileInfo, files)
+{
+	let file = termfunc.getFile(files, fileInfo[0]);
+	if (file != null)
+		file.content = fileInfo[1];
 }
 
 function moveFile(fileInfo, files)
