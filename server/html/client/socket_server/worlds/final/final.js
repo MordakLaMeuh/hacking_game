@@ -229,7 +229,7 @@ var world =
 						"r": []
 					}
 				]
-		}
+			}
 		],
 		"updateFiles":
 			[
@@ -467,43 +467,43 @@ var world =
 			]
 	},
 	{
-	"winningCondition":
-		[
-			"cat article.txt",
-			"/.Private"
-		],
-	"goal": "Find information",
-	"hint": "Use the browser to gather information about 42.",
-	"cmdList":
-		[
-			["cat","cat filename : display content of file"],
-			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
-			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
-			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
-			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"]
-		],
-	"social":
-		[
-			{
-			"name": "Unknown",
-			"exchange":
-				[
+		"winningCondition":
+			[
+				"cat article.txt",
+				"/.Private"
+			],
+		"goal": "Find information",
+		"hint": "Use the browser to gather information about 42.",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"]
+			],
+		"social":
+			[
+				{
+				"name": "Unknown",
+				"exchange":
+					[
 
-					{
-						"q": "I know what you are doing. Stop it right now.",
-						"r": ["Who are you ?"],
-						"i": ["1"]
-					},
-					{
-						"q": "Mind your own business.",
-						"r": []
-					}
-				]
-		}
-		]
+						{
+							"q": "I know what you are doing. Stop it right now.",
+							"r": ["Who are you ?"],
+							"i": ["1"]
+						},
+						{
+							"q": "Mind your own business.",
+							"r": []
+						}
+					]
+				}
+			]
 	},
 	{
 		"winningCondition":
@@ -767,7 +767,7 @@ var world =
 							"r": []
 						}
 					]
-			}
+				}
 			]
 	}
 
