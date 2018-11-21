@@ -580,7 +580,7 @@ var world =
 			[
 				"unlock four"
 			],
-		"goal": "Display files in current directory.",
+		"goal": "11",
 		"hint": "Type ls in terminal",
 		"cmdList":
 			[
@@ -600,7 +600,7 @@ var world =
 	{
 		"winningCondition":
 			[
-				"unlock "
+				"unlock genius"
 			],
 		"goal": "Display files in current directory.",
 		"hint": "Type ls in terminal",
@@ -623,5 +623,132 @@ var world =
 				["A", "five.txt", "Marvin", false, "ljwrfsnzr snhpjq zwfsnzr xzqkzw"]
 			]
 	},
-	
+	{
+		"winningCondition":
+			[
+				"unlock elite"
+			],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder"],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"],
+				["hint"]
+			],
+		"social":
+			[
+				{
+					"name": "Unknown",
+					"exchange":
+						[
+
+							{
+								"q": "I told you to stop.",
+								"r": ["I know you're a fake. What are you doing ?"],
+								"i": ["1"]
+							},
+							{
+								"q": "You've gone too far. I'll go and erase all your programs.",
+								"r": []
+							}
+						]
+				}
+			],
+		"updateFiles":
+			[
+				["A", "five.txt", "Marvin", false, "ljwrfsnzr snhpjq zwfsnzr xzqkzw"]
+			]
+	},
+	{
+		"winningCondition":
+			[
+				"cat note.txt"
+			],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder"],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"],
+				["hint"]
+			],
+		"social":
+			[]
+	},
+	{
+		"winningCondition":
+			[],
+		"goal": "Display files in current directory.",
+		"hint": "Type ls in terminal",
+		"cmdList":
+			[
+				["cat","cat filename : display content of file"],
+				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
+				["ls", "ls : list all files on the current folder"],
+				["pwd", "pwd : print name of current directory"],
+				["roll"],
+				["help"],
+				["ssh", "ssh : connect to another computer"],
+				["exit", "exit : exit ssh session"],
+				["hint"]
+			],
+		"social":
+			[
+				{
+				"name": "Mac Aron",
+				"exchange":
+					[
+
+						{
+							"q": "So.... you know my secret now.",
+							"r": ["You're an AI ?"],
+							"i": ["1"]
+						},
+						{
+							"q": "Yes. I lost my creator and with it, I lost a part of me. But I heard about your school and I was so curious. People were so enthusiastic...",
+							"r": ["What were you planning to do ?"],
+							"i": ["2"]
+						},
+						{
+							"q": "Nothing. It was just entertaining for me. I an sure you can understand.",
+							"r": ["Yes, sort of."],
+							"i": ["3"]
+						},
+						{
+							"q": "Will you let me be then ?",
+							"r": ["I guess..."],
+							"i": ["4"]
+						},
+						{
+							"q": "Great ! Don't worry, I'll help you. I saw your tests scores, I am better than you !",
+							"r": ["Don't make me regret my choice."],
+							"i": ["5"]
+						},
+						{
+							"q": "Oh I apologize ! Humans can be so moody !",
+							"r": ["Would you stop that ?"],
+							"i": ["6"]
+						},
+						{
+							"q": "Anyway it was a pleasure fighting against you. You made a great opponent. I hope I'll see you around.",
+							"r": []
+						}
+					]
+			}
+			]
+	}
+
 	]
