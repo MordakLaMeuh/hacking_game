@@ -236,7 +236,7 @@ var SOCKET_SERVER = function() {
 				else if (input[1] == "lane" && currentLevel == 13)
 					output = tmp;
 				else
-					output = "cannot unlock anything";
+					output = "unlock failed";
 				break;
 			case "ls":
 				output = termfunc.ls(curDir, input.slice(1, input.length));
