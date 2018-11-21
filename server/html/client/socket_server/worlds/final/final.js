@@ -102,7 +102,7 @@ var world =
 			"ls"
 		],
 		"goal": "Display files in current directory.",
-		"hint": "Type ls in terminal",
+		"hint": "Type 'ls' in terminal.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -137,8 +137,8 @@ var world =
 			"cat mission.txt",
 			"/Missions"
 		],
-		"goal": "Locate and read Marvin's file.",
-		"hint": "Try using cat to read a file.",
+		"goal": "Locate and read your mission.",
+		"hint": "Try using cd to change directiory and cat to read a file.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -175,7 +175,7 @@ var world =
 		"winningCondition":
 		["whois 5.5.5.5"],
 		"goal": "Find information about Artie Mitchell's location.",
-		"hint": "Try using whois in your terminal",
+		"hint": "Try using whois in your terminal.",
 		"cmdList":
 		[
 			["cat","cat filename : display content of file"],
@@ -226,7 +226,7 @@ var world =
 		"winningCondition":
 		[""],
 		"goal": "Access to MMC's CEO e-mail.",
-		"hint": "Try looking at his facebook page to gather some hints",
+		"hint": "Try looking at his social media profile to gather some hints.",
 		"social": [
 			{
 				"name": "aaron@mmc.com",
@@ -291,7 +291,7 @@ var world =
 	},
 	{
 		"winningCondition": [""],
-		"goal": "Gather information about MMC",
+		"goal": "Gather information about MMC.",
 		"hint": "Try speaking to RepairCenter to get info on MMC.",
 		"cmdList":
 		[
@@ -447,8 +447,8 @@ var world =
 				"cat article.txt",
 				"/.Private"
 			],
-		"goal": "Find information",
-		"hint": "Use the browser to gather information about 42.",
+		"goal": "Browse MMC's server to find valuable information.",
+		"hint": "Don't forger to look for hidden directories.",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -483,8 +483,8 @@ var world =
 			[
 				"cat readme.txt",
 			],
-		"goal": "Open the documents you received from Marvin.",
-		"hint": ".",
+		"goal": "Open the documents you received from Marvin on your own computer.",
+		"hint": "Go back to your own computer and have a look at the readme.",
 		"cmdList":
 			[
 				["cat", "cat filename : display content of file"],
@@ -531,7 +531,7 @@ var world =
 								"i": ["4","6"]
 							},
 							{
-								"q": "Well no, it was 'cde'... I let you more doc on your computer. I think you need to read it.",
+								"q": "You're disappointing. It was 'cde' of course... I let you more doc on your computer. I think you need to read it.",
 								"r": []
 							}
 						]
@@ -552,8 +552,8 @@ var world =
 			[
 				"unlock four"
 			],
-		"goal": "Unlock the first lock of Artie",
-		"hint": "Use rot",
+		"goal": "Unlock the first lock.",
+		"hint": "Use rotify command.",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -573,8 +573,8 @@ var world =
 			[
 				"unlock genius"
 			],
-		"goal": "Display files in current directory.",
-		"hint": "Type ls in terminal",
+		"goal": "Unlock the second lock.",
+		"hint": "Maybe it has something to do with elements ?",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -601,8 +601,8 @@ var world =
 			[
 				"unlock lane"
 			],
-		"goal": "Display files in current directory.",
-		"hint": "Type ls in terminal",
+		"goal": "Unlock the third and last lock.",
+		"hint": "Think about letters position in word.",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -647,7 +647,7 @@ var world =
 				"cat note.txt"
 			],
 		"goal": "Discover the truth.",
-		"hint": "ssh to artie",
+		"hint": "Connect to ssh - login : artie",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -658,7 +658,24 @@ var world =
 				["exit", "exit : exit ssh session"]
 			],
 		"social":
-			[],
+			[
+				{
+					"name": "Marvin",
+					"exchange":
+						[
+
+							{
+								"q": "Wow ! You did it !",
+								"r": ["Heh, what did you expect ?"],
+								"i": ["1"]
+							},
+							{
+								"q": "Now that you got his password, you can connect to his ssh... ",
+								"r": []
+							}
+						]
+				}
+				],
 		"updateFiles":
 			[
 				["D", "password.txt"],
@@ -668,8 +685,8 @@ var world =
 	{
 		"winningCondition":
 			[],
-		"goal": "Display files in current directory.",
-		"hint": "Type ls in terminal",
+		"goal": "Meet your new friend Artie.",
+		"hint": "Are you kidding ?",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
