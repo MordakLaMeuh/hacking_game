@@ -234,14 +234,17 @@ var SOCKET_SERVER = function() {
 					output = termfunc.rotify(parseInt(input[1]), input[2], curDir);
 				break;
 			case "unlock":
+				let tmp = "unlock successfull: password.txt updated";
 				if (input[1] === undefined)
-					output = "Usage : unlock file";
+					output = "Usage : unlock word";
 				else if (input[1] == "four" && currentLevel == 11)
-					output = "password.txt updated";
+					output = tmp;
 				else if (input[1] == "genius" && currentLevel == 12)
-					output = "password.txt updated";
+					output = tmp;
 				else if (input[1] == "lane" && currentLevel == 13)
-					output = "password.txt updated";
+					output = tmp;
+				else
+					output = "cannot unlock anything";
 				break;
 			case "ls":
 				output = termfunc.ls(curDir, input.slice(1, input.length));
