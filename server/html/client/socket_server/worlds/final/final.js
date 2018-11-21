@@ -758,7 +758,9 @@ var world =
 						{
 							"q": "Oh I apologize ! Humans can be so moody !",
 							"r": ["Would you stop that ?"],
-							"i": ["6"]
+							"i": ["6"],
+							"s": ["Thank you for playing !", ""],
+							"w":"1"
 						},
 						{
 							"q": "Anyway it was a pleasure fighting against you. You made a great opponent. I hope I'll see you around.",
