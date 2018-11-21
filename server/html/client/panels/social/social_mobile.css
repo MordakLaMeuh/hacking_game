@@ -79,6 +79,11 @@
 	font-family: Helvetica, Arial, sans-serif;
 }
 
+.messenger ul li:first-child
+{
+	margin-top: 5px;
+}
+
 .him{
 	background: black;
 	float: left;
