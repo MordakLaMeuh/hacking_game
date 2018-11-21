@@ -233,7 +233,6 @@ var world =
 		],
 		"updateFiles":
 			[
-				["A", "rot", "Programs", false, "Cannot open rot. Try using rot"],
 				["A", "Doc", "/", true, null],
 				["A", "ip.txt", "Doc", false, "An IP address, or simply an \"IP,\" is a unique address that identifies a device on the Internet or a local network. An IP address consist of four sets of numbers from 0 to 255, separated by three dots."],
 				["A", "whois.txt", "Doc", false, "whois is a command that is used to find the details of a domain name or an IP address. Example : whois 8.8.8.8"]
@@ -302,7 +301,6 @@ var world =
 			["pwd", "pwd : print name of current directory"],
 			["roll"],
 			["help"],
-			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit", "exit : exit ssh session"],
 			["whois", "whois ipaddress : give info on a ip address"],
@@ -319,7 +317,6 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 			["pwd", "pwd : print name of current directory"],
-			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
 			["roll"],
 			["help"],
 			["ssh", "ssh : connect to another computer"],
@@ -422,7 +419,6 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder. Option -a : display hidden files. Ex : ls -a"],
 				["pwd", "pwd : print name of current directory"],
-				["rot", "rot : replaces all letters of a word with the n-th letter after it"],
 				["roll"],
 				["help"],
 				["ssh", "ssh : connect to another computer"],
@@ -594,8 +590,8 @@ var world =
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
 				["hint"],
-				["rotify", "decipher a file"],
-				["unlock", "try to break current lock with a password"]
+				["rot", "rot : replaces all letters of a file with the n-th letter after it"],
+				["unlock", "unlock : try to break current lock with a password. Ex: unlock word"]
 			],
 		"social":
 			[]
@@ -618,8 +614,8 @@ var world =
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
 				["hint"],
-				["rotify", "decipher a file"],
-				["unlock", "try to break current lock with a password"]
+				["rot", "rot : replaces all letters of a file with the n-th letter after it"],
+				["unlock", "unlock : try to break current lock with a password. Ex: unlock word"]
 			],
 		"social":
 			[],
@@ -649,7 +645,8 @@ var world =
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
 				["hint"],
-				["unlock", "try to break current lock with a password"]
+				["rot", "rot : replaces all letters of a file with the n-th letter after it"],
+				["unlock", "unlock : try to break current lock with a password. Ex: unlock word"]
 			],
 		"social":
 			[
@@ -696,7 +693,9 @@ var world =
 				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"]
+				["hint"],
+				["rot", "rot : replaces all letters of a file with the n-th letter after it"],
+				["unlock", "unlock : try to break current lock with a password. Ex: unlock word"]
 			],
 		"social":
 			[],
@@ -721,7 +720,9 @@ var world =
 				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"]
+				["hint"],
+				["rot", "rot : replaces all letters of a file with the n-th letter after it"],
+				["unlock", "unlock : try to break current lock with a password. Ex: unlock word"]
 			],
 		"social":
 			[
