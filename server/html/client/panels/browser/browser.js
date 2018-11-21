@@ -16,7 +16,7 @@ var BROWSER = function(keyboard, cursor, tty_key_cb) {
 		 * OLD Browser code is on below
 		 */
 		browser_url_bar.innerHTML +=
-		`<input id='url' type='text' onfocus=\"this.value=''\" spellcheck='false' autocorrect='off' autocapitalize='none' autocomplete='off' name='url' value='enter your URL' />
+		`<input id='url' type='text' onfocus=\"this.value=''\" spellcheck='false' autocorrect='off' autocapitalize='none' autocomplete='off' name='url' placeholder='enter your URL' />
 		<input id='go_btn' type='submit' value='Go' />`;
 
 		var form = document.getElementById("url");

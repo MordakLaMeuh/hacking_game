@@ -315,7 +315,7 @@ var TTY = function(keyboard, cursor, socket) {
 				if (data.auth == 1) {
 					sequence = sequence_enum.running;
 					createDiv("<br>");
-					createDiv("Welcome to " + server_name + " Mr " + login);
+					createDiv("Welcome " + server_name);
 					createDiv("<br>");
 					createNewInputString(login + "@" + server_name + ":" + directory + "# ");
 				} else {
