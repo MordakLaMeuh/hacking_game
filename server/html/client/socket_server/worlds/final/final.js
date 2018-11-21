@@ -35,7 +35,7 @@ var world =
 				"exchange":
 				[
 					{
-						"q":"Hey, it's been a long time. I changed your computer login and password to 'root'. Try to log in terminal.",
+						"q":"Hey, it's been a long time. I changed your session and e-mail login and password to 'root'. Try to log in terminal.",
 						"r":["Got it", "What next ?"],
 						"i":["1", "1"]
 					},
@@ -43,7 +43,7 @@ var world =
 						"q":"Talk to Marvin when you're done. he has something to tell you.",
 						"r": ["Okay, thank you"],
 						"i":["2"],
-						"s": ["Credentials", "You can get access to your computer using root/root."],
+						"s": ["Credentials", "You can get access to your computer and e-mail using root/root."],
 						"w": "1"
 					},
 					{
