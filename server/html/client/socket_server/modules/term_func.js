@@ -181,11 +181,11 @@ method.updateFileSystem = function(files, updateFiles)
 		if (update[0] == "A")
 			files = addFile([update[1], update[2], update[3], update[4]], files, self);
 		else if (update[0] == "D")
-			files = delFile(update[1], files);
+			files = delFile(update[1], files, self);
 		else if (update[0] == "M")
-			moveFile([update[1], update[2]], files);
+			moveFile([update[1], update[2]], files, self);
 		else if (update[0] == "C")
-			changeFile([update[1], update[2]], files);
+			changeFile([update[1], update[2]], files, self);
 	});
 	return files;
 }
@@ -238,7 +238,7 @@ function getLsContent(children, args, hidden)
 	return str;
 }
 
-function delFile(name, files)
+function delFile(name, files, termfunc)
 {
 	let file = termfunc.getFile(files, name);
 	if (file) {
@@ -261,14 +261,14 @@ function addFile(fileInfo, files, termfunc)
 	return files;
 }
 
-function changeFile(fileInfo, files)
+function changeFile(fileInfo, files, termfunc)
 {
 	let file = termfunc.getFile(files, fileInfo[0]);
 	if (file != null)
 		file.content = fileInfo[1];
 }
 
-function moveFile(fileInfo, files)
+function moveFile(fileInfo, files, termfunc)
 {
 	let file = termfunc.getFile(files, fileInfo[0]);
 	let parent = termfunc.getFile(files, fileInfo[1]);
