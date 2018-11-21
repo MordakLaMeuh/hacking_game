@@ -166,7 +166,7 @@ var world =
 	{
 		"winningCondition":
 		[
-			"cat .macaron.txt",
+			"cat .mitchell.txt",
 			"/.Students"
 		],
 		"goal": "Find information about the mysterious student.",
@@ -188,7 +188,7 @@ var world =
 	{
 		"winningCondition":
 		["whois 5.5.5.5"],
-		"goal": "Find information about Mac Aron's location.",
+		"goal": "Find information about Artie Mitchell's location.",
 		"hint": "Try using whois in your terminal",
 		"cmdList":
 		[
@@ -242,11 +242,11 @@ var world =
 	{
 		"winningCondition":
 		[""],
-		"goal": "Access to BIG's CEO e-mail.",
+		"goal": "Access to MMC's CEO e-mail.",
 		"hint": "Try looking at his facebook page to gather some hints",
 		"social": [
 			{
-				"name": "john@mail.com",
+				"name": "aaron@mmc.com",
 				"password": "12121980",
 				"mail":
 					[
@@ -254,21 +254,21 @@ var world =
 							"sender": "1",
 							"from_to": "Lewis",
 							"title": "Schedule",
-							"text": "Hi Lewis, as you know, I'll be on holidays next week, I leave everything to you and Johan :)"
+							"text": "Hi Lewis, as you know, I'll be on holidays next week, I leave everything to you and Ellie :)"
 						},
 						{
 							"sender": "0",
 							"from_to": "RepairCenter",
 							"title": "Your monthly invoice",
 							"text": "Your address : 49 Summer Street</br></br>Dear Customer,</br> Thank you for using our services. Please find enclosed our monthly invoice.</br> Any problem ? Please call our emergency number: 888-3490.<br/></br>RepairCenter Miami<br/>RepairCenter : All your needs for computer maintenance all over the US !",
-							"s": ["INFO", "You learnt valuable information about the BIG company."],
+							"s": ["INFO", "You learnt valuable information about the MMC company."],
 							"w":"1"
 						},
 						{
 							"sender": "0",
-							"from_to": "Johan",
+							"from_to": "Ellie",
 							"title": "Problem",
-							"text": "I've been trying to get in contact with Macaron for the last two weeks.</br>It seems he's locked himself in. It's gonna take some time to reach him..."
+							"text": "I've been trying to get in contact with Artie for the last two weeks.</br>It seems he's locked himself in. It's gonna take some time to reach him..."
 						}
 					]
 			},
@@ -283,12 +283,12 @@ var world =
 							"i": ["1"]
 						},
 						{
-							"q": "I made some research about this company. The CEO's name is John Smith. His mail address is john@mail.com",
+							"q": "I made some research about this company. The CEO's name is Aaron Mack. His mail address is aaron@mmc.com",
 							"r": ["Thank you"],
 							"i": ["2"]
 						},
 						{
-							"q": "Wait, there's more. Here is his social media profile : www.fb.com/john. Check it out.",
+							"q": "Wait, there's more. Here is his social media profile : www.fb.com/aaron , check it out.",
 							"r": []
 						}
 					]
@@ -311,8 +311,8 @@ var world =
 	},
 	{
 		"winningCondition": [""],
-		"goal": "Gather information about BIG",
-		"hint": "Try speaking to RepairCenter to gain info on BIG.",
+		"goal": "Gather information about MMC",
+		"hint": "Try speaking to RepairCenter to get info on MMC.",
 		"cmdList":
 		[
 			["cat", "cat filename : display content of file"],
@@ -359,7 +359,7 @@ var world =
 					},
 					{
 						"q": "Oh yeah, I understand... Same thing happened to me last month. How can I help you Taylor ?",
-						"r": ["Well I have a important woman on hold who ask information about a client. Name of the company is BIG"],
+						"r": ["Well I have a important woman on hold who ask information about a client. Name of the company is MMC"],
 						"i": ["6"]
 					},
 					{
@@ -371,7 +371,7 @@ var world =
 					{
 						"q": "Let's see.... The client number is #1520. Have a good day !",
 						"r": [],
-						"s": ["NOTE", "BIG client number : #1520"],
+						"s": ["NOTE", "MMC client number : #1520"],
 						"w":"1",
 					},
 					{
@@ -382,11 +382,11 @@ var world =
 				]
 			},
 			{
-				"name": "Big Company",
+				"name": "MMC Company",
 				"exchange":
 					[
 						{
-							"q": "Big Company, Lewis speaking.",
+							"q": "MMC Company, Lewis speaking.",
 							"r": ["Hello, I am Ed from RepairCenter.", "Hello, I'm Donald Trump and I need your ssh access. National security matter."],
 							"i": ["1", "2"]
 						},
@@ -396,7 +396,7 @@ var world =
 							"i": ["3"]
 						},
 						{
-							"q": "Very funny John ! I have work to do, bye !",
+							"q": "Very funny Aaron ! I have work to do, bye !",
 							"r": []
 						},
 						{
@@ -414,8 +414,8 @@ var world =
 	},
 	{
 		"winningCondition": [""],
-		"goal": "Get access to BIG ssh.",
-		"hint": "Speak to big's employee Lewis.",
+		"goal": "Get access to MMC ssh.",
+		"hint": "Speak to MMC's employee Lewis.",
 		"cmdList":
 			[
 				["cat", "cat filename : display content of file"],
@@ -432,12 +432,12 @@ var world =
 		"social":
 			[
 				{
-					"name": "Big Company",
+					"name": "MMC Company",
 					"exchange":
 						[
 
 							{
-								"q": "Big Company, Lewis speaking.",
+								"q": "MMC Company, Lewis speaking.",
 								"r": ["Hello, I am Ed from RepairCenter.", "Hello, I'm Donald Trump and I need your ssh access. National security matter."],
 								"i": ["1", "2"]
 							},
@@ -447,7 +447,7 @@ var world =
 								"i": ["3"]
 							},
 							{
-								"q": "Very funny John ! I have work to do, bye !",
+								"q": "Very funny Aaron ! I have work to do, bye !",
 								"r": [],
 								"i":["0"]
 							},
@@ -455,11 +455,11 @@ var world =
 								"q": "Yeah sure. Before anything, could you confirm with us our client number ?",
 								"r": ["Sure ! It's #1520."],
 								"i":["4"],
-								"s": ["NOTE", "BIG Client ssh login : big / password : 1947"],
+								"s": ["NOTE", "MMC Client ssh login : mmc / password : e2r9w"],
 								"w":"1"
 							},
 							{
-								"q": "All good. The ssh login is big and the password is 1947. Keep up the good work.",
+								"q": "All good. The ssh login is mmc and the password is e2r9w. Keep up the good work.",
 								"r": []
 							}
 						]
@@ -536,7 +536,7 @@ var world =
 								"i": ["1","1"]
 							},
 							{
-								"q": "While you were busy, I peeked at Johan's computer and find some really interesting stuff. I put everything on your computer. Some files might be crypted though.",
+								"q": "While you were busy, I peeked at Ellie's computer and find some really interesting stuff. I put everything on your computer. Some files might be crypted though.",
 								"r": ["Any advice ?"],
 								"i": ["2","2"]
 							},
@@ -571,7 +571,7 @@ var world =
 				["A", "rot", "Programs", false, "Cannot open rot. Try using rot"],
 				["A", "Marvin", "/", true, null],
 				["A", "rot.txt", "Doc", "false", "Rotate (or rot) is a simple letter substitution cipher that replaces a letter with the n-th letter after it, in the alphabet.<br/> Example : rot 1 abc = bcd<br/>"],
-				["A", "readme.txt", "Marvin", false, "I think I found a way to get to Macaron. You need to solve the puzzle of the other file and submit your answer with unlock. It seems there are 3 locks."],
+				["A", "readme.txt", "Marvin", false, "I think I found a way to get to our guy. You need to solve the puzzle of the other file and submit your answer with unlock. It seems there are 3 locks."],
 				["A", "thirteen.txt", "Marvin", false, "pna lbh chg gjb naq gjb gbtrgure ?"],
 				["A", "password.txt", "Marvin", false, "_ _ _ _ _ _ _ _ "]
 			]
@@ -581,7 +581,7 @@ var world =
 			[
 				"unlock four"
 			],
-		"goal": "Unlock the first lock of Macaron",
+		"goal": "Unlock the first lock of Artie",
 		"hint": "Use rot",
 		"cmdList":
 			[
@@ -685,7 +685,7 @@ var world =
 				"cat note.txt"
 			],
 		"goal": "Discover the truth.",
-		"hint": "ssh to macaron",
+		"hint": "ssh to artie",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
@@ -726,7 +726,7 @@ var world =
 		"social":
 			[
 				{
-				"name": "Mac Aron",
+				"name": "Artie",
 				"exchange":
 					[
 

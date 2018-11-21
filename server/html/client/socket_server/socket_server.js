@@ -116,11 +116,11 @@ var SOCKET_SERVER = function() {
 			ssh_request = false;
 			if (json_msg.login == "42" && json_msg.password == "norminet") {
 				load_ssh_session(zeroSSH, "/", "student", "42");
-			} else if (json_msg.login == "big" && json_msg.password == "1947") {
-				load_ssh_session(bigSSH, "/", "big", "bigCorp");
+			} else if (json_msg.login == "mmc" && json_msg.password == "e2r9w") {
+				load_ssh_session(bigSSH, "/", "mmc", "MMC");
 			}
-			else if (json_msg.login == "macaron" && json_msg.password == "infinity") {
-				load_ssh_session(iaSSH, "/", "guest", "macaron");
+			else if (json_msg.login == "artie" && json_msg.password == "infinity") {
+				load_ssh_session(iaSSH, "/", "guest", "artie");
 			}
 			else {
 				let obj = new Object();
@@ -255,7 +255,7 @@ var SOCKET_SERVER = function() {
 			break;
 		case "whois": {
 			if (input[1] == "5.5.5.5")
-				output = "Name : BIG <br/> Type : Company <br/> Location : North America";
+				output = "Name : MMC <br/> Type : Company <br/> Location : North America";
 			else if (input[1] == "9.80.45.122")
 				output = "Name : Jones <br/> Type : Individual <br/> Location : Brazil";
 			else if (input[1] == "23.123.54.92")
