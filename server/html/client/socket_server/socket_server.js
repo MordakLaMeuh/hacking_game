@@ -191,110 +191,119 @@ var SOCKET_SERVER = function() {
 			return;
 		}
 
-		if (lvlValidation.checkCommand(cmdList, input[0]) == false) {
-			let obj = new Object();
-			obj.string = "unknown command !";
-			send({"tty": obj});
-			return ;
-		}
-
 		switch (input[0]) {
-		case "rot":
-			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
-				output = "Usage : rot number word";
-			else if (parseInt(input[1]) <= 0)
-				output = "Number must be positive";
-			else
-				output = termfunc.str_rot(parseInt(input[1]), input[2]);
-			break;
-		case "rotify":
-			if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
-				output = "Usage : rotify number file";
-			else if (parseInt(input[1]) <= 0)
-				output = "Number must be positive";
-			else
-				output = termfunc.rotify(parseInt(input[1]), input[2], curDir);
-			break;
-		case "unlock":
-			if (input[1] === undefined)
-				output = "Usage : unlock file";
-			else if (input[1] == "four" && currentLevel == 11)
-				output = "password.txt updated";
-			else if (input[1] == "genius" && currentLevel == 12)
-				output = "password.txt updated";
-			else if (input[1] == "lane" && currentLevel == 13)
-				output = "password.txt updated";
-			break;
-		case "ls":
-			output = termfunc.ls(curDir, input.slice(1, input.length));
+		/*
+		 * Theses commands are always available
+		 */
+		case "hint":
+			output = termfunc.hint(lvlData[currentLevel].hint);
 			break;
 		case "help":
 			output = termfunc.help(cmdList);
-			break;
-		case "cat":
-			output = termfunc.cat(curDir, input.slice(1, input.length));
 			break;
 		case "roll":
 			let nbr = Math.floor((Math.random() * 6 )) + 1;
 			output = "You throw a six faces dice and you get a " + nbr;
 			break;
-		case "cd":
-			let retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
-			if (retArray[0] != null) {
-				curDir = retArray[0];
-				newDirectory = termfunc.pwd(curDir);
-			} else {
-				output = retArray[1];
+		default:
+			/*
+			 * Check if theses commands are allowed
+			 */
+			if (lvlValidation.checkCommand(cmdList, input[0]) == false) {
+				let obj = new Object();
+				obj.string = "unknown command !";
+				send({"tty": obj});
+				return ;
 			}
-			break;
-		case "pwd":
-			output = termfunc.pwd(curDir);
-			break;
-		case "hint":
-			output = termfunc.hint(lvlData[currentLevel].hint);
-			break;
-		case "whois": {
-			if (input[1] == "5.5.5.5")
-				output = "Name : MMC <br/> Type : Company <br/> Location : North America";
-			else if (input[1] == "9.80.45.122")
-				output = "Name : Jones <br/> Type : Individual <br/> Location : Brazil";
-			else if (input[1] == "23.123.54.92")
-				output = "Name : Ramirez <br/> Type : Individual <br/> Location : Germany";
-			else
-				output = "No result found."
-			break;
-		}
-			case "ssh":
-			if (ssh_active == true) {
-				output = "Already in ssh.";
+
+			switch (input[0]) {
+			case "rot":
+				if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
+					output = "Usage : rot number word";
+				else if (parseInt(input[1]) <= 0)
+					output = "Number must be positive";
+				else
+					output = termfunc.str_rot(parseInt(input[1]), input[2]);
+				break;
+			case "rotify":
+				if (!input[1] || !input[2] || isNaN(termfunc.filterInt(input[1])) === true)
+					output = "Usage : rotify number file";
+				else if (parseInt(input[1]) <= 0)
+					output = "Number must be positive";
+				else
+					output = termfunc.rotify(parseInt(input[1]), input[2], curDir);
+				break;
+			case "unlock":
+				if (input[1] === undefined)
+					output = "Usage : unlock file";
+				else if (input[1] == "four" && currentLevel == 11)
+					output = "password.txt updated";
+				else if (input[1] == "genius" && currentLevel == 12)
+					output = "password.txt updated";
+				else if (input[1] == "lane" && currentLevel == 13)
+					output = "password.txt updated";
+				break;
+			case "ls":
+				output = termfunc.ls(curDir, input.slice(1, input.length));
+				break;
+			case "cat":
+				output = termfunc.cat(curDir, input.slice(1, input.length));
+				break;
+			case "cd":
+				let retArray = termfunc.cd(root, curDir, input.slice(1, input.length));
+				if (retArray[0] != null) {
+					curDir = retArray[0];
+					newDirectory = termfunc.pwd(curDir);
+				} else {
+					output = retArray[1];
+				}
+				break;
+			case "pwd":
+				output = termfunc.pwd(curDir);
+				break;
+			case "whois": {
+				if (input[1] == "5.5.5.5")
+					output = "Name : MMC <br/> Type : Company <br/> Location : North America";
+				else if (input[1] == "9.80.45.122")
+					output = "Name : Jones <br/> Type : Individual <br/> Location : Brazil";
+				else if (input[1] == "23.123.54.92")
+					output = "Name : Ramirez <br/> Type : Individual <br/> Location : Germany";
+				else
+					output = "No result found."
 				break;
 			}
-			ssh_request = true;
-			send({"tty": {"auth_ssh": "1"}});
-			return;
-			break;
-		case "exit":
-			if (ssh_active == true) {
-					ssh_active = false;
-					root = termfunc.getFile(files, "/");
-					curDir = originCurDir;
-					newDirectory = termfunc.pwd(curDir);
-					let obj = new Object();
-					obj.string = "SSH sucessfully exited.";
-					obj.directory = termfunc.pwd(curDir);
-					obj.login = "root";
-					obj.server = "home";
-					send({"tty": obj});
-					return;
-			} else {
-					output = "No SSH connexion active.";
+				case "ssh":
+				if (ssh_active == true) {
+					output = "Already in ssh.";
+					break;
+				}
+				ssh_request = true;
+				send({"tty": {"auth_ssh": "1"}});
+				return;
+				break;
+			case "exit":
+				if (ssh_active == true) {
+						ssh_active = false;
+						root = termfunc.getFile(files, "/");
+						curDir = originCurDir;
+						newDirectory = termfunc.pwd(curDir);
+						let obj = new Object();
+						obj.string = "SSH sucessfully exited.";
+						obj.directory = termfunc.pwd(curDir);
+						obj.login = "root";
+						obj.server = "home";
+						send({"tty": obj});
+						return;
+				} else {
+						output = "No SSH connexion active.";
+				}
+				break;
+			default :
+				output = "unknown command !";
+				break;
 			}
 			break;
-		default :
-			output = "unknown command !";
-			break;
 		}
-
 		if (lvlValidation.checkVictory(winningCondition, [input.join(" "), termfunc.pwd(curDir)]))
 			victoryRoutine();
 

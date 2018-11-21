@@ -11,11 +11,8 @@ var world =
 			["ls", "ls : list all files on the current folder"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit : exit ssh session"],
-			["hint"],
 			["whois"]
 		],
 		"social":
@@ -71,11 +68,8 @@ var world =
 			["ls", "ls : list all files on the current folder"],
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"],
-			["hint"]
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -115,11 +109,8 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder"],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"],
-			["hint"]
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[
@@ -154,11 +145,8 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder"],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
-			["exit", "exit : exit ssh session"],
-			["hint"]
+			["exit", "exit : exit ssh session"]
 		],
 		"social":
 		[]
@@ -177,8 +165,6 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit : exit ssh session"]
 		],
@@ -196,12 +182,9 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit : exit ssh session"],
-			["whois", "whois ipaddress : give info on a ip address"],
-			["hint"]
+			["whois", "whois ipaddress : give info on a ip address"]
 		],
 		"social":
 		[
@@ -300,13 +283,10 @@ var world =
 			["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
-			["roll"],
-			["help"],
 			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit", "exit : exit ssh session"],
-			["whois", "whois ipaddress : give info on a ip address"],
-			["hint"]
+			["whois", "whois ipaddress : give info on a ip address"]
 		]
 	},
 	{
@@ -320,8 +300,6 @@ var world =
 			["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 			["pwd", "pwd : print name of current directory"],
 			["rot", "rot : replaces all letters of a word with the n-th letter after it"],
-			["roll"],
-			["help"],
 			["ssh", "ssh : connect to another computer"],
 			["exit", "exit", "exit : exit ssh session"],
 			["hint"]
@@ -423,11 +401,8 @@ var world =
 				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 				["pwd", "pwd : print name of current directory"],
 				["rot", "rot : replaces all letters of a word with the n-th letter after it"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
-				["exit", "exit", "exit : exit ssh session"],
-				["hint"]
+				["exit", "exit", "exit : exit ssh session"]
 			],
 		"social":
 			[
@@ -480,8 +455,6 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"]
 			],
@@ -518,8 +491,6 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder. Option -a : display hidden files."],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"]
 			],
@@ -589,11 +560,8 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder"],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"],
 				["rotify", "decipher a file"],
 				["unlock", "try to break current lock with a password"]
 			],
@@ -613,11 +581,8 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder"],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"],
 				["rotify", "decipher a file"],
 				["unlock", "try to break current lock with a password"]
 			],
@@ -644,11 +609,8 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder"],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
 				["exit", "exit : exit ssh session"],
-				["hint"],
 				["unlock", "try to break current lock with a password"]
 			],
 		"social":
@@ -692,11 +654,8 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder"],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
-				["exit", "exit : exit ssh session"],
-				["hint"]
+				["exit", "exit : exit ssh session"]
 			],
 		"social":
 			[],
@@ -717,11 +676,8 @@ var world =
 				["cd", "cd directory : change directory. Type \"cd ..\" to go back to parent directory"],
 				["ls", "ls : list all files on the current folder"],
 				["pwd", "pwd : print name of current directory"],
-				["roll"],
-				["help"],
 				["ssh", "ssh : connect to another computer"],
-				["exit", "exit : exit ssh session"],
-				["hint"]
+				["exit", "exit : exit ssh session"]
 			],
 		"social":
 			[
