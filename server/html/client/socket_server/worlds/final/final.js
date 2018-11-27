@@ -442,7 +442,7 @@ var world =
 				"/.Private"
 			],
 		"goal": "Browse MMC's server to find valuable information.",
-		"hint": "Don't forger to look for hidden directories.",
+		"hint": "Don't forget to look for hidden directories.",
 		"cmdList":
 			[
 				["cat","cat filename : display content of file"],
