@@ -224,7 +224,7 @@ var world =
 		"winningCondition":
 		[""],
 		"goal": "Access to MMC's CEO e-mail.",
-		"hint": "Try looking at his social media profile to gather some hints.",
+		"hint": "Try looking at Aaron Mack's social media profile to gather some hints.",
 		"social": [
 			{
 				"name": "aaron@mmc.com",
