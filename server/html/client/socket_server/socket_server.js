@@ -196,7 +196,10 @@ var SOCKET_SERVER = function() {
 		 * Theses commands are always available
 		 */
 		case "hint":
-			output = termfunc.hint(lvlData[currentLevel].hint);
+			if (lvlData[currentLevel] !== undefined)
+				output = termfunc.hint(lvlData[currentLevel].hint);
+			else
+				output = "No hint available";
 			break;
 		case "help":
 			output = termfunc.help(cmdList);
