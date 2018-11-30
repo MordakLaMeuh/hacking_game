@@ -26,7 +26,7 @@
 
 		let linkArray = [];
 		let cssFilesArray = ["panels/panels", "panels/social/social",
-		"panels/browser/browser", "panels/diary/diary", "panels/mail/mail", "panels/tty/tty", "UI_controler/UI_controler"];
+		"panels/browser/browser", "panels/diary/diary", "panels/mail/mail", "panels/tty/tty", "UI_controler/UI_controler", "modal/modal"];
 
 		let mobileSuffix = "";
 		if (IS_MOBILE == true)
@@ -48,6 +48,9 @@
 </head>
 
 <body class="noselect" onload="after_load()" style="opacity: 0">
+
+
+
 
 <div id="tab" class="tab">
 	<ul id="tabUl">
@@ -130,6 +133,18 @@
 
 </div>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+<span class="close">&times;</span>
+<!-- <p>Some text in the Modal..</p> -->
+<img src="medias/macaron.jpg">
+</div>
+
+</div>
+<script src="modal/modal.js"></script>
 <script src="panels/tty/tty.js"></script>
 <script src="panels/social/social.js"></script>
 <script src="panels/diary/diary.js"></script>
