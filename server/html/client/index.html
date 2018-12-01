@@ -140,12 +140,8 @@
 <div class="modal-content">
 <span class="close">&times;</span>
 <!-- <p>Some text in the Modal..</p> -->
-<img id="tuto_img" src="medias/macaron.jpg">
+<img id="tuto_img">
 	<ul id="tuto_dot_container">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
 	</ul>
 	<div id="tuto_arrow_container">
 		<div id="left_arrow_tuto"> <i class="fas fa-arrow-left"></i></div>
@@ -195,6 +191,8 @@ after_load = function() {
 
 	var keyboard = new KEYBOARD();
 	var cursor = new CURSOR();
+	var tuto = new MODAL();
+
 
 	var UI_controler = new UI_CONTROLER();
 
