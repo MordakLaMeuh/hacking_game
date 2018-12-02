@@ -74,7 +74,7 @@ method.createFileSystem = function(file)
 method.cd = function(root, curDir, args)
 {
 	if (args.length != 1)
-		return ([curDir, "Usage : cd PATH"]);
+		return ([null, "Usage : cd PATH"]);
 	let path = args[0].replace(/\/+/g, '/'), i = 0;
 	let tmpDir;
 	if (path.charAt(0) == '/') {
