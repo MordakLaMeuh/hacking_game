@@ -2,10 +2,8 @@
 
 var MODAL = function()
 {
-
 	// Get the modal
 	var modal = document.getElementById('myModal');
-
 
 	// Get the <span> element that closes the modal
 	var closeButton = document.getElementsByClassName("close")[0];
@@ -13,14 +11,14 @@ var MODAL = function()
 	// When the user clicks on <span> (x), close the modal
 	closeButton.addEventListener("mousedown", function()
 	{
-	    modal.style.display = "none";
+		modal.style.display = "none";
 	}, false);
 
 	var pathTutoImg = "medias/tuto/";
 	if (IS_MOBILE == false)
-		var allTutoImg = ["desktop_01.jpg", "desktop_02.jpg", "desktop_03.jpg"];
+		var allTutoImg = ["desktop1.jpg", "desktop2.jpg", "desktop3.jpg"];
 	else
-		var allTutoImg = ["mobile_01.jpg", "mobile_02.jpg", "mobile_03.jpg"];
+		var allTutoImg = ["mob1.jpg", "mob2.jpg", "mob3.jpg", "mob4.jpg"];
 	var leftArrowTuto = document.getElementById("left_arrow_tuto");
 	var rightArrowTuto = document.getElementById("right_arrow_tuto");
 	var okButtonTuto = document.getElementById("ok_button_tuto");
