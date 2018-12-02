@@ -53,11 +53,26 @@
 
 #tuto_arrow_container
 {
-	display: flex;
-	justify-content: space-around;
+	position: relative;
+	width: 100%;
+	height: 20px;
 }
 
-#tuto_arrow_container :hover
+#right_arrow_tuto
+{
+	display: block;
+	position: absolute;
+	right: 10%;
+}
+
+#left_arrow_tuto
+{
+	display: block;
+	position: absolute;
+	left: 10%;
+}
+
+#tuto_arrow_container :hover, #ok_button_tuto:hover
 {
 	cursor: pointer;
 }
@@ -75,4 +90,18 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#ok_button_tuto
+{
+	display: none;
+	width: 100px;
+	height: 20px;
+	color: white;
+	background-color: #4c80a3;
+	margin: auto;
+	text-align: center;
+	border-radius: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
