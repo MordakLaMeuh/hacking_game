@@ -29,6 +29,9 @@ method.checkCommand = function(cmdList, usrCmd)
  */
 method.checkVictory = function(winningCondition, usrCondition)
 {
+	if (winningCondition.length == 0)
+		return false;
+
 	for (let i = 0; i < winningCondition.length; i++) {
 		if (winningCondition[i] != usrCondition[i])
 			return false;
