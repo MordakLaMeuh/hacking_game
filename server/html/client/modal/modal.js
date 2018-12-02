@@ -11,9 +11,10 @@ var MODAL = function()
 	var closeButton = document.getElementsByClassName("close")[0];
 
 	// When the user clicks on <span> (x), close the modal
-	closeButton.onclick = function() {
+	closeButton.addEventListener("mousedown", function()
+	{
 	    modal.style.display = "none";
-	}
+	}, false);
 
 	var pathTutoImg = "medias/tuto/";
 	if (IS_MOBILE == false)
@@ -22,10 +23,13 @@ var MODAL = function()
 		var allTutoImg = ["mobile_01.jpg", "mobile_02.jpg", "mobile_03.jpg"];
 	var leftArrowTuto = document.getElementById("left_arrow_tuto");
 	var rightArrowTuto = document.getElementById("right_arrow_tuto");
+	var okButtonTuto = document.getElementById("ok_button_tuto");
 	var tutoImg = document.getElementById("tuto_img");
 	var tutoDotContainer = document.getElementById("tuto_dot_container");
+	var activeColorDot = "blue";
+	var nonActiveColorDot = "#9a9aea";
 
-	var i = 0;
+	var idx = 0;
 
 	(function()
 	{
@@ -37,32 +41,41 @@ var MODAL = function()
 		leftArrowTuto.style.display = "none";
 	}());
 
-	leftArrowTuto.addEventListener("mousedown", function(e)
+	okButtonTuto.addEventListener("mousedown", function()
 	{
-		if (i > 0)
+		modal.style.display = "none";
+	}, false);
+
+	leftArrowTuto.addEventListener("mousedown", function()
+	{
+		if (idx > 0)
 		{
-			tutoDotContainer.children[i].style.backgroundColor = "#9a9aea";
-			i--;
-			tutoImg.src = pathTutoImg + allTutoImg[i];
-			if (i == 0)
+			tutoDotContainer.children[idx].style.backgroundColor = nonActiveColorDot;
+			idx--;
+			tutoImg.src = pathTutoImg + allTutoImg[idx];
+			if (idx == 0)
 				leftArrowTuto.style.display = "none";
 			rightArrowTuto.style.display = "";
-			tutoDotContainer.children[i].style.backgroundColor = "blue";
+			okButtonTuto.style.display = "none";
+			tutoDotContainer.children[idx].style.backgroundColor = activeColorDot;
 		}
 	}, false);
 
 	rightArrowTuto.addEventListener("mousedown", function()
 	{
-		if (i < allTutoImg.length - 1)
+		if (idx < allTutoImg.length - 1)
 		{
-			tutoDotContainer.children[i].style.backgroundColor = "#9a9aea";
-			i++;
-			tutoImg.src = pathTutoImg + allTutoImg[i];
-			if (i == allTutoImg.length - 1)
+			tutoDotContainer.children[idx].style.backgroundColor = nonActiveColorDot;
+			idx++;
+			tutoImg.src = pathTutoImg + allTutoImg[idx];
+			if (idx == allTutoImg.length - 1)
+			{
 				rightArrowTuto.style.display = "none";
+				okButtonTuto.style.display = "block";
+			}
 			leftArrowTuto.style.display = "";
-			tutoDotContainer.children[i].style.backgroundColor = "blue";
+			tutoDotContainer.children[idx].style.backgroundColor = activeColorDot;
 		}
-	});
+	}, false);
 
 }
