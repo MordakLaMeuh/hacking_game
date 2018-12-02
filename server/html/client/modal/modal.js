@@ -71,7 +71,7 @@ var MODAL = function()
 			if (idx == allTutoImg.length - 1)
 			{
 				rightArrowTuto.style.display = "none";
-				okButtonTuto.style.display = "block";
+				okButtonTuto.style.display = "flex";
 			}
 			leftArrowTuto.style.display = "";
 			tutoDotContainer.children[idx].style.backgroundColor = activeColorDot;
