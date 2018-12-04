@@ -16,21 +16,26 @@ var functionToApplyArray = [];
 
 okButtonPassword.addEventListener("mousedown", function(e)
 {
+	//Copy input value to output value
 	passwordOutput.value = passwordInput.value;
+	//Uncheck all checkbox
 	for (let i = 0; i < encryptionCheckboxArray.length; i++)
 	{
 		console.log("id = " + encryptionCheckboxArray[i]);
 		encryptionCheckboxArray[i].checked = "";
 	}
+	//reset functionToApplyArray
 	functionToApplyArray = [];
 }, false);
 
 
-
+//Loop trough all encryptionCheckbox elements
 for (let i = 0; i < encryptionCheckboxArray.length; i++)
 {
+	//add addEventListener on change to all encryptionCheckbox
 	encryptionCheckboxArray[i].addEventListener("change", function()
 	{
+		//get the correct encryptionFunction compared to encryptionCheckboxArray[i].id
 		let encryptionFunction = functionAvailable.get(encryptionCheckboxArray[i].id);
 		if (encryptionFunction == undefined)
 		{
@@ -39,16 +44,22 @@ for (let i = 0; i < encryptionCheckboxArray.length; i++)
 		}
 		if (encryptionCheckboxArray[i].checked)
 		{
+			//save the function to apply in an array
 			functionToApplyArray.push(encryptionFunction);
+			//change output value with the encryptionFunction
 			passwordOutput.value = encryptionFunction(passwordOutput.value);
 		}
 		else
 		{
+			//get encryptionFunction index in functionToApplyArray
 			let index = functionToApplyArray.indexOf(encryptionFunction);
 			if (index != null)
 			{
+				//remove encryptionFunction from functionToApplyArray
 				functionToApplyArray.splice(index, 1);
+				//reset output value to the original input value
 				passwordOutput.value = passwordInput.value;
+				//apply all encryptionFunction checked in the right order to output value
 				for (let i = 0; i < functionToApplyArray.length; i++)
 				{
 					passwordOutput.value = functionToApplyArray[i](passwordOutput.value);
