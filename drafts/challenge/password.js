@@ -98,7 +98,6 @@ function rotStr(str) {
 
 function reverseStr(str)
 {
-	console.log("on rentre");
 	let newStr = "";
 	for (let i = str.length - 1; i >= 0; i--)
 	{
