@@ -2,15 +2,11 @@
 var passwordInput = document.getElementById("passwordInput");
 var passwordOutput = document.getElementById("passwordOutput");
 var okButtonPassword = document.getElementById("okButtonPassword");
-var rot = document.getElementById("rot");
-var sha1 = document.getElementById("sha1");
-var md5 = document.getElementById("md5");
-var reverseText = document.getElementById("reverseText");
 var encryptionCheckboxArray = document.getElementsByClassName("encryptionCheckbox");
 
 var functionAvailable = new Map([
 	["rot", rotStr],
-	["reverseText", reverseStr]
+	["reverse", reverseStr]
 ]);
 var functionToApplyArray = [];
 
