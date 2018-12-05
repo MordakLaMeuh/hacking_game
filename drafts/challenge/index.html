@@ -7,8 +7,7 @@
 	</head>
 	<body>
 		<div>Enter a password :</div>
-		<input id=passwordInput type=text></input>
-		<input id="okButtonPassword" type="button" value="Ok"></input>
+		<input id=passwordInput type=text autocomplete="off" maxlength="10"></input>
 		<div>Select encryption :</div>
 		<div id="lineCheckboxContainer">
 		<label class="customCheckboxContainer">rot13
@@ -30,13 +29,8 @@
 			<span class="checkmark"></span>
 		</label>
 		</div>
-		<!-- <input id="rot" class="encryptionCheckbox" type=checkbox>rot 13</input>
-		<input id="sha1" class="encryptionCheckbox" type=checkbox>sha1</input>
-		<input id="md5" class="encryptionCheckbox" type=checkbox>md5</input>
-		<input id="reverseText" class="encryptionCheckbox" type=checkbox>reverse text</input> -->
 		<div>Result :</div>
-		<input id="passwordOutput" type=text></input>
-
+		<input id="passwordOutput" type=text disabled="disabled"></input>
 		<script src="password.js"></script>
 	</body>
 </html>

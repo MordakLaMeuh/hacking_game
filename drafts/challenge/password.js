@@ -1,7 +1,6 @@
 'use strict'
 var passwordInput = document.getElementById("passwordInput");
 var passwordOutput = document.getElementById("passwordOutput");
-var okButtonPassword = document.getElementById("okButtonPassword");
 var encryptionCheckboxArray = document.getElementsByClassName("encryptionCheckbox");
 
 var functionAvailable = new Map([
@@ -10,7 +9,7 @@ var functionAvailable = new Map([
 ]);
 var functionToApplyArray = [];
 
-okButtonPassword.addEventListener("mousedown", function(e)
+passwordInput.addEventListener("keyup", function()
 {
 	//Copy input value to output value
 	passwordOutput.value = passwordInput.value;
@@ -23,7 +22,6 @@ okButtonPassword.addEventListener("mousedown", function(e)
 	//reset functionToApplyArray
 	functionToApplyArray = [];
 }, false);
-
 
 //Loop trough all encryptionCheckbox elements
 for (let i = 0; i < encryptionCheckboxArray.length; i++)
