@@ -8,15 +8,15 @@
 	</head>
 	<body>
 		<div>Enter a password :</div>
-		<input id=passwordInput type=text autocomplete="off" maxlength="10"></input>
+		<input id=passwordInput type=text autocomplete="off" maxlength="20"></input>
 		<div>Select encryption :</div>
 		<div id="lineCheckboxContainer">
 		<label class="customCheckboxContainer">rot13
 			<input class="encryptionCheckbox" id="rot" type="checkbox">
 			<span class="checkmark"></span>
 		</label>
-		<label class="customCheckboxContainer">sha1
-			<input class="encryptionCheckbox" id="sha1" type="checkbox">
+		<label class="customCheckboxContainer">base64
+			<input class="encryptionCheckbox" id="base64" type="checkbox">
 			<span class="checkmark"></span>
 		</label>
 		</div>
@@ -33,19 +33,6 @@
 		<div>Result :</div>
 		<input id="passwordOutput" type=text disabled="disabled"></input>
 		<script src="challenge.js"></script>
-
 	</body>
-<script>
-	//encode
-	var rawStr = "hello world!";
-	var wordArray = CryptoJS.enc.Utf8.parse(rawStr);
-	var base64 = CryptoJS.enc.Base64.stringify(wordArray);
-	console.log('encrypted:', base64);
-
-	//deccode
-	var parsedWordArray = CryptoJS.enc.Base64.parse(base64);
-	var parsedStr = parsedWordArray.toString(CryptoJS.enc.Utf8);
-	console.log("parsed:",parsedStr);
-</script>
 </html>
 <head>

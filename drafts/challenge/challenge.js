@@ -3,9 +3,11 @@ var passwordInput = document.getElementById("passwordInput");
 var passwordOutput = document.getElementById("passwordOutput");
 var encryptionCheckboxArray = document.getElementsByClassName("encryptionCheckbox");
 
+//Add encryption here : input id then function name
 var functionAvailable = new Map([
 	["rot", rotStr],
-	["reverse", reverseStr]
+	["reverse", reverseStr],
+	["base64", base64Str]
 ]);
 var functionToApplyArray = [];
 
@@ -97,5 +99,12 @@ function reverseStr(str)
 		let char = str[i];
 		newStr += char;
 	}
+	return (newStr);
+}
+
+function base64Str(str)
+{
+	let wordArray = CryptoJS.enc.Utf8.parse(str);
+	let newStr = CryptoJS.enc.Base64.stringify(wordArray);
 	return (newStr);
 }
