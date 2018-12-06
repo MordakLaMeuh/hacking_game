@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Challenge - Encryption</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 		<link rel='stylesheet' href='challenge.css' type='text/css' media='all'>
 	</head>
 	<body>
@@ -32,6 +33,19 @@
 		<div>Result :</div>
 		<input id="passwordOutput" type=text disabled="disabled"></input>
 		<script src="challenge.js"></script>
+
 	</body>
+<script>
+	//encode
+	var rawStr = "hello world!";
+	var wordArray = CryptoJS.enc.Utf8.parse(rawStr);
+	var base64 = CryptoJS.enc.Base64.stringify(wordArray);
+	console.log('encrypted:', base64);
+
+	//deccode
+	var parsedWordArray = CryptoJS.enc.Base64.parse(base64);
+	var parsedStr = parsedWordArray.toString(CryptoJS.enc.Utf8);
+	console.log("parsed:",parsedStr);
+</script>
 </html>
 <head>
