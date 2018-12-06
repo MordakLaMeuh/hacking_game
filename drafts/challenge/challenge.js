@@ -7,7 +7,8 @@ var encryptionCheckboxArray = document.getElementsByClassName("encryptionCheckbo
 var functionAvailable = new Map([
 	["rot", rotStr],
 	["reverse", reverseStr],
-	["base64", base64Str]
+	["base64", base64Str],
+	["md5", md5Str]
 ]);
 var functionToApplyArray = [];
 
@@ -106,5 +107,11 @@ function base64Str(str)
 {
 	let wordArray = CryptoJS.enc.Utf8.parse(str);
 	let newStr = CryptoJS.enc.Base64.stringify(wordArray);
+	return (newStr);
+}
+
+function md5Str(str)
+{
+	let newStr = CryptoJS.MD5(str).toString();
 	return (newStr);
 }
