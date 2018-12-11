@@ -1,4 +1,15 @@
 
+.arrow_tuto {
+    border-radius: 50%;
+    background-color: #4a7fa4;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .modal {
     display: block; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -15,10 +26,10 @@
 
 /* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: black;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid white;
     width: 70%;
 	height: 80%;
 }
@@ -27,6 +38,7 @@
 {
 	height: 80%;
 	width: 100%;
+    border: 1px solid white;
 }
 
 #tuto_dot_container
@@ -40,14 +52,14 @@
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
-	background-color: #9a9aea;
+	background-color: #8ea2b1;
 	list-style: none;
 	margin-left: 5px;
 }
 
 #tuto_dot_container li:first-child
 {
-	background-color: blue;
+	background-color: #4a7fa4;
 	margin-left: 0px;
 }
 
@@ -60,7 +72,7 @@
 
 #right_arrow_tuto
 {
-	display: block;
+	/* display: block; */
 	position: absolute;
 	cursor: pointer;
 	right: 10%;
@@ -68,7 +80,7 @@
 
 #left_arrow_tuto
 {
-	display: block;
+	/* display: block; */
 	position: absolute;
 	cursor: pointer;
 	left: 10%;
@@ -82,7 +94,7 @@
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
+    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -90,7 +102,7 @@
 
 .close:hover,
 .close:focus {
-    color: #000;
+    /* color: #000; */
     text-decoration: none;
     cursor: pointer;
 }
