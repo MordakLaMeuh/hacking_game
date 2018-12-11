@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Challenge - Encryption</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+		<link rel='stylesheet' href='challenge.css' type='text/css' media='all'>
+	</head>
+	<body>
+		<div>Enter a password :</div>
+		<input id=passwordInput type=text autocomplete="off" maxlength="20"></input>
+		<div>Select encryption :</div>
+		<div id="lineCheckboxContainer">
+		<label class="customCheckboxContainer">rot13
+			<input class="encryptionCheckbox" id="rot" type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+		<label class="customCheckboxContainer">base64
+			<input class="encryptionCheckbox" id="base64" type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+		</div>
+		<div id="lineCheckboxContainer">
+		<label class="customCheckboxContainer">md5
+			<input class="encryptionCheckbox" id="md5" type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+		<label class="customCheckboxContainer">reverse
+			<input class="encryptionCheckbox" id="reverse" type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+		</div>
+		<div>Result :</div>
+		<input id="passwordOutput" type=text disabled="disabled"></input>
+		<script src="challenge.js"></script>
+	</body>
+</html>
+<head>
