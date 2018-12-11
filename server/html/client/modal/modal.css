@@ -32,7 +32,10 @@
     padding: 20px;
     border: 1px solid white;
     width: 70%;
-	height: 80%;
+	height: 60%;
+    max-width: 800px;
+    max-height: 600px;
+
 }
 
 .modal-content img
@@ -53,14 +56,14 @@
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
-	background-color: #9a9aea;
+	background-color: #8ea2b1;
 	list-style: none;
 	margin-left: 5px;
 }
 
 #tuto_dot_container li:first-child
 {
-	background-color: blue;
+	background-color: #4a7fa4;
 	margin-left: 0px;
 }
 
@@ -79,12 +82,22 @@
 	right: 10%;
 }
 
+#right_arrow_tuto:hover
+{
+    opacity: 0.9;
+}
+
 #left_arrow_tuto
 {
 	/* display: block; */
 	position: absolute;
 	cursor: pointer;
 	left: 10%;
+}
+
+#left_arrow_tuto:hover
+{
+    opacity: 0.9;
 }
 
 #ok_button_tuto:hover
@@ -103,7 +116,8 @@
 
 .close:hover,
 .close:focus {
-    color: #000;
+    opacity: 0.5;
+    /* color: red; */
     text-decoration: none;
     cursor: pointer;
 }
@@ -116,6 +130,7 @@
 	color: white;
 	background-color: #4c80a3;
 	margin: auto;
+    margin-top: 20px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 20px;

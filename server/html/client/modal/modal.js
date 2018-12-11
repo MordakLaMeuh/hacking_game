@@ -24,8 +24,8 @@ var MODAL = function()
 	var okButtonTuto = document.getElementById("ok_button_tuto");
 	var tutoImg = document.getElementById("tuto_img");
 	var tutoDotContainer = document.getElementById("tuto_dot_container");
-	var activeColorDot = "blue";
-	var nonActiveColorDot = "#9a9aea";
+	var activeColorDot = "#4a7fa4";
+	var nonActiveColorDot = "#8ea2b1";
 
 	var idx = 0;
 
