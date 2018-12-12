@@ -1,4 +1,8 @@
 
+.hiddenImg {
+	display: none;
+}
+
 .arrow_tuto {
     border-radius: 50%;
     background-color: #4a7fa4;

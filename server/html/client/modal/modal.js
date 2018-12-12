@@ -14,11 +14,9 @@ var MODAL = function()
 		modal.style.display = "none";
 	}, false);
 
-	var pathTutoImg = "medias/tuto/";
-	if (IS_MOBILE == false)
-		var allTutoImg = ["desktop1.jpg", "desktop2.jpg", "desktop3.jpg"];
-	else
-		var allTutoImg = ["mob1.jpg", "mob2.jpg", "mob3.jpg", "mob4.jpg"];
+	let tutoImgGroup = document.getElementById("imgList");
+	var images = tutoImgGroup.getElementsByTagName("img");
+
 	var leftArrowTuto = document.getElementById("left_arrow_tuto");
 	var rightArrowTuto = document.getElementById("right_arrow_tuto");
 	var okButtonTuto = document.getElementById("ok_button_tuto");
@@ -31,8 +29,7 @@ var MODAL = function()
 
 	(function()
 	{
-		tutoImg.src = pathTutoImg + allTutoImg[0];
-		for (let i = 0; i < allTutoImg.length; i++)
+		for (let i = 0; i < images.length; i++)
 		{
 			tutoDotContainer.appendChild(document.createElement("li"));
 		}
@@ -50,7 +47,13 @@ var MODAL = function()
 		{
 			tutoDotContainer.children[idx].style.backgroundColor = nonActiveColorDot;
 			idx--;
-			tutoImg.src = pathTutoImg + allTutoImg[idx];
+
+			for (let i = 0; i < images.length; i++) {
+				if (i == idx)
+					images[i].classList.remove("hiddenImg");
+				else
+					images[i].classList.add("hiddenImg");
+			}
 			if (idx == 0)
 				leftArrowTuto.style.display = "none";
 			rightArrowTuto.style.display = "";
@@ -61,12 +64,19 @@ var MODAL = function()
 
 	rightArrowTuto.addEventListener("mousedown", function()
 	{
-		if (idx < allTutoImg.length - 1)
+		if (idx < images.length - 1)
 		{
 			tutoDotContainer.children[idx].style.backgroundColor = nonActiveColorDot;
 			idx++;
-			tutoImg.src = pathTutoImg + allTutoImg[idx];
-			if (idx == allTutoImg.length - 1)
+
+			for (let i = 0; i < images.length; i++) {
+				if (i == idx)
+					images[i].classList.remove("hiddenImg");
+				else
+					images[i].classList.add("hiddenImg");
+			}
+
+			if (idx == images.length - 1)
 			{
 				rightArrowTuto.style.display = "none";
 				okButtonTuto.style.display = "flex";
@@ -75,5 +85,4 @@ var MODAL = function()
 			tutoDotContainer.children[idx].style.backgroundColor = activeColorDot;
 		}
 	}, false);
-
 }

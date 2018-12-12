@@ -1,3 +1,6 @@
+.hiddenImg {
+	display: none;
+}
 
 .arrow_tuto {
     border-radius: 50%;
@@ -9,7 +12,6 @@
     justify-content: center;
     align-items: center;
 }
-
 
 .modal {
     display: block; /* Hidden by default */

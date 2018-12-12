@@ -134,9 +134,20 @@
 </div>
 
 <div id="myModal" class="modal">
-	<div class="modal-content">
+	<div id="imgList" class="modal-content">
 		<span class="close">&times;</span>
-		<img id="tuto_img">
+		<script type="text/javascript">
+		if (IS_MOBILE == false) {
+			document.write("<img src='medias/tuto/desktop1.jpg' class=''/>");
+			document.write("<img src='medias/tuto/desktop2.jpg' class='hiddenImg'/>");
+			document.write("<img src='medias/tuto/desktop3.jpg' class='hiddenImg'/>");
+		} else {
+			document.write("<img src='medias/tuto/mob1.jpg' class=''/>");
+			document.write("<img src='medias/tuto/mob2.jpg' class='hiddenImg'/>");
+			document.write("<img src='medias/tuto/mob3.jpg' class='hiddenImg'/>");
+			document.write("<img src='medias/tuto/mob4.jpg' class='hiddenImg'/>");
+		}
+		</script>
 		<ul id="tuto_dot_container">
 		</ul>
 		<div id="tuto_arrow_container">
@@ -191,8 +202,6 @@ after_load = function() {
 
 	var keyboard = new KEYBOARD();
 	var cursor = new CURSOR();
-	var tuto = new MODAL();
-
 
 	var UI_controler = new UI_CONTROLER();
 
@@ -212,6 +221,8 @@ after_load = function() {
 
 	window.onresize = UI_controler.resizeButtons();
 	UI_controler.resizeButtons();
+
+	var tuto = new MODAL();
 
 	socket_server.bind(socket_client.onmessage);
 
