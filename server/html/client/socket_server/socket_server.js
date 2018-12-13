@@ -214,7 +214,7 @@ var SOCKET_SERVER = function() {
 			 */
 			if (lvlValidation.checkCommand(cmdList, input[0]) == false) {
 				let obj = new Object();
-				obj.string = "unknown command !";
+				obj.string = "This command does not exist on the system. Type \"help\" to get a list of usefull command and \"hint\" to get some hints to reach the next level";
 				send({"tty": obj});
 				return ;
 			}
@@ -297,7 +297,7 @@ var SOCKET_SERVER = function() {
 				}
 				break;
 			default :
-				output = "unknown command !";
+				output = "This command does not exist on the system. Type \"help\" to get a list of usefull command and \"hint\" to get some hints to reach the next level";
 				break;
 			}
 			break;
