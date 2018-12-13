@@ -51,6 +51,7 @@
 
 #tuto_dot_container
 {
+	margin-top: 5px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
